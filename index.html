@@ -11124,6 +11124,14 @@ body.festival-story-open { overflow: hidden; }
 .lb-me{margin:12px 0 0;color:var(--ink);font-weight:600;text-align:center}
 .lb-note{margin:12px 0 0;color:var(--muted);font-size:12px;text-align:center}
 .lb-result{margin:10px 0 0;font-weight:600;color:var(--gold);min-height:1.4em}
+/* Signed-in nickname in the top nav */
+.nav-controls > .nav-user{display:inline-flex;align-items:center;gap:6px;min-height:42px;min-width:0;max-width:180px;flex:0 1 auto;padding:0 14px;border-radius:999px;border:1px solid rgba(212,175,55,.34);background:rgba(212,175,55,.07);color:var(--ink);font:600 12px 'DM Sans',sans-serif}
+.nav-controls > .nav-user[hidden]{display:none}
+.nav-user-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+[data-theme="light"] .nav-controls > .nav-user{background:#fffaf2;border-color:rgba(140,107,46,.28);color:#5b4730}
+@media (max-width:820px){.nav-controls > .nav-user{min-height:38px;padding:0 10px;font-size:11px;max-width:120px}}
+/* Phones: the controls row is full, so sit the nickname on the logo row instead */
+@media (max-width:620px){.nav-controls > .nav-user{position:absolute;top:14px;right:14px;min-height:36px;padding:0 10px;max-width:150px}}
 @media (max-width:520px){
   .lb-panel{padding:20px 14px}
   .lb-row{grid-template-columns:32px 1fr auto;gap:8px;padding:9px 10px}
@@ -11357,6 +11365,7 @@ body.festival-story-open { overflow: hidden; }
             </div>
         </div>
         <div class="nav-controls" aria-label="Site controls">
+            <span class="nav-user" id="navUser" hidden><span aria-hidden="true">👤</span><span class="nav-user-name" id="navUserName"></span></span>
             <button class="lang-btn top-lang-btn" id="langBtn" type="button">🌐 Language</button>
             <button class="logout-btn top-logout-btn" id="logoutBtn" type="button">Logout</button>
 
@@ -12001,7 +12010,7 @@ body.festival-story-open { overflow: hidden; }
             measurementId: "G-C21F76Y6MD"
         };
         // Live site address. Heritage AI uses it when this file is opened straight from a laptop.
-        window.VIRASAT_LIVE_URL = "https://PASTE-LIVE-URL.vercel.app";
+        window.VIRASAT_LIVE_URL = "https://virasat-visionaries.vercel.app";
     </script>
 
     <script id="virasatCloudScript">
@@ -12142,6 +12151,7 @@ body.festival-story-open { overflow: hidden; }
                 await fb.A.setPersistence(fb.auth, fb.A.indexedDBLocalPersistence);
                 const cred = await fb.A.createUserWithEmailAndPassword(fb.auth, email, password);
                 await fb.A.updateProfile(cred.user, { displayName: name });
+                paintNavUser();   // the sign-in event fired before the nickname was set
                 await saveProfile(fb, cred.user, true).catch(err => console.warn('[Virasat] Could not create profile:', err));
                 return cred.user;
             }
@@ -12387,7 +12397,21 @@ body.festival-story-open { overflow: hidden; }
                 GAMES.forEach(paintResult);
             }
 
-            onAuth(function () { syncBoard(); });
+            // Signed-in nickname in the top nav.
+            function paintNavUser() {
+                const chip = document.getElementById('navUser');
+                const name = document.getElementById('navUserName');
+                if (!chip || !name) return;
+                if (currentUser) {
+                    name.textContent = displayNameOf(currentUser);
+                    chip.title = displayNameOf(currentUser);
+                    chip.hidden = false;
+                } else {
+                    chip.hidden = true;
+                }
+            }
+
+            onAuth(function () { syncBoard(); paintNavUser(); });
 
             window.virasatCloud = {
                 ready, onAuth, signIn, signUp, resetPassword, signOut, idToken, savePrefs, errorMessage, refreshUI,
@@ -14256,7 +14280,7 @@ body.festival-story-open { overflow: hidden; }
                 return;
             }
             const item = QUIZ_DATA[quizIndex];
-            const L = LANG === 'en' ? item : Object.assign({}, item, VIRASAT_I18N.quiz[quizIndex][LANG]);
+            const L = LANG === 'en' ? item : Object.assign({}, item, (VIRASAT_I18N.quiz[quizIndex] || {})[LANG]);   // new questions without a translation show in English
             box.innerHTML = `<div class="quiz-q">${quizIndex + 1}. ${L.q}</div>
                 <div class="quiz-opts">${L.opts.map((o,i) =>
                     `<button class="quiz-opt" type="button" data-i="${i}" onclick="answerQuiz(${i})">${o}</button>`
@@ -14308,7 +14332,7 @@ body.festival-story-open { overflow: hidden; }
                 return;
             }
             const item = FESTIVAL_QUIZ[festIndex];
-            const L = LANG === 'en' ? item : Object.assign({}, item, VIRASAT_I18N.festQuiz[festIndex][LANG]);
+            const L = LANG === 'en' ? item : Object.assign({}, item, (VIRASAT_I18N.festQuiz[festIndex] || {})[LANG]);
             box.innerHTML = `<div class="quiz-q">${festIndex + 1}. ${L.q}</div>
                 <div class="quiz-opts">${L.opts.map((o,i) =>
                     `<button class="quiz-opt" type="button" onclick="answerFest(${i})">${o}</button>`
@@ -14371,7 +14395,7 @@ body.festival-story-open { overflow: hidden; }
             const item = SCRAMBLE_WORDS[scrambleIdx];
             if (!scrambleCache || scrambleCache.idx !== scrambleIdx) scrambleCache = { idx: scrambleIdx, s: shuffleStr(item.word) };
             const scrambled = scrambleCache.s;
-            const hint = LANG === 'en' ? item.hint : (VIRASAT_I18N.scramble[scrambleIdx][LANG] || item.hint);
+            const hint = LANG === 'en' ? item.hint : ((VIRASAT_I18N.scramble[scrambleIdx] || {})[LANG] || item.hint);
             const prev = document.getElementById('scrambleInput');
             const prevVal = prev ? prev.value : '';
             box.innerHTML = `
