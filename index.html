@@ -11139,6 +11139,211 @@ body.festival-story-open { overflow: hidden; }
 }
 </style>
 
+<style id="virasatPricingStyles">
+/* VIRASAT pricing + coming-soon membership page */
+.virasat-pricing {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(82px, 9vw, 138px) clamp(22px, 6vw, 92px);
+    background:
+        radial-gradient(circle at 15% 10%, rgba(212,175,55,.12), transparent 30%),
+        radial-gradient(circle at 88% 82%, rgba(212,175,55,.08), transparent 28%),
+        linear-gradient(180deg, #090704 0%, #0d0a06 100%);
+    border-top: 1px solid rgba(212,175,55,.12);
+    border-bottom: 1px solid rgba(212,175,55,.10);
+}
+.virasat-pricing::before {
+    content:"";
+    position:absolute; inset:0;
+    background-image:var(--jali);
+    background-size:112px 112px;
+    opacity:.035;
+    pointer-events:none;
+}
+.vp-head, .vp-grid { position:relative; z-index:1; max-width:1240px; margin-inline:auto; }
+.vp-head { display:grid; grid-template-columns:minmax(0,1.25fr) minmax(260px,.75fr); gap:40px; align-items:end; margin-bottom:48px; }
+.vp-kicker { color:var(--gold); font-size:12px; letter-spacing:.28em; font-weight:700; text-transform:uppercase; margin-bottom:14px; }
+.vp-head h2 { font-size:clamp(46px,6vw,86px); letter-spacing:-.045em; max-width:850px; }
+.vp-head h2 em { color:var(--gold); font-weight:500; }
+.vp-head p { color:var(--muted); max-width:500px; margin:0 0 8px; font-size:15px; }
+.vp-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; align-items:stretch; }
+.vp-card {
+    position:relative; min-height:510px; padding:30px; border-radius:26px;
+    border:1px solid rgba(255,255,255,.10); background:rgba(24,19,12,.78);
+    box-shadow:0 22px 60px rgba(0,0,0,.25); overflow:hidden;
+    display:flex; flex-direction:column; transition:transform .45s cubic-bezier(.16,1,.3,1), border-color .35s ease, box-shadow .35s ease;
+}
+.vp-card::before { content:""; position:absolute; inset:-35% 10% auto; height:220px; border-radius:50%; background:radial-gradient(circle,rgba(212,175,55,.15),transparent 68%); filter:blur(10px); pointer-events:none; }
+.vp-card:hover { transform:translateY(-9px); border-color:rgba(212,175,55,.42); box-shadow:0 30px 78px rgba(0,0,0,.42); }
+.vp-card.featured { background:linear-gradient(180deg,rgba(47,38,17,.96),rgba(20,16,10,.95)); border-color:rgba(212,175,55,.48); transform:translateY(-8px); }
+.vp-card.featured:hover { transform:translateY(-14px); }
+.vp-badge { align-self:flex-start; padding:7px 11px; border-radius:999px; border:1px solid rgba(212,175,55,.38); color:var(--gold); background:rgba(212,175,55,.08); font-size:10px; font-weight:800; letter-spacing:.18em; text-transform:uppercase; }
+.vp-plan { margin-top:24px; font-size:30px; }
+.vp-price { display:flex; align-items:flex-end; gap:8px; min-height:68px; margin:12px 0 8px; }
+.vp-price strong { font-family:'Playfair Display',serif; font-size:54px; line-height:1; color:#fff2cf; }
+.vp-price span { color:var(--muted); font-size:13px; padding-bottom:7px; }
+.vp-desc { color:var(--muted); font-size:14px; min-height:66px; margin:0 0 24px; }
+.vp-features { list-style:none; padding:0; margin:0 0 28px; display:grid; gap:13px; }
+.vp-features li { color:#ddd1b8; font-size:13px; display:flex; gap:11px; align-items:flex-start; }
+.vp-features li::before { content:'✦'; color:var(--gold); font-size:10px; margin-top:3px; flex:none; }
+.vp-action { margin-top:auto; width:100%; min-height:48px; border-radius:14px; display:flex; align-items:center; justify-content:center; gap:9px; border:1px solid rgba(212,175,55,.36); color:var(--gold); background:rgba(212,175,55,.07); font-size:12px; font-weight:800; letter-spacing:.12em; text-transform:uppercase; transition:.3s ease; }
+.vp-action:hover { background:var(--gold); color:#0a0806; transform:translateY(-2px); }
+.vp-action.current { opacity:.7; cursor:default; border-color:rgba(255,255,255,.11); color:#d8cdb8; background:rgba(255,255,255,.035); }
+.vp-card-note { margin-top:13px; text-align:center; color:#7f735d; font-size:10px; letter-spacing:.08em; }
+
+#page-plans { min-height:calc(100vh - 64px); background:#070604; position:relative; overflow:hidden; }
+.vbuild-stage { min-height:calc(100vh - 64px); padding:clamp(54px,7vw,88px) 22px; display:grid; place-items:center; position:relative; isolation:isolate; }
+.vbuild-stage::before { content:""; position:absolute; inset:-20%; z-index:-3; background:radial-gradient(circle at 18% 22%,rgba(212,175,55,.22),transparent 28%),radial-gradient(circle at 85% 78%,rgba(122,89,22,.18),transparent 30%),linear-gradient(135deg,#050403,#120d05 58%,#080604); }
+.vbuild-stage::after { content:"VIRASAT"; position:absolute; z-index:-2; left:50%; top:50%; transform:translate(-50%,-50%); font-family:'Playfair Display',serif; font-weight:700; font-size:clamp(92px,22vw,330px); letter-spacing:-.065em; color:transparent; -webkit-text-stroke:1px rgba(212,175,55,.055); white-space:nowrap; pointer-events:none; }
+.vbuild-orbit { position:absolute; width:min(84vw,900px); aspect-ratio:1; border:1px solid rgba(212,175,55,.08); border-radius:50%; z-index:-1; animation:vbuildSpin 34s linear infinite; }
+.vbuild-orbit::before,.vbuild-orbit::after { content:""; position:absolute; border-radius:50%; border:1px solid rgba(212,175,55,.10); }
+.vbuild-orbit::before { inset:12%; } .vbuild-orbit::after { inset:27%; }
+.vbuild-card { width:min(900px,94vw); border-radius:30px; border:1px solid rgba(212,175,55,.26); background:linear-gradient(145deg,rgba(26,21,13,.93),rgba(13,10,6,.92)); box-shadow:0 38px 110px rgba(0,0,0,.66),inset 0 1px rgba(255,255,255,.04); backdrop-filter:blur(14px); padding:clamp(34px,5vw,62px); position:relative; overflow:hidden; }
+.vbuild-card::before { content:""; position:absolute; inset:0; background:linear-gradient(115deg,transparent 20%,rgba(212,175,55,.055) 45%,transparent 70%); transform:translateX(-120%); animation:vbuildSweep 5.8s ease-in-out infinite; pointer-events:none; }
+#page-plans.active .vbuild-card { animation:vbuildEnter .9s cubic-bezier(.16,1,.3,1) both; }
+.vbuild-brand { display:flex; align-items:center; justify-content:space-between; gap:18px; padding-bottom:24px; border-bottom:1px solid rgba(212,175,55,.14); }
+.vbuild-brand strong { font-size:clamp(26px,4vw,42px); letter-spacing:.04em; }
+.vbuild-brand span { color:var(--gold); font-size:10px; font-weight:800; letter-spacing:.22em; text-transform:uppercase; }
+.vbuild-copy { text-align:center; max-width:690px; margin:42px auto 30px; }
+.vbuild-copy .vbuild-plan { color:var(--gold); text-transform:uppercase; letter-spacing:.25em; font-weight:800; font-size:11px; }
+.vbuild-copy h1 { margin-top:12px; font-size:clamp(46px,7vw,78px); letter-spacing:-.045em; }
+.vbuild-copy p { color:#b9ac91; font-size:15px; margin:18px auto 0; max-width:610px; }
+.vbuild-progress { margin:35px 0 28px; }
+.vbuild-track { height:10px; border-radius:999px; background:rgba(255,255,255,.08); overflow:hidden; box-shadow:inset 0 1px 5px rgba(0,0,0,.35); }
+.vbuild-fill { height:100%; width:29%; border-radius:inherit; background:linear-gradient(90deg,#9e771c,var(--gold),#f5d976); position:relative; overflow:hidden; }
+.vbuild-fill::after { content:""; position:absolute; inset:0; background:repeating-linear-gradient(120deg,rgba(255,255,255,.18) 0 8px,transparent 8px 16px); animation:vbuildFlow 1.15s linear infinite; }
+.vbuild-progress-meta { display:flex; justify-content:space-between; gap:15px; color:#a7987c; font-size:11px; margin-top:10px; }
+.vbuild-progress-meta strong { color:#ebd38b; }
+.vbuild-countdown { display:grid; grid-template-columns:repeat(4,minmax(90px,1fr)); gap:12px; max-width:590px; margin:30px auto 34px; }
+.vbuild-time { min-height:104px; border-radius:18px; display:grid; place-items:center; align-content:center; border:1px solid rgba(212,175,55,.13); background:rgba(255,255,255,.035); }
+.vbuild-time strong { font-family:'Playfair Display',serif; color:#fff3cf; font-size:36px; line-height:1; }
+.vbuild-time span { margin-top:7px; color:#9e9075; font-size:9px; letter-spacing:.16em; text-transform:uppercase; }
+.vbuild-actions { display:flex; justify-content:center; gap:12px; flex-wrap:wrap; }
+.vbuild-back { min-height:46px; padding:0 21px; border-radius:13px; display:inline-flex; align-items:center; justify-content:center; gap:9px; background:var(--gold); color:#090704; font-size:11px; font-weight:900; letter-spacing:.12em; text-transform:uppercase; }
+.vbuild-foot { margin-top:28px; color:#716751; text-align:center; font-size:10px; letter-spacing:.15em; text-transform:uppercase; }
+@keyframes vbuildEnter { from{opacity:0;transform:perspective(1500px) translate3d(0,58px,-180px) rotateX(6deg) scale(.975);filter:blur(7px)} to{opacity:1;transform:perspective(1500px) translate3d(0,0,0) rotateX(0) scale(1);filter:blur(0)} }
+@keyframes vbuildSpin { to{transform:rotate(360deg)} }
+@keyframes vbuildSweep { 0%,20%{transform:translateX(-125%)} 65%,100%{transform:translateX(125%)} }
+@keyframes vbuildFlow { to{transform:translateX(18px)} }
+@media(max-width:900px){ .vp-head{grid-template-columns:1fr}.vp-grid{grid-template-columns:1fr}.vp-card.featured{transform:none}.vp-card.featured:hover{transform:translateY(-7px)} }
+@media(max-width:560px){ .virasat-pricing{padding-inline:16px}.vp-card{min-height:auto;padding:24px}.vbuild-card{padding:28px 18px;border-radius:22px}.vbuild-countdown{grid-template-columns:repeat(2,1fr)}.vbuild-brand{align-items:flex-start;flex-direction:column}.vbuild-copy{margin-top:30px} }
+@media(prefers-reduced-motion:reduce){ .vbuild-orbit,.vbuild-card::before,.vbuild-fill::after{animation:none!important} #page-plans.active .vbuild-card{animation:none!important} }
+</style>
+
+
+<style id="virasatEducationStyles">
+#page-education{background:#080603;min-height:100vh;overflow:hidden}
+.education-shell{position:relative;max-width:1560px;margin:0 auto;padding:118px 4.5% 86px}
+.education-shell:before{content:"EDUCATION";position:absolute;top:42px;right:-20px;font-family:Georgia,serif;font-size:clamp(70px,12vw,180px);font-weight:800;letter-spacing:-.07em;color:rgba(212,175,55,.035);pointer-events:none;white-space:nowrap}
+.education-hero{display:grid;grid-template-columns:minmax(0,.82fr) minmax(520px,1.18fr);gap:54px;align-items:center;min-height:68vh;position:relative;z-index:1}
+.education-kicker,.education-index{font-size:11px;font-weight:800;letter-spacing:.24em;color:#d4af37;text-transform:uppercase}
+.education-hero-copy h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(58px,6.4vw,106px);line-height:.88;letter-spacing:-.065em;margin:18px 0 24px;color:#f5ead0;max-width:820px}
+.education-hero-copy h1 em,.education-section-head h2 em{color:#d4af37;font-style:italic}
+.education-hero-copy>p{max-width:720px;color:#aa9c83;font-size:17px;line-height:1.75;margin:0}
+.education-hero-pills{display:flex;gap:10px;flex-wrap:wrap;margin-top:34px}
+.education-hero-pills span{border:1px solid rgba(212,175,55,.25);background:rgba(212,175,55,.055);padding:10px 14px;border-radius:999px;color:#d8cba9;font-size:10px;font-weight:800;letter-spacing:.16em}
+.education-video-stage{position:relative;min-height:530px;border-radius:30px;border:1px solid rgba(212,175,55,.3);background:linear-gradient(145deg,#151006,#090704 58%,#1d1607);box-shadow:0 38px 90px rgba(0,0,0,.42),inset 0 0 0 1px rgba(255,255,255,.025);overflow:hidden;isolation:isolate}
+.education-video-stage:before{content:"";position:absolute;inset:-30%;background:radial-gradient(circle at 68% 28%,rgba(212,175,55,.18),transparent 33%),repeating-linear-gradient(115deg,rgba(255,255,255,.018) 0 1px,transparent 1px 28px);transform:rotate(-7deg);z-index:-1}
+.education-video-stage video{width:100%;height:100%;min-height:530px;object-fit:cover;background:#000}
+.education-video-placeholder{position:absolute;inset:0;padding:30px;display:flex;flex-direction:column;justify-content:space-between}
+.education-video-topline,.education-video-foot{display:flex;align-items:center;gap:14px;color:#95876d;font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+.education-video-topline{justify-content:space-between}.education-video-topline span{color:#d4af37;border:1px solid rgba(212,175,55,.3);padding:9px 12px;border-radius:999px}
+.education-play-orbit{position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);width:168px;height:168px;border:1px solid rgba(212,175,55,.22);border-radius:50%;display:grid;place-items:center}
+.education-play-orbit:before,.education-play-orbit:after{content:"";position:absolute;border-radius:50%;border:1px dashed rgba(212,175,55,.18);inset:-28px;animation:eduOrbit 18s linear infinite}
+.education-play-orbit:after{inset:24px;animation-direction:reverse;animation-duration:11s}
+.education-play-orbit span{width:78px;height:78px;border-radius:50%;display:grid;place-items:center;background:#d4af37;color:#100c03;font-size:25px;padding-left:4px;box-shadow:0 0 45px rgba(212,175,55,.22)}
+.education-video-copy{position:relative;margin-top:auto;max-width:590px}.education-video-copy small{color:#d4af37;font-weight:800;letter-spacing:.18em}.education-video-copy h2{font-family:Georgia,serif;color:#f6edd8;font-size:clamp(31px,3vw,50px);line-height:1;letter-spacing:-.035em;margin:10px 0 12px}.education-video-copy p{color:#9e927c;line-height:1.65;margin:0;max-width:520px}.education-video-foot{margin-top:28px}.education-video-foot i{height:1px;flex:1;background:rgba(212,175,55,.25)}
+@keyframes eduOrbit{to{transform:rotate(360deg)}}
+.education-flow,.education-pathways{padding:106px 0 20px;position:relative;z-index:1}.education-section-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(300px,.62fr);gap:44px;align-items:end;margin-bottom:36px}.education-section-head h2{font-family:Georgia,serif;color:#f5ead0;font-size:clamp(48px,5vw,82px);line-height:.92;letter-spacing:-.055em;margin:12px 0 0}.education-section-head>p{color:#9d917d;line-height:1.7;margin:0;max-width:520px;justify-self:end}
+.education-flow-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.education-flow-card{position:relative;min-height:270px;padding:30px;border-radius:22px;border:1px solid rgba(212,175,55,.16);background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(212,175,55,.025));overflow:hidden}.education-flow-card>b{position:absolute;right:22px;top:18px;font:800 58px/1 Georgia,serif;color:rgba(212,175,55,.07)}.education-flow-icon{width:48px;height:48px;border-radius:14px;border:1px solid rgba(212,175,55,.25);display:grid;place-items:center;color:#d4af37;margin-bottom:56px}.education-flow-card h3{font-family:Georgia,serif;font-size:30px;line-height:1.05;color:#f1e6cd;margin:0 0 13px}.education-flow-card p{color:#998e7c;line-height:1.65;margin:0}
+.education-track-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.education-track{position:relative;display:flex;min-height:330px;flex-direction:column;padding:27px;border-radius:22px;border:1px solid rgba(212,175,55,.15);background:#0f0c07;color:inherit;text-decoration:none;transition:transform .35s cubic-bezier(.16,1,.3,1),border-color .35s,background .35s}.education-track:hover{transform:translateY(-7px);border-color:rgba(212,175,55,.48);background:#151006}.education-track-no{font:700 58px/1 Georgia,serif;color:rgba(212,175,55,.1);position:absolute;right:22px;top:18px}.education-track small{color:#d4af37;font-size:10px;font-weight:800;letter-spacing:.16em;margin-top:4px;max-width:75%}.education-track h3{font-family:Georgia,serif;font-size:31px;line-height:1.03;color:#f4ead2;margin:64px 0 13px;max-width:88%}.education-track p{color:#958a78;line-height:1.65;margin:0 0 28px}.education-track>b{margin-top:auto;color:#d4af37;font-size:11px;letter-spacing:.14em}.education-track-accent{background:linear-gradient(145deg,rgba(212,175,55,.15),#100c05);border-color:rgba(212,175,55,.33)}
+.education-challenge{margin-top:100px;border-radius:28px;border:1px solid rgba(212,175,55,.25);background:linear-gradient(120deg,#171006,#0c0905);padding:44px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:34px;align-items:center;position:relative;overflow:hidden}.education-challenge:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 8% 50%,rgba(212,175,55,.14),transparent 26%);pointer-events:none}.education-challenge-mark{width:102px;height:102px;border-radius:50%;border:1px solid rgba(212,175,55,.3);display:grid;place-items:center;font:54px/1 Georgia,serif;color:#d4af37;position:relative}.education-challenge-copy{position:relative}.education-challenge-copy h2{font-family:Georgia,serif;color:#f4ead2;font-size:clamp(32px,3.2vw,52px);line-height:1.02;letter-spacing:-.035em;margin:10px 0 12px}.education-challenge-copy p{color:#9d917d;line-height:1.65;margin:0;max-width:770px}.education-challenge-actions{display:flex;flex-direction:column;gap:10px;min-width:220px;position:relative}.education-challenge-actions .btn{text-align:center;justify-content:center}
+[data-theme="light"] #page-education{background:#f4efe4}[data-theme="light"] .education-shell:before{color:rgba(118,84,15,.045)}[data-theme="light"] .education-hero-copy h1,[data-theme="light"] .education-section-head h2,[data-theme="light"] .education-flow-card h3,[data-theme="light"] .education-track h3,[data-theme="light"] .education-challenge-copy h2{color:#241b0f}[data-theme="light"] .education-hero-copy>p,[data-theme="light"] .education-section-head>p,[data-theme="light"] .education-flow-card p,[data-theme="light"] .education-track p,[data-theme="light"] .education-challenge-copy p{color:#6d6251}[data-theme="light"] .education-video-stage{background:linear-gradient(145deg,#eee3c9,#f8f3e8 58%,#e8d9b6);box-shadow:0 28px 70px rgba(76,53,7,.12)}[data-theme="light"] .education-video-copy h2{color:#241b0f}[data-theme="light"] .education-video-copy p{color:#6d6251}[data-theme="light"] .education-flow-card,[data-theme="light"] .education-track{background:rgba(255,255,255,.62);border-color:rgba(118,84,15,.17)}[data-theme="light"] .education-track:hover{background:#fff}[data-theme="light"] .education-challenge{background:linear-gradient(120deg,#efe3c4,#f9f5eb);border-color:rgba(118,84,15,.22)}
+@media(max-width:1050px){.education-hero{grid-template-columns:1fr;gap:40px}.education-video-stage{min-height:500px}.education-flow-grid,.education-track-grid{grid-template-columns:repeat(2,1fr)}.education-challenge{grid-template-columns:auto 1fr}.education-challenge-actions{grid-column:1/-1;flex-direction:row}.education-challenge-actions .btn{flex:1}}
+@media(max-width:680px){.education-shell{padding:105px 6% 65px}.education-hero{min-height:auto}.education-hero-copy h1{font-size:clamp(52px,15vw,78px)}.education-video-stage{min-height:470px}.education-video-stage video{min-height:470px}.education-play-orbit{width:126px;height:126px;top:42%}.education-play-orbit span{width:62px;height:62px}.education-section-head{grid-template-columns:1fr;gap:18px}.education-section-head>p{justify-self:start}.education-flow-grid,.education-track-grid{grid-template-columns:1fr}.education-flow-card,.education-track{min-height:260px}.education-challenge{padding:28px;grid-template-columns:1fr}.education-challenge-mark{width:74px;height:74px;font-size:38px}.education-challenge-actions{grid-column:auto;flex-direction:column}.education-shell:before{font-size:90px;right:-50px}}
+@media(prefers-reduced-motion:reduce){.education-play-orbit:before,.education-play-orbit:after{animation:none}.education-track{transition:none}}
+
+/* Virasat Originals Episode 01: widescreen video, respects light theme and mobile layouts */
+#page-education .education-video-stage.has-video{aspect-ratio:16/9;min-height:0;background:#000;line-height:0}
+#page-education .education-video-stage.has-video video{display:block;aspect-ratio:16/9;width:100%;height:100%;min-height:0;object-fit:contain;background:#000;border-radius:inherit}
+#page-education .education-video-placeholder[hidden]{display:none!important}
+#page-education .education-featured-episode{padding:23px 27px 28px;border:1px solid rgba(212,175,55,.23);border-radius:23px;background:linear-gradient(130deg,rgba(212,175,55,.07),rgba(255,255,255,.012));margin-top:0;position:relative;z-index:1}
+#page-education .education-featured-heading{display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap;margin-bottom:13px}
+#page-education .education-episode-label{color:#d4af37;font-size:11px;font-weight:800;letter-spacing:.17em}
+#page-education .education-episode-duration{color:#b1a18a;font-size:12px;font-weight:700;letter-spacing:.08em}
+#page-education .education-featured-body{display:flex;align-items:end;justify-content:space-between;gap:28px}
+#page-education .education-featured-body h2{font:700 clamp(27px,3vw,42px)/1.1 Georgia,serif;color:#f5ead0;margin:0 0 8px}
+#page-education .education-featured-body p{color:#aea08a;line-height:1.65;margin:0;max-width:850px;font-size:14px}
+#page-education .education-episode-watch{flex:0 0 auto;border-radius:999px;border:1px solid rgba(212,175,55,.55);padding:13px 19px;color:#d4af37;text-decoration:none;font-size:11px;font-weight:800;letter-spacing:.1em;transition:background .2s,transform .2s}
+#page-education .education-episode-watch:hover{background:rgba(212,175,55,.12);transform:translateY(-2px)}
+[data-theme="light"] #page-education .education-featured-episode{background:linear-gradient(130deg,#f8efdc,#fffaf0);border-color:rgba(136,102,35,.25)}
+[data-theme="light"] #page-education .education-featured-body h2{color:#2c210d}
+[data-theme="light"] #page-education .education-featured-body p,[data-theme="light"] #page-education .education-episode-duration{color:#625744}
+@media(max-width:680px){#page-education .education-video-stage.has-video{min-height:0}#page-education .education-video-stage.has-video video{min-height:0}#page-education .education-featured-episode{padding:20px}#page-education .education-featured-body{align-items:flex-start;flex-direction:column;gap:19px}}
+
+/* Virasat Originals archive, scoped to the Education page */
+#page-education .vo-archive{padding:44px 0 52px;position:relative;z-index:1}
+#page-education .vo-archive-header{display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap;margin-bottom:23px}
+#page-education .vo-eyebrow{font-size:11px;letter-spacing:.2em;font-weight:800;color:#d4af37}
+#page-education .vo-archive h2{font:700 clamp(30px,4vw,54px)/1.1 Georgia,serif;color:#f4e8cb;margin:13px 0 12px}
+#page-education .vo-archive h2 em{color:#d4af37}
+#page-education .vo-archive-header p{font-size:14px;line-height:1.6;color:#b8ab93;margin:0}
+#page-education .vo-count{font-size:11px;letter-spacing:.15em;color:#d4af37;border:1px solid rgba(212,175,55,.3);border-radius:99px;padding:12px 16px}
+#page-education .vo-archive-filters{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 23px}
+#page-education .vo-filter{cursor:pointer;border:1px solid rgba(212,175,55,.25);background:rgba(255,255,255,.03);color:#c9bca3;border-radius:99px;padding:10px 18px;font-size:12px;font-weight:750;transition:.2s}
+#page-education .vo-filter.active,#page-education .vo-filter:hover{background:#d4af37;color:#161207;border-color:#d4af37}
+#page-education .vo-archive-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+#page-education .vo-film{min-width:0;border:1px solid rgba(212,175,55,.23);border-radius:20px;overflow:hidden;background:#19160f;transition:transform .25s,border-color .25s,box-shadow .25s}
+#page-education .vo-film:hover,#page-education .vo-film.selected{transform:translateY(-4px);border-color:#d4af37;box-shadow:0 16px 35px rgba(0,0,0,.22)}
+#page-education .vo-film[hidden]{display:none!important}
+#page-education .vo-film-trigger{border:0;background:none;color:inherit;text-align:left;display:block;width:100%;height:100%;padding:0;cursor:pointer;font:inherit}
+#page-education .vo-image{position:relative;display:block;aspect-ratio:16/9;background:#0a0907;overflow:hidden}
+#page-education .vo-image img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .35s}
+#page-education .vo-film:hover img{transform:scale(1.035)}
+#page-education .vo-play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;place-items:center;width:62px;height:62px;background:rgba(13,11,7,.78);border:1px solid #d4af37;color:#d4af37;border-radius:50%;font-size:20px}
+#page-education .vo-time{position:absolute;bottom:13px;right:14px;background:rgba(0,0,0,.78);padding:6px 10px;color:white;border-radius:7px;font-size:12px}
+#page-education .vo-film-content{padding:24px;display:flex;flex-direction:column;gap:11px}
+#page-education .vo-film-content small{color:#d4af37;font-size:10px;font-weight:800;letter-spacing:.15em}
+#page-education .vo-film-content strong{font:700 clamp(22px,2.4vw,30px)/1.15 Georgia,serif;color:#f4e8cb}
+#page-education .vo-film-content>span{font-size:13px;color:#b8ab93;line-height:1.65}
+#page-education .vo-film-content b{font-size:11px;color:#d4af37;letter-spacing:.12em;margin-top:4px}
+[data-theme="light"] #page-education .vo-archive h2,[data-theme="light"] #page-education .vo-film-content strong{color:#342714}
+[data-theme="light"] #page-education .vo-film{background:#fffaf0;border-color:#d8c59a}
+[data-theme="light"] #page-education .vo-archive-header p,[data-theme="light"] #page-education .vo-film-content>span{color:#625744}
+[data-theme="light"] #page-education .vo-filter{color:#6b542e;background:#fff9ed}
+[data-theme="light"] #page-education .vo-filter.active{background:#d4af37;color:#161207}
+@media(max-width:700px){#page-education .vo-archive-grid{grid-template-columns:1fr}#page-education .vo-archive{padding-top:32px}#page-education .vo-film-content{padding:19px}}
+</style>
+
+
+<style id="virasatHistoryStyles">
+#page-history{background:#070503;min-height:100vh;overflow:hidden}
+.history-shell{position:relative;max-width:1560px;margin:0 auto;padding:118px 4.5% 92px}
+.history-shell:before{content:"CHRONICLE";position:absolute;right:-24px;top:44px;font:800 clamp(72px,12vw,184px)/.8 Georgia,serif;letter-spacing:-.075em;color:rgba(212,175,55,.032);pointer-events:none;white-space:nowrap}
+.history-hero{position:relative;z-index:1;display:grid;grid-template-columns:minmax(0,.92fr) minmax(500px,1.08fr);gap:54px;min-height:70vh;align-items:center}
+.history-kicker,.history-index{font-size:10px;font-weight:800;letter-spacing:.22em;color:#d4af37;text-transform:uppercase}
+.history-hero-copy h1,.history-head h2,.history-compare-copy h2{font-family:Georgia,'Times New Roman',serif;color:#f4e8cc;letter-spacing:-.06em}
+.history-hero-copy h1{font-size:clamp(58px,6.5vw,106px);line-height:.88;margin:18px 0 24px;max-width:780px}.history-hero-copy h1 em,.history-head h2 em{color:#d4af37;font-style:italic}
+.history-hero-copy>p{color:#a59880;max-width:720px;font-size:17px;line-height:1.76;margin:0}
+.history-hero-pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:31px}.history-hero-pills span{padding:9px 13px;border:1px solid rgba(212,175,55,.24);border-radius:999px;color:#cdbf9f;background:rgba(212,175,55,.04);font-size:10px;font-weight:800;letter-spacing:.14em}
+.history-hero-art{position:relative;min-height:560px;border:1px solid rgba(212,175,55,.18);border-radius:30px;background:linear-gradient(145deg,#151006,#090704 60%,#1b1407);overflow:hidden;box-shadow:0 36px 90px rgba(0,0,0,.42)}
+.history-hero-art:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 72% 20%,rgba(212,175,55,.17),transparent 30%),linear-gradient(90deg,transparent 49.8%,rgba(212,175,55,.12) 50%,transparent 50.2%);pointer-events:none}
+.history-era-axis{position:absolute;left:38px;top:40px;bottom:40px;width:1px;background:linear-gradient(#d4af37,rgba(212,175,55,.08));z-index:2}.history-era-axis:before,.history-era-axis:after{content:"";position:absolute;left:-4px;width:9px;height:9px;border-radius:50%;background:#d4af37}.history-era-axis:before{top:0}.history-era-axis:after{bottom:0}.history-era-axis span{position:absolute;left:18px;color:#8d816b;font-size:9px;font-weight:800;letter-spacing:.14em;white-space:nowrap}.history-era-axis span:nth-child(1){top:0}.history-era-axis span:nth-child(2){top:31%}.history-era-axis span:nth-child(3){top:61%}.history-era-axis span:nth-child(4){bottom:0}
+.history-visual-card{position:absolute;border:1px solid rgba(212,175,55,.22);background:#0d0a06;border-radius:20px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.35)}.history-visual-card img{width:100%;height:100%;object-fit:cover;filter:saturate(.82) contrast(1.03)}.history-visual-card:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(5,4,2,.82))}.history-visual-card figcaption{position:absolute;z-index:2;left:18px;right:18px;bottom:15px;color:#f1e6ce;font-size:10px;font-weight:800;letter-spacing:.13em}.history-visual-a{left:100px;top:48px;width:48%;height:43%;transform:rotate(-3deg)}.history-visual-b{right:34px;top:180px;width:45%;height:43%;transform:rotate(4deg)}.history-visual-c{left:115px;bottom:35px;width:42%;height:31%;transform:rotate(1.5deg)}
+.history-seal{position:absolute;right:34px;bottom:34px;width:112px;height:112px;border-radius:50%;border:1px dashed rgba(212,175,55,.38);display:grid;place-items:center;color:#d4af37;font:700 31px/1 Georgia,serif;animation:historySeal 22s linear infinite}.history-seal:before{content:"TIME • POWER • MEMORY • ";position:absolute;inset:10px;border-radius:50%;font:700 8px/1 'DM Sans',sans-serif;letter-spacing:.12em;color:#897b60;text-align:center;padding-top:8px}@keyframes historySeal{to{transform:rotate(360deg)}}
+.history-section{padding:105px 0 12px;position:relative;z-index:1}.history-head{display:grid;grid-template-columns:minmax(0,1fr) minmax(280px,.6fr);gap:46px;align-items:end;margin-bottom:34px}.history-head h2{font-size:clamp(46px,5vw,80px);line-height:.92;margin:10px 0 0}.history-head>p{margin:0;color:#968a77;line-height:1.72;max-width:530px;justify-self:end}
+.history-filters{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 28px}.history-filter{border:1px solid rgba(212,175,55,.2);background:#0c0905;color:#a99c82;border-radius:999px;padding:9px 14px;font-size:9px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;transition:.25s}.history-filter:hover,.history-filter.active{background:#d4af37;color:#100c03;border-color:#d4af37}
+.history-timeline{position:relative;padding-left:54px}.history-timeline:before{content:"";position:absolute;left:18px;top:10px;bottom:10px;width:1px;background:linear-gradient(rgba(212,175,55,.6),rgba(212,175,55,.08))}.history-event{position:relative;display:grid;grid-template-columns:145px minmax(0,1fr);gap:28px;padding:27px 0;border-bottom:1px solid rgba(212,175,55,.1)}.history-event:before{content:"";position:absolute;left:-40px;top:35px;width:9px;height:9px;background:#d4af37;border-radius:50%;box-shadow:0 0 0 7px rgba(212,175,55,.08)}.history-event-date{color:#d4af37;font:700 17px/1.15 Georgia,serif}.history-event-copy h3{color:#eee2c8;font:600 30px/1.05 Georgia,serif;margin:0 0 10px}.history-event-copy p{color:#968b79;line-height:1.7;margin:0;max-width:900px}.history-event-tags{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}.history-event-tags span{font-size:8px;font-weight:800;letter-spacing:.12em;color:#b9aa8c;border:1px solid rgba(212,175,55,.15);border-radius:999px;padding:6px 9px}
+.history-kingdom-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.history-kingdom{position:relative;min-height:330px;padding:26px;border-radius:22px;border:1px solid rgba(212,175,55,.15);background:linear-gradient(155deg,rgba(255,255,255,.025),rgba(212,175,55,.025));overflow:hidden;transition:.3s}.history-kingdom:hover{transform:translateY(-6px);border-color:rgba(212,175,55,.46);background:#120d05}.history-kingdom-no{position:absolute;right:20px;top:14px;font:700 56px/1 Georgia,serif;color:rgba(212,175,55,.075)}.history-kingdom small{color:#d4af37;font-size:9px;font-weight:800;letter-spacing:.14em}.history-kingdom h3{color:#f0e4cc;font:600 31px/1.02 Georgia,serif;margin:62px 0 12px}.history-kingdom p{color:#938875;line-height:1.6;margin:0 0 18px}.history-kingdom dl{display:grid;grid-template-columns:84px 1fr;gap:7px 10px;margin:0;font-size:11px}.history-kingdom dt{color:#756a57;text-transform:uppercase;letter-spacing:.08em}.history-kingdom dd{margin:0;color:#c1b396}
+.history-conflict-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}.history-conflict{position:relative;border:1px solid rgba(212,175,55,.16);border-radius:22px;background:#0e0a05;padding:27px 29px 28px;overflow:hidden}.history-conflict:before{content:"";position:absolute;width:170px;height:170px;border:1px solid rgba(212,175,55,.08);border-radius:50%;right:-68px;top:-72px}.history-conflict-top{display:flex;justify-content:space-between;gap:18px;align-items:start}.history-conflict-date{font-size:10px;color:#d4af37;font-weight:800;letter-spacing:.14em}.history-conflict-side{font:600 25px/1.05 Georgia,serif;color:#efe3ca;margin:10px 0 9px}.history-conflict-vs{color:#695f50;font-size:10px;font-weight:800;letter-spacing:.18em}.history-conflict p{color:#948976;line-height:1.65;margin:15px 0 18px}.history-conflict-change{border-top:1px solid rgba(212,175,55,.1);padding-top:15px;color:#c4b596;font-size:11px;line-height:1.55}.history-conflict-change b{color:#d4af37;text-transform:uppercase;letter-spacing:.1em;font-size:8px;display:block;margin-bottom:4px}
+.history-compare{margin-top:108px;border:1px solid rgba(212,175,55,.22);border-radius:28px;background:linear-gradient(130deg,#171006,#0a0704);padding:42px;position:relative;overflow:hidden}.history-compare:before{content:"COMPARE";position:absolute;right:-8px;top:-15px;font:800 108px/1 Georgia,serif;color:rgba(212,175,55,.025);pointer-events:none}.history-compare-top{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:42px;align-items:end;position:relative}.history-compare-copy h2{font-size:clamp(38px,4vw,62px);line-height:.94;margin:10px 0 12px}.history-compare-copy p{color:#918673;line-height:1.65;margin:0}.history-compare-controls{display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center}.history-compare-controls select{width:100%;background:#0b0804;color:#e7dbc3;border:1px solid rgba(212,175,55,.22);border-radius:14px;padding:14px 42px 14px 15px;outline:none}.history-compare-controls b{color:#d4af37;font:700 20px Georgia,serif}.history-compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:30px}.history-compare-card{border:1px solid rgba(212,175,55,.12);border-radius:18px;background:rgba(255,255,255,.018);padding:24px}.history-compare-card h3{font:600 29px/1 Georgia,serif;color:#f0e5cd;margin:0 0 7px}.history-compare-card>span{color:#d4af37;font-size:9px;font-weight:800;letter-spacing:.14em}.history-compare-card dl{margin:22px 0 0;display:grid;gap:13px}.history-compare-card dl div{display:grid;grid-template-columns:100px 1fr;gap:12px}.history-compare-card dt{font-size:8px;color:#756b59;text-transform:uppercase;letter-spacing:.1em}.history-compare-card dd{margin:0;color:#b9ab91;font-size:12px;line-height:1.5}
+.history-note{margin-top:46px;padding:20px 22px;border-left:2px solid #d4af37;background:rgba(212,175,55,.035);color:#8f8472;font-size:11px;line-height:1.65}
+[data-theme="light"] #page-history{background:#f4efe4}[data-theme="light"] .history-shell:before{color:rgba(118,84,15,.045)}[data-theme="light"] .history-hero-copy h1,[data-theme="light"] .history-head h2,[data-theme="light"] .history-compare-copy h2,[data-theme="light"] .history-event-copy h3,[data-theme="light"] .history-kingdom h3,[data-theme="light"] .history-conflict-side,[data-theme="light"] .history-compare-card h3{color:#241b0f}[data-theme="light"] .history-hero-copy>p,[data-theme="light"] .history-head>p,[data-theme="light"] .history-event-copy p,[data-theme="light"] .history-kingdom p,[data-theme="light"] .history-conflict p,[data-theme="light"] .history-compare-copy p{color:#6c6252}[data-theme="light"] .history-hero-art,[data-theme="light"] .history-kingdom,[data-theme="light"] .history-conflict,[data-theme="light"] .history-compare{background:linear-gradient(145deg,#eee3c9,#faf6ed);box-shadow:none}[data-theme="light"] .history-compare-controls select{background:#fff;color:#2b2216}[data-theme="light"] .history-event-tags span,[data-theme="light"] .history-kingdom dd,[data-theme="light"] .history-compare-card dd{color:#665a47}
+@media(max-width:1050px){.history-hero{grid-template-columns:1fr;gap:42px}.history-hero-art{min-height:520px}.history-kingdom-grid{grid-template-columns:repeat(2,1fr)}.history-compare-top{grid-template-columns:1fr}.history-head{grid-template-columns:1fr;gap:18px}.history-head>p{justify-self:start}.history-conflict-grid{grid-template-columns:1fr}}
+@media(max-width:680px){.history-shell{padding:104px 6% 64px}.history-hero{min-height:auto}.history-hero-copy h1{font-size:clamp(52px,15vw,78px)}.history-hero-art{min-height:440px}.history-visual-a{left:75px;width:58%;height:40%}.history-visual-b{right:18px;top:165px;width:52%;height:38%}.history-visual-c{left:80px;width:50%;height:27%}.history-seal{width:82px;height:82px;font-size:23px;right:18px}.history-timeline{padding-left:34px}.history-timeline:before{left:10px}.history-event{grid-template-columns:1fr;gap:9px}.history-event:before{left:-28px}.history-kingdom-grid{grid-template-columns:1fr}.history-compare{padding:28px 20px}.history-compare-controls{grid-template-columns:1fr}.history-compare-controls b{text-align:center}.history-compare-grid{grid-template-columns:1fr}.history-shell:before{font-size:90px;right:-52px}.history-compare-card dl div{grid-template-columns:84px 1fr}}
+@media(prefers-reduced-motion:reduce){.history-seal{animation:none}.history-kingdom{transition:none}}
+</style>
+
 </head>
 <body>
 
@@ -11347,6 +11552,8 @@ body.festival-story-open { overflow: hidden; }
 
             <div class="mega-col mega-secondary">
                 <div class="mega-kicker">Learn &amp; Play</div>
+                <a href="#" data-page="education" data-i18n="nav_education" class="education-nav-link">Education</a>
+                <a href="#" data-page="history" data-i18n="nav_history" class="history-nav-link">India Through Time</a>
                 <div class="nav-item" role="none">
                     <a href="#" data-page="games" role="menuitem" aria-haspopup="true" aria-expanded="true">Gaming Hub</a>
                     <div class="nav-dropdown" role="menu" aria-label="Gaming Hub submenu">
@@ -11422,7 +11629,7 @@ body.festival-story-open { overflow: hidden; }
 
         <section class="vx-worlds" id="vx-worlds">
             <div class="vx-section-title">
-                <div><span class="vx-index">02 / DISCOVER</span><h2 data-i18n="vx_worlds_title">Eight ways into <em>India.</em></h2></div>
+                <div><span class="vx-index">02 / DISCOVER</span><h2 data-i18n="vx_worlds_title">Ten ways into <em>India.</em></h2></div>
                 <p data-i18n="vx_worlds_desc">No empty catalogue. Every tile is a doorway into a different layer of living heritage.</p>
             </div>
             <div class="vx-bento">
@@ -11434,6 +11641,8 @@ body.festival-story-open { overflow: hidden; }
                 <a class="vx-tile" href="#" data-page="games"><img src="https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1200&q=84" alt="Indian monument" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>06</span><div><small data-i18n="vx_play">PLAY</small><h3 data-i18n="vx_gaming_hub">Gaming Hub</h3></div></a>
                 <a class="vx-tile vx-tile-wide" href="#" data-page="happiness"><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=1400&q=86" alt="Friends sharing a happy moment" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>07</span><div><small data-i18n="vx_connect">CONNECT</small><h3 data-i18n="vx_happiness">Radiate Happiness</h3><p data-i18n="vx_happiness_desc">Turn heritage into kindness, community and shared memories.</p></div></a>
                 <a class="vx-tile" href="#" data-page="nuske"><img src="https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=1000&q=84" alt="Traditional Indian herbs and spices" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>08</span><div><small data-i18n="vx_wisdom">WISDOM</small><h3 data-i18n="vx_nuske">Desi Nuske</h3><p data-i18n="vx_nuske_desc">Traditional household wisdom viewed through a modern lens.</p></div></a>
+                <a class="vx-tile vx-tile-wide" href="#" data-page="education"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Ruins_of_Nalanda_University.JPG" alt="Ruins of Nalanda, an ancient centre of learning in India" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>09</span><div><small data-i18n="edu_tile_kicker">LEARN</small><h3 data-i18n="edu_tile_title">Virasat Education</h3><p data-i18n="edu_tile_desc">Watch, explore and test your understanding of India's living heritage.</p></div></a>
+                <a class="vx-tile vx-tile-wide" href="#" data-page="history"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg/960px-Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg" alt="Ashoka pillar at Vaishali" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>10</span><div><small data-i18n="hist_tile_kicker">HISTORY</small><h3 data-i18n="hist_tile_title">India Through Time</h3><p data-i18n="hist_tile_desc">Trace empires, rulers, rivalries and turning points across the subcontinent.</p></div></a>
             </div>
         </section>
 
@@ -11472,6 +11681,62 @@ body.festival-story-open { overflow: hidden; }
             <div><small data-i18n="vx_states">STATES + UTs</small><strong>36</strong><span>Explore India</span></div>
             <div><small data-i18n="vx_archive">ARCHIVE</small><strong>∞</strong><span>Still growing</span></div>
         </section>
+
+
+<section class="section virasat-pricing" id="home-pricing" aria-labelledby="virasatPricingTitle">
+    <div class="vp-head">
+        <div>
+            <div class="vp-kicker" data-i18n="pricing_kicker">MEMBERSHIP / COMING NEXT</div>
+            <h2 id="virasatPricingTitle" data-i18n="pricing_title">Choose how deep you want to go into <em>Virasat.</em></h2>
+        </div>
+        <p data-i18n="pricing_desc">The core heritage experience stays free. Plus and Premium are planned expansions for people who want deeper, more personal ways to explore India.</p>
+    </div>
+    <div class="vp-grid">
+        <article class="vp-card">
+            <div class="vp-badge" data-i18n="pricing_available">AVAILABLE NOW</div>
+            <h3 class="vp-plan" data-i18n="pricing_free">Free</h3>
+            <div class="vp-price"><strong>₹0</strong><span data-i18n="pricing_forever">forever</span></div>
+            <p class="vp-desc" data-i18n="pricing_free_desc">Everything you already use in Virasat, built for open cultural discovery.</p>
+            <ul class="vp-features">
+                <li data-i18n="pricing_free_f1">Explore India, Tourism and heritage stories</li>
+                <li data-i18n="pricing_free_f2">Festival Calendar, Maa Ki Rasoi and Nani Ki Kahani</li>
+                <li data-i18n="pricing_free_f3">Gaming Hub and Ancient Translator</li>
+                <li data-i18n="pricing_free_f4">English, Hindi and Sanskrit</li>
+            </ul>
+            <span class="vp-action current" data-i18n="pricing_current">CURRENT EXPERIENCE</span>
+        </article>
+
+        <article class="vp-card featured">
+            <div class="vp-badge" data-i18n="pricing_coming">COMING SOON</div>
+            <h3 class="vp-plan">Virasat Plus</h3>
+            <div class="vp-price"><strong data-i18n="pricing_tba">TBA</strong></div>
+            <p class="vp-desc" data-i18n="pricing_plus_desc">A more personal heritage journey with planned tools that remember, organise and deepen what you discover.</p>
+            <ul class="vp-features">
+                <li data-i18n="pricing_plus_f1">Planned personalised heritage journeys</li>
+                <li data-i18n="pricing_plus_f2">Saved places, stories and cultural collections</li>
+                <li data-i18n="pricing_plus_f3">Expanded Heritage AI experiences</li>
+                <li data-i18n="pricing_plus_f4">Early access to selected new features</li>
+            </ul>
+            <a href="#" class="vp-action" data-page="plans" data-sub="plus"><span data-i18n="pricing_preview_plus">PREVIEW PLUS</span> <span>↗</span></a>
+            <div class="vp-card-note" data-i18n="pricing_no_charge">No payment is being collected.</div>
+        </article>
+
+        <article class="vp-card">
+            <div class="vp-badge" data-i18n="pricing_coming">COMING SOON</div>
+            <h3 class="vp-plan">Virasat Premium</h3>
+            <div class="vp-price"><strong data-i18n="pricing_tba">TBA</strong></div>
+            <p class="vp-desc" data-i18n="pricing_premium_desc">The most complete planned Virasat experience for serious cultural exploration and richer learning.</p>
+            <ul class="vp-features">
+                <li data-i18n="pricing_premium_f1">Everything planned for Virasat Plus</li>
+                <li data-i18n="pricing_premium_f2">Advanced cultural exploration tools</li>
+                <li data-i18n="pricing_premium_f3">Premium learning and discovery experiences</li>
+                <li data-i18n="pricing_premium_f4">Priority access to experimental Virasat features</li>
+            </ul>
+            <a href="#" class="vp-action" data-page="plans" data-sub="premium"><span data-i18n="pricing_preview_premium">PREVIEW PREMIUM</span> <span>↗</span></a>
+            <div class="vp-card-note" data-i18n="pricing_no_charge">No payment is being collected.</div>
+        </article>
+    </div>
+</section>
 
 <section class="section" id="home-team">
 <div class="sectionhead">
@@ -11547,6 +11812,40 @@ body.festival-story-open { overflow: hidden; }
 <h2>Heritage is alive when it is remembered, questioned, appreciated and shared.</h2>
 <p>— Virasat</p>
 </section>
+    </div>
+
+
+
+    <!-- ─── PAGE: VIRASAT MEMBERSHIP / COMING SOON ─── -->
+    <div class="page" id="page-plans">
+        <section class="vbuild-stage" aria-labelledby="virasatBuildTitle">
+            <div class="vbuild-orbit" aria-hidden="true"></div>
+            <article class="vbuild-card">
+                <div class="vbuild-brand">
+                    <strong>VIRASAT</strong>
+                    <span data-i18n="build_brandline">INDIA'S LIVING HERITAGE</span>
+                </div>
+                <div class="vbuild-copy">
+                    <div class="vbuild-plan" id="virasatBuildPlan">VIRASAT PLUS</div>
+                    <h1 id="virasatBuildTitle" data-i18n="build_title">Something deeper is being built.</h1>
+                    <p id="virasatBuildDesc" data-i18n="build_plus_desc">Virasat Plus is under construction. We are shaping a more personal way to save, revisit and explore India's living heritage.</p>
+                </div>
+                <div class="vbuild-progress">
+                    <div class="vbuild-track" aria-label="Development progress"><div class="vbuild-fill"></div></div>
+                    <div class="vbuild-progress-meta"><span data-i18n="build_progress">Development progress</span><strong>29%</strong></div>
+                </div>
+                <div class="vbuild-countdown" aria-label="Coming soon countdown">
+                    <div class="vbuild-time"><strong id="vbuildDays">90</strong><span data-i18n="build_days">Days</span></div>
+                    <div class="vbuild-time"><strong id="vbuildHours">00</strong><span data-i18n="build_hours">Hours</span></div>
+                    <div class="vbuild-time"><strong id="vbuildMinutes">00</strong><span data-i18n="build_minutes">Minutes</span></div>
+                    <div class="vbuild-time"><strong id="vbuildSeconds">00</strong><span data-i18n="build_seconds">Seconds</span></div>
+                </div>
+                <div class="vbuild-actions">
+                    <a href="#" class="vbuild-back" data-page="home" data-sub="pricing"><span>←</span><span data-i18n="build_back">Back to pricing</span></a>
+                </div>
+                <div class="vbuild-foot" data-i18n="build_foot">VIRASAT / BUILT WITH CARE / COMING SOON</div>
+            </article>
+        </section>
     </div>
 
     <!-- ─── PAGE: MAA KI RASOI ─── -->
@@ -11797,6 +12096,169 @@ body.festival-story-open { overflow: hidden; }
                 <p>Explore traditional herbs, spices, yoga and household practices while clearly separating cultural tradition from scientific evidence.</p>
             </div>
             <div class="grid" id="nuskeGrid"></div>
+        </section>
+    </div>
+
+    <!-- ─── PAGE: EDUCATION / VIRASAT CLASSROOM ─── -->
+    <div class="page" id="page-education">
+        <section class="education-shell" aria-label="Virasat Education">
+            <div class="education-hero">
+                <div class="education-hero-copy">
+                    <div class="education-kicker" data-i18n="edu_kicker">VIRASAT / CLASSROOM</div>
+                    <h1 data-i18n="edu_title">Learn India by entering its <em>stories.</em></h1>
+                    <p data-i18n="edu_lead">A guided learning space where students can watch, explore, connect ideas and test what they understand about India's living heritage.</p>
+                    <div class="education-hero-pills" aria-label="Learning format">
+                        <span data-i18n="edu_pill_watch">01 · WATCH</span>
+                        <span data-i18n="edu_pill_explore">02 · EXPLORE</span>
+                        <span data-i18n="edu_pill_test">03 · TEST</span>
+                    </div>
+                </div>
+
+                <div class="education-video-stage has-video" id="educationVideoStage">
+                    <!-- Virasat Originals, Episode 01: locally hosted film. Keep assets/ beside index.html. -->
+                    <video id="virasatEducationVideo" controls playsinline preload="metadata"
+                           poster="assets/indus_valley_poster.jpg"
+                           aria-label="Indus Valley Civilisation: Virasat Originals educational film">
+                        <source src="assets/indus_valley_final.mp4" type="video/mp4">
+                        Your browser does not support HTML5 video. <a href="assets/indus_valley_final.mp4">Open the episode</a>.
+                    </video>
+                    <div class="education-video-placeholder" id="educationVideoPlaceholder" hidden>
+                        <div class="education-video-topline"><span data-i18n="edu_video_badge">FEATURE LESSON</span><b>VIRASAT EDU / 01</b></div>
+                        <div class="education-play-orbit" aria-hidden="true"><span>▶</span></div>
+                        <div class="education-video-copy">
+                            <small data-i18n="edu_video_status">VIDEO IN PRODUCTION</small>
+                            <h2 data-i18n="edu_video_title">Your Virasat lesson film will live here.</h2>
+                            <p data-i18n="edu_video_desc">The video you are creating will drop into this stage without changing the rest of the page.</p>
+                        </div>
+                        <div class="education-video-foot"><span data-i18n="edu_video_hint">FILM SLOT READY</span><i></i><span>16:9 / HD</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <section class="education-featured-episode" aria-labelledby="indusEpisodeHeading">
+                <div class="education-featured-heading">
+                    <span class="education-episode-label" data-i18n="edu_first_episode_label">VIRASAT ORIGINALS / EPISODE 01</span>
+                    <span class="education-episode-duration">7:53 · HD · 16:9</span>
+                </div>
+                <div class="education-featured-body">
+                    <div>
+                        <h2 id="indusEpisodeHeading" data-i18n="edu_first_episode_title">Indus Valley Civilisation</h2>
+                        <p data-i18n="edu_first_episode_description">Discover the ingenious city planning, brick construction, drainage systems, water management and trade networks of the Indus Civilization in this narrated documentary.</p>
+                    </div>
+                    <a class="education-episode-watch" href="#educationVideoStage" data-i18n="edu_first_episode_watch">WATCH EPISODE ↑</a>
+                </div>
+            </section>
+
+            <!-- VIRASAT ORIGINALS: video archive. Episode metadata stays separate from the video files. -->
+            <section class="vo-archive" id="virasatOriginalsArchive" aria-labelledby="voArchiveTitle">
+              <div class="vo-archive-header"><div><span class="vo-eyebrow" data-i18n="vo_archive_kicker">VIRASAT ORIGINALS / FILM ARCHIVE</span><h2 id="voArchiveTitle" data-i18n="vo_archive_title">Explore the <em>film collection.</em></h2><p data-i18n="vo_archive_desc">Discover India's history, architecture and ingenuity, one documentary at a time.</p></div><span class="vo-count" data-i18n="vo_archive_count">03 DOCUMENTARIES</span></div>
+              <div class="vo-archive-filters" role="group" aria-label="Filter documentaries"><button type="button" class="vo-filter active" data-vo-filter="all" data-i18n="vo_filter_all" aria-pressed="true">All films</button><button type="button" class="vo-filter" data-vo-filter="civilizations" data-i18n="vo_filter_civilizations" aria-pressed="false">Civilizations</button><button type="button" class="vo-filter" data-vo-filter="architecture" data-i18n="vo_filter_architecture" aria-pressed="false">Architecture</button><button type="button" class="vo-filter" data-vo-filter="mathematics" data-i18n="vo_filter_mathematics" aria-pressed="false">Mathematics</button></div>
+              <div class="vo-archive-grid">
+                <article class="vo-film" data-vo-category="civilizations"><button type="button" class="vo-film-trigger" data-vo-src="assets/indus_valley_final.mp4" data-vo-poster="assets/indus_valley_poster.jpg" data-vo-title="Indus Valley Civilisation" aria-label="Play Indus Valley Civilisation"><span class="vo-image"><img loading="lazy" src="assets/indus_valley_poster.jpg" alt="Indus Valley Civilisation documentary poster"><span class="vo-play">▶</span><span class="vo-time">7:53</span></span><span class="vo-film-content"><small data-i18n="vo_ep1_meta">EPISODE 01 · CIVILIZATIONS</small><strong data-i18n="edu_first_episode_title">Indus Valley Civilisation</strong><span data-i18n="vo_ep1_desc">Discover how the Indus Civilization planned cities, managed water and built enduring urban networks.</span><b data-i18n="vo_watch">WATCH FILM ↗</b></span></button></article>
+                <article class="vo-film" data-vo-category="architecture"><button type="button" class="vo-film-trigger" data-vo-src="assets/ellora_final.mp4" data-vo-poster="assets/ellora_poster.jpg" data-vo-title="The Ellora Caves Marvel" aria-label="Play The Ellora Caves Marvel"><span class="vo-image"><img loading="lazy" src="assets/ellora_poster.jpg" alt="The Ellora Caves Marvel documentary poster"><span class="vo-play">▶</span><span class="vo-time">5:36</span></span><span class="vo-film-content"><small data-i18n="vo_ep2_meta">EPISODE 02 · ARCHITECTURE</small><strong data-i18n="vo_ep2_title">The Ellora Caves Marvel</strong><span data-i18n="vo_ep2_desc">Explore Ellora's rock-cut temples, the remarkable Kailasa Temple and centuries of artistic achievement.</span><b data-i18n="vo_watch">WATCH FILM ↗</b></span></button></article>
+                <article class="vo-film" data-vo-category="mathematics"><button type="button" class="vo-film-trigger" data-vo-src="assets/zero_final.mp4" data-vo-poster="assets/zero_poster.jpg" data-vo-title="How Zero Changed the World" aria-label="Play How Zero Changed the World"><span class="vo-image"><img loading="lazy" src="assets/zero_poster.jpg" alt="How Zero Changed the World documentary poster"><span class="vo-play">▶</span><span class="vo-time">8:59</span></span><span class="vo-film-content"><small data-i18n="vo_ep3_meta">EPISODE 03 · MATHEMATICS</small><strong data-i18n="vo_ep3_title">How Zero Changed the World</strong><span data-i18n="vo_ep3_desc">Discover the history of zero, Indian place-value mathematics, Brahmagupta and the global journey of mathematical ideas.</span><b data-i18n="vo_watch">WATCH FILM ↗</b></span></button></article>
+              </div>
+            </section>
+            <section class="education-flow" aria-labelledby="educationFlowTitle">
+                <div class="education-section-head">
+                    <div><span class="education-index">02 / METHOD</span><h2 id="educationFlowTitle" data-i18n="edu_flow_title">A lesson should <em>move.</em></h2></div>
+                    <p data-i18n="edu_flow_desc">Virasat Education connects a short lesson to the rest of the website, so learning continues through maps, stories, festivals, food, scripts and games.</p>
+                </div>
+                <div class="education-flow-grid">
+                    <article class="education-flow-card"><b>01</b><div class="education-flow-icon">▶</div><h3 data-i18n="edu_flow_watch_title">Watch the idea</h3><p data-i18n="edu_flow_watch_desc">Begin with the film and understand the cultural idea before diving into details.</p></article>
+                    <article class="education-flow-card"><b>02</b><div class="education-flow-icon">◎</div><h3 data-i18n="edu_flow_explore_title">Explore the evidence</h3><p data-i18n="edu_flow_explore_desc">Open the map, stories, festivals and heritage trails to see the idea in real places and traditions.</p></article>
+                    <article class="education-flow-card"><b>03</b><div class="education-flow-icon">✓</div><h3 data-i18n="edu_flow_test_title">Test what stayed</h3><p data-i18n="edu_flow_test_desc">Use Virasat's games and quizzes to check what you remember without turning heritage into homework sludge.</p></article>
+                </div>
+            </section>
+
+            <section class="education-pathways" aria-labelledby="educationPathsTitle">
+                <div class="education-section-head education-section-head-paths">
+                    <div><span class="education-index">03 / PATHWAYS</span><h2 id="educationPathsTitle" data-i18n="edu_paths_title">Choose what you want to <em>understand.</em></h2></div>
+                    <p data-i18n="edu_paths_desc">Each learning path opens an existing Virasat experience, turning the whole website into the classroom.</p>
+                </div>
+                <div class="education-track-grid">
+                    <a href="#" data-page="map" class="education-track">
+                        <span class="education-track-no">01</span><small data-i18n="edu_track_places_kicker">PLACES &amp; ARCHITECTURE</small><h3 data-i18n="edu_track_places_title">Read history through place.</h3><p data-i18n="edu_track_places_desc">Connect states, monuments, landscapes and regional identity through Explore India.</p><b data-i18n="edu_open_lesson">OPEN LESSON ↗</b>
+                    </a>
+                    <a href="#" data-page="festivals" class="education-track">
+                        <span class="education-track-no">02</span><small data-i18n="edu_track_festival_kicker">FESTIVALS &amp; RITUAL</small><h3 data-i18n="edu_track_festival_title">See how communities mark time.</h3><p data-i18n="edu_track_festival_desc">Learn why seasons, stories, worship and community shape festivals across India.</p><b data-i18n="edu_open_lesson">OPEN LESSON ↗</b>
+                    </a>
+                    <a href="#" data-page="rasoi" class="education-track">
+                        <span class="education-track-no">03</span><small data-i18n="edu_track_food_kicker">FOOD &amp; MEMORY</small><h3 data-i18n="edu_track_food_title">Taste geography and family history.</h3><p data-i18n="edu_track_food_desc">Use regional recipes to understand climate, ingredients, migration and memory.</p><b data-i18n="edu_open_lesson">OPEN LESSON ↗</b>
+                    </a>
+                    <a href="#" data-page="kahani" class="education-track">
+                        <span class="education-track-no">04</span><small data-i18n="edu_track_story_kicker">STORIES &amp; EPICS</small><h3 data-i18n="edu_track_story_title">Follow ideas across generations.</h3><p data-i18n="edu_track_story_desc">Explore folklore, epics and historical stories as living forms of memory.</p><b data-i18n="edu_open_lesson">OPEN LESSON ↗</b>
+                    </a>
+                    <a href="#" data-page="ancient" class="education-track">
+                        <span class="education-track-no">05</span><small data-i18n="edu_track_script_kicker">SCRIPTS &amp; LANGUAGE</small><h3 data-i18n="edu_track_script_title">Meet India's written past.</h3><p data-i18n="edu_track_script_desc">Experiment with Brahmi and Kharosthi while learning how scripts preserve history.</p><b data-i18n="edu_open_lesson">OPEN LESSON ↗</b>
+                    </a>
+                    <a href="#" data-page="games" data-sub="quiz" class="education-track education-track-accent">
+                        <span class="education-track-no">06</span><small data-i18n="edu_track_play_kicker">LEARN BY PLAYING</small><h3 data-i18n="edu_track_play_title">Turn recall into a challenge.</h3><p data-i18n="edu_track_play_desc">Finish with Heritage Quiz, Monument Scramble and matching games.</p><b data-i18n="edu_take_challenge">TAKE THE CHALLENGE ↗</b>
+                    </a>
+                </div>
+            </section>
+
+            <section class="education-challenge">
+                <div class="education-challenge-mark" aria-hidden="true">वि</div>
+                <div class="education-challenge-copy">
+                    <span class="education-index">04 / CLASSROOM CHALLENGE</span>
+                    <h2 data-i18n="edu_challenge_title">Can you connect a place, a festival, a recipe and a script?</h2>
+                    <p data-i18n="edu_challenge_desc">Start anywhere. The point is not memorising isolated facts. It is seeing how India's heritage connects across region, language, food, belief and everyday life.</p>
+                </div>
+                <div class="education-challenge-actions">
+                    <a class="btn primary" href="#" data-page="map" data-i18n="edu_begin_explore">Begin with the map</a>
+                    <a class="btn secondary" href="#" data-page="games" data-sub="quiz" data-i18n="edu_try_quiz">Try the heritage quiz</a>
+                </div>
+            </section>
+        </section>
+    </div>
+
+
+
+    <!-- ─── PAGE: INDIA THROUGH TIME / HISTORY ─── -->
+    <div class="page" id="page-history">
+        <section class="history-shell" aria-label="India Through Time">
+            <header class="history-hero">
+                <div class="history-hero-copy">
+                    <div class="history-kicker" data-i18n="hist_kicker">VIRASAT / HISTORY</div>
+                    <h1 data-i18n="hist_title">India was never one <em>straight line.</em></h1>
+                    <p data-i18n="hist_lead">Move through urban civilisations, kingdoms, empires, rival courts, battles, trade networks and political turning points that shaped the subcontinent across thousands of years.</p>
+                    <div class="history-hero-pills"><span data-i18n="hist_pill_timeline">01 · TIMELINE</span><span data-i18n="hist_pill_kingdoms">02 · KINGDOMS</span><span data-i18n="hist_pill_rivalries">03 · RIVALRIES</span><span data-i18n="hist_pill_compare">04 · COMPARE</span></div>
+                </div>
+                <div class="history-hero-art" aria-label="Visual journey through Indian history">
+                    <div class="history-era-axis"><span>2600 BCE</span><span>320 CE</span><span>1526 CE</span><span>1947 CE</span></div>
+                    <figure class="history-visual-card history-visual-a"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg/960px-Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg" alt="Ashoka pillar at Vaishali"><figcaption data-i18n="hist_visual_ancient">ANCIENT / MAURYA</figcaption></figure>
+                    <figure class="history-visual-card history-visual-b"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/d/dd/Wide_angle_of_Galigopuram_of_Virupaksha_Temple%2C_Hampi_%2804%29_%28cropped%29.jpg/960px-Wide_angle_of_Galigopuram_of_Virupaksha_Temple%2C_Hampi_%2804%29_%28cropped%29.jpg" alt="Virupaksha Temple at Hampi"><figcaption data-i18n="hist_visual_medieval">MEDIEVAL / VIJAYANAGARA</figcaption></figure>
+                    <figure class="history-visual-card history-visual-c"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/0d/Red_Fort_in_Delhi_03-2016_img3.jpg/960px-Red_Fort_in_Delhi_03-2016_img3.jpg" alt="Red Fort in Delhi"><figcaption data-i18n="hist_visual_earlymodern">EARLY MODERN / MUGHAL</figcaption></figure>
+                    <div class="history-seal" aria-hidden="true">इतिहास</div>
+                </div>
+            </header>
+
+            <section class="history-section" aria-labelledby="historyTimelineTitle">
+                <div class="history-head"><div><span class="history-index">02 / CHRONOLOGY</span><h2 id="historyTimelineTitle" data-i18n="hist_timeline_title">Follow the <em>timeline.</em></h2></div><p data-i18n="hist_timeline_desc">Filter by era and see how political centres, trade routes, languages, belief systems and military power shifted over time.</p></div>
+                <div class="history-filters" id="historyFilters" aria-label="History era filters"></div>
+                <div class="history-timeline" id="historyTimelineList"></div>
+            </section>
+
+            <section class="history-section" aria-labelledby="historyKingdomTitle">
+                <div class="history-head"><div><span class="history-index">03 / GREAT POLITIES</span><h2 id="historyKingdomTitle" data-i18n="hist_kingdom_title">Kingdoms that changed the <em>map.</em></h2></div><p data-i18n="hist_kingdom_desc">A quick lens on major states from different regions and centuries. No single dynasty represents all of Indian history.</p></div>
+                <div class="history-kingdom-grid" id="historyKingdomGrid"></div>
+            </section>
+
+            <section class="history-section" aria-labelledby="historyConflictTitle">
+                <div class="history-head"><div><span class="history-index">04 / RIVALRIES</span><h2 id="historyConflictTitle" data-i18n="hist_conflict_title">When rulers <em>collided.</em></h2></div><p data-i18n="hist_conflict_desc">Wars were not isolated spectacles. They shifted capitals, alliances, tax systems, frontiers and the balance of power. These cards focus on what changed, not battlefield gore.</p></div>
+                <div class="history-conflict-grid" id="historyConflictGrid"></div>
+            </section>
+
+            <section class="history-compare" aria-labelledby="historyCompareTitle">
+                <div class="history-compare-top">
+                    <div class="history-compare-copy"><span class="history-index">05 / COMPARE</span><h2 id="historyCompareTitle" data-i18n="hist_compare_title">Put two powers <em>side by side.</em></h2><p data-i18n="hist_compare_desc">Compare periods, political centres, key rulers, sources of power and long-term legacies.</p></div>
+                    <div class="history-compare-controls"><select id="historyCompareA" aria-label="First kingdom"></select><b>VS</b><select id="historyCompareB" aria-label="Second kingdom"></select></div>
+                </div>
+                <div class="history-compare-grid" id="historyCompareGrid"></div>
+            </section>
+
+            <div class="history-note" data-i18n="hist_note">Historical periods overlap, borders changed constantly, and dates for early eras can be approximate. This page is an educational overview, not a claim that the subcontinent followed one single political story.</div>
         </section>
     </div>
 
@@ -13699,6 +14161,15 @@ body.festival-story-open { overflow: hidden; }
                     }
                 }, 200);
             }
+            if (pageId === 'plans') {
+                if (typeof setVirasatPlanPage === 'function') setVirasatPlanPage(sub || 'plus');
+            }
+            if (pageId === 'home' && sub === 'pricing') {
+                setTimeout(() => {
+                    const pricing = document.getElementById('home-pricing');
+                    if (pricing) pricing.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 820);
+            }
             if (pageId === 'games') {
                 if (sub === 'match') openGame('match');
                 else if (sub === 'quiz') openGame('quiz');
@@ -13751,6 +14222,9 @@ body.festival-story-open { overflow: hidden; }
             ancient:   { title:'ANCIENT TRANSLATOR',kicker:'04 / SCRIPT',           meta:'BRAHMI / KHAROSTHI / LANGUAGE' },
             map:       { title:'EXPLORE INDIA',    kicker:'05 / PLACES',            meta:'STATES / PEOPLE / HERITAGE' },
             tourism:   { title:'TOURISM',          kicker:'06 / TRAVEL',            meta:'PLACES / JOURNEYS / HERITAGE' },
+            education: { title:'VIRASAT EDUCATION', kicker:'EDU / LEARN',           meta:'WATCH / EXPLORE / UNDERSTAND' },
+            history:   { title:'INDIA THROUGH TIME', kicker:'HISTORY / CHRONICLE',   meta:'KINGDOMS / RIVALRIES / TURNING POINTS' },
+            plans:     { title:'VIRASAT MEMBERSHIP',kicker:'COMING SOON / MEMBERSHIP', meta:'PLUS / PREMIUM / CULTURE' },
             games:     { title:'GAMING HUB',       kicker:'07 / PLAY',              meta:'MATCH / QUIZ / DISCOVER' },
             happiness: { title:'RADIATE HAPPINESS',kicker:'08 / SHARE',             meta:'CARE / MEMORY / COMMUNITY' },
             nuske:     { title:'DESI NUSKE',       kicker:'09 / WISDOM',            meta:'HOME / TRADITION / PRACTICE' },
@@ -13767,7 +14241,7 @@ body.festival-story-open { overflow: hidden; }
         // the cinematic transition is still covering the screen, preventing flashes.
         function virasatAnimateRequestedDestination(page) {
             if (!page || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            if (!['page-home', 'page-happiness', 'page-nuske', 'page-tourism'].includes(page.id)) return;
+            if (!['page-home', 'page-happiness', 'page-nuske', 'page-tourism', 'page-education', 'page-history'].includes(page.id)) return;
 
             // Cancel only animations created by this helper, leaving the site's
             // existing hover/orbit/background motion untouched.
@@ -13913,6 +14387,53 @@ body.festival-story-open { overflow: hidden; }
                     { opacity: 1, transform: 'translate3d(0,0,0)' }
                 ], { duration: 620, delay: 880 });
             }
+
+            if (page.id === 'page-education') {
+                add(page.querySelector('.education-hero-copy'), [
+                    { opacity: 0, transform: 'perspective(1500px) translate3d(-74px,34px,-180px) rotateY(9deg)', filter: 'blur(7px)' },
+                    { opacity: 1, transform: 'perspective(1500px) translate3d(0,0,0) rotateY(0)', filter: 'blur(0)' }
+                ], { duration: 980, delay: 120 });
+                add(page.querySelector('.education-video-stage'), [
+                    { opacity: 0, transform: 'perspective(1600px) translate3d(72px,46px,-250px) rotateY(-10deg) scale(.965)', filter: 'blur(6px)' },
+                    { opacity: 1, transform: 'perspective(1600px) translate3d(0,0,0) rotateY(0) scale(1)', filter: 'blur(0)' }
+                ], { duration: 1080, delay: 180 });
+                page.querySelectorAll('.education-flow-card').forEach((el, i) => add(el, [
+                    { opacity: 0, transform: `translate3d(0,58px,0) scale(.97)` },
+                    { opacity: 1, transform: 'translate3d(0,0,0) scale(1)' }
+                ], { duration: 720, delay: 430 + i * 85 }));
+                page.querySelectorAll('.education-track').forEach((el, i) => add(el, [
+                    { opacity: 0, transform: `perspective(1400px) translate3d(${i % 2 ? 28 : -28}px,62px,-150px) rotateX(10deg)` },
+                    { opacity: 1, transform: 'perspective(1400px) translate3d(0,0,0) rotateX(0)' }
+                ], { duration: 700, delay: 560 + Math.min(i, 5) * 70 }));
+                add(page.querySelector('.education-challenge'), [
+                    { opacity: 0, transform: 'translate3d(0,54px,0) scale(.985)' },
+                    { opacity: 1, transform: 'translate3d(0,0,0) scale(1)' }
+                ], { duration: 780, delay: 840 });
+            }
+
+            if (page.id === 'page-history') {
+                add(page.querySelector('.history-hero-copy'), [
+                    { opacity: 0, transform: 'perspective(1500px) translate3d(-78px,34px,-180px) rotateY(9deg)', filter: 'blur(7px)' },
+                    { opacity: 1, transform: 'perspective(1500px) translate3d(0,0,0) rotateY(0)', filter: 'blur(0)' }
+                ], { duration: 980, delay: 120 });
+                add(page.querySelector('.history-hero-art'), [
+                    { opacity: 0, transform: 'perspective(1600px) translate3d(76px,46px,-250px) rotateY(-9deg) scale(.965)', filter: 'blur(6px)' },
+                    { opacity: 1, transform: 'perspective(1600px) translate3d(0,0,0) rotateY(0) scale(1)', filter: 'blur(0)' }
+                ], { duration: 1060, delay: 180 });
+                page.querySelectorAll('.history-event').forEach((el, i) => add(el, [
+                    { opacity: 0, transform: 'translate3d(0,42px,0)' },
+                    { opacity: 1, transform: 'translate3d(0,0,0)' }
+                ], { duration: 650, delay: 430 + Math.min(i, 8) * 48 }));
+                page.querySelectorAll('.history-kingdom,.history-conflict').forEach((el, i) => add(el, [
+                    { opacity: 0, transform: `perspective(1400px) translate3d(${i % 2 ? 25 : -25}px,52px,-120px) rotateX(8deg)` },
+                    { opacity: 1, transform: 'perspective(1400px) translate3d(0,0,0) rotateX(0)' }
+                ], { duration: 690, delay: 560 + Math.min(i, 9) * 45 }));
+                add(page.querySelector('.history-compare'), [
+                    { opacity: 0, transform: 'translate3d(0,50px,0) scale(.985)' },
+                    { opacity: 1, transform: 'translate3d(0,0,0) scale(1)' }
+                ], { duration: 760, delay: 820 });
+            }
+
 
             if (page.id === 'page-nuske') {
                 add(page.querySelector('.sectionhead'), [
@@ -14652,6 +15173,46 @@ Object.assign(VIRASAT_I18N.ui,{
 // Gandhi Jayanti translations must be registered only after VIRASAT_I18N exists.
 VIRASAT_I18N.tr["Gandhi Jayanti"] = "गांधी जयंती";
 VIRASAT_I18N.trSa["Gandhi Jayanti"] = "गान्धीजयन्ती";
+Object.assign(VIRASAT_I18N.ui, {
+  pricing_kicker:{en:'MEMBERSHIP / COMING NEXT',hi:'सदस्यता / जल्द आ रहा है',sa:'सदस्यता / शीघ्रम् आगच्छति'},
+  pricing_title:{en:'Choose how deep you want to go into <em>Virasat.</em>',hi:'चुनें कि आप <em>विरासत</em> को कितनी गहराई से जानना चाहते हैं।',sa:'भवान् <em>विरासतं</em> कियत् गभीरतया अन्वेष्टुम् इच्छति इति चिनुत।'},
+  pricing_desc:{en:'The core heritage experience stays free. Plus and Premium are planned expansions for people who want deeper, more personal ways to explore India.',hi:'विरासत का मुख्य अनुभव निःशुल्क रहेगा। Plus और Premium उन लोगों के लिए नियोजित विस्तार हैं जो भारत को और गहराई तथा निजी तरीके से जानना चाहते हैं।',sa:'विरासतस्य मूलानुभवः निःशुल्कः एव भविष्यति। Plus तथा Premium भारतस्य अधिकगभीरं वैयक्तिकं च अन्वेषणाय नियोजितविस्तारौ स्तः।'},
+  pricing_available:{en:'AVAILABLE NOW',hi:'अभी उपलब्ध',sa:'अधुना उपलब्धम्'},
+  pricing_free:{en:'Free',hi:'निःशुल्क',sa:'निःशुल्कम्'},
+  pricing_forever:{en:'forever',hi:'हमेशा',sa:'सदा'},
+  pricing_free_desc:{en:'Everything you already use in Virasat, built for open cultural discovery.',hi:'विरासत में जो कुछ आप अभी उपयोग करते हैं, वह सांस्कृतिक खोज के लिए निःशुल्क उपलब्ध है।',sa:'विरासते अधुना यत् सर्वं प्रयुज्यते तत् मुक्तसांस्कृतिकान्वेषणाय उपलब्धम्।'},
+  pricing_free_f1:{en:'Explore India, Tourism and heritage stories',hi:'भारत को जानें, पर्यटन और विरासत की कहानियाँ',sa:'भारतम् अन्विष्यताम्, पर्यटनं धरोहरकथाश्च'},
+  pricing_free_f2:{en:'Festival Calendar, Maa Ki Rasoi and Nani Ki Kahani',hi:'त्योहार कैलेंडर, माँ की रसोई और नानी की कहानी',sa:'उत्सवपञ्चाङ्गम्, मातुः पाकशाला, नान्याः कथा च'},
+  pricing_free_f3:{en:'Gaming Hub and Ancient Translator',hi:'गेमिंग हब और प्राचीन अनुवादक',sa:'क्रीडाकेन्द्रम् प्राचीनलिप्यन्तरकश्च'},
+  pricing_free_f4:{en:'English, Hindi and Sanskrit',hi:'अंग्रेज़ी, हिंदी और संस्कृत',sa:'आङ्ग्लभाषा, हिन्दी, संस्कृतं च'},
+  pricing_current:{en:'CURRENT EXPERIENCE',hi:'वर्तमान अनुभव',sa:'वर्तमानानुभवः'},
+  pricing_coming:{en:'COMING SOON',hi:'जल्द आ रहा है',sa:'शीघ्रम् आगच्छति'},
+  pricing_tba:{en:'TBA',hi:'जल्द घोषित होगा',sa:'शीघ्रं घोषितम्'},
+  pricing_plus_desc:{en:'A more personal heritage journey with planned tools that remember, organise and deepen what you discover.',hi:'एक अधिक निजी विरासत यात्रा, जिसमें आपकी खोजों को याद रखने, व्यवस्थित करने और गहराई देने वाले नियोजित उपकरण होंगे।',sa:'अधिकवैयक्तिकधरोहरयात्रा, यत्र भवतः अन्वेषणं स्मरन्ति व्यवस्थितं कुर्वन्ति गभीरं च कुर्वन्ति इति नियोजितोपकरणानि भविष्यन्ति।'},
+  pricing_plus_f1:{en:'Planned personalised heritage journeys',hi:'नियोजित व्यक्तिगत विरासत यात्राएँ',sa:'नियोजिताः वैयक्तिकधरोहरयात्राः'},
+  pricing_plus_f2:{en:'Saved places, stories and cultural collections',hi:'सहेजे गए स्थान, कहानियाँ और सांस्कृतिक संग्रह',sa:'संगृहीतानि स्थानानि कथाः सांस्कृतिकसंग्रहाश्च'},
+  pricing_plus_f3:{en:'Expanded Heritage AI experiences',hi:'विस्तारित Heritage AI अनुभव',sa:'विस्तारिताः Heritage AI अनुभवाः'},
+  pricing_plus_f4:{en:'Early access to selected new features',hi:'चुनिंदा नई सुविधाओं तक शुरुआती पहुँच',sa:'चयनितनूतनविशेषतासु पूर्वप्रवेशः'},
+  pricing_preview_plus:{en:'PREVIEW PLUS',hi:'PLUS का पूर्वावलोकन',sa:'PLUS पूर्वावलोकनम्'},
+  pricing_no_charge:{en:'No payment is being collected.',hi:'अभी कोई भुगतान नहीं लिया जा रहा है।',sa:'अधुना किमपि भुगतानं न गृह्यते।'},
+  pricing_premium_desc:{en:'The most complete planned Virasat experience for serious cultural exploration and richer learning.',hi:'गहन सांस्कृतिक खोज और समृद्ध सीखने के लिए नियोजित सबसे पूर्ण Virasat अनुभव।',sa:'गभीरसंस्कृत्यान्वेषणाय समृद्धाध्ययनाय च नियोजितः सर्वाधिकसम्पूर्णः Virasat अनुभवः।'},
+  pricing_premium_f1:{en:'Everything planned for Virasat Plus',hi:'Virasat Plus की सभी नियोजित सुविधाएँ',sa:'Virasat Plus कृते नियोजितं सर्वम्'},
+  pricing_premium_f2:{en:'Advanced cultural exploration tools',hi:'उन्नत सांस्कृतिक खोज उपकरण',sa:'उन्नतानि संस्कृत्यान्वेषणोपकरणानि'},
+  pricing_premium_f3:{en:'Premium learning and discovery experiences',hi:'प्रीमियम सीखने और खोजने के अनुभव',sa:'प्रीमियम् अध्ययनान्वेषणानुभवाः'},
+  pricing_premium_f4:{en:'Priority access to experimental Virasat features',hi:'प्रयोगात्मक Virasat सुविधाओं तक प्राथमिक पहुँच',sa:'प्रयोगात्मकVirasatविशेषतासु प्राथमिकप्रवेशः'},
+  pricing_preview_premium:{en:'PREVIEW PREMIUM',hi:'PREMIUM का पूर्वावलोकन',sa:'PREMIUM पूर्वावलोकनम्'},
+  build_brandline:{en:"INDIA'S LIVING HERITAGE",hi:'भारत की जीवंत विरासत',sa:'भारतस्य जीवन्तधरोहरः'},
+  build_title:{en:'Something deeper is being built.',hi:'कुछ और गहरा तैयार हो रहा है।',sa:'किञ्चित् अधिकं गभीरं निर्मीयते।'},
+  build_plus_desc:{en:"Virasat Plus is under construction. We are shaping a more personal way to save, revisit and explore India's living heritage.",hi:'Virasat Plus अभी निर्माणाधीन है। हम भारत की जीवंत विरासत को सहेजने, दोबारा देखने और अधिक व्यक्तिगत ढंग से जानने का अनुभव बना रहे हैं।',sa:'Virasat Plus निर्माणाधीनम् अस्ति। भारतस्य जीवन्तधरोहरं संग्रहीतुं पुनर्द्रष्टुं वैयक्तिकतया अन्वेष्टुं च वयं नूतनानुभवं निर्मामः।'},
+  build_premium_desc:{en:"Virasat Premium is under construction. We are building our deepest cultural exploration and learning experience yet.",hi:'Virasat Premium अभी निर्माणाधीन है। हम अपना सबसे गहन सांस्कृतिक खोज और सीखने का अनुभव तैयार कर रहे हैं।',sa:'Virasat Premium निर्माणाधीनम् अस्ति। वयं अद्यावधि सर्वाधिकगभीरं संस्कृत्यान्वेषण-अध्ययनानुभवं निर्मामः।'},
+  build_progress:{en:'Development progress',hi:'विकास प्रगति',sa:'विकासप्रगतिः'},
+  build_days:{en:'Days',hi:'दिन',sa:'दिनानि'},
+  build_hours:{en:'Hours',hi:'घंटे',sa:'होरा:'},
+  build_minutes:{en:'Minutes',hi:'मिनट',sa:'निमेषाः'},
+  build_seconds:{en:'Seconds',hi:'सेकंड',sa:'क्षणाः'},
+  build_back:{en:'Back to pricing',hi:'प्राइसिंग पर वापस जाएँ',sa:'मूल्ययोजनां प्रति प्रत्यागच्छतु'},
+  build_foot:{en:'VIRASAT / BUILT WITH CARE / COMING SOON',hi:'VIRASAT / ध्यान से बनाया जा रहा है / जल्द आ रहा है',sa:'VIRASAT / सावधानतया निर्मीयते / शीघ्रम् आगच्छति'}
+});
 
 // Sign-in, Heritage AI and leaderboard text (used by virasatCloudScript and the login code).
 Object.assign(VIRASAT_I18N.ui, {
@@ -14774,7 +15335,12 @@ function tagStaticI18n() {
     });
 }
 function applyStaticI18n() {
-    document.querySelectorAll('[data-i18n]').forEach(el => { el.innerHTML = t(el.getAttribute('data-i18n')).trim(); });
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        const entry = (VIRASAT_I18N.ui || {})[key];
+        if (!entry) return;
+        el.innerHTML = t(key).trim();
+    });
     document.querySelectorAll('[data-i18n-attr]').forEach(el => {
         el.getAttribute('data-i18n-attr').split(';').forEach(pair => {
             const i = pair.indexOf(':'); el.setAttribute(pair.slice(0, i), t(pair.slice(i + 1)));
@@ -15195,7 +15761,9 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
             ancient:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg/960px-Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg',
             happiness:'https://images.unsplash.com/photo-1529156069898-49953e39b3ac?auto=format&fit=crop&w=900&q=80',
             nuske:'https://images.unsplash.com/photo-1515586000433-45406d8e6662?auto=format&fit=crop&w=900&q=80',
-            games:'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=900&q=80'
+            games:'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=900&q=80',
+            education:'https://upload.wikimedia.org/wikipedia/commons/d/d2/Ruins_of_Nalanda_University.JPG',
+            history:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg/960px-Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg'
         };
         const FESTIVAL_IMAGES = {
             'Gandhi Jayanti':'https://cloud.squidex.io/api/assets/wylth-website/c0de26ad-9e8d-4b91-9fd4-235e1378c6ec?format=WEBP',
@@ -15270,7 +15838,9 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
             pageEntry(localTitle('Explore India','भारत को जानें','भारतम् अन्विष्यताम्'), localTitle('Interactive State & UT heritage map','राज्य और केंद्रशासित प्रदेश विरासत मानचित्र','राज्य-केन्द्रशासितप्रदेश-धरोहरमानचित्रम्'),'map',['map','states','union territories','india'],'','🗺'),
             pageEntry(localTitle('Ancient Translator','प्राचीन लिपि परिवर्तक','प्राचीनलिपि-परिवर्तकः'), localTitle('Brahmi & Kharosthi phonetic script converter','ब्राह्मी और खरोष्ठी लिपि परिवर्तक','ब्राह्मी-खरोष्ठी-लिपिपरिवर्तकः'),'ancient',['brahmi','kharosthi','translator','transliteration','ancient script'],'','𑀅'),
             pageEntry(localTitle('Radiate Happiness','खुशियां फैलाओ','आनन्दं प्रसारयतु'), localTitle('Community kindness and cultural connection','समुदाय और सांस्कृतिक जुड़ाव','समुदायः सांस्कृतिकसम्बन्धश्च'),'happiness',['happiness','community','kindness'],'','♡'),
-            pageEntry(localTitle('Desi Nuske','देसी नुस्खे','देसी नुस्खे'), localTitle('Traditional household wisdom','पारंपरिक घरेलू ज्ञान','पारम्परिकगृहज्ञानम्'),'nuske',['nuske','home remedies','traditional wisdom'],'','🌿')
+            pageEntry(localTitle('Desi Nuske','देसी नुस्खे','देसी नुस्खे'), localTitle('Traditional household wisdom','पारंपरिक घरेलू ज्ञान','पारम्परिकगृहज्ञानम्'),'nuske',['nuske','home remedies','traditional wisdom'],'','🌿'),
+            pageEntry(localTitle('Virasat Education','विरासत शिक्षा','विरासत शिक्षा'), localTitle('Watch, explore and test India’s living heritage','देखें, खोजें और भारत की जीवंत विरासत को समझें','दृष्ट्वा अन्विष्य भारतस्य जीवन्तधरोहरां ज्ञातुम्'),'education',['education','classroom','learn','student','school','lesson'],'','◈'),
+            pageEntry(localTitle('India Through Time','भारत का इतिहास','भारतस्य इतिहासः'), localTitle('Timelines, kingdoms, rulers, wars and turning points','कालक्रम, राज्य, शासक, युद्ध और परिवर्तन','कालक्रमः, राज्यानि, शासकाः, युद्धानि, परिवर्तनानि'),'history',['history','timeline','kingdoms','empires','rulers','wars','maurya','gupta','chola','mughal','maratha'],'','⌛')
         );
         items.forEach(x=>{ if(x.type==='page' && !x.image) x.image = SEARCH_PAGE_IMAGES[x.page] || ''; });
 
@@ -17082,6 +17652,99 @@ const EXTRA = {
   "MOTION / MEMORY / MEANING":{hi:"गति / स्मृति / अर्थ",sa:"गतिः / स्मृतिः / अर्थः"}
 };
 
+
+// Full-site translation completion patch: covers visible strings missed by the original sweep.
+Object.assign(EXTRA, {
+  "Explore Virasat":{hi:"विरासत को जानें",sa:"विरासतम् अन्विष्यताम्"},
+  "— India's Living Heritage":{hi:"— भारत की जीवंत विरासत",sa:"— भारतस्य जीवन्तधरोहरा"},
+  "🌐 Language":{hi:"🌐 भाषा",sa:"🌐 भाषा"},
+  "👋 Namaste! I'm Heritage AI.":{hi:"👋 नमस्ते! मैं हेरिटेज एआई हूँ।",sa:"👋 नमस्ते! अहं धरोहर-एआई अस्मि।"},
+  "Ask me anything about India's heritage!":{hi:"भारत की विरासत के बारे में मुझसे कुछ भी पूछें!",sa:"भारतस्य धरोहरविषये मां किमपि पृच्छतु!"},
+  "INDIA — 2026":{hi:"भारत — 2026",sa:"भारतं — 2026"},
+  "PERFORMANCE / SOUTH INDIA":{hi:"प्रदर्शन / दक्षिण भारत",sa:"प्रदर्शनम् / दक्षिणभारतं"},
+  "CRAFT / EVERYDAY INDIA":{hi:"शिल्प / रोज़मर्रा का भारत",sa:"शिल्पम् / दैनिकभारतं"},
+  "RITUAL / CELEBRATION":{hi:"अनुष्ठान / उत्सव",sa:"अनुष्ठानम् / उत्सवः"},
+  "MEMORY / AJANTA":{hi:"स्मृति / अजंता",sa:"स्मृतिः / अजन्ता"},
+  "Leads the overall vision and direction of Virasat, coordinating the team and bringing its ideas, features and experiences together into one complete platform. He focuses on planning, decision-making and keeping the project true to its purpose.":{hi:"विरासत की समग्र दृष्टि और दिशा का नेतृत्व करते हुए टीम का समन्वय करते हैं और विचारों, सुविधाओं तथा अनुभवों को एक पूर्ण मंच पर साथ लाते हैं। उनका ध्यान योजना, निर्णय और परियोजना को उसके उद्देश्य के प्रति सच्चा रखने पर है।",sa:"विरासतस्य समग्रदृष्टिं दिशां च नेतुम् दलस्य समन्वयं करोति तथा विचारान् विशेषताः अनुभवान् च एकस्मिन् सम्पूर्णमञ्चे संयोजयति। योजना-निर्णय-परियोजनायाः मूलोद्देश्यरक्षणेषु तस्य ध्यानम् अस्ति।"},
+  "Hub home":{hi:"हब मुखपृष्ठ",sa:"क्रीडाकेन्द्रस्य मुखपृष्ठम्"},
+  "Game 1: Heritage Match":{hi:"खेल 1: विरासत मिलान",sa:"क्रीडा 1: धरोहर-मेलनम्"},
+  "Game 2: Heritage Quiz":{hi:"खेल 2: विरासत प्रश्नोत्तरी",sa:"क्रीडा 2: धरोहर-प्रश्नावली"},
+  "Game 3: Festival Match":{hi:"खेल 3: त्योहार मिलान",sa:"क्रीडा 3: उत्सव-मेलनम्"},
+  "Game 4: Monument Scramble":{hi:"खेल 4: स्मारक शब्द-पहेली",sa:"क्रीडा 4: स्मारक-अक्षरक्रीडा"},
+
+  "Learn · Connect · Share":{hi:"सीखें · जुड़ें · साझा करें",sa:"शिक्षताम् · संयुज्यताम् · साझीकरोतु"},
+  "Radiate":{hi:"फैलाएँ",sa:"प्रसारयतु"},
+  "Happiness.":{hi:"खुशियाँ।",sa:"आनन्दम्।"},
+  "Turn heritage into human connection — spend time with elders, discover community food initiatives, and preserve family memories with respect and consent.":{hi:"विरासत को मानवीय जुड़ाव में बदलें — बुज़ुर्गों के साथ समय बिताएँ, सामुदायिक भोजन पहलों को जानें और सम्मान व सहमति के साथ पारिवारिक स्मृतियों को सुरक्षित रखें।",sa:"धरोहरां मानवीयसम्बन्धे परिणमयतु — ज्येष्ठैः सह समयं यापयतु, सामुदायिकभोजनप्रयत्नान् अन्विष्यतु, सम्मान-सम्मत्या च परिवारस्मृतीः संरक्षतु।"},
+  "♡ Listen first":{hi:"♡ पहले सुनें",sa:"♡ प्रथमं शृणोतु"},
+  "◇ Ask permission":{hi:"◇ अनुमति लें",sa:"◇ अनुमतिं याचताम्"},
+  "↗ Verify before visiting":{hi:"↗ जाने से पहले पुष्टि करें",sa:"↗ गमनात् पूर्वं सत्यापयतु"},
+  "JOY":{hi:"आनंद",sa:"आनन्दः"},
+  "Listen to a generation that remembers.":{hi:"उस पीढ़ी को सुनें जो यादों को सँजोए हुए है।",sa:"स्मृतिं धारयन्तीं पीढीं शृणोतु।"},
+  "Find senior-care and community organisations near you. Visit respectfully, hear stories and preserve oral histories only with permission.":{hi:"अपने पास के वरिष्ठ-देखभाल और सामुदायिक संगठनों को खोजें। सम्मानपूर्वक जाएँ, कहानियाँ सुनें और केवल अनुमति के साथ मौखिक इतिहास सुरक्षित करें।",sa:"समीपस्थानि ज्येष्ठसेवा-सामुदायिकसंस्थानानि अन्विष्यतु। सम्मानपूर्वक गच्छतु, कथाः शृणोतु, अनुमत्या एव मौखिकइतिहासं संरक्षतु।"},
+  "Find nearby elder-care":{hi:"पास की वरिष्ठ-देखभाल खोजें",sa:"समीपस्थां ज्येष्ठसेवाम् अन्विष्यतु"},
+  "Food can build relationships too.":{hi:"भोजन भी रिश्ते बना सकता है।",sa:"आहारोऽपि सम्बन्धान् निर्मातुं शक्नोति।"},
+  "Discover community kitchens, meal-support initiatives and food-distribution organisations. Always check timings and participation rules first.":{hi:"सामुदायिक रसोई, भोजन-सहायता पहलों और खाद्य-वितरण संगठनों को खोजें। पहले समय और भागीदारी के नियम अवश्य जाँचें।",sa:"सामुदायिकपाकशालाः भोजनसहायप्रयत्नान् अन्नवितरणसंस्थानानि च अन्विष्यतु। प्रथमं समयं सहभागितानियमान् च पश्यतु।"},
+  "Find nearby food resources":{hi:"पास के भोजन संसाधन खोजें",sa:"समीपस्थान् आहारसंसाधनान् अन्विष्यतु"},
+  "Travel India with the best experience with our registered parteners.":{hi:"हमारे पंजीकृत साझेदारों के साथ भारत की यात्रा का बेहतर अनुभव पाएँ।",sa:"अस्माकं पञ्जीकृतसहयोगिभिः सह भारतयात्रायाः उत्तमानुभवं प्राप्नुत।"},
+  "View travel partner":{hi:"यात्रा साझेदार देखें",sa:"यात्रासहयोगिनं पश्यतु"},
+  "Respect before action.":{hi:"कार्य से पहले सम्मान।",sa:"क्रियातः पूर्वं सम्मानः।"},
+  "Contact organisations beforehand. Do not photograph, record or publish anyone’s story without clear permission. Availability, volunteering rules and contact details can change.":{hi:"संगठनों से पहले संपर्क करें। स्पष्ट अनुमति के बिना किसी की कहानी की तस्वीर, रिकॉर्डिंग या प्रकाशन न करें। उपलब्धता, स्वयंसेवा नियम और संपर्क विवरण बदल सकते हैं।",sa:"संस्थाभिः पूर्वमेव सम्पर्कं कुर्वन्तु। स्पष्टानुमतिं विना कस्यापि कथायाः चित्रणं ध्वनिलेखनं प्रकाशनं वा मा कुर्वन्तु। उपलब्धता स्वयंसेवानियमाः सम्पर्कविवरणानि च परिवर्तितुं शक्नुवन्ति।"},
+
+  "✦ VIRASAT / HERITAGE TRAILS":{hi:"✦ विरासत / धरोहर यात्राएँ",sa:"✦ विरासत / धरोहरयात्राः"},
+  "India, beyond the postcard.":{hi:"भारत, पोस्टकार्ड से आगे।",sa:"भारतं, चित्रपत्रात् परम्।"},
+  "Explore the places that shaped India's art, architecture and living traditions. Choose a state, discover its cities, and open a city's heritage trail.":{hi:"उन स्थानों को जानें जिन्होंने भारत की कला, वास्तुकला और जीवंत परंपराओं को आकार दिया। राज्य चुनें, उसके शहर खोजें और किसी शहर की धरोहर यात्रा खोलें।",sa:"भारतस्य कलां स्थापत्यं जीवन्तपरम्पराश्च आकारितवन्ति ये स्थानानि तानि अन्विष्यतु। राज्यं चिनुत, तस्य नगराणि पश्यतु, नगरस्य धरोहरयात्रां च उद्घाटयतु।"},
+  "28 STATES":{hi:"28 राज्य",sa:"28 राज्यानि"},
+  "182 DESTINATIONS":{hi:"182 गंतव्य",sa:"182 गन्तव्यानि"},
+  "546 HERITAGE STOPS":{hi:"546 धरोहर स्थल",sa:"546 धरोहरस्थानानि"},
+  "Find a state or city":{hi:"राज्य या शहर खोजें",sa:"राज्यं नगरं वा अन्विष्यतु"},
+  "All states ↗":{hi:"सभी राज्य ↗",sa:"सर्वाणि राज्यानि ↗"},
+  "Heritage suggestions include some nearby day trips. Opening hours and access rules can change; check official tourism information before visiting.":{hi:"धरोहर सुझावों में कुछ पास के एक-दिवसीय भ्रमण भी शामिल हैं। खुलने का समय और प्रवेश नियम बदल सकते हैं; जाने से पहले आधिकारिक पर्यटन जानकारी जाँचें।",sa:"धरोहरसूचनासु कतिचन समीपस्थैकदिवसीययात्राः अपि सन्ति। उद्घाटनसमयः प्रवेशनीयमाश्च परिवर्तितुं शक्नुवन्ति; गमनात् पूर्वं आधिकारिकपर्यटनसूचनां पश्यतु।"},
+
+  "Click on a state or union territory on the map":{hi:"मानचित्र पर किसी राज्य या केंद्रशासित प्रदेश पर क्लिक करें",sa:"मानचित्रे राज्यं केन्द्रशासितप्रदेशं वा स्पृशतु"},
+  "to explore its living heritage.":{hi:"उसकी जीवंत विरासत को जानने के लिए।",sa:"तस्य जीवन्तधरोहराम् अन्वेष्टुम्।"},
+
+  "Scripts of Ancient India":{hi:"प्राचीन भारत की लिपियाँ",sa:"प्राचीनभारतस्य लिपयः"},
+  "Ancient":{hi:"प्राचीन",sa:"प्राचीनः"},
+  "Translator":{hi:"अनुवादक",sa:"लिप्यन्तरकः"},
+  "Type Roman/English phonetic text once and view its Brahmi and Kharosthi script forms together on the same page.":{hi:"रोमन/अंग्रेज़ी ध्वन्यात्मक पाठ एक बार लिखें और उसी पृष्ठ पर उसका ब्राह्मी व खरोष्ठी रूप साथ देखें।",sa:"रोमन/आङ्ग्लध्वन्यात्मकपाठं एकवारं लिखित्वा तस्य ब्राह्मी-खरोष्ठीरूपे एकस्मिन् पृष्ठे सह पश्यतु।"},
+  "English / Roman text":{hi:"अंग्रेज़ी / रोमन पाठ",sa:"आङ्ग्ल / रोमन पाठः"},
+  "Type phonetically":{hi:"ध्वन्यात्मक रूप से लिखें",sa:"ध्वन्यात्मकतया लिखतु"},
+  "Convert Both Scripts":{hi:"दोनों लिपियाँ बदलें",sa:"उभे लिपी परिवर्तयतु"},
+  "Clear":{hi:"साफ़ करें",sa:"शोधयतु"},
+  "Left-to-right Unicode output":{hi:"बाएँ से दाएँ यूनिकोड आउटपुट",sa:"वामतः दक्षिणं यूनिकोड् निर्गमः"},
+  "Brahmi output":{hi:"ब्राह्मी आउटपुट",sa:"ब्राह्मी निर्गमः"},
+  "Copy Brahmi":{hi:"ब्राह्मी कॉपी करें",sa:"ब्राह्मीं प्रतिलिखतु"},
+  "Right-to-left Unicode output":{hi:"दाएँ से बाएँ यूनिकोड आउटपुट",sa:"दक्षिणतः वामं यूनिकोड् निर्गमः"},
+  "Kharosthi output":{hi:"खरोष्ठी आउटपुट",sa:"खरोष्ठी निर्गमः"},
+  "Copy Kharosthi":{hi:"खरोष्ठी कॉपी करें",sa:"खरोष्ठीं प्रतिलिखतु"},
+  "Note:":{hi:"नोट:",sa:"सूचना:"},
+  "This is a phonetic script transliterator, not a historical-language grammar translator. Brahmi and Kharosthi are shown simultaneously so there is no script-switching navigation. Unsupported sounds remain visible rather than being silently removed.":{hi:"यह एक ध्वन्यात्मक लिप्यंतरण उपकरण है, ऐतिहासिक भाषा का व्याकरणिक अनुवादक नहीं। ब्राह्मी और खरोष्ठी साथ दिखाई जाती हैं, इसलिए लिपि बदलने की अलग नेविगेशन नहीं है। असमर्थित ध्वनियाँ हटाने के बजाय दिखाई देती रहती हैं।",sa:"एषः ध्वन्यात्मकलिप्यन्तरकः अस्ति, न तु ऐतिहासिकभाषायाः व्याकरणानुवादकः। ब्राह्मी खरोष्ठी च एकस्मिन् समये दर्श्येते, अतः लिपिपरिवर्तननेविगेशनं न आवश्यकम्। असमर्थितध्वनयः मौनतया न लुप्यन्ते, दृश्यन्ते एव।"},
+
+  "Maa Ki Rasoi · Nani Ki Kahani · Festivals · Heritage Games · Radiate Happiness · Desi Nuske":{hi:"माँ की रसोई · नानी की कहानी · त्योहार · विरासत खेल · खुशियाँ बाँटें · देसी नुस्खे",sa:"मातुः पाकशाला · मातामह्याः कथा · उत्सवाः · धरोहरक्रीडाः · आनन्दं प्रसारयतु · देशीयोपायाः"},
+  "Search Virasat":{hi:"विरासत में खोजें",sa:"विरासते अन्विष्यतु"},
+  "Search across Virasat — recipes, festivals, states, stories, objects, games and more.":{hi:"विरासत में खोजें — व्यंजन, त्योहार, राज्य, कहानियाँ, वस्तुएँ, खेल और बहुत कुछ।",sa:"विरासते अन्विष्यतु — व्यञ्जनानि, उत्सवाः, राज्यानि, कथाः, वस्तूनि, क्रीडाः च अधिकम्।"},
+  "Popular searches":{hi:"लोकप्रिय खोजें",sa:"लोकप्रियान्वेषणानि"}
+});
+
+
+// Team profiles are rendered dynamically, so their role/description strings need exact translations too.
+Object.assign(EXTRA, {
+  "Deputy Project Lead & Operations Coordinator":{hi:"उप परियोजना प्रमुख और संचालन समन्वयक",sa:"उपपरियोजनानेता संचालनसमन्वयकश्च"},
+  "Technology & Systems Lead":{hi:"प्रौद्योगिकी और सिस्टम प्रमुख",sa:"प्रौद्योगिकी-प्रणालीनेता"},
+  "Cultural Research & Content Lead":{hi:"सांस्कृतिक शोध और सामग्री प्रमुख",sa:"सांस्कृतिकसंशोधन-विषयवस्तुनेता"},
+  "UI/UX & Creative Experience Lead":{hi:"यूआई/यूएक्स और रचनात्मक अनुभव प्रमुख",sa:"UI/UX-सृजनात्मकानुभवनेता"},
+  "Teacher in Charge":{hi:"प्रभारी शिक्षक",sa:"प्रभारीशिक्षिका"},
+  "Project Mentor":{hi:"परियोजना मार्गदर्शक",sa:"परियोजनामार्गदर्शकः"},
+  "Guidance Team":{hi:"मार्गदर्शन टीम",sa:"मार्गदर्शनदलम्"},
+  "Works alongside the Project Lead to coordinate development, organize tasks and keep different parts of the project moving together. He also helps review features, identify problems and support the team wherever additional work is needed.":{hi:"परियोजना प्रमुख के साथ मिलकर विकास का समन्वय करते हैं, कार्य व्यवस्थित करते हैं और परियोजना के विभिन्न हिस्सों को साथ आगे बढ़ाते हैं। वे सुविधाओं की समीक्षा, समस्याओं की पहचान और जहाँ अतिरिक्त काम चाहिए वहाँ टीम की सहायता भी करते हैं।",sa:"परियोजनानेत्रा सह विकासस्य समन्वयं करोति, कार्याणि व्यवस्थितानि करोति, परियोजनायाः विविधभागान् सह अग्रे नयति। विशेषतानां समीक्षा, समस्यापरिचयः, आवश्यकस्थले दलसाहाय्यं च करोति।"},
+  "Focuses on the technical side of Virasat, including functionality, interactive features, integration and testing. His role is centered on helping the team turn ideas into reliable features that work together across the website.":{hi:"विरासत के तकनीकी पक्ष पर ध्यान देते हैं, जिसमें कार्यक्षमता, इंटरैक्टिव सुविधाएँ, एकीकरण और परीक्षण शामिल हैं। उनका काम विचारों को विश्वसनीय सुविधाओं में बदलने में टीम की मदद करना है, जो पूरी वेबसाइट पर सही ढंग से साथ काम करें।",sa:"विरासतस्य प्राविधिकपक्षे कार्यक्षमता-अन्तःक्रियात्मकविशेषता-समाकलन-परीक्षणेषु च ध्यानं ददाति। विचारान् विश्वसनीयविशेषतासु परिणमयितुं दलस्य साहाय्यं करोति, याः सम्पूर्णजालस्थले सम्यक् कार्यं कुर्वन्ति।"},
+  "Helps shape the information presented throughout Virasat through cultural research, heritage content and storytelling. His role focuses on making the platform informative, understandable and meaningful for people exploring India’s living heritage.":{hi:"सांस्कृतिक शोध, विरासत सामग्री और कहानी कहने के माध्यम से विरासत में प्रस्तुत जानकारी को आकार देने में मदद करते हैं। उनका ध्यान मंच को भारत की जीवंत विरासत खोजने वाले लोगों के लिए जानकारीपूर्ण, समझने योग्य और अर्थपूर्ण बनाने पर है।",sa:"सांस्कृतिकसंशोधन-धरोहरविषयवस्तु-कथनैः विरासते प्रस्तुतसूचनां आकारयति। भारतस्य जीवन्तधरोहराम् अन्विष्यतां जनानां कृते मञ्चं ज्ञानप्रदं सुबोधं सार्थकं च कर्तुं तस्य ध्यानम् अस्ति।"},
+  "Focuses on how users experience Virasat visually and interactively. His role includes contributing to layouts, interface ideas, presentation, visual consistency and the overall polish that makes the platform engaging to explore.":{hi:"उपयोगकर्ता विरासत को दृश्य और इंटरैक्टिव रूप से कैसे अनुभव करते हैं, इस पर ध्यान देते हैं। उनके काम में लेआउट, इंटरफ़ेस विचार, प्रस्तुति, दृश्य निरंतरता और वह समग्र निखार शामिल है जो मंच को खोजने में आकर्षक बनाता है।",sa:"उपयोक्तारः विरासतं दृश्यतया अन्तःक्रियात्मकतया च कथम् अनुभवन्ति इति विषयं पश्यति। विन्यासः अन्तरफलकविचाराः प्रस्तुतीकरणं दृश्यसामञ्जस्यं समग्रपरिष्कारश्च तस्य कार्ये अन्तर्भवन्ति।"},
+  "Nurtures the overall vision and direction of Virasat, guiding the projects growth and helping shape its ideas, features, and experiences into a complete platform. She focuses on strategic development, high-level planning, and ensuring the project remains true to its core purpose.":{hi:"विरासत की समग्र दृष्टि और दिशा को सँवारती हैं, परियोजना के विकास का मार्गदर्शन करती हैं और उसके विचारों, सुविधाओं तथा अनुभवों को एक पूर्ण मंच का रूप देने में मदद करती हैं। उनका ध्यान रणनीतिक विकास, उच्च-स्तरीय योजना और परियोजना को उसके मूल उद्देश्य के प्रति सच्चा रखने पर है।",sa:"विरासतस्य समग्रदृष्टिं दिशां च पोषयति, परियोजनायाः विकासं मार्गदर्शयति, तस्य विचारान् विशेषताः अनुभवान् च सम्पूर्णमञ्चरूपे आकारयितुं साहाय्यं करोति। रणनीतिकविकासे उच्चस्तरीययोजनायां मूलोद्देश्यरक्षणे च तस्याः ध्यानम् अस्ति।"},
+  "Oversees the overall execution and direction of Virasat, coordinating the team and bringing our ideas, features, and experiences together into one cohesive platform. He focuses on structural planning, administrative guidance, and keeping the team aligned with its core purpose.":{hi:"विरासत के समग्र क्रियान्वयन और दिशा की देखरेख करते हैं, टीम का समन्वय करते हैं और विचारों, सुविधाओं तथा अनुभवों को एक संगठित मंच में साथ लाते हैं। उनका ध्यान संरचनात्मक योजना, प्रशासनिक मार्गदर्शन और टीम को उसके मूल उद्देश्य के अनुरूप बनाए रखने पर है।",sa:"विरासतस्य समग्रकार्यान्वयनं दिशां च पर्यवेक्षते, दलस्य समन्वयं करोति, विचारान् विशेषताः अनुभवान् च एकस्मिन् सुसङ्गतमञ्चे संयोजयति। संरचनात्मकयोजना प्रशासनिकमार्गदर्शनं मूलोद्देश्येन सह दलस्य सामञ्जस्यं च तस्य मुख्यं ध्यानम् अस्ति।"}
+});
+
 function norm(s){ return String(s||'').replace(/\s+/g,' ').trim(); }
 function strip(html){ const d=document.createElement('div'); d.innerHTML=String(html||''); return norm(d.textContent); }
 let cachedMap=null;
@@ -17141,6 +17804,9 @@ const TRANSITION={
  ancient:{hi:['प्राचीन अनुवादक','04 / लिपि','ब्राह्मी / खरोष्ठी / भाषा'],sa:['प्राचीनानुवादकः','04 / लिपिः','ब्राह्मी / खरोष्ठी / भाषा']},
  map:{hi:['भारत को जानें','05 / स्थान','राज्य / लोग / विरासत'],sa:['भारतम् अन्विष्यताम्','05 / स्थानानि','राज्यानि / जनाः / धरोहरा']},
  tourism:{hi:['पर्यटन','06 / यात्रा','स्थान / यात्राएँ / विरासत'],sa:['पर्यटनम्','06 / यात्रा','स्थानानि / यात्राः / धरोहरा']},
+ education:{hi:['विरासत शिक्षा','शिक्षा / सीखें','देखें / खोजें / समझें'],sa:['विरासत शिक्षा','शिक्षा / अध्ययनम्','पश्यतु / अन्विष्यतु / अवगच्छतु']},
+ history:{hi:['भारत का इतिहास','इतिहास / कालक्रम','राज्य / संघर्ष / परिवर्तन'],sa:['भारतस्य इतिहासः','इतिहासः / कालक्रमः','राज्यानि / संघर्षाः / परिवर्तनानि']},
+ plans:{hi:['विरासत सदस्यता','जल्द आ रहा है / सदस्यता','PLUS / PREMIUM / संस्कृति'],sa:['विरासत सदस्यता','शीघ्रम् / सदस्यता','PLUS / PREMIUM / संस्कृतिः']},
  objects:{hi:['वस्तुओं में भारत','06 / वस्तुएँ','शिल्प / रोज़मर्रा / स्मृति'],sa:['वस्तुषु भारतम्','06 / वस्तूनि','शिल्पम् / दैनिकम् / स्मृतिः']},
  games:{hi:['गेमिंग हब','07 / खेल','मिलान / प्रश्नोत्तरी / खोज'],sa:['क्रीडाकेन्द्रम्','07 / क्रीडा','मेलनम् / प्रश्नाः / अन्वेषणम्']},
  happiness:{hi:['खुशियाँ बाँटें','08 / साझा करें','देखभाल / स्मृति / समुदाय'],sa:['आनन्दं प्रसारयतु','08 / साझीकरणम्','सेवा / स्मृतिः / समुदायः']},
@@ -17159,7 +17825,7 @@ window.virasatTransitionInfo=function(page,fallback){
 // Wrap the existing language function without changing its original rendering logic.
 if(typeof applyLanguage==='function'&&!applyLanguage.__fullPatch){
   const base=applyLanguage;
-  const wrapped=function(lang){ const result=base(lang); queueMicrotask(()=>window.virasatTranslateEverything(lang)); setTimeout(()=>window.virasatTranslateEverything(lang),0); return result; };
+  const wrapped=function(lang){ const result=base(lang); queueMicrotask(()=>window.virasatTranslateEverything(lang)); [0,80,220,500].forEach(ms=>setTimeout(()=>window.virasatTranslateEverything(lang),ms)); return result; };
   wrapped.__fullPatch=true; applyLanguage=wrapped;
 }
 
@@ -17173,6 +17839,7 @@ obs.observe(document.body,{childList:true,subtree:true});
 
 // Initial pass after every existing startup renderer has finished.
 setTimeout(()=>window.virasatTranslateEverything(typeof LANG!=='undefined'?LANG:'en'),50);
+document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) setTimeout(()=>window.virasatTranslateEverything(typeof LANG!=='undefined'?LANG:'en'),650); },true);
 })();
 </script>
 <script id="virasatKahaniBookScript">
@@ -18767,6 +19434,23 @@ setTimeout(()=>window.virasatTranslateEverything(typeof LANG!=='undefined'?LANG:
 @keyframes tourismPocketGlow{0%{opacity:0;transform:scale(.84)}28%{opacity:1;transform:scale(1)}100%{opacity:.5;transform:scale(1.08)}}
 @media(max-width:620px){.tourism-info-overlay{padding:12px}.tourism-info-panel{border-radius:22px}.tourism-info-copy{padding:24px 22px 28px}.tourism-info-media{height:250px}}
 @media(prefers-reduced-motion:reduce){.tourism-info-overlay.open .tourism-info-panel{animation:none;opacity:1;transform:none}.tourism-info-overlay.open .tourism-info-smoke{display:none}.tourism-info-overlay.open::before{animation:none;opacity:.5}}
+
+.tourism-travel-box{margin-top:22px;border:1px solid rgba(212,175,55,.24);border-radius:18px;background:rgba(212,175,55,.055);padding:16px 17px}
+.tourism-travel-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px}
+.tourism-travel-title{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;color:#e8c874;font-weight:800}
+.tourism-travel-refresh{border:1px solid rgba(212,175,55,.28);background:rgba(10,8,6,.38);color:#f2cd6b;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:800;cursor:pointer}
+.tourism-travel-refresh:hover{background:rgba(212,175,55,.12)}
+.tourism-travel-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.tourism-google-route{display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid rgba(212,175,55,.34);background:linear-gradient(135deg,rgba(212,175,55,.16),rgba(212,175,55,.06));color:#f5d57d;text-decoration:none;border-radius:999px;padding:8px 12px;font-size:11px;font-weight:800;letter-spacing:.15px;transition:transform .2s ease,background .2s ease,border-color .2s ease,opacity .2s ease}
+.tourism-google-route:hover{transform:translateY(-1px);background:rgba(212,175,55,.16);border-color:rgba(212,175,55,.56)}
+.tourism-google-route[aria-disabled="true"]{opacity:.42;pointer-events:none}
+.tourism-travel-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.tourism-travel-stat{border:1px solid rgba(255,255,255,.07);border-radius:14px;padding:13px 14px;background:rgba(10,8,6,.38)}
+.tourism-travel-stat small{display:block;color:#9e8d70;font-size:10px;letter-spacing:1.2px;text-transform:uppercase;margin-bottom:5px}
+.tourism-travel-stat strong{display:block;color:#fff0cf;font:600 22px/1.15 'Playfair Display',serif}
+.tourism-travel-note{margin-top:10px;color:#9e8d70;font-size:11px;line-height:1.5}
+.tourism-travel-note.is-error{color:#d7aa8d}
+@media(max-width:520px){.tourism-travel-grid{grid-template-columns:1fr}.tourism-travel-top{align-items:flex-start;flex-direction:column}.tourism-travel-actions{width:100%}.tourism-travel-refresh,.tourism-google-route{flex:1}}
 </style>
 <script id="virasatTourismExplorerScript">
 (function(){
@@ -18775,13 +19459,13 @@ const DATA={"Andhra Pradesh":[{"name":"Visakhapatnam","sites":["Simhachalam Temp
 const root=document.getElementById('tourismContent'),crumbs=document.getElementById('tourismCrumbs'),search=document.getElementById('tourismSearch'),reset=document.getElementById('tourismReset');
 if(!root||!crumbs||!search||!reset)return;
 let state=null,city=null;
-const dict={en:{all:'All states',states:'Choose a state',cities:'Discover cities in',sites:'Heritage & cultural sites',select:'Select a city to explore its cultural landmarks and nearby heritage stops.',search:'Search states and cities…',reset:'All states ↗',near:'In or around',visit:'Official tourism information ↗',no:'No matching states or cities found.',stop:'HERITAGE TRAIL',city:'POPULAR CITY',st:'INDIAN STATE',about:'Open the arrow for the story, history and cultural context of this place.',open:'Open story',story:'Heritage story',loading:'Gathering the story…',source:'Read source ↗',unavailable:'A detailed online description could not be loaded right now. This stop remains part of the heritage trail for this city; use the official tourism link on the city page for verified visitor information.'},hi:{all:'सभी राज्य',states:'राज्य चुनें',cities:'इन शहरों को जानें:',sites:'विरासत और सांस्कृतिक स्थल',select:'शहर चुनें और उसके ऐतिहासिक व सांस्कृतिक स्थलों को जानें।',search:'राज्य और शहर खोजें…',reset:'सभी राज्य ↗',near:'इस शहर के आसपास:',visit:'आधिकारिक पर्यटन जानकारी ↗',no:'कोई मेल खाता राज्य या शहर नहीं मिला।',stop:'विरासत यात्रा',city:'प्रमुख शहर',st:'भारतीय राज्य',about:'इस स्थान की कहानी, इतिहास और सांस्कृतिक संदर्भ के लिए तीर खोलें।',open:'कहानी खोलें',story:'विरासत की कहानी',loading:'जानकारी लोड हो रही है…',source:'स्रोत पढ़ें ↗',unavailable:'इस समय विस्तृत ऑनलाइन जानकारी लोड नहीं हो सकी। सत्यापित यात्रा जानकारी के लिए शहर के पृष्ठ पर आधिकारिक पर्यटन लिंक देखें।'},sa:{all:'सर्वाणि राज्यानि',states:'राज्यं चिनुत',cities:'नगराणि अन्विष्यताम्:',sites:'धरोहर-सांस्कृतिकस्थानानि',select:'नगरं चित्वा ऐतिहासिक-सांस्कृतिकस्थानानि पश्यतु।',search:'राज्यानि नगराणि च अन्विष्यताम्…',reset:'सर्वाणि राज्यानि ↗',near:'नगरस्य समीपे:',visit:'आधिकारिकपर्यटनसूचना ↗',no:'अनुरूपं राज्यं नगरं वा न प्राप्तम्।',stop:'धरोहरयात्रा',city:'प्रसिद्धनगरम्',st:'भारतीयराज्यम्',about:'अस्य स्थानस्य कथा इतिहासः सांस्कृतिकसन्दर्भश्च ज्ञातुं बाणं उद्घाटयतु।',open:'कथाम् उद्घाटयतु',story:'धरोहरकथा',loading:'विवरणं लभ्यते…',source:'स्रोतं पठतु ↗',unavailable:'विस्तृतम् ऑनलाइन-विवरणम् इदानीं न लब्धम्। सत्यापितयात्रासूचनार्थं नगरपृष्ठस्य आधिकारिकपर्यटनसम्बन्धं पश्यतु।'}};
+const dict={en:{all:'All states',states:'Choose a state',cities:'Discover cities in',sites:'Heritage & cultural sites',select:'Select a city to explore its cultural landmarks and nearby heritage stops.',search:'Search states and cities…',reset:'All states ↗',near:'In or around',visit:'Official tourism information ↗',no:'No matching states or cities found.',stop:'HERITAGE TRAIL',city:'POPULAR CITY',st:'INDIAN STATE',about:'Open the arrow for the story, history and cultural context of this place.',open:'Open story',story:'Heritage story',loading:'Gathering the story…',source:'Read source ↗',unavailable:'A detailed online description could not be loaded right now. This stop remains part of the heritage trail for this city; use the official tourism link on the city page for verified visitor information.',travel:'From your location',distance:'Driving distance',duration:'Estimated time',locating:'Finding your location and route…',locate:'Calculate again',locDenied:'Allow location access to show distance and travel time.',routeFallback:'Approximate road estimate shown because live routing was unavailable.',routeLive:'Live road estimate · shown inside Virasat',googleRoute:'Google Route ↗'},hi:{all:'सभी राज्य',states:'राज्य चुनें',cities:'इन शहरों को जानें:',sites:'विरासत और सांस्कृतिक स्थल',select:'शहर चुनें और उसके ऐतिहासिक व सांस्कृतिक स्थलों को जानें।',search:'राज्य और शहर खोजें…',reset:'सभी राज्य ↗',near:'इस शहर के आसपास:',visit:'आधिकारिक पर्यटन जानकारी ↗',no:'कोई मेल खाता राज्य या शहर नहीं मिला।',stop:'विरासत यात्रा',city:'प्रमुख शहर',st:'भारतीय राज्य',about:'इस स्थान की कहानी, इतिहास और सांस्कृतिक संदर्भ के लिए तीर खोलें।',open:'कहानी खोलें',story:'विरासत की कहानी',loading:'जानकारी लोड हो रही है…',source:'स्रोत पढ़ें ↗',unavailable:'इस समय विस्तृत ऑनलाइन जानकारी लोड नहीं हो सकी। सत्यापित यात्रा जानकारी के लिए शहर के पृष्ठ पर आधिकारिक पर्यटन लिंक देखें।',travel:'आपके स्थान से',distance:'सड़क दूरी',duration:'अनुमानित समय',locating:'आपका स्थान और मार्ग खोजा जा रहा है…',locate:'फिर गणना करें',locDenied:'दूरी और यात्रा समय देखने के लिए स्थान अनुमति दें।',routeFallback:'लाइव मार्ग उपलब्ध न होने पर अनुमानित सड़क दूरी दिखाई गई है।',routeLive:'लाइव सड़क अनुमान · Virasat के अंदर',googleRoute:'Google मार्ग ↗'},sa:{all:'सर्वाणि राज्यानि',states:'राज्यं चिनुत',cities:'नगराणि अन्विष्यताम्:',sites:'धरोहर-सांस्कृतिकस्थानानि',select:'नगरं चित्वा ऐतिहासिक-सांस्कृतिकस्थानानि पश्यतु।',search:'राज्यानि नगराणि च अन्विष्यताम्…',reset:'सर्वाणि राज्यानि ↗',near:'नगरस्य समीपे:',visit:'आधिकारिकपर्यटनसूचना ↗',no:'अनुरूपं राज्यं नगरं वा न प्राप्तम्।',stop:'धरोहरयात्रा',city:'प्रसिद्धनगरम्',st:'भारतीयराज्यम्',about:'अस्य स्थानस्य कथा इतिहासः सांस्कृतिकसन्दर्भश्च ज्ञातुं बाणं उद्घाटयतु।',open:'कथाम् उद्घाटयतु',story:'धरोहरकथा',loading:'विवरणं लभ्यते…',source:'स्रोतं पठतु ↗',unavailable:'विस्तृतम् ऑनलाइन-विवरणम् इदानीं न लब्धम्। सत्यापितयात्रासूचनार्थं नगरपृष्ठस्य आधिकारिकपर्यटनसम्बन्धं पश्यतु।',travel:'भवतः स्थानात्',distance:'मार्गदूरता',duration:'अनुमितसमयः',locating:'स्थानं मार्गं च अन्विष्यते…',locate:'पुनः गणयतु',locDenied:'दूरता-यात्रासमयदर्शनार्थं स्थानानुमतिं ददातु।',routeFallback:'जीवन्मार्गः न लब्धः; अनुमानितमार्गदूरता दर्शिता।',routeLive:'जीवन्मार्गानुमानम् · Virasat मध्ये',googleRoute:'Google मार्गः ↗'}};
 const getLang=()=>typeof LANG!=='undefined'&&dict[LANG]?LANG:'en';
 const tx=()=>dict[getLang()];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const label=s=>typeof tr==='function'?tr(s):s;
 const transparentGif='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-const mediaCacheKey='virasat_tourism_media_cache_v2';
+const mediaCacheKey='virasat_tourism_media_cache_v4_accuracy';
 const mediaCacheMem=Object.create(null);
 let mediaCacheDisk=Object.create(null);
 try{mediaCacheDisk=JSON.parse(localStorage.getItem(mediaCacheKey)||'{}')||Object.create(null);}catch(_e){mediaCacheDisk=Object.create(null);}
@@ -18797,6 +19481,10 @@ function imageMarkup(kind, alt, opts){
   if(opts.q1) attrs.push(' data-q1="'+esc(opts.q1)+'"');
   if(opts.q2) attrs.push(' data-q2="'+esc(opts.q2)+'"');
   if(opts.q3) attrs.push(' data-q3="'+esc(opts.q3)+'"');
+  if(opts.target) attrs.push(' data-target="'+esc(opts.target)+'"');
+  if(opts.city) attrs.push(' data-city="'+esc(opts.city)+'"');
+  if(opts.state) attrs.push(' data-state="'+esc(opts.state)+'"');
+  if(opts.kind) attrs.push(' data-kind="'+esc(opts.kind)+'"');
   if(opts.fallback) attrs.push(' data-fallback="'+esc(opts.fallback)+'"');
   return '<div class="'+(kind==='site'?'tourism-site-media':'tourism-card-media')+' tourism-photo-fallback">'
        + '<img class="'+classes+'" src="'+esc(src)+'" alt="'+esc(alt)+'" loading="lazy" decoding="async"'+attrs.join('')+'>'
@@ -18805,138 +19493,225 @@ function imageMarkup(kind, alt, opts){
 function wikiSearchUrl(query){
   return 'https://en.wikipedia.org/w/api.php?origin=*&action=query&generator=search&gsrsearch='
     + encodeURIComponent(query)
-    + '&gsrlimit=1&prop=pageimages&piprop=thumbnail&pithumbsize=1280&format=json';
+    + '&gsrlimit=8&prop=pageimages|extracts&piprop=thumbnail&pithumbsize=1280&exintro=1&explaintext=1&exsentences=2&format=json';
 }
+function cleanPhotoText(s){
+  return String(s||'').toLowerCase()
+    .replace(/\([^)]*\)/g,' ')
+    .replace(/\b(the|of|and|at|in|near|india|indian)\b/g,' ')
+    .replace(/[^a-z0-9]+/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function photoTokens(s){ return new Set(cleanPhotoText(s).split(' ').filter(x=>x.length>2)); }
+function tokenOverlap(a,b){ const A=photoTokens(a),B=photoTokens(b); if(!A.size||!B.size)return 0; let hit=0;A.forEach(x=>{if(B.has(x))hit++;}); return hit/Math.max(A.size,B.size); }
+function scorePhotoCandidate(page,target,cityName,stateName){
+  if(!page||!page.thumbnail||!page.thumbnail.source)return -999;
+  const title=page.title||'',extract=page.extract||'';
+  const t=cleanPhotoText(target),p=cleanPhotoText(title),blob=cleanPhotoText(title+' '+extract);
+  let score=0;
+  if(p===t)score+=120; else if(p.startsWith(t)||t.startsWith(p))score+=72;
+  score+=Math.round(tokenOverlap(target,title)*68);
+  if(cityName&&blob.includes(cleanPhotoText(cityName)))score+=28;
+  if(stateName&&blob.includes(cleanPhotoText(stateName)))score+=24;
+  if(/\bindia\b/i.test(extract))score+=5;
+  if(/disambiguation|may refer to|list of/i.test(extract))score-=80;
+  return score;
+}
+function isBroadHeritageLabel(name){
+  return /heritage circuit|cultural landscape|heritage landscape|traditional markets?|village traditions?|cultural area|cultural villages?|tribal villages?|art villages?|heritage villages?|craft fair grounds?|foothill cultural landscape|archaeological sites?$|regional pilgrimage|local cultural markets?/i.test(name||'');
+}
+async function fetchBestPhoto(query,target,cityName,stateName){
+  try{
+    const res=await fetch(wikiSearchUrl(query),{mode:'cors'}); if(!res.ok)return null;
+    const data=await res.json(); const pages=data&&data.query&&data.query.pages?Object.values(data.query.pages):[];
+    const ranked=pages.map(p=>({p,score:scorePhotoCandidate(p,target,cityName,stateName)})).sort((a,b)=>b.score-a.score);
+    const best=ranked[0]; if(!best||best.score<58)return null; return best.p.thumbnail.source;
+  }catch(_e){return null;}
+}
+
 function wikiInfoUrl(query, code){
   code=code||'en';
   return 'https://'+code+'.wikipedia.org/w/api.php?origin=*&action=query&generator=search&gsrsearch='
     + encodeURIComponent(query)
-    + '&gsrlimit=1&prop=extracts|pageimages|info&inprop=url&exintro=1&explaintext=1&exsentences=5&piprop=thumbnail&pithumbsize=1400&format=json';
+    + '&gsrlimit=3&prop=extracts|pageimages|info|coordinates&inprop=url&exintro=1&explaintext=1&exsentences=5&piprop=thumbnail&pithumbsize=1400&colimit=1&format=json';
 }
-const infoCacheKey='virasat_tourism_info_cache_v2';
+const infoCacheKey='virasat_tourism_info_cache_v4';
 let infoCache={};
 try{infoCache=JSON.parse(localStorage.getItem(infoCacheKey)||'{}')||{};}catch(_e){infoCache={};}
 const infoPending=Object.create(null);
 function saveInfoCache(){try{localStorage.setItem(infoCacheKey,JSON.stringify(infoCache));}catch(_e){}}
-function fetchWithTimeout(url, ms){
+function fetchWithTimeout(url,ms){
   const controller=typeof AbortController!=='undefined'?new AbortController():null;
   const timer=controller?setTimeout(()=>controller.abort(),ms):null;
   return fetch(url,{mode:'cors',signal:controller?controller.signal:undefined}).finally(()=>{if(timer)clearTimeout(timer);});
 }
-async function tryWikiInfo(query, code){
+async function tryWikiInfo(query,code,name,cityName,stateName){
   try{
-    const res=await fetchWithTimeout(wikiInfoUrl(query,code),2200);
-    if(!res.ok) return null;
-    const data=await res.json();
-    const pages=data&&data.query&&data.query.pages?Object.values(data.query.pages):[];
-    const page=pages.find(p=>p&&p.extract&&p.extract.trim().length>70)||pages.find(p=>p&&p.extract)||null;
-    if(!page||!page.extract) return null;
-    return {title:page.title||'',text:page.extract.trim(),image:page.thumbnail&&page.thumbnail.source?page.thumbnail.source:'',url:page.fullurl||''};
+    const res=await fetchWithTimeout(wikiInfoUrl(query,code),2600); if(!res.ok)return null;
+    const data=await res.json(); const pages=data&&data.query&&data.query.pages?Object.values(data.query.pages):[];
+    const ranked=pages.map(p=>({p,score:scorePhotoCandidate(p,name,cityName,stateName)+(p.extract&&p.extract.trim().length>80?15:0)})).sort((a,b)=>b.score-a.score);
+    const page=(ranked[0]&&ranked[0].score>35?ranked[0].p:null)||pages.find(p=>p&&p.extract)||null;
+    if(!page||!page.extract)return null;
+    const co=page.coordinates&&page.coordinates[0];
+    return {title:page.title||'',text:page.extract.trim(),image:page.thumbnail&&page.thumbnail.source?page.thumbnail.source:'',url:page.fullurl||'',lat:co?+co.lat:null,lon:co?+co.lon:null};
   }catch(_e){return null;}
 }
-async function resolveHeritageInfo(name, cityName, stateName){
-  const l=getLang(), cacheKey=l+'|'+name+'|'+cityName+'|'+stateName;
-  if(infoCache[cacheKey]) return infoCache[cacheKey];
-  if(infoPending[cacheKey]) return infoPending[cacheKey];
+async function resolveHeritageInfo(name,cityName,stateName){
+  const l=getLang(),cacheKey=l+'|'+name+'|'+cityName+'|'+stateName;
+  if(infoCache[cacheKey])return infoCache[cacheKey];
+  if(infoPending[cacheKey])return infoPending[cacheKey];
   infoPending[cacheKey]=(async()=>{
-    const translatedName=label(name), translatedCity=label(cityName);
-    const primaryCode=l==='hi'?'hi':l==='sa'?'sa':'en';
-    const primaryQuery=(translatedName||name)+' '+(translatedCity||cityName);
-    let info=await tryWikiInfo(primaryQuery,primaryCode);
-    if(!info && primaryCode!=='en') info=await tryWikiInfo(name+' '+cityName+' '+stateName+' India','en');
+    const translatedName=label(name),translatedCity=label(cityName),primaryCode=l==='hi'?'hi':l==='sa'?'sa':'en';
+    let info=await tryWikiInfo((translatedName||name)+' '+(translatedCity||cityName),primaryCode,name,cityName,stateName);
+    if(!info&&primaryCode!=='en')info=await tryWikiInfo(name+' '+cityName+' '+stateName+' India','en',name,cityName,stateName);
     if(!info){
-      const fallbacks=[name+' '+stateName+' India',name];
-      const results=await Promise.all(fallbacks.map(q=>tryWikiInfo(q,'en')));
-      info=results.find(Boolean)||null;
+      const qs=[name+' '+cityName+' '+stateName+' India',name+' '+stateName+' India'];
+      const rs=await Promise.all(qs.map(q=>tryWikiInfo(q,'en',name,cityName,stateName)));
+      info=rs.find(Boolean)||null;
     }
-    const finalInfo=info||{title:name,text:'',image:'',url:''};
+    const finalInfo=info||{title:name,text:'',image:'',url:'',lat:null,lon:null};
     if(info){infoCache[cacheKey]=finalInfo;saveInfoCache();}
-    delete infoPending[cacheKey];
-    return finalInfo;
+    delete infoPending[cacheKey]; return finalInfo;
   })();
   return infoPending[cacheKey];
 }
-function prefetchHeritageInfo(stateName, cityObj){
-  if(!stateName||!cityObj||!Array.isArray(cityObj.sites)) return;
-  const run=()=>cityObj.sites.forEach((site,i)=>setTimeout(()=>resolveHeritageInfo(site,cityObj.name,stateName),i*140));
-  if('requestIdleCallback' in window) requestIdleCallback(run,{timeout:900}); else setTimeout(run,180);
+function prefetchHeritageInfo(stateName,cityObj){
+  if(!stateName||!cityObj||!Array.isArray(cityObj.sites))return;
+  const run=()=>cityObj.sites.forEach((site,i)=>setTimeout(()=>resolveHeritageInfo(site,cityObj.name,stateName),i*120));
+  if('requestIdleCallback'in window)requestIdleCallback(run,{timeout:800});else setTimeout(run,160);
+}
+const geoCacheKey='virasat_tourism_geo_cache_v1';
+let geoCache={};
+try{geoCache=JSON.parse(localStorage.getItem(geoCacheKey)||'{}')||{};}catch(_e){geoCache={};}
+function saveGeoCache(){try{localStorage.setItem(geoCacheKey,JSON.stringify(geoCache));}catch(_e){}}
+function haversineKm(a,b){
+  const R=6371,toRad=x=>x*Math.PI/180,dLat=toRad(b.lat-a.lat),dLon=toRad(b.lon-a.lon),la1=toRad(a.lat),la2=toRad(b.lat);
+  const h=Math.sin(dLat/2)**2+Math.cos(la1)*Math.cos(la2)*Math.sin(dLon/2)**2; return 2*R*Math.asin(Math.min(1,Math.sqrt(h)));
+}
+function formatDistance(km){return km<1?Math.max(100,Math.round(km*1000/50)*50)+' m':(km<10?km.toFixed(1):Math.round(km))+' km';}
+function formatDuration(sec){
+  let min=Math.max(1,Math.round(sec/60)); if(min<60)return min+' min';
+  const h=Math.floor(min/60),m=min%60; return h+' hr'+(m?' '+m+' min':'');
+}
+function getUserPosition(){
+  return new Promise((resolve,reject)=>{
+    if(!navigator.geolocation)return reject(new Error('unsupported'));
+    navigator.geolocation.getCurrentPosition(p=>resolve({lat:p.coords.latitude,lon:p.coords.longitude}),reject,{enableHighAccuracy:false,timeout:6500,maximumAge:300000});
+  });
+}
+async function geocodeDestination(name,cityName,stateName,info){
+  if(info&&Number.isFinite(info.lat)&&Number.isFinite(info.lon))return {lat:info.lat,lon:info.lon,source:'wiki'};
+  const key=normalizeKey(name+'|'+cityName+'|'+stateName); if(geoCache[key])return geoCache[key];
+  const q=[name,cityName,stateName,'India'].filter(Boolean).join(', ');
+  try{
+    const url='https://nominatim.openstreetmap.org/search?format=jsonv2&limit=1&countrycodes=in&accept-language=en&q='+encodeURIComponent(q);
+    const res=await fetchWithTimeout(url,3200); if(!res.ok)return null;
+    const rows=await res.json(); if(!rows||!rows[0])return null;
+    const out={lat:+rows[0].lat,lon:+rows[0].lon,source:'osm'}; if(Number.isFinite(out.lat)&&Number.isFinite(out.lon)){geoCache[key]=out;saveGeoCache();return out;}
+  }catch(_e){}
+  return null;
+}
+async function getRoadRoute(from,to){
+  try{
+    const url='https://router.project-osrm.org/route/v1/driving/'+from.lon+','+from.lat+';'+to.lon+','+to.lat+'?overview=false&steps=false&alternatives=false';
+    const res=await fetchWithTimeout(url,4500); if(!res.ok)return null;
+    const data=await res.json(),r=data&&data.routes&&data.routes[0]; if(!r)return null;
+    return {km:r.distance/1000,sec:r.duration,live:true};
+  }catch(_e){return null;}
+}
+function fallbackRoute(from,to){
+  const straight=haversineKm(from,to),km=straight*(straight<20?1.28:straight<150?1.22:1.16);
+  const speed=km<8?28:km<60?42:km<250?58:68; return {km,sec:km/speed*3600,live:false};
+}
+function googleRouteUrl(from,to){
+  const p=new URLSearchParams({api:'1',origin:from.lat+','+from.lon,destination:to.lat+','+to.lon,travelmode:'driving'});
+  return 'https://www.google.com/maps/dir/?'+p.toString();
+}
+function setGoogleRouteLink(overlay,from,to){
+  const link=overlay.querySelector('[data-tour-google-route]'); if(!link)return;
+  if(from&&to){link.href=googleRouteUrl(from,to);link.setAttribute('aria-disabled','false');}
+  else{link.href='#';link.setAttribute('aria-disabled','true');}
+}
+function travelMarkup(t){
+  return '<div class="tourism-travel-box">'
+    +'<div class="tourism-travel-top"><div class="tourism-travel-title">'+esc(t.travel)+'</div><div class="tourism-travel-actions"><button type="button" class="tourism-travel-refresh">'+esc(t.locate)+'</button><a class="tourism-google-route" data-tour-google-route href="#" target="_blank" rel="noopener noreferrer" aria-disabled="true">'+esc(t.googleRoute)+'</a></div></div>'
+    +'<div class="tourism-travel-grid"><div class="tourism-travel-stat"><small>'+esc(t.distance)+'</small><strong data-tour-distance>—</strong></div><div class="tourism-travel-stat"><small>'+esc(t.duration)+'</small><strong data-tour-duration>—</strong></div></div>'
+    +'<div class="tourism-travel-note" data-tour-route-note>'+esc(t.locating)+'</div></div>';
+}
+async function updateTravelBox(overlay,name,cityName,stateName,info){
+  const t=tx(),d=overlay.querySelector('[data-tour-distance]'),dur=overlay.querySelector('[data-tour-duration]'),note=overlay.querySelector('[data-tour-route-note]');
+  if(!d||!dur||!note)return; d.textContent='—';dur.textContent='—';note.classList.remove('is-error');note.textContent=t.locating;
+  try{
+    const [from,to]=await Promise.all([getUserPosition(),geocodeDestination(name,cityName,stateName,info)]);
+    if(!to)throw new Error('destination');
+    let route=await getRoadRoute(from,to); if(!route)route=fallbackRoute(from,to);
+    if(!overlay.classList.contains('open'))return;
+    d.textContent=formatDistance(route.km); dur.textContent=formatDuration(route.sec); note.textContent=route.live?t.routeLive:t.routeFallback; setGoogleRouteLink(overlay,from,to);
+  }catch(err){
+    if(!overlay.classList.contains('open'))return;
+    note.textContent=t.locDenied;note.classList.add('is-error');setGoogleRouteLink(overlay,null,null);
+  }
 }
 function ensureInfoOverlay(){
-  let overlay=document.getElementById('tourismInfoOverlay');
-  if(overlay) return overlay;
-  overlay=document.createElement('div');
-  overlay.id='tourismInfoOverlay'; overlay.className='tourism-info-overlay'; overlay.setAttribute('aria-hidden','true');
-  overlay.innerHTML='<i class="tourism-info-smoke" aria-hidden="true"></i><i class="tourism-info-smoke s2" aria-hidden="true"></i><article class="tourism-info-panel" role="dialog" aria-modal="true" aria-labelledby="tourismInfoTitle"><button type="button" class="tourism-info-close" aria-label="Close">×</button><div class="tourism-info-media"><img alt="" decoding="async"></div><div class="tourism-info-copy"><div class="tourism-info-kicker"></div><h2 id="tourismInfoTitle"></h2><div class="tourism-info-location"></div><p class="tourism-info-text"></p><div class="tourism-info-status"></div><a class="tourism-info-link" target="_blank" rel="noopener noreferrer"></a></div></article>';
+  let overlay=document.getElementById('tourismInfoOverlay'); if(overlay)return overlay;
+  overlay=document.createElement('div'); overlay.id='tourismInfoOverlay';overlay.className='tourism-info-overlay';overlay.setAttribute('aria-hidden','true');
+  overlay.innerHTML='<i class="tourism-info-smoke" aria-hidden="true"></i><i class="tourism-info-smoke s2" aria-hidden="true"></i><article class="tourism-info-panel" role="dialog" aria-modal="true" aria-labelledby="tourismInfoTitle"><button type="button" class="tourism-info-close" aria-label="Close">×</button><div class="tourism-info-media"><img alt="" decoding="async"></div><div class="tourism-info-copy"><div class="tourism-info-kicker"></div><h2 id="tourismInfoTitle"></h2><div class="tourism-info-location"></div><p class="tourism-info-text"></p><div class="tourism-info-status"></div><div class="tourism-travel-mount"></div><a class="tourism-info-link" target="_blank" rel="noopener noreferrer"></a></div></article>';
   document.body.appendChild(overlay);
   const close=()=>{overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.style.overflow=overlay.dataset.prevOverflow||'';};
-  overlay.querySelector('.tourism-info-close').addEventListener('click',close);
-  overlay.addEventListener('click',e=>{if(e.target===overlay)close();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))close();});
-  overlay._tourismClose=close;
-  return overlay;
+  overlay.querySelector('.tourism-info-close').addEventListener('click',close);overlay.addEventListener('click',e=>{if(e.target===overlay)close();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))close();});overlay._tourismClose=close;return overlay;
 }
 async function openHeritageInfo(btn){
-  const t=tx(), name=btn.dataset.site||'', cityName=btn.dataset.city||'', stateName=btn.dataset.state||'';
-  const overlay=ensureInfoOverlay();
-  const rect=btn.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2;
-  const targetX=window.innerWidth/2,targetY=window.innerHeight/2;
-  const dx=Math.max(-window.innerWidth*.78,Math.min(window.innerWidth*.78,cx-targetX));
-  const dy=Math.max(-window.innerHeight*.78,Math.min(window.innerHeight*.78,cy-targetY));
-  overlay.style.setProperty('--click-x',cx+'px'); overlay.style.setProperty('--click-y',cy+'px');
-  overlay.style.setProperty('--pocket-dx',dx+'px'); overlay.style.setProperty('--pocket-dy',dy+'px');
-  const cardImg=btn.closest('.tourism-site')?.querySelector('.tourism-photo');
-  const img=overlay.querySelector('.tourism-info-media img'), kicker=overlay.querySelector('.tourism-info-kicker'), title=overlay.querySelector('h2'), loc=overlay.querySelector('.tourism-info-location'), body=overlay.querySelector('.tourism-info-text'), status=overlay.querySelector('.tourism-info-status'), link=overlay.querySelector('.tourism-info-link');
-  kicker.textContent=t.story; title.textContent=label(name); loc.textContent=label(cityName)+' · '+label(stateName);
-  body.textContent=''; status.textContent=t.loading; link.hidden=true;
-  const fallbackSrc=(cardImg&&(cardImg.currentSrc||cardImg.src))||stateImage(stateName);
-  if(img.src!==fallbackSrc) img.src=fallbackSrc;
-  img.alt=label(name);
-  overlay.dataset.prevOverflow=document.body.style.overflow||''; document.body.style.overflow='hidden';
-  overlay.setAttribute('aria-hidden','false');
-  overlay.classList.remove('open');
-  void overlay.offsetWidth;
-  overlay.classList.add('open');
-  const info=await resolveHeritageInfo(name,cityName,stateName);
-  if(!overlay.classList.contains('open')) return;
-  body.textContent=info.text||t.unavailable; status.textContent='';
-  if(info.image){const preload=new Image();preload.onload=()=>{if(overlay.classList.contains('open'))img.src=info.image;};preload.src=info.image;}
+  const t=tx(),name=btn.dataset.site||'',cityName=btn.dataset.city||'',stateName=btn.dataset.state||'',overlay=ensureInfoOverlay();
+  const rect=btn.getBoundingClientRect(),cx=rect.left+rect.width/2,cy=rect.top+rect.height/2,targetX=innerWidth/2,targetY=innerHeight/2;
+  const dx=Math.max(-innerWidth*.78,Math.min(innerWidth*.78,cx-targetX)),dy=Math.max(-innerHeight*.78,Math.min(innerHeight*.78,cy-targetY));
+  overlay.style.setProperty('--click-x',cx+'px');overlay.style.setProperty('--click-y',cy+'px');overlay.style.setProperty('--pocket-dx',dx+'px');overlay.style.setProperty('--pocket-dy',dy+'px');
+  const cardImg=btn.closest('.tourism-site')?.querySelector('.tourism-photo'),img=overlay.querySelector('.tourism-info-media img'),kicker=overlay.querySelector('.tourism-info-kicker'),title=overlay.querySelector('h2'),loc=overlay.querySelector('.tourism-info-location'),body=overlay.querySelector('.tourism-info-text'),status=overlay.querySelector('.tourism-info-status'),link=overlay.querySelector('.tourism-info-link'),travelMount=overlay.querySelector('.tourism-travel-mount');
+  kicker.textContent=t.story;title.textContent=label(name);loc.textContent=label(cityName)+' · '+label(stateName);body.textContent='';status.textContent=t.loading;link.hidden=true;travelMount.innerHTML=travelMarkup(t);setGoogleRouteLink(overlay,null,null);
+  const fallbackSrc=(cardImg&&(cardImg.currentSrc||cardImg.src))||stateImage(stateName); if(img.src!==fallbackSrc)img.src=fallbackSrc;img.alt=label(name);
+  overlay.dataset.prevOverflow=document.body.style.overflow||'';document.body.style.overflow='hidden';overlay.setAttribute('aria-hidden','false');overlay.classList.remove('open');void overlay.offsetWidth;overlay.classList.add('open');
+  let infoPromise=resolveHeritageInfo(name,cityName,stateName);
+  // Start location lookup immediately on the user's click gesture; route continues when destination info resolves.
+  let userPosPromise=getUserPosition().catch(()=>null);
+  const info=await infoPromise;if(!overlay.classList.contains('open'))return;
+  body.textContent=info.text||t.unavailable;status.textContent='';
   if(info.url){link.href=info.url;link.textContent=t.source;link.hidden=false;}
+  const runRoute=async()=>{
+    const d=overlay.querySelector('[data-tour-distance]'),dur=overlay.querySelector('[data-tour-duration]'),note=overlay.querySelector('[data-tour-route-note]');if(!d||!dur||!note)return;
+    try{const from=await userPosPromise;if(!from)throw new Error('location');const to=await geocodeDestination(name,cityName,stateName,info);if(!to)throw new Error('destination');let route=await getRoadRoute(from,to);if(!route)route=fallbackRoute(from,to);if(!overlay.classList.contains('open'))return;d.textContent=formatDistance(route.km);dur.textContent=formatDuration(route.sec);note.textContent=route.live?t.routeLive:t.routeFallback;note.classList.remove('is-error');setGoogleRouteLink(overlay,from,to);}
+    catch(_e){if(overlay.classList.contains('open')){note.textContent=t.locDenied;note.classList.add('is-error');setGoogleRouteLink(overlay,null,null);}}
+  };
+  runRoute();
+  const refresh=overlay.querySelector('.tourism-travel-refresh');if(refresh)refresh.onclick=()=>{userPosPromise=getUserPosition().catch(()=>null);runRoute();};
 }
-async function resolvePhoto(queries, fallback){
-  const tries=(queries||[]).map(q=>normalizeKey(q)).filter(Boolean);
-  for(const q of tries){
-    if(mediaCacheMem[q]) return mediaCacheMem[q];
-    if(mediaCacheDisk[q]) { mediaCacheMem[q]=mediaCacheDisk[q]; return mediaCacheDisk[q]; }
+
+async function resolvePhoto(queries,fallback,meta){
+  meta=meta||{};
+  const target=meta.target||queries?.[0]||'',cityName=meta.city||'',stateName=meta.state||'';
+  const cacheKey=normalizeKey([target,cityName,stateName].filter(Boolean).join('|'));
+  if(cacheKey){ if(mediaCacheMem[cacheKey])return mediaCacheMem[cacheKey]; if(mediaCacheDisk[cacheKey]){mediaCacheMem[cacheKey]=mediaCacheDisk[cacheKey];return mediaCacheDisk[cacheKey];} }
+  async function contextualFallback(){
+    if(meta.kind==='site'&&cityName){
+      const cityPhoto=await fetchBestPhoto('\"'+cityName+'\" '+stateName+' India',cityName,cityName,stateName);
+      if(cityPhoto)return cityPhoto;
+    }
+    return fallback||transparentGif;
   }
-  for(const raw of (queries||[])){
-    const q=normalizeKey(raw); if(!q) continue;
-    try{
-      const res=await fetch(wikiSearchUrl(raw), {mode:'cors'});
-      const data=await res.json();
-      const pages=data && data.query && data.query.pages ? Object.values(data.query.pages) : [];
-      const page=pages.find(p=>p && p.thumbnail && p.thumbnail.source) || null;
-      if(page && page.thumbnail && page.thumbnail.source){
-        mediaCacheMem[q]=page.thumbnail.source;
-        mediaCacheDisk[q]=page.thumbnail.source;
-        saveMediaCache();
-        return page.thumbnail.source;
-      }
-      mediaCacheDisk[q]='';
-    }catch(_e){}
-  }
-  return fallback || transparentGif;
+  if(meta.kind==='site'&&isBroadHeritageLabel(target))return await contextualFallback();
+  for(const raw of (queries||[])){ if(!raw)continue; const src=await fetchBestPhoto(raw,target,cityName,stateName); if(src){ if(cacheKey){mediaCacheMem[cacheKey]=src;mediaCacheDisk[cacheKey]=src;saveMediaCache();} return src; } }
+  return await contextualFallback();
 }
 async function hydrateTourismImages(scope){
   const imgs=Array.from((scope||document).querySelectorAll('img.tourism-photo[data-q1]:not([data-hydrated])'));
   imgs.forEach(img=>img.setAttribute('data-hydrated','1'));
-  for(const img of imgs){
+  await Promise.all(imgs.map(async img=>{
     const queries=[img.dataset.q1,img.dataset.q2,img.dataset.q3].filter(Boolean);
     const fallback=img.dataset.fallback||transparentGif;
-    const src=await resolvePhoto(queries, fallback);
-    if(src) img.src=src;
-    img.classList.remove('is-loading');
-    img.classList.add('is-ready');
-  }
+    const meta={target:img.dataset.target||'',city:img.dataset.city||'',state:img.dataset.state||'',kind:img.dataset.kind||''};
+    const src=await resolvePhoto(queries,fallback,meta);
+    img.onerror=()=>{img.onerror=null;img.src=fallback;};
+    if(src)img.src=src;
+    img.classList.remove('is-loading');img.classList.add('is-ready');
+  }));
 }
 function stateCard(st, t){
   return '<button class="tourism-card" data-action="state" data-value="'+esc(st)+'">'
@@ -18947,13 +19722,13 @@ function cityCard(st, c, t){
   const fallback=stateImage(st);
   return '<button class="tourism-card" data-action="city" data-value="'+esc(c.name)+'">'
     + '<span class="tourism-state-chip">'+esc(label(st))+'</span>'
-    + imageMarkup('card', c.name+' tourism photograph', {fallback: fallback, q1: c.name+' '+st+' India', q2: c.name+' city '+st+' India', q3: c.name+' '+st})
+    + imageMarkup('card', c.name+' tourism photograph', {fallback:fallback,target:c.name,city:c.name,state:st,kind:'city',q1:'\"'+c.name+'\" '+st+' India',q2:c.name+' '+st+' tourism India',q3:c.name+' city '+st+' India'})
     + '<div class="tourism-card-body"><small>'+esc(t.city)+'</small><strong>'+esc(label(c.name))+'</strong><div class="tourism-card-meta"><span>'+esc(c.sites.slice(0,2).join(' · '))+'</span><b class="tourism-card-count">'+c.sites.length+' '+esc(t.sites)+' ↗</b></div></div></button>';
 }
 function siteCard(st, c, name, i, t){
   const fallback=stateImage(st);
   return '<article class="tourism-site">'
-    + imageMarkup('site', name+' heritage photograph', {fallback: fallback, q1: name+' '+c.name+' '+st+' India', q2: name+' '+st+' India', q3: name})
+    + imageMarkup('site', name+' heritage photograph', {fallback:fallback,target:name,city:c.name,state:st,kind:'site',q1:'\"'+name+'\" '+c.name+' '+st+' India',q2:'\"'+name+'\" '+st+' India',q3:name+' '+c.name+' India'})
     + '<div class="tourism-site-body"><div class="tourism-number">0'+(i+1)+'</div><h3>'+esc(label(name))+'</h3><p class="tourism-site-copy">'+esc(t.about)+'</p><div class="tourism-site-footer"><span class="tourism-site-hint">'+esc(t.open)+'</span><button type="button" class="tourism-open-arrow" data-tour-info="1" data-site="'+esc(name)+'" data-city="'+esc(c.name)+'" data-state="'+esc(st)+'" aria-label="'+esc(t.open+': '+label(name))+'"><span aria-hidden="true">↗</span></button></div></div></article>';
 }
 function draw(){
@@ -18990,6 +19765,297 @@ search.addEventListener('input',()=>{if(city) city=null; draw();});
 new MutationObserver(()=>draw()).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 window.VirasatTourism={render:draw};
 draw();
+})();
+</script>
+
+<script id="virasatPricingScript">
+(function(){
+    let activePlan = 'plus';
+    function planKey(){ return activePlan === 'premium' ? 'premium' : 'plus'; }
+    window.setVirasatPlanPage = function(plan){
+        activePlan = plan === 'premium' ? 'premium' : 'plus';
+        const label = document.getElementById('virasatBuildPlan');
+        const desc = document.getElementById('virasatBuildDesc');
+        if (label) label.textContent = activePlan === 'premium' ? 'VIRASAT PREMIUM' : 'VIRASAT PLUS';
+        if (desc) {
+            desc.setAttribute('data-i18n', activePlan === 'premium' ? 'build_premium_desc' : 'build_plus_desc');
+            if (typeof t === 'function') desc.innerHTML = t(desc.getAttribute('data-i18n'));
+        }
+    };
+
+    function deadline(){
+        const key='virasat_membership_launch_deadline_v1';
+        let value=0;
+        try{ value=Number(localStorage.getItem(key)||0); }catch(_){ }
+        if(!value || value < Date.now()){
+            value=Date.now()+90*24*60*60*1000;
+            try{ localStorage.setItem(key,String(value)); }catch(_){ }
+        }
+        return value;
+    }
+    const launchAt=deadline();
+    function pad(n){ return String(Math.max(0,n)).padStart(2,'0'); }
+    function tick(){
+        let left=Math.max(0,launchAt-Date.now());
+        const days=Math.floor(left/86400000); left%=86400000;
+        const hours=Math.floor(left/3600000); left%=3600000;
+        const minutes=Math.floor(left/60000); left%=60000;
+        const seconds=Math.floor(left/1000);
+        const set=(id,val)=>{ const el=document.getElementById(id); if(el) el.textContent=val; };
+        set('vbuildDays',String(days).padStart(2,'0')); set('vbuildHours',pad(hours)); set('vbuildMinutes',pad(minutes)); set('vbuildSeconds',pad(seconds));
+    }
+    tick(); setInterval(tick,1000);
+
+    if(typeof applyLanguage==='function' && !applyLanguage.__pricingPatch){
+        const base=applyLanguage;
+        const wrapped=function(lang){ const r=base(lang); if(document.getElementById('page-plans')?.classList.contains('active')) window.setVirasatPlanPage(activePlan); return r; };
+        wrapped.__pricingPatch=true; applyLanguage=wrapped;
+    }
+})();
+</script>
+
+
+
+<script id="virasatHistoryScript">
+(function(){
+  const $=s=>document.querySelector(s), esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const L=()=>['en','hi','sa'].includes(typeof LANG!=='undefined'?LANG:'en')?LANG:'en';
+  const tx=o=>o?.[L()]||o?.en||'';
+  const labels={
+    all:{en:'All eras',hi:'सभी काल',sa:'सर्वे कालाः'},ancient:{en:'Ancient',hi:'प्राचीन',sa:'प्राचीनः'},classical:{en:'Classical',hi:'शास्त्रीय',sa:'शास्त्रीयः'},medieval:{en:'Medieval',hi:'मध्यकालीन',sa:'मध्यकालीनः'},early:{en:'Early modern',hi:'आरंभिक आधुनिक',sa:'आधुनिकारम्भः'},colonial:{en:'Colonial & freedom',hi:'औपनिवेशिक और स्वतंत्रता',sa:'औपनिवेशिकः स्वातन्त्र्यं च'}
+  };
+  const timeline=[
+    {era:'ancient',date:{en:'c. 2600–1900 BCE',hi:'लगभग 2600–1900 ईसा पूर्व',sa:'प्रायः 2600–1900 ईसा-पूर्वम्'},title:{en:'Indus cities and urban networks',hi:'सिंधु नगर और शहरी नेटवर्क',sa:'सिन्धुनगराणि नागरजालानि च'},desc:{en:'Harappa, Mohenjo-daro, Dholavira and other centres formed one of the world’s earliest urban traditions, with planned streets, craft production and long-distance trade.',hi:'हड़प्पा, मोहनजोदड़ो, धोलावीरा और अन्य केंद्र नियोजित नगरों, शिल्प और दूर-दराज़ व्यापार वाली दुनिया की प्रारम्भिक शहरी परंपराओं में थे।',sa:'हडप्पा-मोहेञ्जोदडो-धोलावीरा-प्रभृतयः केन्द्राः नियोजितमार्गैः शिल्पेन दूरव्यापारेण च प्राचीननागरपरम्परां निर्मितवन्तः।'},tags:['URBANISM','TRADE','CRAFT']},
+    {era:'ancient',date:{en:'c. 600–322 BCE',hi:'लगभग 600–322 ईसा पूर्व',sa:'प्रायः 600–322 ईसा-पूर्वम्'},title:{en:'Mahajanapadas and the rise of Magadha',hi:'महाजनपद और मगध का उदय',sa:'महाजनपदाः मगधस्य उदयश्च'},desc:{en:'Large states competed across northern India. Magadha gained strength through fertile lands, river routes, fortified capitals and ambitious rulers before the Mauryan unification.',hi:'उत्तर भारत में बड़े राज्य प्रतिस्पर्धा कर रहे थे। उपजाऊ भूमि, नदी मार्ग, किलाबंद राजधानियों और महत्वाकांक्षी शासकों से मगध मजबूत हुआ।',sa:'उत्तरभारते महाजनपदाः स्पर्धन्ते स्म। उर्वरभूमिः नदीमार्गाः दुर्गराजधान्यः शक्तिशालिनः शासकाश्च मगधस्य बलं वर्धितवन्तः।'},tags:['MAGADHA','STATES','CITIES']},
+    {era:'ancient',date:{en:'c. 322–185 BCE',hi:'लगभग 322–185 ईसा पूर्व',sa:'प्रायः 322–185 ईसा-पूर्वम्'},title:{en:'The Mauryan Empire',hi:'मौर्य साम्राज्य',sa:'मौर्यसाम्राज्यम्'},desc:{en:'Chandragupta Maurya and his successors built a vast imperial system. Ashoka’s inscriptions later projected ideas of dhamma across an empire linked by officials, roads and provincial centres.',hi:'चंद्रगुप्त मौर्य और उनके उत्तराधिकारियों ने विशाल साम्राज्य बनाया। अशोक के अभिलेखों ने धम्म के विचारों को अधिकारियों, मार्गों और प्रांतीय केंद्रों से जुड़े राज्य में फैलाया।',sa:'चन्द्रगुप्तमौर्यः तस्य उत्तराधिकारिणश्च विशालं साम्राज्यं निर्मितवन्तः। अशोकस्य शिलालेखाः धम्मविचारान् विस्तीर्णे राज्ये प्रसारितवन्तः।'},tags:['MAURYA','ASHOKA','EDICTS']},
+    {era:'classical',date:{en:'1st c. BCE–3rd c. CE',hi:'पहली सदी ईसा पूर्व–तीसरी सदी ईस्वी',sa:'प्रथमशती ईसा-पूर्वात् तृतीयशती ईस्वीपर्यन्तम्'},title:{en:'Kushan, Satavahana and Sangam worlds',hi:'कुषाण, सातवाहन और संगम संसार',sa:'कुषाण-सातवाहन-सङ्गमविश्वाः'},desc:{en:'Power was distributed among regional states and trading zones. Connections stretched through Central Asia, the Deccan, the Indian Ocean and the Tamil regions.',hi:'सत्ता अनेक क्षेत्रीय राज्यों और व्यापारिक क्षेत्रों में बंटी थी। मध्य एशिया, दक्कन, हिंद महासागर और तमिल क्षेत्रों तक संपर्क फैले थे।',sa:'शक्तिः प्रादेशिकराज्येषु व्यापारक्षेत्रेषु च विभक्ता आसीत्। मध्य-एशिया-दक्षिणापथ-हिन्दमहासागर-तमिलप्रदेशैः सम्बन्धाः आसन्।'},tags:['TRADE','DECCAN','SANGAM']},
+    {era:'classical',date:{en:'c. 320–550 CE',hi:'लगभग 320–550 ईस्वी',sa:'प्रायः 320–550 ईस्वी'},title:{en:'Gupta power and a changing north',hi:'गुप्त शक्ति और बदलता उत्तर भारत',sa:'गुप्तशक्तिः परिवर्तमानम् उत्तरभारतम् च'},desc:{en:'Gupta rulers controlled much of northern India while many regional courts remained active. The period is associated with important work in literature, mathematics, astronomy, art and temple traditions.',hi:'गुप्त शासकों का उत्तर भारत के बड़े हिस्से पर प्रभाव था, साथ ही अनेक क्षेत्रीय दरबार सक्रिय रहे। साहित्य, गणित, खगोल, कला और मंदिर परंपराओं में महत्वपूर्ण कार्य हुआ।',sa:'गुप्तशासकाः उत्तरभारतस्य विस्तीर्णभागं नियन्त्रितवन्तः, प्रादेशिकदरबाराश्च सक्रियाः आसन्। साहित्य-गणित-ज्योतिष-कला-मन्दिरपरम्परासु महत्त्वपूर्णं कार्यम् अभवत्।'},tags:['GUPTA','SCIENCE','ART']},
+    {era:'medieval',date:{en:'6th–8th centuries',hi:'छठी–आठवीं शताब्दी',sa:'षष्ठी–अष्टमी शती'},title:{en:'Pallava–Chalukya rivalry',hi:'पल्लव–चालुक्य प्रतिद्वंद्विता',sa:'पल्लव-चालुक्यस्पर्धा'},desc:{en:'Pallava and Chalukya courts competed across the Deccan and south. Their rivalry reshaped political frontiers while also leaving major temple and inscriptional traditions.',hi:'पल्लव और चालुक्य दरबार दक्कन और दक्षिण में प्रतिस्पर्धा करते रहे। संघर्ष ने सीमाएँ बदलीं और साथ ही महत्वपूर्ण मंदिर तथा अभिलेख परंपराएँ छोड़ीं।',sa:'पल्लव-चालुक्यराजदरबाराः दक्षिणापथे स्पर्धन्ते स्म। तेषां संघर्षः सीमाः परिवर्तितवान्, मन्दिरलेखपरम्पराश्च अवशिष्टाः।'},tags:['PALLAVA','CHALUKYA','TEMPLES']},
+    {era:'medieval',date:{en:'8th–10th centuries',hi:'आठवीं–दसवीं शताब्दी',sa:'अष्टमी–दशमी शती'},title:{en:'The tripartite struggle for Kannauj',hi:'कन्नौज के लिए त्रिपक्षीय संघर्ष',sa:'कान्यकुब्जस्य त्रिपक्षीयसंघर्षः'},desc:{en:'The Gurjara-Pratiharas, Palas and Rashtrakutas repeatedly competed for influence over Kannauj and the north Indian political centre of gravity.',hi:'गुर्जर-प्रतिहार, पाल और राष्ट्रकूट कन्नौज और उत्तर भारत की राजनीतिक प्रतिष्ठा पर प्रभाव के लिए बार-बार भिड़े।',sa:'गुर्जरप्रतिहाराः पालाः राष्ट्रकूटाश्च कान्यकुब्जे उत्तरभारतीयराजनीतिकप्रभावाय पुनःपुनः स्पर्धितवन्तः।'},tags:['KANAUJ','PALA','RASHTRAKUTA']},
+    {era:'medieval',date:{en:'c. 850–1279 CE',hi:'लगभग 850–1279 ईस्वी',sa:'प्रायः 850–1279 ईस्वी'},title:{en:'Chola imperial networks',hi:'चोल साम्राज्यिक नेटवर्क',sa:'चोलसाम्राज्यजालम्'},desc:{en:'The Cholas built a powerful state in south India, developed monumental temples and projected naval and commercial influence into Sri Lanka and parts of Southeast Asia.',hi:'चोलों ने दक्षिण भारत में शक्तिशाली राज्य बनाया, विशाल मंदिर बनवाए और श्रीलंका तथा दक्षिण-पूर्व एशिया तक समुद्री व व्यापारिक प्रभाव बढ़ाया।',sa:'चोलाः दक्षिणभारते शक्तिशालीं राज्यव्यवस्थां निर्मितवन्तः, विशालमन्दिराणि निर्मितवन्तः, समुद्रीव्यापारप्रभावं च विस्तारितवन्तः।'},tags:['CHOLA','OCEAN','TEMPLE']},
+    {era:'medieval',date:{en:'1206–1526 CE',hi:'1206–1526 ईस्वी',sa:'1206–1526 ईस्वी'},title:{en:'The Delhi Sultanate',hi:'दिल्ली सल्तनत',sa:'दिल्ली-सल्तनतम्'},desc:{en:'Successive dynasties ruled from Delhi and interacted with regional kingdoms across the subcontinent. New military, administrative, architectural and linguistic cultures developed through these encounters.',hi:'लगातार कई वंशों ने दिल्ली से शासन किया और उपमहाद्वीप के क्षेत्रीय राज्यों से संपर्क व संघर्ष किया। इन प्रक्रियाओं से नई सैन्य, प्रशासनिक, स्थापत्य और भाषाई संस्कृतियाँ विकसित हुईं।',sa:'अनेकवंशाः दिल्लीं केन्द्रं कृत्वा शासनं कृतवन्तः तथा प्रादेशिकराज्यैः सम्पर्कं संघर्षं च अकुर्वन्। नूतनाः सैन्य-प्रशासन-स्थापत्य-भाषापरम्पराः विकसिताः।'},tags:['DELHI','SULTANATE','ARCHITECTURE']},
+    {era:'medieval',date:{en:'14th–16th centuries',hi:'चौदहवीं–सोलहवीं शताब्दी',sa:'चतुर्दशी–षोडशी शती'},title:{en:'Vijayanagara and the Deccan Sultanates',hi:'विजयनगर और दक्कनी सल्तनतें',sa:'विजयनगरं दक्षिणापथ-सल्तनतानि च'},desc:{en:'Vijayanagara and several Deccan sultanates became wealthy political and cultural centres. Alliances shifted constantly, making the Deccan a zone of rivalry, diplomacy and exchange.',hi:'विजयनगर और कई दक्कनी सल्तनतें समृद्ध राजनीतिक-सांस्कृतिक केंद्र बनीं। गठबंधन लगातार बदलते रहे, जिससे दक्कन संघर्ष, कूटनीति और आदान-प्रदान का क्षेत्र बना।',sa:'विजयनगरं दक्षिणापथस्य सल्तनतानि च समृद्धराजनीतिकसांस्कृतिककेन्द्राणि अभवन्। संधयः नित्यं परिवर्तन्ते स्म; क्षेत्रं स्पर्धा-कूटनीति-विनिमयानां केन्द्रम् आसीत्।'},tags:['HAMPI','DECCAN','DIPLOMACY']},
+    {era:'early',date:{en:'1526–18th century',hi:'1526–अठारहवीं शताब्दी',sa:'1526–अष्टादशी शती'},title:{en:'Mughal expansion and regional negotiation',hi:'मुगल विस्तार और क्षेत्रीय राजनीति',sa:'मुगलविस्तारः प्रादेशिकराजनीतिश्च'},desc:{en:'The Mughal Empire expanded from north India under rulers such as Akbar, Jahangir, Shah Jahan and Aurangzeb, while Rajput, Deccan, Ahom, Maratha and other powers negotiated, resisted or allied in different periods.',hi:'अकबर, जहाँगीर, शाहजहाँ और औरंगज़ेब जैसे शासकों के समय मुगल साम्राज्य फैला, जबकि राजपूत, दक्कनी, अहोम, मराठा और अन्य शक्तियों ने अलग-अलग समय पर संधि, प्रतिरोध या सहयोग किया।',sa:'अकबर-जहाँगीर-शाहजहाँ-औरङ्गजेबादीनां काले मुगलसाम्राज्यं विस्तृतम्। राजपूत-दक्षिणापथ-अहोम-मराठादयः शक्तयः कदाचित् सन्धिं, कदाचित् प्रतिरोधं, कदाचित् सहयोगं च अकुर्वन्।'},tags:['MUGHAL','RAJPUT','DECCAN']},
+    {era:'early',date:{en:'17th–19th centuries',hi:'सत्रहवीं–उन्नीसवीं शताब्दी',sa:'सप्तदशी–एकोनविंशती शती'},title:{en:'Maratha, Mysore, Sikh and other regional powers',hi:'मराठा, मैसूर, सिख और अन्य क्षेत्रीय शक्तियाँ',sa:'मराठा-मैसूर-सिख-प्रादेशिकशक्तयः'},desc:{en:'As Mughal authority fragmented, new and revived powers expanded. Maratha confederacies, Mysore, the Sikh Empire and numerous regional states competed with one another and with the East India Company.',hi:'मुगल सत्ता कमजोर होने पर नई और पुनर्जीवित शक्तियाँ उभरीं। मराठा संघ, मैसूर, सिख साम्राज्य और अनेक क्षेत्रीय राज्य एक-दूसरे तथा ईस्ट इंडिया कंपनी से प्रतिस्पर्धा करते रहे।',sa:'मुगलशक्तेः क्षये नूतनाः प्रादेशिकशक्तयः उदिताः। मराठासंघः मैसूरराज्यम् सिखसाम्राज्यं च परस्परं ईस्ट-इण्डिया-कम्पन्या सह च स्पर्धितवन्तः।'},tags:['MARATHA','MYSORE','SIKH']},
+    {era:'colonial',date:{en:'mid-18th century–1857',hi:'अठारहवीं सदी के मध्य–1857',sa:'अष्टादशीशत्याः मध्यात् 1857 पर्यन्तम्'},title:{en:'Company expansion and resistance',hi:'कंपनी का विस्तार और प्रतिरोध',sa:'कम्पनीविस्तारः प्रतिरोधश्च'},desc:{en:'The East India Company moved from trade to territorial power through wars, alliances, revenue systems and annexations, facing sustained resistance from Indian states and communities.',hi:'ईस्ट इंडिया कंपनी व्यापार से क्षेत्रीय सत्ता बनी। युद्धों, संधियों, राजस्व व्यवस्थाओं और विलयों के साथ उसका विस्तार हुआ, जिसका अनेक भारतीय राज्यों और समुदायों ने प्रतिरोध किया।',sa:'ईस्ट-इण्डिया-कम्पनी व्यापारात् प्रादेशिकशक्तिरूपेण परिवर्तिता। युद्ध-सन्धि-राजस्व-समावेशनैः विस्तारः अभवत्, भारतीयराज्यसमुदायैश्च प्रतिरोधः कृतः।'},tags:['COMPANY','MYSORE','MARATHA']},
+    {era:'colonial',date:{en:'1857–1947',hi:'1857–1947',sa:'1857–1947'},title:{en:'Rebellion, Crown rule and the freedom movement',hi:'1857 का विद्रोह, क्राउन शासन और स्वतंत्रता आंदोलन',sa:'1857-विप्लवः, राजमुकुटशासनं स्वातन्त्र्यान्दोलनं च'},desc:{en:'The uprising of 1857 was followed by direct British Crown rule. Over the next ninety years, political associations, mass movements, reform, revolutionary activity and many regional struggles reshaped anti-colonial politics.',hi:'1857 के विद्रोह के बाद ब्रिटिश क्राउन का प्रत्यक्ष शासन आया। अगले नौ दशकों में राजनीतिक संगठनों, जन आंदोलनों, सुधार, क्रांतिकारी गतिविधियों और क्षेत्रीय संघर्षों ने औपनिवेशिक विरोधी राजनीति को बदला।',sa:'1857-विप्लवानन्तरं ब्रिटिशराजमुकुटस्य प्रत्यक्षशासनम् आरब्धम्। अनन्तरं राजनीतिकसंस्थाः जनान्दोलनानि सुधाराः क्रान्तिकारीप्रयत्नाश्च स्वातन्त्र्यचेष्टां परिवर्तितवन्तः।'},tags:['1857','FREEDOM','COLONIAL']},
+    {era:'colonial',date:{en:'1947',hi:'1947',sa:'1947'},title:{en:'Independence and a new republic in the making',hi:'स्वतंत्रता और नए गणराज्य की ओर',sa:'स्वातन्त्र्यं नूतनगणराज्यस्य निर्माणं च'},desc:{en:'British colonial rule ended in 1947 amid Partition and mass displacement. Independent India then began building a constitutional democratic republic, with the Constitution coming into effect in 1950.',hi:'1947 में ब्रिटिश औपनिवेशिक शासन समाप्त हुआ, साथ ही विभाजन और बड़े पैमाने पर विस्थापन हुआ। स्वतंत्र भारत ने संवैधानिक लोकतांत्रिक गणराज्य का निर्माण शुरू किया और संविधान 1950 में लागू हुआ।',sa:'1947 तमे वर्षे ब्रिटिशऔपनिवेशिकशासनं समाप्तम्; विभाजनं महाविस्थापनं च अभवत्। स्वतन्त्रभारतं संवैधानिकलोकतान्त्रिकगणराज्यस्य निर्माणम् आरब्धवान्; संविधानं 1950 तमे वर्षे प्रवृत्तम्।'},tags:['INDEPENDENCE','CONSTITUTION','REPUBLIC']}
+  ];
+  const kingdoms=[
+    {name:{en:'Maurya',hi:'मौर्य',sa:'मौर्याः'},period:{en:'c. 322–185 BCE',hi:'लगभग 322–185 ईसा पूर्व',sa:'प्रायः 322–185 ईसा-पूर्वम्'},core:{en:'Pataliputra and a vast imperial network',hi:'पाटलिपुत्र और विशाल साम्राज्यिक नेटवर्क',sa:'पाटलिपुत्रं विस्तीर्णसाम्राज्यजालं च'},rulers:{en:'Chandragupta, Bindusara, Ashoka',hi:'चंद्रगुप्त, बिंदुसार, अशोक',sa:'चन्द्रगुप्तः, बिन्दुसारः, अशोकः'},power:{en:'Central administration, provincial centres, armies and roads',hi:'केंद्रीय प्रशासन, प्रांतीय केंद्र, सेना और मार्ग',sa:'केन्द्रीयप्रशासनं प्रादेशिककेन्द्राणि सेना मार्गाश्च'},legacy:{en:'Edicts, dhamma, political integration and pan-subcontinental memory',hi:'अभिलेख, धम्म, राजनीतिक एकीकरण और व्यापक ऐतिहासिक स्मृति',sa:'शिलालेखाः, धम्मः, राजनीतिकएकीकरणं व्यापकस्मृतिश्च'}},
+    {name:{en:'Satavahana',hi:'सातवाहन',sa:'सातवाहनाः'},period:{en:'c. 1st c. BCE–3rd c. CE',hi:'लगभग पहली सदी ईसा पूर्व–तीसरी सदी ईस्वी',sa:'प्रथमशती ईसा-पूर्वात् तृतीयशती ईस्वी'},core:{en:'Deccan; centres included Pratishthana',hi:'दक्कन; प्रमुख केंद्रों में प्रतिष्ठान',sa:'दक्षिणापथः; प्रतिष्ठानं प्रमुखकेन्द्रम्'},rulers:{en:'Gautamiputra Satakarni and successors',hi:'गौतमीपुत्र सातकर्णि और उत्तराधिकारी',sa:'गौतमीपुत्रशातकर्णिः उत्तराधिकारिणश्च'},power:{en:'Deccan routes, agriculture and inland-ocean trade',hi:'दक्कनी मार्ग, कृषि और स्थल-समुद्री व्यापार',sa:'दक्षिणापथमार्गाः कृषिः स्थलसमुद्रव्यापारश्च'},legacy:{en:'Prakrit inscriptions, Buddhist sites and Deccan connectivity',hi:'प्राकृत अभिलेख, बौद्ध स्थल और दक्कनी संपर्क',sa:'प्राकृतलेखाः बौद्धस्थानानि दक्षिणापथसम्बन्धाश्च'}},
+    {name:{en:'Gupta',hi:'गुप्त',sa:'गुप्ताः'},period:{en:'c. 320–550 CE',hi:'लगभग 320–550 ईस्वी',sa:'प्रायः 320–550 ईस्वी'},core:{en:'Northern India; Pataliputra among major centres',hi:'उत्तर भारत; पाटलिपुत्र प्रमुख केंद्रों में',sa:'उत्तरभारतम्; पाटलिपुत्रं प्रमुखकेन्द्रेषु'},rulers:{en:'Chandragupta I, Samudragupta, Chandragupta II',hi:'चंद्रगुप्त प्रथम, समुद्रगुप्त, चंद्रगुप्त द्वितीय',sa:'चन्द्रगुप्तः I, समुद्रगुप्तः, चन्द्रगुप्तः II'},power:{en:'Alliances, conquest, tribute and regional governance',hi:'संधियाँ, विजय, कर और क्षेत्रीय शासन',sa:'सन्धयः विजयः करः प्रादेशिकशासनं च'},legacy:{en:'Literature, mathematics, astronomy, sculpture and temple forms',hi:'साहित्य, गणित, खगोल, मूर्तिकला और मंदिर रूप',sa:'साहित्यं गणितं ज्योतिषं शिल्पं मन्दिररूपाणि च'}},
+    {name:{en:'Chola',hi:'चोल',sa:'चोलाः'},period:{en:'c. 850–1279 CE',hi:'लगभग 850–1279 ईस्वी',sa:'प्रायः 850–1279 ईस्वी'},core:{en:'Tamil region; Thanjavur and Gangaikondacholapuram',hi:'तमिल क्षेत्र; तंजावुर और गंगैकोंडचोलपुरम',sa:'तमिलप्रदेशः; तञ्जावूरु गङ्गैकोण्डचोलपुरं च'},rulers:{en:'Rajaraja I, Rajendra I',hi:'राजराज प्रथम, राजेंद्र प्रथम',sa:'राजराजः I, राजेन्द्रः I'},power:{en:'Revenue networks, armies, temples, ports and naval reach',hi:'राजस्व नेटवर्क, सेना, मंदिर, बंदरगाह और नौसैनिक पहुँच',sa:'राजस्वजालं सेना मन्दिराणि पत्तनानि नौसैनिकशक्तिश्च'},legacy:{en:'Monumental temples, bronzes, inscriptions and Indian Ocean links',hi:'विशाल मंदिर, कांस्य मूर्तियाँ, अभिलेख और हिंद महासागर संपर्क',sa:'विशालमन्दिराणि कांस्यप्रतिमाः लेखाः हिन्दमहासागरसम्बन्धाश्च'}},
+    {name:{en:'Ahom',hi:'अहोम',sa:'अहोमाः'},period:{en:'1228–1826 CE',hi:'1228–1826 ईस्वी',sa:'1228–1826 ईस्वी'},core:{en:'Brahmaputra Valley, Assam',hi:'ब्रह्मपुत्र घाटी, असम',sa:'ब्रह्मपुत्रघाटी, असमप्रदेशः'},rulers:{en:'Sukaphaa, Suhungmung, Rudra Singha',hi:'सुकाफा, सुहुङमुंग, रुद्र सिंह',sa:'सुकाफा, सुहुङ्मुङ्गः, रुद्रसिंहः'},power:{en:'Paik organisation, riverine strategy and regional integration',hi:'पाइक व्यवस्था, नदी आधारित रणनीति और क्षेत्रीय एकीकरण',sa:'पाइकव्यवस्था नदीरणनीतिः प्रादेशिकएकीकरणं च'},legacy:{en:'Long-lived state formation and resistance to Mughal expansion',hi:'दीर्घकालीन राज्य व्यवस्था और मुगल विस्तार का प्रतिरोध',sa:'दीर्घकालीनराज्यव्यवस्था मुगलविस्तारप्रतिरोधश्च'}},
+    {name:{en:'Delhi Sultanate',hi:'दिल्ली सल्तनत',sa:'दिल्ली-सल्तनतम्'},period:{en:'1206–1526 CE',hi:'1206–1526 ईस्वी',sa:'1206–1526 ईस्वी'},core:{en:'Delhi with shifting regional frontiers',hi:'दिल्ली और बदलती क्षेत्रीय सीमाएँ',sa:'दिल्ली परिवर्तमानाः प्रादेशिकसीमाश्च'},rulers:{en:'Iltutmish, Alauddin Khalji, Muhammad bin Tughlaq',hi:'इल्तुतमिश, अलाउद्दीन खिलजी, मुहम्मद बिन तुगलक',sa:'इल्तुतमिशः, अलाउद्दीन-खिलजी, मुहम्मद-बिन-तुगलकः'},power:{en:'Cavalry, iqta revenue assignments and fortified capitals',hi:'घुड़सवार सेना, इक्ता राजस्व व्यवस्था और किलाबंद राजधानियाँ',sa:'अश्वसेना इक्ताराजस्वव्यवस्था दुर्गराजधान्यश्च'},legacy:{en:'New architectural forms, institutions and Persianate cultural influence',hi:'नई स्थापत्य शैलियाँ, संस्थाएँ और फ़ारसी सांस्कृतिक प्रभाव',sa:'नूतनस्थापत्यरूपाणि संस्थाः पारसीकसांस्कृतिकप्रभावश्च'}},
+    {name:{en:'Vijayanagara',hi:'विजयनगर',sa:'विजयनगरम्'},period:{en:'1336–17th century',hi:'1336–सत्रहवीं शताब्दी',sa:'1336–सप्तदशी शती'},core:{en:'Hampi and southern Deccan',hi:'हम्पी और दक्षिणी दक्कन',sa:'हम्पी दक्षिणदक्षिणापथश्च'},rulers:{en:'Harihara I, Bukka I, Krishnadevaraya',hi:'हरिहर प्रथम, बुक्का प्रथम, कृष्णदेवराय',sa:'हरिहरः I, बुक्कः I, कृष्णदेवरायः'},power:{en:'Agrarian revenue, forts, cavalry, trade and alliances',hi:'कृषि राजस्व, किले, घुड़सवार सेना, व्यापार और गठबंधन',sa:'कृषिराजस्वं दुर्गाः अश्वसेना व्यापारः सन्धयश्च'},legacy:{en:'Hampi, temple complexes, literature and cosmopolitan trade',hi:'हम्पी, मंदिर परिसर, साहित्य और बहुसांस्कृतिक व्यापार',sa:'हम्पी मन्दिरसमूहाः साहित्यं बहुसांस्कृतिकव्यापारश्च'}},
+    {name:{en:'Mughal',hi:'मुगल',sa:'मुगलाः'},period:{en:'1526–1857 CE',hi:'1526–1857 ईस्वी',sa:'1526–1857 ईस्वी'},core:{en:'North India with imperial capitals at Agra, Delhi and elsewhere',hi:'उत्तर भारत; आगरा, दिल्ली और अन्य साम्राज्यिक राजधानियाँ',sa:'उत्तरभारतम्; आग्रा-दिल्ली-प्रभृतयः साम्राज्यराजधान्यः'},rulers:{en:'Babur, Akbar, Jahangir, Shah Jahan, Aurangzeb',hi:'बाबर, अकबर, जहाँगीर, शाहजहाँ, औरंगज़ेब',sa:'बाबरः, अकबरः, जहाँगीरः, शाहजहाँ, औरङ्गजेबः'},power:{en:'Mansabdari, revenue administration, artillery and alliances',hi:'मनसबदारी, राजस्व प्रशासन, तोपखाना और संधियाँ',sa:'मनसबदारी राजस्वप्रशासनं तोपशक्तिः सन्धयश्च'},legacy:{en:'Architecture, painting, gardens, administration and Indo-Persian culture',hi:'स्थापत्य, चित्रकला, उद्यान, प्रशासन और हिंद-फ़ारसी संस्कृति',sa:'स्थापत्यं चित्रकला उद्यानानि प्रशासनं भारत-पारसीकसंस्कृतिश्च'}},
+    {name:{en:'Maratha',hi:'मराठा',sa:'मराठाः'},period:{en:'17th–19th centuries',hi:'सत्रहवीं–उन्नीसवीं शताब्दी',sa:'सप्तदशी–एकोनविंशती शती'},core:{en:'Western Deccan; Raigad, Satara and later Pune',hi:'पश्चिमी दक्कन; रायगढ़, सतारा और बाद में पुणे',sa:'पश्चिमदक्षिणापथः; रायगडः सातारा पश्चात् पुणे'},rulers:{en:'Shivaji; later Chhatrapatis and Peshwas including Baji Rao I',hi:'शिवाजी; बाद के छत्रपति और बाजीराव प्रथम जैसे पेशवा',sa:'शिवाजी; पश्चात् छत्रपतयः पेशवाश्च, बाजीरावः I सहितः'},power:{en:'Mobile warfare, forts, revenue claims and confederate networks',hi:'गतिशील युद्धनीति, किले, राजस्व दावे और संघीय नेटवर्क',sa:'चलयुद्धनीतिः दुर्गाः राजस्वाधिकाराः संघजालं च'},legacy:{en:'A major post-Mughal power whose confederacy influenced much of 18th-century India',hi:'मुगल-पश्चात प्रमुख शक्ति जिसका संघ अठारहवीं सदी के बड़े हिस्से पर प्रभावी था',sa:'मुगलानन्तरं प्रमुखशक्तिः, यस्य संघः अष्टादशीशत्यां भारतस्य विस्तीर्णभागे प्रभावी आसीत्'}},
+    {name:{en:'Sikh Empire',hi:'सिख साम्राज्य',sa:'सिखसाम्राज्यम्'},period:{en:'1799–1849 CE',hi:'1799–1849 ईस्वी',sa:'1799–1849 ईस्वी'},core:{en:'Punjab; Lahore as capital',hi:'पंजाब; लाहौर राजधानी',sa:'पञ्जाबः; लाहौरं राजधानी'},rulers:{en:'Maharaja Ranjit Singh and successors',hi:'महाराजा रणजीत सिंह और उत्तराधिकारी',sa:'महाराज रणजीतसिंहः उत्तराधिकारिणश्च'},power:{en:'Modernised army, diplomacy and control of Punjab routes',hi:'आधुनिकीकृत सेना, कूटनीति और पंजाब मार्गों पर नियंत्रण',sa:'आधुनिकीकृतसेना कूटनीतिः पञ्जाबमार्गनियन्त्रणं च'},legacy:{en:'Political consolidation of Punjab and a powerful north-western state',hi:'पंजाब का राजनीतिक एकीकरण और शक्तिशाली उत्तर-पश्चिमी राज्य',sa:'पञ्जाबस्य राजनीतिकएकीकरणं शक्तिशाली उत्तरपश्चिमराज्यं च'}}
+  ];
+  const conflicts=[
+    {date:{en:'326 BCE',hi:'326 ईसा पूर्व',sa:'326 ईसा-पूर्वम्'},a:{en:'Alexander of Macedon',hi:'मकदूनिया का सिकंदर',sa:'मकदूनियायाः अलेक्जाण्डरः'},b:{en:'King Porus (Puru)',hi:'राजा पोरस (पुरु)',sa:'राजा पोरसः (पुरुः)'},summary:{en:'At the Hydaspes (Jhelum), Alexander defeated Porus, then retained him as a regional ruler. The campaign became one of the easternmost points of Macedonian expansion.',hi:'हाइडस्पीज़ (झेलम) पर सिकंदर ने पोरस को हराया, फिर उन्हें क्षेत्रीय शासक के रूप में बनाए रखा। यह मकदूनियाई विस्तार के सबसे पूर्वी अभियानों में था।',sa:'हाइडस्पीज्-झेलमनद्याः समीपे अलेक्जाण्डरः पोरसं जितवान्, पश्चात् तं प्रादेशिकशासकरूपेण स्थापयामास।'},change:{en:'A dramatic encounter between Hellenistic expansion and north-western Indian kingdoms.',hi:'हेलेनिस्टिक विस्तार और उत्तर-पश्चिम भारतीय राज्यों का महत्वपूर्ण सामना।',sa:'हेलेनिस्टिकविस्तारस्य उत्तरपश्चिमभारतीयराज्यैः महत्त्वपूर्णः सम्पर्कः।'}},
+    {date:{en:'c. 261 BCE',hi:'लगभग 261 ईसा पूर्व',sa:'प्रायः 261 ईसा-पूर्वम्'},a:{en:'Mauryan Empire under Ashoka',hi:'अशोक के अधीन मौर्य साम्राज्य',sa:'अशोकाधीनं मौर्यसाम्राज्यम्'},b:{en:'Kalinga',hi:'कलिंग',sa:'कलिङ्गम्'},summary:{en:'The Mauryan conquest of Kalinga was followed by Ashoka’s famous inscriptions expressing remorse over suffering and a stronger public emphasis on dhamma.',hi:'मौर्यों द्वारा कलिंग विजय के बाद अशोक के प्रसिद्ध अभिलेखों में पीड़ा पर पश्चाताप और धम्म पर अधिक सार्वजनिक जोर दिखाई देता है।',sa:'कलिङ्गविजयानन्तरम् अशोकस्य लेखेषु दुःखस्य विषये अनुतापः धम्मस्य च सार्वजनिकप्राधान्यं दृश्यते।'},change:{en:'The aftermath became central to how Ashoka represented kingship and moral governance.',hi:'इसके बाद अशोक ने राजसत्ता और नैतिक शासन को जिस तरह प्रस्तुत किया, उसमें बड़ा बदलाव दिखता है।',sa:'अनन्तरं अशोकस्य राजधर्म-नैतिकशासनप्रतिपादनं महत्त्वेन परिवर्तितम्।'}},
+    {date:{en:'6th–8th centuries',hi:'छठी–आठवीं शताब्दी',sa:'षष्ठी–अष्टमी शती'},a:{en:'Chalukyas of Badami',hi:'बादामी के चालुक्य',sa:'बादामी-चालुक्याः'},b:{en:'Pallavas of Kanchipuram',hi:'कांचीपुरम के पल्लव',sa:'काञ्चीपुर-पल्लवाः'},summary:{en:'Pulakeshin II and Pallava rulers such as Narasimhavarman I fought for influence in the Deccan and Tamil regions. Fortunes reversed more than once; Pallava forces eventually captured Vatapi.',hi:'पुलकेशिन द्वितीय और नरसिंहवर्मन प्रथम जैसे पल्लव शासक दक्कन और तमिल क्षेत्रों में प्रभाव के लिए लड़े। शक्ति कई बार बदली और पल्लवों ने वातापी पर कब्ज़ा किया।',sa:'पुलकेशिनः II नरसिंहवर्मा I च दक्षिणापथे प्रभावाय युद्धं कृतवन्तौ। विजयपराजयौ परिवर्तितौ; पल्लवसेना वातापीं गृहीतवती।'},change:{en:'Political rivalry also accompanied a major age of rock-cut and structural temple building.',hi:'राजनीतिक संघर्ष के साथ शैलकृत और संरचनात्मक मंदिर निर्माण का बड़ा दौर भी चला।',sa:'राजनीतिकस्पर्धया सह शैलकृत-संरचनात्मकमन्दिरनिर्माणस्य महान् कालः अपि आसीत्।'}},
+    {date:{en:'8th–10th centuries',hi:'आठवीं–दसवीं शताब्दी',sa:'अष्टमी–दशमी शती'},a:{en:'Gurjara-Pratiharas',hi:'गुर्जर-प्रतिहार',sa:'गुर्जरप्रतिहाराः'},b:{en:'Palas & Rashtrakutas',hi:'पाल और राष्ट्रकूट',sa:'पालाः राष्ट्रकूटाश्च'},summary:{en:'Three powerful dynasties repeatedly competed for Kannauj, a prestigious political centre in north India. Control shifted rather than remaining permanently with one side.',hi:'तीन शक्तिशाली वंश उत्तर भारत के प्रतिष्ठित केंद्र कन्नौज के लिए बार-बार प्रतिस्पर्धा करते रहे। नियंत्रण किसी एक के पास स्थायी नहीं रहा।',sa:'त्रयः शक्तिशालिवंशाः कान्यकुब्जस्य प्रभुत्वाय पुनःपुनः स्पर्धितवन्तः; नियन्त्रणं नित्यं परिवर्तितम्।'},change:{en:'The contest shows that early medieval power was multi-centred, not a single uninterrupted empire.',hi:'यह संघर्ष दिखाता है कि प्रारंभिक मध्यकालीन सत्ता बहु-केंद्रित थी, एक लगातार चलने वाला साम्राज्य नहीं।',sa:'एषः संघर्षः प्रारम्भिकमध्यकालीनशक्तेः बहुकेन्द्रीयस्वरूपं दर्शयति।'}},
+    {date:{en:'1191 & 1192 CE',hi:'1191 और 1192 ईस्वी',sa:'1191 तथा 1192 ईस्वी'},a:{en:'Prithviraj III',hi:'पृथ्वीराज तृतीय',sa:'पृथ्वीराजः III'},b:{en:'Muhammad of Ghor',hi:'मुहम्मद गोरी',sa:'मुहम्मद-घोरी'},summary:{en:'The First Battle of Tarain ended in a defeat for Muhammad of Ghor; he returned the next year and won the Second Battle of Tarain against Prithviraj III.',hi:'तराइन के पहले युद्ध में मुहम्मद गोरी पराजित हुआ; अगले वर्ष लौटकर उसने पृथ्वीराज तृतीय के विरुद्ध दूसरा युद्ध जीता।',sa:'प्रथमतराइनयुद्धे मुहम्मद-घोरी पराजितः; परवर्षे पुनरागत्य द्वितीयतराइनयुद्धे पृथ्वीराजं III जितवान्।'},change:{en:'The second battle opened the way for wider Ghurid control in north India and the later Delhi Sultanate.',hi:'दूसरे युद्ध ने उत्तर भारत में ग़ुरी प्रभाव और बाद की दिल्ली सल्तनत के लिए मार्ग खोला।',sa:'द्वितीययुद्धेन उत्तरभारते घोरीप्रभावस्य पश्चात् दिल्ली-सल्तनतस्य च मार्गः प्रशस्तः।'}},
+    {date:{en:'1565 CE',hi:'1565 ईस्वी',sa:'1565 ईस्वी'},a:{en:'Vijayanagara',hi:'विजयनगर',sa:'विजयनगरम्'},b:{en:'Coalition of Deccan Sultanates',hi:'दक्कनी सल्तनतों का गठबंधन',sa:'दक्षिणापथ-सल्तनतानां संघः'},summary:{en:'At Talikota, the Vijayanagara army was defeated by a coalition of Deccan sultanates. Hampi was devastated afterward, though the Vijayanagara state continued from other centres.',hi:'तालीकोटा में विजयनगर की सेना दक्कनी सल्तनतों के गठबंधन से पराजित हुई। बाद में हम्पी को भारी क्षति पहुँची, हालांकि विजयनगर राज्य अन्य केंद्रों से जारी रहा।',sa:'तालिकोटायां विजयनगरसेना दक्षिणापथ-सल्तनतसंघेन पराजिता। पश्चात् हम्पी नगरं विनष्टप्रायम्; राज्यं तु अन्यकेन्द्रेभ्यः किञ्चित्कालं प्रवृत्तम्।'},change:{en:'It broke Vijayanagara’s dominance in the Deccan without instantly ending every part of the polity.',hi:'इसने दक्कन में विजयनगर की प्रमुखता तोड़ी, पर राज्य तत्काल पूरी तरह समाप्त नहीं हुआ।',sa:'एतेन दक्षिणापथे विजयनगरस्य प्रभुत्वं भग्नम्, किन्तु राज्यं तत्क्षणं न समाप्तम्।'}},
+    {date:{en:'17th–early 18th century',hi:'सत्रहवीं–अठारहवीं सदी का आरंभ',sa:'सप्तदशी–अष्टादशीशत्याः आरम्भः'},a:{en:'Mughal Empire',hi:'मुगल साम्राज्य',sa:'मुगलसाम्राज्यम्'},b:{en:'Maratha state and confederate forces',hi:'मराठा राज्य और संघीय शक्तियाँ',sa:'मराठाराज्यं संघशक्तयश्च'},summary:{en:'Conflict grew from Shivaji’s rise and continued through long Mughal campaigns in the Deccan under Aurangzeb and resistance by Maratha leaders after Shivaji.',hi:'शिवाजी के उदय से संघर्ष बढ़ा और औरंगज़ेब के लंबे दक्कनी अभियानों तथा शिवाजी के बाद मराठा नेतृत्व के प्रतिरोध के साथ जारी रहा।',sa:'शिवाजेः उदयेन संघर्षः वर्धितः; औरङ्गजेबस्य दीर्घदक्षिणापथ-अभियानैः पश्चात् मराठानेतॄणां प्रतिरोधेन च सः प्रवृत्तः।'},change:{en:'The prolonged Deccan wars strained Mughal resources while Maratha power expanded in the 18th century.',hi:'लंबे दक्कनी युद्धों ने मुगल संसाधनों पर दबाव डाला और अठारहवीं सदी में मराठा शक्ति फैली।',sa:'दीर्घदक्षिणापथयुद्धैः मुगलसंसाधनानि क्षीणानि, अष्टादशीशत्यां मराठाशक्तिश्च विस्तृता।'}},
+    {date:{en:'1761 CE',hi:'1761 ईस्वी',sa:'1761 ईस्वी'},a:{en:'Maratha Confederacy',hi:'मराठा संघ',sa:'मराठासंघः'},b:{en:'Ahmad Shah Durrani and allies',hi:'अहमद शाह दुर्रानी और सहयोगी',sa:'अहमदशाह-दुर्रानी सहयोगिनश्च'},summary:{en:'The Third Battle of Panipat ended in a Durrani victory over the Maratha army. It was a major shock to Maratha expansion in north India, though Maratha power later recovered in important regions.',hi:'पानीपत के तीसरे युद्ध में दुर्रानी सेना ने मराठा सेना को हराया। उत्तर भारत में मराठा विस्तार को बड़ा झटका लगा, हालांकि बाद में मराठा शक्ति कई क्षेत्रों में फिर उभरी।',sa:'तृतीयपानीपत्युद्धे दुर्रानीसेना मराठासेनां पराजितवती। उत्तरभारतस्थमराठाविस्ताराय महान् आघातः अभवत्; पश्चात् मराठाशक्तिः पुनः कतिपयप्रदेशेषु वर्धिता।'},change:{en:'The battle altered the immediate balance of power but did not create a permanent single ruler of north India.',hi:'युद्ध ने तत्काल शक्ति संतुलन बदला, पर उत्तर भारत पर किसी एक की स्थायी सत्ता स्थापित नहीं हुई।',sa:'युद्धेन तत्कालीनशक्तिसन्तुलनं परिवर्तितम्, किन्तु उत्तरभारतस्य स्थायी एकाधिपत्यं न स्थापितम्।'}},
+    {date:{en:'1767–1799 CE',hi:'1767–1799 ईस्वी',sa:'1767–1799 ईस्वी'},a:{en:'Mysore under Hyder Ali & Tipu Sultan',hi:'हैदर अली और टीपू सुल्तान का मैसूर',sa:'हैदरअली-टीपूसुल्तानाधीनं मैसूरम्'},b:{en:'East India Company and changing allies',hi:'ईस्ट इंडिया कंपनी और बदलते सहयोगी',sa:'ईस्ट-इण्डिया-कम्पनी परिवर्तमानसहयोगिनश्च'},summary:{en:'Four Anglo-Mysore Wars pitted a militarily innovative Mysore state against the Company and different Indian allies. The final war ended with Tipu Sultan’s defeat in 1799.',hi:'चार आंग्ल-मैसूर युद्धों में आधुनिक सैन्य प्रयोग करने वाला मैसूर राज्य कंपनी और बदलते भारतीय सहयोगियों से लड़ा। 1799 में अंतिम युद्ध टीपू सुल्तान की पराजय के साथ समाप्त हुआ।',sa:'चत्वारः आङ्ग्ल-मैसूरयुद्धाः मैसूरराज्यस्य कम्पनी-सहयोगिभिः सह अभवन्। 1799 तमे वर्षे अन्तिमयुद्धे टीपूसुल्तानः पराजितः।'},change:{en:'Company power in southern India expanded sharply after 1799.',hi:'1799 के बाद दक्षिण भारत में कंपनी की शक्ति तेजी से बढ़ी।',sa:'1799 अनन्तरं दक्षिणभारते कम्पन्याः शक्तिः तीव्रं वर्धिता।'}},
+    {date:{en:'1845–1849 CE',hi:'1845–1849 ईस्वी',sa:'1845–1849 ईस्वी'},a:{en:'Sikh Empire',hi:'सिख साम्राज्य',sa:'सिखसाम्राज्यम्'},b:{en:'East India Company',hi:'ईस्ट इंडिया कंपनी',sa:'ईस्ट-इण्डिया-कम्पनी'},summary:{en:'Two Anglo-Sikh Wars followed political instability after Ranjit Singh’s death. Company victory in the second war led to the annexation of Punjab in 1849.',hi:'रणजीत सिंह की मृत्यु के बाद राजनीतिक अस्थिरता के बीच दो आंग्ल-सिख युद्ध हुए। दूसरे युद्ध में कंपनी की जीत के बाद 1849 में पंजाब का विलय हुआ।',sa:'रणजीतसिंहस्य निधनानन्तरं राजनीतिकअस्थिरतायां द्वौ आङ्ग्ल-सिखयुद्धौ अभवताम्। द्वितीययुद्धे कम्पन्याः विजयानन्तरं 1849 तमे वर्षे पञ्जाबः समाविष्टः।'},change:{en:'It ended the Sikh Empire and extended Company rule to the north-west.',hi:'इससे सिख साम्राज्य समाप्त हुआ और कंपनी शासन उत्तर-पश्चिम तक फैल गया।',sa:'एतेन सिखसाम्राज्यं समाप्तम्, कम्पनीशासनं उत्तरपश्चिमं प्रति विस्तृतम्।'}}
+  ];
+  let era='all';
+  function renderFilters(){const root=$('#historyFilters'); if(!root)return; root.innerHTML=Object.keys(labels).map(k=>`<button class="history-filter ${era===k?'active':''}" type="button" data-history-era="${k}">${esc(tx(labels[k]))}</button>`).join('');}
+  function renderTimeline(){const root=$('#historyTimelineList'); if(!root)return; const rows=timeline.filter(x=>era==='all'||x.era===era); root.innerHTML=rows.map(x=>`<article class="history-event"><div class="history-event-date">${esc(tx(x.date))}</div><div class="history-event-copy"><h3>${esc(tx(x.title))}</h3><p>${esc(tx(x.desc))}</p><div class="history-event-tags">${x.tags.map(t=>`<span>${esc(t)}</span>`).join('')}</div></div></article>`).join('');}
+  function renderKingdoms(){const root=$('#historyKingdomGrid'); if(!root)return; root.innerHTML=kingdoms.map((k,i)=>`<article class="history-kingdom"><b class="history-kingdom-no">${String(i+1).padStart(2,'0')}</b><small>${esc(tx(k.period))}</small><h3>${esc(tx(k.name))}</h3><p>${esc(tx(k.legacy))}</p><dl><dt>${esc(L()==='hi'?'केंद्र':L()==='sa'?'केन्द्रम्':'Core')}</dt><dd>${esc(tx(k.core))}</dd><dt>${esc(L()==='hi'?'शासक':L()==='sa'?'शासकाः':'Rulers')}</dt><dd>${esc(tx(k.rulers))}</dd><dt>${esc(L()==='hi'?'शक्ति':L()==='sa'?'शक्तिः':'Power')}</dt><dd>${esc(tx(k.power))}</dd></dl></article>`).join('');}
+  function renderConflicts(){const root=$('#historyConflictGrid'); if(!root)return; root.innerHTML=conflicts.map(c=>`<article class="history-conflict"><div class="history-conflict-top"><div><div class="history-conflict-date">${esc(tx(c.date))}</div><h3 class="history-conflict-side">${esc(tx(c.a))}</h3><div class="history-conflict-vs">VS</div><h3 class="history-conflict-side">${esc(tx(c.b))}</h3></div></div><p>${esc(tx(c.summary))}</p><div class="history-conflict-change"><b>${esc(L()==='hi'?'क्या बदला':L()==='sa'?'किं परिवर्तितम्':'What changed')}</b>${esc(tx(c.change))}</div></article>`).join('');}
+  function fillCompare(){const a=$('#historyCompareA'),b=$('#historyCompareB'); if(!a||!b)return; const prevA=a.value,prevB=b.value; const options=kingdoms.map((k,i)=>`<option value="${i}">${esc(tx(k.name))}</option>`).join(''); a.innerHTML=options;b.innerHTML=options;a.value=prevA||'0';b.value=prevB||'7';if(a.value===b.value)b.value=a.value==='0'?'7':'0';renderCompare();}
+  function renderCompare(){const root=$('#historyCompareGrid'),a=$('#historyCompareA'),b=$('#historyCompareB'); if(!root||!a||!b)return; const ids=[+a.value,+b.value]; root.innerHTML=ids.map(i=>{const k=kingdoms[i]||kingdoms[0];return `<article class="history-compare-card"><span>${esc(tx(k.period))}</span><h3>${esc(tx(k.name))}</h3><dl><div><dt>${esc(L()==='hi'?'केंद्र':L()==='sa'?'केन्द्रम्':'Core')}</dt><dd>${esc(tx(k.core))}</dd></div><div><dt>${esc(L()==='hi'?'शासक':L()==='sa'?'शासकाः':'Rulers')}</dt><dd>${esc(tx(k.rulers))}</dd></div><div><dt>${esc(L()==='hi'?'शक्ति का आधार':L()==='sa'?'शक्त्याधारः':'Power base')}</dt><dd>${esc(tx(k.power))}</dd></div><div><dt>${esc(L()==='hi'?'विरासत':L()==='sa'?'धरोहरा':'Legacy')}</dt><dd>${esc(tx(k.legacy))}</dd></div></dl></article>`}).join('');}
+  function render(){renderFilters();renderTimeline();renderKingdoms();renderConflicts();fillCompare();}
+  document.addEventListener('click',e=>{const btn=e.target.closest('[data-history-era]');if(!btn)return;era=btn.dataset.historyEra||'all';renderFilters();renderTimeline();});
+  document.addEventListener('change',e=>{if(e.target?.id==='historyCompareA'||e.target?.id==='historyCompareB')renderCompare();});
+  window.renderVirasatHistory=render;
+  render();
+})();
+</script>
+
+
+<script id="virasatHistoryI18nScript">
+(function(){
+  if(typeof VIRASAT_I18N==='undefined') return;
+  Object.assign(VIRASAT_I18N.ui,{
+    nav_history:{en:'India Through Time',hi:'भारत का इतिहास',sa:'भारतस्य इतिहासः'},
+    hist_tile_kicker:{en:'HISTORY',hi:'इतिहास',sa:'इतिहासः'},hist_tile_title:{en:'India Through Time',hi:'भारत का इतिहास',sa:'भारतस्य इतिहासः'},hist_tile_desc:{en:'Trace empires, rulers, rivalries and turning points across the subcontinent.',hi:'उपमहाद्वीप के साम्राज्यों, शासकों, प्रतिद्वंद्विताओं और बड़े मोड़ों को जानें।',sa:'उपमहाद्वीपस्य साम्राज्यानि शासकान् स्पर्धाः परिवर्तनबिन्दून् च अन्विष्यतु।'},
+    hist_kicker:{en:'VIRASAT / HISTORY',hi:'विरासत / इतिहास',sa:'विरासत / इतिहासः'},hist_title:{en:'India was never one <em>straight line.</em>',hi:'भारत का इतिहास कभी एक <em>सीधी रेखा</em> नहीं था।',sa:'भारतस्य इतिहासः कदापि एका <em>सरलरेखा</em> न आसीत्।'},hist_lead:{en:'Move through urban civilisations, kingdoms, empires, rival courts, battles, trade networks and political turning points that shaped the subcontinent across thousands of years.',hi:'हजारों वर्षों में उपमहाद्वीप को आकार देने वाली शहरी सभ्यताओं, राज्यों, साम्राज्यों, प्रतिद्वंद्वी दरबारों, युद्धों, व्यापारिक नेटवर्क और राजनीतिक मोड़ों के बीच यात्रा करें।',sa:'सहस्रवर्षेषु उपमहाद्वीपं निर्मितवतीः नागरसभ्यताः राज्यानि साम्राज्यानि स्पर्धमानदरबारान् युद्धानि व्यापारजालानि राजनीतिकपरिवर्तनानि च पश्यतु।'},
+    hist_pill_timeline:{en:'01 · TIMELINE',hi:'01 · कालक्रम',sa:'01 · कालक्रमः'},hist_pill_kingdoms:{en:'02 · KINGDOMS',hi:'02 · राज्य',sa:'02 · राज्यानि'},hist_pill_rivalries:{en:'03 · RIVALRIES',hi:'03 · प्रतिद्वंद्विता',sa:'03 · स्पर्धाः'},hist_pill_compare:{en:'04 · COMPARE',hi:'04 · तुलना',sa:'04 · तुलना'},
+    hist_visual_ancient:{en:'ANCIENT / MAURYA',hi:'प्राचीन / मौर्य',sa:'प्राचीनम् / मौर्याः'},hist_visual_medieval:{en:'MEDIEVAL / VIJAYANAGARA',hi:'मध्यकाल / विजयनगर',sa:'मध्यकालः / विजयनगरम्'},hist_visual_earlymodern:{en:'EARLY MODERN / MUGHAL',hi:'आरंभिक आधुनिक / मुगल',sa:'आधुनिकारम्भः / मुगलाः'},
+    hist_timeline_title:{en:'Follow the <em>timeline.</em>',hi:'<em>कालक्रम</em> के साथ चलें।',sa:'<em>कालक्रमम्</em> अनुसरतु।'},hist_timeline_desc:{en:'Filter by era and see how political centres, trade routes, languages, belief systems and military power shifted over time.',hi:'काल चुनें और देखें कि राजनीतिक केंद्र, व्यापार मार्ग, भाषाएँ, विश्वास प्रणालियाँ और सैन्य शक्ति समय के साथ कैसे बदलीं।',sa:'कालं चिनुत; राजनीतिककेन्द्राणि व्यापारमार्गाः भाषाः श्रद्धापद्धतयः सैन्यशक्तिश्च कथं परिवर्तिताः इति पश्यतु।'},
+    hist_kingdom_title:{en:'Kingdoms that changed the <em>map.</em>',hi:'वे राज्य जिन्होंने <em>नक्शा</em> बदला।',sa:'यानि राज्यानि <em>मानचित्रं</em> परिवर्तितवन्ति।'},hist_kingdom_desc:{en:'A quick lens on major states from different regions and centuries. No single dynasty represents all of Indian history.',hi:'अलग क्षेत्रों और सदियों के प्रमुख राज्यों पर एक संक्षिप्त नज़र। कोई एक वंश पूरे भारतीय इतिहास का प्रतिनिधित्व नहीं करता।',sa:'भिन्नप्रदेश-शतीभ्यः प्रमुखराज्यानां संक्षिप्तदर्शनम्। एकोऽपि वंशः सम्पूर्णभारतइतिहासं न प्रतिनिधयति।'},
+    hist_conflict_title:{en:'When rulers <em>collided.</em>',hi:'जब शासक <em>टकराए।</em>',sa:'यदा शासकाः <em>संघट्टिताः।</em>'},hist_conflict_desc:{en:'Wars were not isolated spectacles. They shifted capitals, alliances, tax systems, frontiers and the balance of power. These cards focus on what changed, not battlefield gore.',hi:'युद्ध केवल अलग घटनाएँ नहीं थे। उन्होंने राजधानियाँ, गठबंधन, कर व्यवस्था, सीमाएँ और शक्ति संतुलन बदले। यहाँ ध्यान इस पर है कि क्या बदला, न कि हिंसक विवरण पर।',sa:'युद्धानि पृथक् घटनाः न आसन्। तैः राजधान्यः सन्धयः करव्यवस्थाः सीमाः शक्तिसन्तुलनं च परिवर्तितम्। अत्र परिवर्तनं मुख्यं, न हिंसावर्णनम्।'},
+    hist_compare_title:{en:'Put two powers <em>side by side.</em>',hi:'दो शक्तियों को <em>साथ रखकर</em> देखें।',sa:'द्वे शक्ती <em>समं स्थापयित्वा</em> पश्यतु।'},hist_compare_desc:{en:'Compare periods, political centres, key rulers, sources of power and long-term legacies.',hi:'काल, राजनीतिक केंद्र, प्रमुख शासक, शक्ति के आधार और दीर्घकालीन विरासत की तुलना करें।',sa:'कालं राजनीतिककेन्द्रं प्रमुखशासकान् शक्त्याधारं दीर्घकालीनधरोहरां च तुलयतु।'},
+    hist_note:{en:'Historical periods overlap, borders changed constantly, and dates for early eras can be approximate. This page is an educational overview, not a claim that the subcontinent followed one single political story.',hi:'ऐतिहासिक काल एक-दूसरे से ओवरलैप करते हैं, सीमाएँ लगातार बदलती रहीं और प्रारंभिक काल की कुछ तिथियाँ अनुमानित हैं। यह पेज शैक्षिक सारांश है, यह दावा नहीं कि उपमहाद्वीप की केवल एक राजनीतिक कहानी थी।',sa:'इतिहासकालाः परस्परम् अतिव्याप्नुवन्ति, सीमाः निरन्तरं परिवर्तिताः, प्राचीनकालस्य केचन दिनाङ्काः अनुमानिताः। एतत् शैक्षिकावलोकनम्, न तु उपमहाद्वीपस्य एका एव राजनीतिककथा आसीत् इति दावा।'},
+    vx_worlds_title:{en:'Ten ways into <em>India.</em>',hi:'भारत में उतरने के दस <em>रास्ते।</em>',sa:'भारतम् प्रवेष्टुं दश <em>मार्गाः।</em>'}
+  });
+  const baseApply=typeof applyLanguage==='function'?applyLanguage:null;
+  if(baseApply && !baseApply.__historyPatch){
+    const wrapped=function(lang){const r=baseApply(lang);try{window.renderVirasatHistory?.();}catch(e){}return r;};
+    wrapped.__historyPatch=true;applyLanguage=wrapped;
+  }
+  if(typeof applyLanguage==='function') applyLanguage(typeof LANG!=='undefined'?LANG:'en');
+  try{window.renderVirasatHistory?.();}catch(e){}
+})();
+</script>
+
+<script id="virasatEducationI18nScript">
+(function(){
+  if(typeof VIRASAT_I18N==='undefined') return;
+  Object.assign(VIRASAT_I18N.ui,{
+    nav_education:{en:'Education',hi:'शिक्षा',sa:'शिक्षा'},
+    edu_tile_kicker:{en:'LEARN',hi:'सीखें',sa:'अध्ययनम्'},
+    edu_tile_title:{en:'Virasat Education',hi:'विरासत शिक्षा',sa:'विरासत शिक्षा'},
+    edu_tile_desc:{en:"Watch, explore and test your understanding of India's living heritage.",hi:'भारत की जीवंत विरासत को देखें, खोजें और अपनी समझ को परखें।',sa:'भारतस्य जीवन्तधरोहरां पश्यतु, अन्विष्यतु, स्वबोधं परीक्षताम्।'},
+    edu_kicker:{en:'VIRASAT / CLASSROOM',hi:'विरासत / कक्षा',sa:'विरासत / कक्षा'},
+    edu_title:{en:'Learn India by entering its <em>stories.</em>',hi:'भारत को उसकी <em>कहानियों में उतरकर</em> जानें।',sa:'भारतस्य <em>कथासु प्रविश्य</em> भारतं जानातु।'},
+    edu_lead:{en:"A guided learning space where students can watch, explore, connect ideas and test what they understand about India's living heritage.",hi:'एक मार्गदर्शित शिक्षण स्थान जहाँ विद्यार्थी भारत की जीवंत विरासत को देख सकते हैं, खोज सकते हैं, विचारों को जोड़ सकते हैं और अपनी समझ परख सकते हैं।',sa:'मार्गदर्शितं शिक्षणस्थानम्, यत्र विद्यार्थिनः भारतस्य जीवन्तधरोहरां द्रष्टुं, अन्वेष्टुं, विचारान् संयोजयितुं, स्वबोधं परीक्षितुं च शक्नुवन्ति।'},
+    edu_pill_watch:{en:'01 · WATCH',hi:'01 · देखें',sa:'01 · पश्यतु'},
+    edu_pill_explore:{en:'02 · EXPLORE',hi:'02 · खोजें',sa:'02 · अन्विष्यतु'},
+    edu_pill_test:{en:'03 · TEST',hi:'03 · परखें',sa:'03 · परीक्षताम्'},
+    edu_video_badge:{en:'FEATURE LESSON',hi:'मुख्य पाठ',sa:'मुख्यपाठः'},
+    edu_video_status:{en:'VIDEO IN PRODUCTION',hi:'वीडियो तैयार हो रहा है',sa:'चलच्चित्रं निर्मीयते'},
+    edu_video_title:{en:'Your Virasat lesson film will live here.',hi:'आपका विरासत शिक्षण वीडियो यहाँ दिखाई देगा।',sa:'भवतः विरासत-शिक्षणचलच्चित्रम् अत्र दृश्यते।'},
+    edu_video_desc:{en:'The video you are creating will drop into this stage without changing the rest of the page.',hi:'आप जो वीडियो बना रहे हैं वह इस मंच पर सीधे जुड़ जाएगा, बाकी पेज को बदले बिना।',sa:'भवान् यत् चलच्चित्रं निर्माति तत् अस्मिन् स्थाने योजयिष्यते, अन्यं पृष्ठं परिवर्तयितुं न आवश्यकम्।'},
+    edu_video_hint:{en:'FILM SLOT READY',hi:'वीडियो स्थान तैयार है',sa:'चलच्चित्रस्थानं सज्जम्'},
+    edu_flow_title:{en:'A lesson should <em>move.</em>',hi:'एक पाठ को <em>आगे बढ़ना</em> चाहिए।',sa:'पाठः <em>गतिशीलः</em> भवेत्।'},
+    edu_flow_desc:{en:'Virasat Education connects a short lesson to the rest of the website, so learning continues through maps, stories, festivals, food, scripts and games.',hi:'विरासत शिक्षा एक छोटे पाठ को पूरे वेबसाइट से जोड़ती है, ताकि सीखना मानचित्र, कहानियों, त्योहारों, भोजन, लिपियों और खेलों के माध्यम से आगे बढ़े।',sa:'विरासत शिक्षा लघुपाठं सम्पूर्णजालस्थलेन संयोजयति, येन अध्ययनं मानचित्रैः कथाभिः उत्सवैः आहारेण लिपिभिः क्रीडाभिश्च निरन्तरं भवति।'},
+    edu_flow_watch_title:{en:'Watch the idea',hi:'विचार को देखें',sa:'विचारं पश्यतु'},
+    edu_flow_watch_desc:{en:'Begin with the film and understand the cultural idea before diving into details.',hi:'वीडियो से शुरुआत करें और विवरण में जाने से पहले सांस्कृतिक विचार को समझें।',sa:'चलच्चित्रेण आरभ्य विस्तारं प्रवेष्टुं पूर्वं सांस्कृतिकविचारम् अवगच्छतु।'},
+    edu_flow_explore_title:{en:'Explore the evidence',hi:'प्रमाण खोजें',sa:'प्रमाणम् अन्विष्यतु'},
+    edu_flow_explore_desc:{en:'Open the map, stories, festivals and heritage trails to see the idea in real places and traditions.',hi:'मानचित्र, कहानियाँ, त्योहार और विरासत मार्ग खोलकर उस विचार को वास्तविक स्थानों और परंपराओं में देखें।',sa:'मानचित्रं कथाः उत्सवान् धरोहरमार्गांश्च उद्घाट्य तं विचारं वास्तविकस्थानेषु परम्परासु च पश्यतु।'},
+    edu_flow_test_title:{en:'Test what stayed',hi:'जो याद रहा उसे परखें',sa:'स्मृतं परीक्षताम्'},
+    edu_flow_test_desc:{en:"Use Virasat's games and quizzes to check what you remember without turning heritage into homework sludge.",hi:'विरासत के खेल और प्रश्नोत्तरी से अपनी याददाश्त परखें, विरासत को उबाऊ गृहकार्य बनाए बिना।',sa:'विरासत-क्रीडाभिः प्रश्नोत्तरैश्च स्मृतिं परीक्षताम्, धरोहरां नीरसं गृहकार्यं न कुर्वन्तु।'},
+    edu_paths_title:{en:'Choose what you want to <em>understand.</em>',hi:'चुनें कि आप क्या <em>समझना</em> चाहते हैं।',sa:'किं <em>अवगन्तुम्</em> इच्छति तत् चिनुत।'},
+    edu_paths_desc:{en:'Each learning path opens an existing Virasat experience, turning the whole website into the classroom.',hi:'हर शिक्षण मार्ग विरासत के मौजूदा अनुभव को खोलता है, जिससे पूरा वेबसाइट कक्षा बन जाता है।',sa:'प्रत्येकः अध्ययनमार्गः विरासतस्य विद्यमानानुभवं उद्घाटयति, येन सम्पूर्णं जालस्थलं कक्षा भवति।'},
+    edu_track_places_kicker:{en:'PLACES & ARCHITECTURE',hi:'स्थान और स्थापत्य',sa:'स्थानानि स्थापत्यं च'},
+    edu_track_places_title:{en:'Read history through place.',hi:'स्थानों के माध्यम से इतिहास पढ़ें।',sa:'स्थानैः इतिहासं पठतु।'},
+    edu_track_places_desc:{en:'Connect states, monuments, landscapes and regional identity through Explore India.',hi:'भारत को जानें के माध्यम से राज्यों, स्मारकों, भू-दृश्यों और क्षेत्रीय पहचान को जोड़ें।',sa:'भारतम् अन्विष्यताम् इत्यनेन राज्यानि स्मारकाणि भू-दृश्यानि प्रादेशिकपरिचयं च संयोजयतु।'},
+    edu_track_festival_kicker:{en:'FESTIVALS & RITUAL',hi:'त्योहार और अनुष्ठान',sa:'उत्सवाः आचाराश्च'},
+    edu_track_festival_title:{en:'See how communities mark time.',hi:'देखें समुदाय समय को कैसे अर्थ देते हैं।',sa:'समुदायाः कालं कथं चिह्नयन्ति पश्यतु।'},
+    edu_track_festival_desc:{en:'Learn why seasons, stories, worship and community shape festivals across India.',hi:'जानें कि ऋतुएँ, कथाएँ, पूजा और समुदाय भारत के त्योहारों को कैसे आकार देते हैं।',sa:'ऋतवः कथाः पूजा समुदायश्च भारतस्य उत्सवान् कथं आकारयन्ति इति जानातु।'},
+    edu_track_food_kicker:{en:'FOOD & MEMORY',hi:'भोजन और स्मृति',sa:'आहारः स्मृतिः च'},
+    edu_track_food_title:{en:'Taste geography and family history.',hi:'भूगोल और पारिवारिक इतिहास का स्वाद लें।',sa:'भूगोलस्य कौटुम्बिकइतिहासस्य च स्वादं जानातु।'},
+    edu_track_food_desc:{en:'Use regional recipes to understand climate, ingredients, migration and memory.',hi:'क्षेत्रीय व्यंजनों के माध्यम से जलवायु, सामग्री, प्रवास और स्मृति को समझें।',sa:'प्रादेशिकव्यञ्जनैः जलवायुम्, सामग्रीः, प्रवासं, स्मृतिं च अवगच्छतु।'},
+    edu_track_story_kicker:{en:'STORIES & EPICS',hi:'कहानियाँ और महाकाव्य',sa:'कथाः महाकाव्यानि च'},
+    edu_track_story_title:{en:'Follow ideas across generations.',hi:'पीढ़ियों के पार विचारों का सफर देखें।',sa:'पीढीभ्यः पीढीषु विचारान् अनुसरतु।'},
+    edu_track_story_desc:{en:'Explore folklore, epics and historical stories as living forms of memory.',hi:'लोककथाओं, महाकाव्यों और ऐतिहासिक कथाओं को जीवित स्मृति के रूप में खोजें।',sa:'लोककथाः महाकाव्यानि ऐतिहासिककथाश्च जीवन्तस्मृतिरूपेण अन्विष्यतु।'},
+    edu_track_script_kicker:{en:'SCRIPTS & LANGUAGE',hi:'लिपियाँ और भाषा',sa:'लिपयः भाषा च'},
+    edu_track_script_title:{en:"Meet India's written past.",hi:'भारत के लिखित अतीत से मिलें।',sa:'भारतस्य लिखितभूतकालं पश्यतु।'},
+    edu_track_script_desc:{en:'Experiment with Brahmi and Kharosthi while learning how scripts preserve history.',hi:'ब्राह्मी और खरोष्ठी के साथ प्रयोग करते हुए जानें कि लिपियाँ इतिहास को कैसे सुरक्षित रखती हैं।',sa:'ब्राह्मी-खरोष्ठीभ्यां प्रयोगं कुर्वन् लिपयः इतिहासं कथं संरक्षन्ति इति जानातु।'},
+    edu_track_play_kicker:{en:'LEARN BY PLAYING',hi:'खेलकर सीखें',sa:'क्रीडया अध्ययनम्'},
+    edu_track_play_title:{en:'Turn recall into a challenge.',hi:'याददाश्त को चुनौती में बदलें।',sa:'स्मरणं चुनौतीरूपेण परिवर्तयतु।'},
+    edu_track_play_desc:{en:'Finish with Heritage Quiz, Monument Scramble and matching games.',hi:'हेरिटेज क्विज़, मॉन्यूमेंट स्क्रैम्बल और मिलान खेलों के साथ पाठ पूरा करें।',sa:'धरोहरप्रश्नोत्तरी, स्मारकविन्यासक्रीडा, मेलनक्रीडाभिश्च पाठं समापयतु।'},
+    edu_open_lesson:{en:'OPEN LESSON ↗',hi:'पाठ खोलें ↗',sa:'पाठम् उद्घाटयतु ↗'},
+    edu_take_challenge:{en:'TAKE THE CHALLENGE ↗',hi:'चुनौती लें ↗',sa:'चुनौतीं स्वीकरोतु ↗'},
+    edu_challenge_title:{en:'Can you connect a place, a festival, a recipe and a script?',hi:'क्या आप एक स्थान, त्योहार, व्यंजन और लिपि को आपस में जोड़ सकते हैं?',sa:'किं भवान् स्थानम् उत्सवं व्यञ्जनं लिपिं च परस्परं संयोजयितुं शक्नोति?'},
+    edu_challenge_desc:{en:"Start anywhere. The point is not memorising isolated facts. It is seeing how India's heritage connects across region, language, food, belief and everyday life.",hi:'कहीं से भी शुरू करें। उद्देश्य अलग-अलग तथ्य रटना नहीं है, बल्कि यह देखना है कि भारत की विरासत क्षेत्र, भाषा, भोजन, आस्था और रोज़मर्रा के जीवन में कैसे जुड़ती है।',sa:'यत्रकुत्रापि आरभताम्। पृथक् तथ्यस्मरणं लक्ष्यं नास्ति; भारतस्य धरोहरा प्रदेशे, भाषायाम्, आहारे, श्रद्धायाम्, दैनिकजीवने च कथं संयुज्यते इति द्रष्टव्यम्।'},
+    vo_archive_kicker:{en:'VIRASAT ORIGINALS / FILM ARCHIVE',hi:'विरासत ओरिजिनल्स / फ़िल्म संग्रह',sa:'विरासत् / चलचित्रसङ्ग्रहः'},
+    vo_archive_title:{en:'Explore the film collection.',hi:'फ़िल्म संग्रह देखें।',sa:'चलचित्रसङ्ग्रहं पश्यतु।'},
+    vo_archive_desc:{en:"Discover India's history, architecture and ingenuity, one documentary at a time.",hi:'भारत का इतिहास, वास्तुकला और प्रतिभा वृत्तचित्रों के माध्यम से जानें।',sa:'भारतस्य इतिहासं वास्तुकलां कौशलं च वृत्तचित्रैः जानातु।'},
+    vo_archive_count:{en:'03 DOCUMENTARIES',hi:'०३ वृत्तचित्र',sa:'०३ वृत्तचित्राणि'},
+    vo_filter_all:{en:'All films',hi:'सभी फ़िल्में',sa:'सर्वाणि चलचित्राणि'},
+    vo_filter_civilizations:{en:'Civilizations',hi:'सभ्यताएँ',sa:'सभ्यताः'},
+    vo_filter_architecture:{en:'Architecture',hi:'वास्तुकला',sa:'वास्तुकला'},
+    vo_ep1_meta:{en:'EPISODE 01 · CIVILIZATIONS',hi:'एपिसोड ०१ · सभ्यताएँ',sa:'प्रकरणम् ०१ · सभ्यताः'},
+    vo_ep1_desc:{en:'Discover how the Indus Civilization planned cities, managed water and built enduring urban networks.',hi:'जानें सिंधु सभ्यता ने नगरों की योजना, जल प्रबंधन और शहरी व्यवस्था कैसे विकसित की।',sa:'सिन्धुसभ्यतायाः नगरयोजनां जलप्रबन्धनं च जानातु।'},
+    vo_filter_mathematics:{en:'Mathematics',hi:'गणित',sa:'गणितम्'},
+    vo_ep3_meta:{en:'EPISODE 03 · MATHEMATICS',hi:'एपिसोड ०३ · गणित',sa:'प्रकरणम् ०३ · गणितम्'},
+    vo_ep3_title:{en:'How Zero Changed the World',hi:'शून्य ने दुनिया कैसे बदली',sa:'शून्येन विश्वं कथं परिवर्तितम्'},
+    vo_ep3_desc:{en:'Discover the history of zero, Indian place-value mathematics, Brahmagupta and the global journey of mathematical ideas.',hi:'शून्य का इतिहास, भारतीय स्थान-मूल्य गणित, ब्रह्मगुप्त और गणितीय विचारों की विश्वयात्रा जानें।',sa:'शून्यस्य इतिहासं भारतीयस्थानमूल्यगणितं ब्रह्मगुप्तं गणितविचाराणां प्रसारं च जानातु।'},
+    vo_ep2_meta:{en:'EPISODE 02 · ARCHITECTURE',hi:'एपिसोड ०२ · वास्तुकला',sa:'प्रकरणम् ०२ · वास्तुकला'},
+    vo_ep2_title:{en:'The Ellora Caves Marvel',hi:'एलोरा की गुफाओं का अद्भुत वैभव',sa:'एलोरागुहानाम् अद्भुतं वैभवम्'},
+    vo_ep2_desc:{en:"Explore Ellora's rock-cut temples, the remarkable Kailasa Temple and centuries of artistic achievement.",hi:'एलोरा के शैलकृत मंदिरों, कैलास मंदिर और सदियों की कलात्मक उपलब्धियों को जानें।',sa:'एलोरायाः शैलोत्कीर्णमन्दिराणि कैलासमन्दिरं कलावैभवं च जानातु।'},
+    vo_watch:{en:'WATCH FILM ↗',hi:'फ़िल्म देखें ↗',sa:'चलचित्रं पश्यतु ↗'},
+    edu_first_episode_label:{en:'VIRASAT ORIGINALS / EPISODE 01',hi:'विरासत ओरिजिनल्स / एपिसोड ०१',sa:'विरासत् मूलशृङ्खला / प्रकरणम् ०१'},
+    edu_first_episode_title:{en:'Indus Valley Civilisation',hi:'सिंधु घाटी की अभियांत्रिकी',sa:'सिन्धुसभ्यतायाः अभियांत्रिकी'},
+    edu_first_episode_description:{en:'Discover the ingenious city planning, brick construction, drainage systems, water management and trade networks of the Indus Civilization in this narrated documentary.',hi:'इस वृत्तचित्र में सिंधु सभ्यता की नगर योजना, ईंट निर्माण, जल निकासी, जल प्रबंधन और व्यापारिक नेटवर्क के बारे में जानें।',sa:'अस्मिन् वृत्तचित्रे सिन्धुसभ्यतायाः नगरयोजनां, इष्टिकानिर्माणं, जलनिकासव्यवस्थां, जलप्रबन्धनं वाणिज्यमार्गांश्च जानातु।'},
+    edu_first_episode_watch:{en:'WATCH EPISODE ↑',hi:'एपिसोड देखें ↑',sa:'प्रकरणं पश्यतु ↑'},
+    edu_begin_explore:{en:'Begin with the map',hi:'मानचित्र से शुरू करें',sa:'मानचित्रेण आरभताम्'},
+    edu_try_quiz:{en:'Try the heritage quiz',hi:'हेरिटेज क्विज़ आज़माएँ',sa:'धरोहरप्रश्नोत्तरीं प्रयतताम्'},
+    vx_worlds_title:{en:'Ten ways into <em>India.</em>',hi:'भारत में उतरने के दस <em>रास्ते।</em>',sa:'भारतम् प्रवेष्टुं दश <em>मार्गाः।</em>'}
+  });
+  if(typeof applyLanguage==='function') applyLanguage(typeof LANG!=='undefined'?LANG:'en');
+
+  // Tiny helper for the next step: once the final video URL is supplied, this can be called without rebuilding the layout.
+  window.setVirasatEducationVideo=function(src){
+    const video=document.getElementById('virasatEducationVideo');
+    const placeholder=document.getElementById('educationVideoPlaceholder');
+    if(!video || !src) return false;
+    const source=video.querySelector('source');
+    if(source) source.src=src; else video.src=src;
+    video.hidden=false;
+    video.closest('.education-video-stage')?.classList.add('has-video');
+    if(placeholder) placeholder.hidden=true;
+    try{video.load();}catch(e){}
+    return true;
+  };
+})();
+</script>
+
+<script id="virasatOriginalsArchiveScript">
+(function(){
+ function init(){
+  const page=document.getElementById('page-education');if(!page)return;
+  const video=document.getElementById('virasatEducationVideo');if(!video)return;
+  const heading=document.getElementById('indusEpisodeHeading');
+  const label=page.querySelector('.education-featured-episode .education-episode-label');
+  const desc=page.querySelector('.education-featured-body p');
+  const duration=page.querySelector('.education-episode-duration');
+  const source=video.querySelector('source');
+  const films=[...page.querySelectorAll('.vo-film')];
+  page.querySelectorAll('.vo-film-trigger').forEach((btn,i)=>btn.addEventListener('click',()=>{
+   const src=btn.dataset.voSrc; if(!src)return;
+   video.pause();if(source)source.src=src;else video.src=src;
+   video.poster=btn.dataset.voPoster||'';
+   video.setAttribute('aria-label',btn.dataset.voTitle+' documentary');
+   video.load();video.hidden=false;
+   if(heading){heading.textContent=btn.querySelector('.vo-film-content strong').textContent;heading.removeAttribute('data-i18n');}
+   if(label){label.textContent='VIRASAT ORIGINALS / EPISODE '+String(i+1).padStart(2,'0');label.removeAttribute('data-i18n');}
+   if(desc){desc.textContent=btn.querySelector('.vo-film-content > span').textContent;desc.removeAttribute('data-i18n');}
+   if(duration)duration.textContent=btn.querySelector('.vo-time').textContent+' · HD · 16:9';
+   page.querySelectorAll('.vo-film').forEach(card=>card.classList.toggle('selected',card.contains(btn)));
+   document.getElementById('educationVideoStage').scrollIntoView({behavior:'smooth',block:'center'});
+   const p=video.play();if(p&&p.catch)p.catch(()=>{});
+  }));
+  page.querySelectorAll('.vo-filter').forEach(btn=>btn.addEventListener('click',()=>{
+   const f=btn.dataset.voFilter;
+   page.querySelectorAll('.vo-filter').forEach(b=>{const active=b===btn;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
+   films.forEach(card=>{card.hidden=f!=='all'&&card.dataset.voCategory!==f;});
+  }));
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<script id="virasatAssetsFallbackScript">
+// Films and posters live in the assets/ folder next to index.html (in the GitHub repo).
+// When this file is opened straight from a laptop, load them from the live site instead,
+// so nobody needs a copy of the (large) video files to see them.
+(function(){
+  if (location.protocol !== 'file:') return;
+  const live = String(window.VIRASAT_LIVE_URL || '').replace(/\/+$/, '');
+  if (!/^https:\/\//.test(live)) return;
+  const fix = url => (url && url.indexOf('assets/') === 0) ? live + '/' + url : url;
+  document.querySelectorAll('[data-vo-src],[data-vo-poster]').forEach(el => {
+    if (el.dataset.voSrc) el.dataset.voSrc = fix(el.dataset.voSrc);
+    if (el.dataset.voPoster) el.dataset.voPoster = fix(el.dataset.voPoster);
+  });
+  document.querySelectorAll('img[src^="assets/"], source[src^="assets/"], a[href^="assets/"]').forEach(el => {
+    const attr = el.tagName === 'A' ? 'href' : 'src';
+    el.setAttribute(attr, fix(el.getAttribute(attr)));
+  });
+  document.querySelectorAll('video').forEach(v => {
+    if ((v.getAttribute('poster') || '').indexOf('assets/') === 0) v.setAttribute('poster', fix(v.getAttribute('poster')));
+    if (v.querySelector('source[src^="' + live + '"]')) { try { v.load(); } catch (e) {} }
+  });
 })();
 </script>
 </body>
