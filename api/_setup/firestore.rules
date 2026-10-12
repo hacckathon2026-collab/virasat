@@ -1,0 +1,83 @@
+rules_version = '2';
+
+// Who can read and write what in the Virasat database.
+// Deploy after changing:  npx firebase-tools deploy --only firestore
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() { return request.auth != null; }
+    function isOwner(uid) { return signedIn() && request.auth.uid == uid; }
+    function validName(n) { return n is string && n.size() >= 2 && n.size() <= 24; }
+    function games() { return ['match', 'quiz', 'festival', 'scramble']; }
+
+    // ── Profiles: users/{uid} — private to their owner ──
+    function validProfile(d) {
+      return d.keys().hasAll(['displayName', 'email', 'createdAt', 'lastLoginAt'])
+        && d.keys().hasOnly(['displayName', 'email', 'language', 'theme', 'createdAt', 'lastLoginAt'])
+        && validName(d.displayName)
+        && d.email == request.auth.token.email
+        && (!('language' in d) || d.language in ['en', 'hi', 'sa'])
+        && (!('theme' in d) || d.theme in ['dark', 'light'])
+        && d.createdAt is timestamp
+        && d.lastLoginAt is timestamp;
+    }
+
+    match /users/{uid} {
+      allow read: if isOwner(uid);
+      allow create: if isOwner(uid)
+        && validProfile(request.resource.data)
+        && request.resource.data.createdAt == request.time;
+      allow update: if isOwner(uid)
+        && validProfile(request.resource.data)
+        && request.resource.data.createdAt == resource.data.createdAt;
+      allow delete: if false;
+    }
+
+    // ── Leaderboards: leaderboards/{game}/entries/{uid} — one doc per player = their best ──
+    // Limits are loose on purpose so the team can add quiz questions or cards
+    // without touching these rules (up to 100 questions / 50 card pairs).
+    function validEntry(game, d) {
+      return d.uid == request.auth.uid
+        && validName(d.displayName)
+        && d.timeMs is int && d.timeMs >= 1000 && d.timeMs <= 3600000
+        && d.plays is int
+        && d.updatedAt == request.time
+        && (game == 'match'
+          ? d.keys().hasAll(['uid', 'displayName', 'moves', 'pairs', 'timeMs', 'plays', 'updatedAt'])
+            && d.keys().hasOnly(['uid', 'displayName', 'moves', 'pairs', 'timeMs', 'plays', 'updatedAt'])
+            && d.pairs is int && d.pairs >= 1 && d.pairs <= 50
+            && d.moves is int && d.moves >= d.pairs * 2 && d.moves <= 5000
+          : d.keys().hasAll(['uid', 'displayName', 'score', 'total', 'timeMs', 'plays', 'updatedAt'])
+            && d.keys().hasOnly(['uid', 'displayName', 'score', 'total', 'timeMs', 'plays', 'updatedAt'])
+            && d.total is int && d.total >= 1 && d.total <= 100
+            && d.score is int && d.score >= 0 && d.score <= d.total);
+    }
+
+    // Higher score wins (fewer moves for Heritage Match); a tie goes to the faster time.
+    function improved(game, n, o) {
+      return game == 'match'
+        ? (n.moves < o.moves || (n.moves == o.moves && n.timeMs < o.timeMs))
+        : (n.score > o.score || (n.score == o.score && n.timeMs < o.timeMs));
+    }
+
+    // A slower or worse game still counts as a play, but must keep the old best.
+    function keepsBest(game, n, o) {
+      return game == 'match'
+        ? (n.moves == o.moves && n.pairs == o.pairs && n.timeMs == o.timeMs)
+        : (n.score == o.score && n.total == o.total && n.timeMs == o.timeMs);
+    }
+
+    match /leaderboards/{game}/entries/{uid} {
+      allow read: if signedIn() && game in games();
+      allow create: if isOwner(uid) && game in games()
+        && validEntry(game, request.resource.data)
+        && request.resource.data.plays == 1;
+      allow update: if isOwner(uid) && game in games()
+        && validEntry(game, request.resource.data)
+        && request.resource.data.plays == resource.data.plays + 1
+        && (improved(game, request.resource.data, resource.data)
+          || keepsBest(game, request.resource.data, resource.data));
+      allow delete: if false;
+    }
+  }
+}

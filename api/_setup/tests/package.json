@@ -1,0 +1,13 @@
+{
+  "name": "virasat-tests",
+  "private": true,
+  "type": "module",
+  "description": "Checks for the database rules and the Heritage AI function. Run from api/_setup: npm --prefix tests test",
+  "scripts": {
+    "test": "cd .. && npx --yes firebase-tools@15.33.0 emulators:exec --only auth,firestore --project demo-virasat \"node --test tests/*.test.mjs\""
+  },
+  "devDependencies": {
+    "@firebase/rules-unit-testing": "5.0.2",
+    "firebase": "12.19.0"
+  }
+}
