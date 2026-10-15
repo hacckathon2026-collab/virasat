@@ -11382,6 +11382,13 @@ body.festival-story-open { overflow: hidden; }
 @media(max-width:640px){#page-games .virasat-3d-toolbar{justify-content:center}#page-games .virasat-3d-toolbar .virasat-3d-title{width:100%;order:-1}#page-games .virasat-3d-screen{height:70dvh;min-height:430px;border-radius:14px}#page-games .virasat-3d-hint{font-size:12px}}
 @media(prefers-reduced-motion:reduce){#page-games .virasat-3d-card{animation:none!important}}
 </style>
+
+<style id="virasatGamingHubNavCompact">
+/* Gaming Hub is a single direct link; its games remain on the hub page. */
+@media (min-width: 601px) {
+  #navLinks .mega-secondary { min-height: 0 !important; align-self: start !important; }
+}
+</style>
 </head>
 <body>
 
@@ -11596,19 +11603,8 @@ body.festival-story-open { overflow: hidden; }
                 <div class="mega-kicker">Learn &amp; Play</div>
                 <a href="#" data-page="education" data-i18n="nav_education" class="education-nav-link">Education</a>
                 <a href="#" data-page="history" data-i18n="nav_history" class="history-nav-link">India Through Time</a>
-                <div class="nav-item" role="none">
-                    <a href="#" data-page="games" role="menuitem" aria-haspopup="true" aria-expanded="true">Gaming Hub</a>
-                    <div class="nav-dropdown" role="menu" aria-label="Gaming Hub submenu">
-                        <a href="#" data-page="games" data-sub="hub" role="menuitem">Hub Home</a>
-                        <a href="#" data-page="games" data-sub="match" role="menuitem">Heritage Match</a>
-                        <a href="#" data-page="games" data-sub="quiz" role="menuitem">Heritage Quiz</a>
-                        <a href="#" data-page="games" data-sub="scramble" role="menuitem">Monument Scramble</a>
-                        <a href="#" data-page="games" data-sub="festival" role="menuitem">Festival Match</a>
-                        <a href="#" data-page="games" data-sub="artisans" role="menuitem">Artisan’s Courtyard 3D</a>
-                        <a href="#" data-page="games" data-sub="monsoon" role="menuitem">Monsoon Keepers</a>
-                        <a href="#" data-page="games" data-sub="blockbharat" role="menuitem">Block Bharat: Expanded World</a>
-                    </div>
-                </div>
+
+                <a href="#" data-page="games" role="menuitem" class="gaming-hub-nav-link">Gaming Hub</a>
 
             </div>
 
