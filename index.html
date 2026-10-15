@@ -11655,6 +11655,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 }
 
 </style>
+<style id="virasat-kahani-audio-fix">#page-kahani .kb-read-control{position:relative;z-index:40;display:flex;width:max-content;max-width:95%;margin:12px auto 0;flex:0 0 auto;white-space:nowrap;touch-action:manipulation}#page-kahani .kb-read-control .v-audio-icon{pointer-events:none}@media(max-width:650px){#page-kahani .kb-controls{flex-wrap:wrap}#page-kahani .kb-read-control{margin:auto}}</style>
 </head>
 <body>
 
@@ -18626,7 +18627,7 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
     book.addEventListener('pointerdown', e => {
         suppressClick = false;
         if (drag || (e.pointerType === 'mouse' && e.button !== 0)) return;
-        if (e.target.closest('button, a, input')) return;
+        if (e.target.closest('button, a, input, .virasat-speak-button')) return;
         if (leaves.some(l => l.classList.contains('is-turning'))) return;
         const r = book.getBoundingClientRect();
         drag = { id: e.pointerId, x0: e.clientX, y0: e.clientY, x: e.clientX, time: performance.now(), vx: 0, spine: single ? r.left : r.left + r.width / 2, active: false };
@@ -18688,6 +18689,7 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
     stage.addEventListener('click', e => {
         const ctl = e.target.closest('[data-kb]');
         if (ctl) { e.preventDefault(); act(ctl.dataset.kb, ctl); return; }
+        if (e.target.closest('.virasat-speak-button')) return;
         if (!e.target.closest('.kb-book')) return;
         if (suppressClick) { suppressClick = false; return; }
         const r = book.getBoundingClientRect();
@@ -18817,6 +18819,37 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
         setTimeout(() => whenVisible(fn, (tries || 0) + 1), 100);
     }
 
+    // Stable narration control: lives outside the page-turn surfaces, so it cannot flip a leaf.
+    const storyAudioBtn=document.createElement('button');
+    storyAudioBtn.type='button';
+    storyAudioBtn.className='virasat-speak-button kb-read-control';
+    storyAudioBtn.setAttribute('aria-label','Read current story aloud');
+    storyAudioBtn.innerHTML='<span aria-hidden="true">🔊</span><span>Read aloud</span>';
+    // The book re-creates its chrome whenever the language or filter changes.
+    // Keep the audio button outside that re-created subtree.
+    stage.appendChild(storyAudioBtn);
+    function currentStoryText(){
+        const idx=visibleIndex();
+        // On double-page spreads the story title and text face can be adjacent.
+        let current=pages[idx];
+        if(!current || !Number.isInteger(current.story)){
+            current=pages[idx+1]?.kind==='text'?pages[idx+1]:pages[idx-1]?.kind==='text'?pages[idx-1]:null;
+        }
+        if(!current || !Number.isInteger(current.story))return '';
+        const story=locStory(STORIES[current.story]);
+        return [story.title,story.summary,story.full].filter(Boolean).join('. ');
+    }
+    storyAudioBtn.addEventListener('pointerdown',e=>e.stopPropagation());
+    storyAudioBtn.addEventListener('click',e=>{
+        e.preventDefault();e.stopPropagation();
+        if(!window.VirasatNarration){storyAudioBtn.title='Speech is unavailable in this browser';return;}
+        if(storyAudioBtn.getAttribute('aria-pressed')==='true'){
+            window.VirasatNarration.stop();return;
+        }
+        const storyText=currentStoryText();
+        if(storyText)window.VirasatNarration.speak(storyAudioBtn,storyText,LANG==='hi'?'hi-IN':LANG==='sa'?'sa-IN':'en-IN');
+        else storyAudioBtn.title='Open a story to listen';
+    });
     window.KahaniBook = { render, openStory, go };
     render();
 })();
@@ -20940,6 +20973,7 @@ draw();
     }
     next();
   }
+  window.VirasatNarration=Object.freeze({speak:(button,text,lang)=>speak(button,text,lang||'en-IN'),stop,isSupported:true});
   function addButton(target,scope){
     if(!target||target.dataset.virasatSpeakReady==='1')return;
     target.dataset.virasatSpeakReady='1';
@@ -20977,7 +21011,7 @@ draw();
       }
       const items=root.querySelectorAll('p,.faq-answer,.story-text,.story-body,.history-event-copy p,.history-kingdom p,.education-track p,.education-flow-card p');
       for(const el of items){
-        if(el.dataset.virasatSpeakReady==='1'||el.closest('button,a,nav,form,.navlinks,.tourism-site,.tourism-card,.game-card,.login-card,.tourism-info-overlay,.heritage-ai-message,.tourism-fee-panel,.tourism-fee-preview,.tourism-hours,.tourism-story-loading,.tourism-story-unavailable'))continue;
+        if(el.dataset.virasatSpeakReady==='1'||el.closest('button,a,nav,form,.navlinks,.tourism-site,.tourism-card,.game-card,.login-card,.tourism-info-overlay,.heritage-ai-message,.tourism-fee-panel,.tourism-fee-preview,.tourism-hours,.tourism-story-loading,.tourism-story-unavailable,#kahaniBook'))continue;
         if(cleanText(el.innerText||el.textContent).length>=190)addButton(el,'paragraph');
       }
     }
