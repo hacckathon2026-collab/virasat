@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+a<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -11655,7 +11655,6 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 }
 
 </style>
-<style id="virasat-kahani-audio-fix">#page-kahani .kb-read-control{position:relative;z-index:40;display:flex;width:max-content;max-width:95%;margin:12px auto 0;flex:0 0 auto;white-space:nowrap;touch-action:manipulation}#page-kahani .kb-read-control .v-audio-icon{pointer-events:none}@media(max-width:650px){#page-kahani .kb-controls{flex-wrap:wrap}#page-kahani .kb-read-control{margin:auto}}</style>
 </head>
 <body>
 
@@ -18819,37 +18818,6 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
         setTimeout(() => whenVisible(fn, (tries || 0) + 1), 100);
     }
 
-    // Stable narration control: lives outside the page-turn surfaces, so it cannot flip a leaf.
-    const storyAudioBtn=document.createElement('button');
-    storyAudioBtn.type='button';
-    storyAudioBtn.className='virasat-speak-button kb-read-control';
-    storyAudioBtn.setAttribute('aria-label','Read current story aloud');
-    storyAudioBtn.innerHTML='<span aria-hidden="true">🔊</span><span>Read aloud</span>';
-    // The book re-creates its chrome whenever the language or filter changes.
-    // Keep the audio button outside that re-created subtree.
-    stage.appendChild(storyAudioBtn);
-    function currentStoryText(){
-        const idx=visibleIndex();
-        // On double-page spreads the story title and text face can be adjacent.
-        let current=pages[idx];
-        if(!current || !Number.isInteger(current.story)){
-            current=pages[idx+1]?.kind==='text'?pages[idx+1]:pages[idx-1]?.kind==='text'?pages[idx-1]:null;
-        }
-        if(!current || !Number.isInteger(current.story))return '';
-        const story=locStory(STORIES[current.story]);
-        return [story.title,story.summary,story.full].filter(Boolean).join('. ');
-    }
-    storyAudioBtn.addEventListener('pointerdown',e=>e.stopPropagation());
-    storyAudioBtn.addEventListener('click',e=>{
-        e.preventDefault();e.stopPropagation();
-        if(!window.VirasatNarration){storyAudioBtn.title='Speech is unavailable in this browser';return;}
-        if(storyAudioBtn.getAttribute('aria-pressed')==='true'){
-            window.VirasatNarration.stop();return;
-        }
-        const storyText=currentStoryText();
-        if(storyText)window.VirasatNarration.speak(storyAudioBtn,storyText,LANG==='hi'?'hi-IN':LANG==='sa'?'sa-IN':'en-IN');
-        else storyAudioBtn.title='Open a story to listen';
-    });
     window.KahaniBook = { render, openStory, go };
     render();
 })();
@@ -19896,6 +19864,17 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
 .tourism-travel-note{margin-top:10px;color:#9e8d70;font-size:11px;line-height:1.5}
 .tourism-travel-note.is-error{color:#d7aa8d}
 @media(max-width:520px){.tourism-travel-grid{grid-template-columns:1fr}.tourism-travel-top{align-items:flex-start;flex-direction:column}.tourism-travel-actions{width:100%}.tourism-travel-refresh,.tourism-google-route{flex:1}}
+
+/* Tourism media and compact-card fixes, scoped to this section. */
+.tourism-card-meta{align-items:flex-start;flex-wrap:wrap;row-gap:12px}
+.tourism-card-meta>span{flex:1 1 160px;min-width:0;overflow-wrap:anywhere}
+.tourism-card-count{flex:0 1 auto;max-width:100%;line-height:1.5}
+.tourism-card-media .tourism-photo-credit,.tourism-site-media .tourism-photo-credit,.tourism-info-media .tourism-photo-credit{position:absolute;bottom:9px;left:12px;z-index:2;max-width:calc(100% - 24px);padding:4px 8px;border-radius:6px;background:rgba(0,0,0,.72);color:#fff1c9;font:10px/1.4 sans-serif;text-decoration:none;overflow-wrap:anywhere}
+.tourism-photo-credit[hidden]{display:none!important}
+.tourism-image-sources{margin-top:22px;color:#b4a17b;font-size:12px;line-height:1.7}.tourism-image-sources summary{cursor:pointer;color:#d4af37}.tourism-image-sources a{color:inherit}.tourism-image-sources li{margin:8px 0}
+.tourism-photo.is-unavailable{object-fit:contain;transform:none!important;opacity:.85}
+.tourism-card:focus-visible,.tourism-open-arrow:focus-visible,.tourism-info-close:focus-visible{outline:2px solid #d4af37;outline-offset:4px}
+html[data-theme="light"] #page-tourism .tourism-photo-fallback{background:linear-gradient(135deg,#eee0c9,#e0cfaf)}
 </style>
 <script id="virasatTourismExplorerScript">
 (function(){
@@ -19910,68 +19889,154 @@ const tx=()=>dict[getLang()];
 const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const label=s=>typeof tr==='function'?tr(s):s;
 const transparentGif='data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==';
-const mediaCacheKey='virasat_tourism_media_cache_v4_accuracy';
+const mediaCacheKey='virasat_tourism_media_cache_v6_photographs';
 const mediaCacheMem=Object.create(null);
 let mediaCacheDisk=Object.create(null);
 try{mediaCacheDisk=JSON.parse(localStorage.getItem(mediaCacheKey)||'{}')||Object.create(null);}catch(_e){mediaCacheDisk=Object.create(null);}
 function saveMediaCache(){try{localStorage.setItem(mediaCacheKey, JSON.stringify(mediaCacheDisk));}catch(_e){}}
 function normalizeKey(s){return String(s||'').toLowerCase().replace(/\s+/g,' ').trim();}
-function stateImage(name){return (typeof STATE_DATA!=='undefined' && STATE_DATA[name] && STATE_DATA[name].image) ? STATE_DATA[name].image : transparentGif;}
+// Only target-matched photographs may fill a city/site card. No regional substitution.
+const CURATED_TOURISM_PHOTOS={
+ 'city|himachal pradesh|manali|manali':{
+  src:'https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e6/Valley_View_-_Manali_-_Himachal_Pradesh_-_India_-_02_%2826341492270%29.jpg/960px-Valley_View_-_Manali_-_Himachal_Pradesh_-_India_-_02_%2826341492270%29.jpg',
+  title:'Valley view of Manali, Himachal Pradesh',
+  source:'https://commons.wikimedia.org/wiki/File:Valley_View_-_Manali_-_Himachal_Pradesh_-_India_-_02_(26341492270).jpg',
+  credit:'Adam Jones · CC BY-SA 2.0',checked:true
+ }
+};
+function photoText(key){
+ const words={en:{unavailable:'Photo unavailable',loading:'Finding a destination photo',source:'Photo source'},hi:{unavailable:'चित्र उपलब्ध नहीं',loading:'स्थान का चित्र खोज रहे हैं',source:'चित्र स्रोत'},sa:{unavailable:'चित्रम् अनुपलब्धम्',loading:'स्थानस्य चित्रम् अन्विष्यते',source:'चित्रस्रोतः'}};
+ return (words[getLang()]||words.en)[key];
+}
+function photoPlaceholder(){
+ const svg='<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540"><rect width="960" height="540" fill="#201a11"/><g fill="none" stroke="#d4af37" stroke-width="3" opacity=".6"><rect x="416" y="160" width="128" height="100" rx="12"/><circle cx="451" cy="190" r="10"/><path d="m430 242 35-30 22 18 25-24 20 36"/></g><text x="480" y="318" text-anchor="middle" fill="#ddcfad" font-size="24" font-family="sans-serif">'+photoText('unavailable')+'</text></svg>';
+ return 'data:image/svg+xml;charset=utf-8,'+encodeURIComponent(svg);
+}
+function stateImage(name){return (typeof STATE_DATA!=='undefined' && STATE_DATA[name] && STATE_DATA[name].image) ? STATE_DATA[name].image : photoPlaceholder();}
+function mediaFilename(url){
+ try{return decodeURIComponent(new URL(url).pathname.split('/').pop()).replace(/^\d+px-/, '').replace(/\.\w+$/, '').replace(/_/g,' ');}catch(_e){return '';}
+}
+function statePhotoAlt(st){return mediaFilename(stateImage(st))+' · '+label(st);}
+function photoIdentity(meta){return normalizeKey([meta.kind||'',meta.state||'',meta.city||'',meta.target||''].join('|'));}
 function btn(labelText,action,value){return '<button type="button" data-action="'+action+'"'+(value?' data-value="'+esc(value)+'"':'')+'>'+esc(labelText)+'</button>';}
-function imageMarkup(kind, alt, opts){
-  opts=opts||{};
-  const classes='tourism-photo'+(opts.staticSrc?' is-ready':' is-loading');
-  const src=opts.staticSrc||opts.fallback||transparentGif;
-  const attrs=[];
-  if(opts.q1) attrs.push(' data-q1="'+esc(opts.q1)+'"');
-  if(opts.q2) attrs.push(' data-q2="'+esc(opts.q2)+'"');
-  if(opts.q3) attrs.push(' data-q3="'+esc(opts.q3)+'"');
-  if(opts.target) attrs.push(' data-target="'+esc(opts.target)+'"');
-  if(opts.city) attrs.push(' data-city="'+esc(opts.city)+'"');
-  if(opts.state) attrs.push(' data-state="'+esc(opts.state)+'"');
-  if(opts.kind) attrs.push(' data-kind="'+esc(opts.kind)+'"');
-  if(opts.fallback) attrs.push(' data-fallback="'+esc(opts.fallback)+'"');
-  return '<div class="'+(kind==='site'?'tourism-site-media':'tourism-card-media')+' tourism-photo-fallback">'
-       + '<img class="'+classes+'" src="'+esc(src)+'" alt="'+esc(alt)+'" loading="lazy" decoding="async"'+attrs.join('')+'>'
-       + '</div>';
+function imageMarkup(kind,alt,opts){
+ opts=opts||{};
+ const pinned=CURATED_TOURISM_PHOTOS[photoIdentity(opts)];
+ const record=pinned||(opts.staticSrc&&isPhotoUrl(opts.staticSrc)?{src:opts.staticSrc,title:alt,source:commonsFilePage(opts.staticSrc),credit:'Wikimedia Commons · photo source',checked:true}:null);
+ const src=record?.src||photoPlaceholder();
+ const attrs=[' data-fallback="'+esc(photoPlaceholder())+'"'];
+ for(const key of ['q1','q2','q3','target','city','state','kind'])if(opts[key])attrs.push(' data-'+key+'="'+esc(opts[key])+'"');
+ if(record)attrs.push(' data-hydrated="1" data-photo-source="'+esc(record.source||'')+'" data-photo-credit="'+esc(record.credit||'')+'"');
+ return '<div class="'+(kind==='site'?'tourism-site-media':'tourism-card-media')+' tourism-photo-fallback">'
+ +'<img class="tourism-photo '+(record?'is-ready':'is-loading is-unavailable')+'" src="'+esc(src)+'" alt="'+esc(record?.title||photoText('loading')+': '+(opts.target||alt))+'" loading="lazy" decoding="async"'+attrs.join('')+'>'
+ +'<span class="tourism-photo-credit"'+(record?'':' hidden')+'>'+esc(record?.credit||'')+'</span></div>';
+}
+function commonsFilePage(url){
+ try{const parts=new URL(url).pathname.split('/');let name=parts[parts.length-1];if(parts.includes('thumb'))name=parts[parts.length-2];return 'https://commons.wikimedia.org/wiki/File:'+encodeURIComponent(decodeURIComponent(name));}catch(_e){return '';}
 }
 function wikiSearchUrl(query){
-  return 'https://en.wikipedia.org/w/api.php?origin=*&action=query&generator=search&gsrsearch='
-    + encodeURIComponent(query)
-    + '&gsrlimit=8&prop=pageimages|extracts&piprop=thumbnail&pithumbsize=1280&exintro=1&explaintext=1&exsentences=2&format=json';
+ return 'https://en.wikipedia.org/w/api.php?origin=*&action=query&generator=search&gsrsearch='+encodeURIComponent(query)+'&gsrlimit=8&prop=pageimages|extracts|info&inprop=url&piprop=thumbnail&pithumbsize=960&exintro=1&explaintext=1&exsentences=3&format=json';
 }
 function cleanPhotoText(s){
-  return String(s||'').toLowerCase()
-    .replace(/\([^)]*\)/g,' ')
-    .replace(/\b(the|of|and|at|in|near|india|indian)\b/g,' ')
-    .replace(/[^a-z0-9]+/g,' ')
-    .replace(/\s+/g,' ').trim();
+ return String(s||'').toLowerCase().replace(/\([^)]*\)/g,' ').replace(/\b(the|of|and|at|in|near|india|indian)\b/g,' ').replace(/[^a-z0-9]+/g,' ').replace(/\s+/g,' ').trim();
 }
-function photoTokens(s){ return new Set(cleanPhotoText(s).split(' ').filter(x=>x.length>2)); }
-function tokenOverlap(a,b){ const A=photoTokens(a),B=photoTokens(b); if(!A.size||!B.size)return 0; let hit=0;A.forEach(x=>{if(B.has(x))hit++;}); return hit/Math.max(A.size,B.size); }
+function canonicalPhotoText(s){
+ return cleanPhotoText(s).replace(/\bhidimba\b/g,'hadimba').replace(/\bsri\b/g,'shri').replace(/\bvishnupad\b/g,'vishnupada').replace(/\bghoom\b/g,'ghum').replace(/\bvenkateswara\b/g,'venkateshwara');
+}
+function photoTokens(s){return new Set(canonicalPhotoText(s).split(' ').filter(x=>x.length>2));}
+function tokenOverlap(a,b){const A=photoTokens(a),B=photoTokens(b);if(!A.size||!B.size)return 0;let hit=0;A.forEach(x=>{if(B.has(x))hit++;});return hit/Math.max(A.size,B.size);}
+function isPhotoUrl(src){
+ try{
+  const u=new URL(src);if(u.protocol!=='https:'||!/(^|\.)wikimedia\.org$/.test(u.hostname))return false;
+  const p=decodeURIComponent(u.pathname).replace(/[_-]/g,' ');
+  if(!/\.(jpe?g|webp|png)(?:$|\/)/i.test(p))return false;
+  return !/(?:\.svg|\bmap\b|\bmaps\b|locator|location map|relief|outline|emblem|coat of arms|flag|logo|seal of|symbol|diagram|chart|plan of|floor plan|portrait|collage|montage)/i.test(p);
+ }catch(_e){return false;}
+}
+function targetCoverage(target,title){
+ const A=photoTokens(target),B=photoTokens(title);if(!A.size)return 0;let n=0;A.forEach(w=>{if(B.has(w))n++;});return n/A.size;
+}
+function repeatedTourismName(target){
+ const key=canonicalPhotoText(target);let n=0;
+ for(const cities of Object.values(DATA))for(const c of cities)for(const site of c.sites)if(canonicalPhotoText(site)===key)n++;
+ return n>1;
+}
+function photoLocationMatches(text,cityName,stateName){
+ const s=canonicalPhotoText(text),city=canonicalPhotoText(cityName),state=canonicalPhotoText(stateName);
+ return {city:!!city&&(' '+s+' ').includes(' '+city+' '),state:!!state&&(' '+s+' ').includes(' '+state+' ')};
+}
 function scorePhotoCandidate(page,target,cityName,stateName){
-  if(!page||!page.thumbnail||!page.thumbnail.source)return -999;
-  const title=page.title||'',extract=page.extract||'';
-  const t=cleanPhotoText(target),p=cleanPhotoText(title),blob=cleanPhotoText(title+' '+extract);
-  let score=0;
-  if(p===t)score+=120; else if(p.startsWith(t)||t.startsWith(p))score+=72;
-  score+=Math.round(tokenOverlap(target,title)*68);
-  if(cityName&&blob.includes(cleanPhotoText(cityName)))score+=28;
-  if(stateName&&blob.includes(cleanPhotoText(stateName)))score+=24;
-  if(/\bindia\b/i.test(extract))score+=5;
-  if(/disambiguation|may refer to|list of/i.test(extract))score-=80;
-  return score;
+ if(!page||!isPhotoUrl(page.thumbnail?.source))return -999;
+ const title=page.title||'',extract=page.extract||'',clean=canonicalPhotoText(target),p=canonicalPhotoText(title);
+ if(/disambiguation|may refer to/i.test(extract)||/^(list of|history of|districts of)\b/i.test(title))return -999;
+ // Location mentions alone cannot qualify an unrelated article as the requested attraction.
+ if(targetCoverage(target,title)<.84)return -999;
+ const location=photoLocationMatches(title+' '+extract,cityName,stateName);
+ const generic=/\b(temple|fort|palace|museum|church|mosque|monastery|stupa|lake|tomb|garden|memorial)\b/.test(clean)&&photoTokens(clean).size<=2;
+ if((repeatedTourismName(target)||generic)&&!location.city)return -999;
+ if(cityName===target&&!location.state)return -999;
+ return (p===clean?120:72)+Math.round(tokenOverlap(target,title)*68)+(location.city?28:0)+(location.state?24:0);
 }
-function isBroadHeritageLabel(name){
-  return /heritage circuit|cultural landscape|heritage landscape|traditional markets?|village traditions?|cultural area|cultural villages?|tribal villages?|art villages?|heritage villages?|craft fair grounds?|foothill cultural landscape|archaeological sites?$|regional pilgrimage|local cultural markets?/i.test(name||'');
+function isBroadHeritageLabel(name){return /heritage circuit|cultural landscape|heritage landscape|traditional markets?|village traditions?|cultural area|cultural villages?|tribal villages?|art villages?|heritage villages?|craft fair grounds?|foothill cultural landscape|archaeological sites?$|local cultural markets?/i.test(name||'');}
+let activeMediaRequests=0;
+const mediaRequestQueue=[];
+const mediaRequestPending=new Map();
+function drainMediaRequests(){
+ while(activeMediaRequests<4&&mediaRequestQueue.length){const job=mediaRequestQueue.shift();activeMediaRequests++;job().finally(()=>{activeMediaRequests--;drainMediaRequests();});}
+}
+function mediaJson(url){
+ if(mediaRequestPending.has(url))return mediaRequestPending.get(url);
+ const promise=new Promise(resolve=>{mediaRequestQueue.push(async()=>{try{const r=await fetchWithTimeout(url,6500);resolve(r.ok?await r.json():null);}catch(_e){resolve(null);}});drainMediaRequests();});
+ mediaRequestPending.set(url,promise);promise.finally(()=>mediaRequestPending.delete(url));return promise;
 }
 async function fetchBestPhoto(query,target,cityName,stateName){
-  try{
-    const res=await fetch(wikiSearchUrl(query),{mode:'cors'}); if(!res.ok)return null;
-    const data=await res.json(); const pages=data&&data.query&&data.query.pages?Object.values(data.query.pages):[];
-    const ranked=pages.map(p=>({p,score:scorePhotoCandidate(p,target,cityName,stateName)})).sort((a,b)=>b.score-a.score);
-    const best=ranked[0]; if(!best||best.score<58)return null; return best.p.thumbnail.source;
-  }catch(_e){return null;}
+ const data=await mediaJson(wikiSearchUrl(query));
+ const pages=Object.values(data?.query?.pages||{});
+ const ranked=pages.map(p=>({p,score:scorePhotoCandidate(p,target,cityName,stateName)})).filter(x=>x.score>=100).sort((a,b)=>b.score-a.score);
+ for(const {p} of ranked.slice(0,2)){
+  const record=await verifyWikiPhoto(p,target,cityName,stateName);if(record)return record;
+ }
+ return null;
+}
+async function verifyWikiPhoto(page,target,cityName,stateName){
+ const source=commonsFilePage(page.thumbnail.source);
+ const file=decodeURIComponent(source.split('/wiki/')[1]||'');
+ const url='https://commons.wikimedia.org/w/api.php?origin=*&action=query&titles='+encodeURIComponent(file)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=960&format=json';
+ const data=await mediaJson(url),item=Object.values(data?.query?.pages||{})[0],info=item?.imageinfo?.[0];
+ if(!info)return null;
+ const meta=info.extmetadata||{},plain=s=>String(s||'').replace(/<[^>]*>/g,' ').replace(/&[^;]+;/g,' ');
+ const filename=(item.title||file).replace(/^File:/,'').replace(/_/g,' ');
+ const description=plain(meta.ImageDescription?.value),context=filename+' '+description;
+ const location=photoLocationMatches(context,cityName,stateName);
+ if(targetCoverage(target,context)<.84)return null;
+ if(cityName===target&&!location.state)return null;
+ if(repeatedTourismName(target)&&!location.city)return null;
+ const artist=plain(meta.Artist?.value).trim().slice(0,90),license=plain(meta.LicenseShortName?.value).trim();
+ if(!artist||!license)return null;
+ const src=info.thumburl||page.thumbnail.source;if(!isPhotoUrl(src))return null;
+ return {src,title:page.title,source:info.descriptionurl||source,credit:artist+' · '+license,checked:true};
+}
+async function fetchCommonsPhoto(target,cityName,stateName){
+ const query='"'+target.replace(/"/g,'')+'" '+(cityName===target?stateName:cityName)+' filetype:bitmap -map -flag -logo -portrait';
+ const url='https://commons.wikimedia.org/w/api.php?origin=*&action=query&generator=search&gsrnamespace=6&gsrlimit=8&gsrsearch='+encodeURIComponent(query)+'&prop=imageinfo&iiprop=url|extmetadata&iiurlwidth=960&format=json';
+ const data=await mediaJson(url);
+ const ranked=Object.values(data?.query?.pages||{}).map(p=>{
+  const info=p.imageinfo?.[0],meta=info?.extmetadata||{};
+  const title=(p.title||'').replace(/^File:/,'').replace(/_/g,' ');
+  const plain=s=>String(s||'').replace(/<[^>]*>/g,' ').replace(/&[^;]+;/g,' ');
+  const description=plain(meta.ImageDescription?.value),context=title+' '+description;
+  const loc=photoLocationMatches(context,cityName,stateName);
+  const src=info?.thumburl||info?.url;
+  if(!isPhotoUrl(src)||targetCoverage(target,title)<.84)return null;
+  if(cityName===target&&!loc.state)return null;
+  if(repeatedTourismName(target)&&!loc.city)return null;
+  if(/\b(map|flag|logo|portrait|diagram|drawing|painting|statue of|collage)\b/i.test(title))return null;
+  const artist=plain(meta.Artist?.value).trim().slice(0,90),license=plain(meta.LicenseShortName?.value).trim();
+  // Do not publish unattributed Commons media when its credit metadata is absent.
+  if(!artist||!license)return null;
+  return {score:targetCoverage(target,title)*100+(loc.city?20:0)+(loc.state?20:0),record:{src,title:title.replace(/\.(jpe?g|png|webp)$/i,''),source:info.descriptionurl||commonsFilePage(src),credit:artist+' · '+license,checked:true}};
+ }).filter(Boolean).sort((a,b)=>b.score-a.score);
+ return ranked[0]?.record||null;
 }
 
 function wikiInfoUrl(query, code){
@@ -20336,7 +20401,8 @@ function ensureInfoOverlay(){
   overlay=document.createElement('div'); overlay.id='tourismInfoOverlay';overlay.className='tourism-info-overlay';overlay.setAttribute('aria-hidden','true');
   overlay.innerHTML='<i class="tourism-info-smoke" aria-hidden="true"></i><i class="tourism-info-smoke s2" aria-hidden="true"></i><article class="tourism-info-panel" role="dialog" aria-modal="true" aria-labelledby="tourismInfoTitle"><button type="button" class="tourism-info-close" aria-label="Close">×</button><div class="tourism-info-media"><img alt="" decoding="async"></div><div class="tourism-info-copy"><div class="tourism-info-kicker"></div><h2 id="tourismInfoTitle"></h2><div class="tourism-info-location"></div><p class="tourism-info-text"></p><div class="tourism-info-status"></div><div class="tourism-fee-mount"></div><div class="tourism-info-links"><div class="tourism-travel-mount"></div><a class="tourism-info-link" target="_blank" rel="noopener noreferrer"></a></div></div></article>';
   document.body.appendChild(overlay);
-  const close=()=>{overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.style.overflow=overlay.dataset.prevOverflow||'';};
+  const close=()=>{overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');document.body.style.overflow=overlay.dataset.prevOverflow||'';if(overlay._returnFocus?.isConnected)overlay._returnFocus.focus();};
+ overlay.addEventListener('keydown',e=>{if(e.key!=='Tab')return;const items=Array.from(overlay.querySelectorAll('button,a[href],input,[tabindex="0"]')).filter(el=>!el.hidden&&!el.disabled&&el.getClientRects().length);const first=items[0],last=items[items.length-1];if(e.shiftKey&&document.activeElement===first){e.preventDefault();last?.focus();}else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first?.focus();}});
   overlay.querySelector('.tourism-info-close').addEventListener('click',close);overlay.addEventListener('click',e=>{if(e.target===overlay)close();});document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))close();});overlay._tourismClose=close;return overlay;
 }
 async function openHeritageInfo(btn){
@@ -20355,8 +20421,9 @@ async function openHeritageInfo(btn){
  // The site always has a Wikipedia link, even when Wikipedia's API is unavailable.
  const wikiSearch='https://en.wikipedia.org/w/index.php?'+new URLSearchParams({search:name+' '+cityName+' '+stateName});
  link.hidden=false;link.href=wikiSearch;link.textContent='Wikipedia: '+name+' ↗';
- const fallbackSrc=(cardImg&&(cardImg.currentSrc||cardImg.src))||stateImage(stateName);if(img.src!==fallbackSrc)img.src=fallbackSrc;img.alt=label(name);
- overlay.dataset.prevOverflow=document.body.style.overflow||'';document.body.style.overflow='hidden';overlay.setAttribute('aria-hidden','false');overlay.classList.remove('open');void overlay.offsetWidth;overlay.classList.add('open');
+ const fallbackSrc=(cardImg&&(cardImg.currentSrc||cardImg.src))||photoPlaceholder();img.onerror=()=>{img.onerror=null;img.src=photoPlaceholder();img.alt=photoText('unavailable')+': '+label(name);};if(img.src!==fallbackSrc)img.src=fallbackSrc;img.alt=cardImg?.alt||label(name);
+ const media=overlay.querySelector('.tourism-info-media');let credit=media.querySelector('.tourism-photo-credit');if(!credit){credit=document.createElement('a');credit.className='tourism-photo-credit';credit.target='_blank';credit.rel='noopener noreferrer';media.appendChild(credit);}credit.hidden=!cardImg?.dataset.photoSource;if(!credit.hidden){credit.href=cardImg.dataset.photoSource;credit.textContent=cardImg.dataset.photoCredit||'Photo source ↗';}
+ if(!overlay.classList.contains('open'))overlay.dataset.prevOverflow=document.body.style.overflow||'';overlay._returnFocus=btn;document.body.style.overflow='hidden';overlay.setAttribute('aria-hidden','false');overlay.classList.remove('open');void overlay.offsetWidth;overlay.classList.add('open');overlay.querySelector('.tourism-info-panel').scrollTop=0;overlay.querySelector('.tourism-info-close').focus({preventScroll:true});
  // For manually curated local stories, don't replace useful facts with an unrelated wiki search hit.
  // Offline historical notes are the primary content. Do not replace them with a failed lookup.
  if(!localStory){
@@ -20372,46 +20439,89 @@ async function openHeritageInfo(btn){
  }
 }
 
+const photoPending=new Map();
+function validPhotoRecord(record){return !!record&&record.checked===true&&isPhotoUrl(record.src)&&typeof record.title==='string';}
 async function resolvePhoto(queries,fallback,meta){
-  meta=meta||{};
+ meta=meta||{};
+ const key=photoIdentity(meta),pinned=CURATED_TOURISM_PHOTOS[key];
+ if(pinned)return pinned;
+ if(validPhotoRecord(mediaCacheMem[key]))return mediaCacheMem[key];
+ const cached=mediaCacheDisk[key];
+ if(validPhotoRecord(cached)&&cached.savedAt>Date.now()-7*86400000){mediaCacheMem[key]=cached;return cached;}
+ if(photoPending.has(key))return photoPending.get(key);
+ const pending=(async()=>{
+  // Broad trails have no single identifiable monument: don't label a nearby city as the site.
+  if(isBroadHeritageLabel(meta.target))return null;
   const target=meta.target||queries?.[0]||'',cityName=meta.city||'',stateName=meta.state||'';
-  const cacheKey=normalizeKey([target,cityName,stateName].filter(Boolean).join('|'));
-  if(cacheKey){ if(mediaCacheMem[cacheKey])return mediaCacheMem[cacheKey]; if(mediaCacheDisk[cacheKey]){mediaCacheMem[cacheKey]=mediaCacheDisk[cacheKey];return mediaCacheDisk[cacheKey];} }
-  async function contextualFallback(){
-    if(meta.kind==='site'&&cityName){
-      const cityPhoto=await fetchBestPhoto('\"'+cityName+'\" '+stateName+' India',cityName,cityName,stateName);
-      if(cityPhoto)return cityPhoto;
-    }
-    return fallback||transparentGif;
+  let record=null;
+  // Specific queries first; all candidates still pass name, location and media-type checks.
+  for(const q of [...new Set(queries||[])].slice(0,2)){
+   record=await fetchBestPhoto(q,target,cityName,stateName);if(record)break;
   }
-  if(meta.kind==='site'&&isBroadHeritageLabel(target))return await contextualFallback();
-  for(const raw of (queries||[])){ if(!raw)continue; const src=await fetchBestPhoto(raw,target,cityName,stateName); if(src){ if(cacheKey){mediaCacheMem[cacheKey]=src;mediaCacheDisk[cacheKey]=src;saveMediaCache();} return src; } }
-  return await contextualFallback();
+  if(!record)record=await fetchCommonsPhoto(target,cityName,stateName);
+  if(record){record.savedAt=Date.now();mediaCacheMem[key]=record;mediaCacheDisk[key]=record;saveMediaCache();}
+  return record;
+ })();
+ photoPending.set(key,pending);
+ try{return await pending;}finally{photoPending.delete(key);}
+}
+function showTourismPhotoUnavailable(img){
+ img.onerror=null;
+ img.src=photoPlaceholder();img.alt=photoText('unavailable')+': '+(img.dataset.target||'');
+ img.classList.remove('is-loading');img.classList.add('is-ready','is-unavailable');
+ delete img.dataset.photoSource;delete img.dataset.photoCredit;
+ const credit=img.parentElement?.querySelector('.tourism-photo-credit');if(credit)credit.hidden=true;
+ const key=photoIdentity({kind:img.dataset.kind,state:img.dataset.state,city:img.dataset.city,target:img.dataset.target});
+ delete mediaCacheMem[key];delete mediaCacheDisk[key];saveMediaCache();
+}
+function applyTourismPhoto(img,record){
+ if(!validPhotoRecord(record)){showTourismPhotoUnavailable(img);return;}
+ img.onerror=()=>showTourismPhotoUnavailable(img);
+ img.alt=record.title;img.dataset.photoSource=record.source||'';img.dataset.photoCredit=record.credit||'';
+ img.classList.remove('is-loading','is-unavailable');img.classList.add('is-ready');
+ const credit=img.parentElement?.querySelector('.tourism-photo-credit');if(credit){credit.hidden=!record.credit;credit.textContent=record.credit||'';}
+ img.src=record.src;
+ // Keep an already-open popup synchronized when its card finishes loading.
+ const overlay=document.getElementById('tourismInfoOverlay');
+ if(overlay?.classList.contains('open')&&overlay.dataset.tourSite===img.dataset.target&&img.dataset.kind==='site'){
+  const hero=overlay.querySelector('.tourism-info-media img');hero.src=record.src;hero.alt=record.title;
+  const link=overlay.querySelector('.tourism-photo-credit');if(link){link.hidden=!record.source;link.href=record.source||'';link.textContent=record.credit||photoText('source');}
+ }
+}
+function refreshTourismPhotoCredits(scope){
+ if(!scope?.querySelectorAll)return;
+ const images=Array.from(scope.querySelectorAll('img.tourism-photo[data-photo-source]'));
+ let credits=scope.querySelector('.tourism-image-sources');
+ if(!images.length){if(credits)credits.remove();return;}
+ if(!credits){credits=document.createElement('details');credits.className='tourism-image-sources';scope.appendChild(credits);}
+ const seen=new Set();
+ credits.innerHTML='<summary>'+esc(photoText('source'))+' / credits</summary><ul>'+images.filter(img=>{const key=img.dataset.photoSource;if(seen.has(key))return false;seen.add(key);return true;}).map(img=>'<li><a href="'+esc(img.dataset.photoSource)+'" target="_blank" rel="noopener noreferrer">'+esc(img.alt)+' · '+esc(img.dataset.photoCredit)+' ↗</a></li>').join('')+'</ul>';
 }
 async function hydrateTourismImages(scope){
-  const imgs=Array.from((scope||document).querySelectorAll('img.tourism-photo[data-q1]:not([data-hydrated])'));
-  imgs.forEach(img=>img.setAttribute('data-hydrated','1'));
-  await Promise.all(imgs.map(async img=>{
-    const queries=[img.dataset.q1,img.dataset.q2,img.dataset.q3].filter(Boolean);
-    const fallback=img.dataset.fallback||transparentGif;
-    const meta={target:img.dataset.target||'',city:img.dataset.city||'',state:img.dataset.state||'',kind:img.dataset.kind||''};
-    const src=await resolvePhoto(queries,fallback,meta);
-    img.onerror=()=>{img.onerror=null;img.src=fallback;};
-    if(src)img.src=src;
-    img.classList.remove('is-loading');img.classList.add('is-ready');
-  }));
+ const all=Array.from((scope||document).querySelectorAll('img.tourism-photo'));
+ // Include static state cards and curated photos in broken-image handling too.
+ all.forEach(img=>{img.onerror=()=>showTourismPhotoUnavailable(img);if(img.complete&&!img.naturalWidth)showTourismPhotoUnavailable(img);});
+ refreshTourismPhotoCredits(scope);
+ const imgs=all.filter(img=>img.dataset.q1&&!img.dataset.hydrated);
+ imgs.forEach(img=>{img.dataset.hydrated='1';});
+ await Promise.all(imgs.map(async img=>{
+  const queries=[img.dataset.q1,img.dataset.q2,img.dataset.q3].filter(Boolean);
+  const meta={target:img.dataset.target||'',city:img.dataset.city||'',state:img.dataset.state||'',kind:img.dataset.kind||''};
+  try{const record=await resolvePhoto(queries,null,meta);if(img.isConnected){applyTourismPhoto(img,record);refreshTourismPhotoCredits(scope);}}catch(_e){if(img.isConnected)showTourismPhotoUnavailable(img);}
+ }));
 }
+
 function stateCard(st, t){
   return '<button class="tourism-card" data-action="state" data-value="'+esc(st)+'">'
-    + imageMarkup('card', label(st)+' state tourism', {staticSrc: stateImage(st), fallback: stateImage(st)})
+    + imageMarkup('card', statePhotoAlt(st), {staticSrc: stateImage(st),target:st,state:st,kind:'state',q1:st+' India'})
     + '<div class="tourism-card-body"><small>'+esc(t.st)+'</small><strong>'+esc(label(st))+'</strong><div class="tourism-card-meta"><span>'+esc((typeof STATE_DATA!=='undefined' && STATE_DATA[st] && STATE_DATA[st].overview) ? STATE_DATA[st].overview : 'Explore culture, heritage and travel routes.')+'</span><b class="tourism-card-count">'+DATA[st].length+' '+esc(t.city)+' ↗</b></div></div></button>';
 }
 function cityCard(st, c, t){
-  const fallback=stateImage(st);
+  const fallback=photoPlaceholder();
   return '<button class="tourism-card" data-action="city" data-value="'+esc(c.name)+'">'
     + '<span class="tourism-state-chip">'+esc(label(st))+'</span>'
     + imageMarkup('card', c.name+' tourism photograph', {fallback:fallback,target:c.name,city:c.name,state:st,kind:'city',q1:'\"'+c.name+'\" '+st+' India',q2:c.name+' '+st+' tourism India',q3:c.name+' city '+st+' India'})
-    + '<div class="tourism-card-body"><small>'+esc(t.city)+'</small><strong>'+esc(label(c.name))+'</strong><div class="tourism-card-meta"><span>'+esc(c.sites.slice(0,2).join(' · '))+'</span><b class="tourism-card-count">'+c.sites.length+' '+esc(t.sites)+' ↗</b></div></div></button>';
+    + '<div class="tourism-card-body"><small>'+esc(t.city)+'</small><strong>'+esc(label(c.name))+'</strong><div class="tourism-card-meta"><span>'+esc(c.sites.slice(0,2).map(label).join(' · '))+'</span><b class="tourism-card-count">'+c.sites.length+' '+esc(t.sites)+' ↗</b></div></div></button>';
 }
 
 /* Tourism admission charges: explicitly sourced values only; no guessed free-entry claims. */
@@ -20463,13 +20573,15 @@ function tourismFeePopup(name,stateName,cityName){
 }
 
 function siteCard(st, c, name, i, t){
-  const fallback=stateImage(st);
+  const fallback=photoPlaceholder();
   return '<article class="tourism-site">'
     + imageMarkup('site', name+' heritage photograph', {fallback:fallback,target:name,city:c.name,state:st,kind:'site',q1:'\"'+name+'\" '+c.name+' '+st+' India',q2:'\"'+name+'\" '+st+' India',q3:name+' '+c.name+' India'})
     + '<div class="tourism-site-body"><div class="tourism-number">0'+(i+1)+'</div><h3>'+esc(label(name))+'</h3>'+hoursMarkup(name)+tourismFeePreview(name,st,c.name)+'<p class="tourism-site-copy">'+esc(t.about)+'</p><div class="tourism-site-footer"><span class="tourism-site-hint">'+esc(t.open)+'</span><button type="button" class="tourism-open-arrow" data-tour-info="1" data-site="'+esc(name)+'" data-city="'+esc(c.name)+'" data-state="'+esc(st)+'" aria-label="'+esc(t.open+': '+label(name))+'"><span aria-hidden="true">↗</span></button></div></div></article>';
 }
 function draw(){
   const t=tx(),q=search.value.trim().toLocaleLowerCase();
+ const matches=s=>String(s).toLocaleLowerCase().includes(q)||String(label(s)).toLocaleLowerCase().includes(q);
+ root.setAttribute('aria-live','polite');
   reset.textContent=t.reset; search.placeholder=t.search;
   crumbs.innerHTML=btn(t.all,'all')+(state?' <span>›</span> '+btn(label(state),'state',state):'')+(city?' <span>›</span> <span>'+esc(label(city))+'</span>':'');
   if(city&&state){
@@ -20483,15 +20595,16 @@ function draw(){
     return;
   }
   if(state){
-    const cities=DATA[state].filter(c=>!q||c.name.toLowerCase().includes(q)||state.toLowerCase().includes(q)||c.sites.some(x=>x.toLowerCase().includes(q)));
+    const cities=DATA[state].filter(c=>!q||matches(c.name)||matches(state)||c.sites.some(matches));
     root.innerHTML='<h2 class="tourism-section-title">'+esc(t.cities)+' '+esc(label(state))+'</h2><p class="tourism-section-desc">'+esc(t.select)+'</p>'
       +(cities.length?'<div class="tourism-grid tourism-grid--cities">'+cities.map(c=>cityCard(state,c,t)).join('')+'</div>':'<div class="tourism-empty">'+esc(t.no)+'</div>');
     hydrateTourismImages(root);
     return;
   }
-  const states=Object.keys(DATA).filter(st=>!q||st.toLowerCase().includes(q)||DATA[st].some(c=>c.name.toLowerCase().includes(q)||c.sites.some(x=>x.toLowerCase().includes(q))));
-  root.innerHTML='<h2 class="tourism-section-title">'+esc(t.states)+'</h2><p class="tourism-section-desc">28 states · 182 destinations · 546 heritage stops</p>'
+  const states=Object.keys(DATA).filter(st=>!q||matches(st)||DATA[st].some(c=>matches(c.name)||c.sites.some(matches)));
+  root.innerHTML='<h2 class="tourism-section-title">'+esc(t.states)+'</h2><p class="tourism-section-desc">'+Object.keys(DATA).length+' states · '+Object.values(DATA).flat().length+' destinations · '+Object.values(DATA).flat().reduce((n,c)=>n+c.sites.length,0)+' heritage stops</p>'
     +(states.length?'<div class="tourism-grid tourism-grid--states">'+states.map(st=>stateCard(st,t)).join('')+'</div>':'<div class="tourism-empty">'+esc(t.no)+'</div>');
+  hydrateTourismImages(root);
 }
 function choose(action,value){if(action==='all'){state=null;city=null;search.value='';}else if(action==='state'){state=value;city=null;search.value='';}else if(action==='city'){city=value;search.value='';}draw();}
 root.addEventListener('click',e=>{const info=e.target.closest('[data-tour-info]');if(info){e.preventDefault();e.stopPropagation();openHeritageInfo(info);return;}const b=e.target.closest('[data-action]'); if(b) choose(b.dataset.action,b.dataset.value);});
@@ -21003,7 +21116,7 @@ draw();
     scanQueued=false;
     const roots=document.querySelectorAll('.page.active,.modal.open,.tourism-info-overlay.open');
     for(const root of roots){
-      if(root.closest('.virasat-auth-locked'))continue;
+      if(root.closest('.virasat-auth-locked') || root.id==='page-kahani')continue;
       if(root.matches('.tourism-info-overlay')){
         const heading=root.querySelector('.tourism-bullets-heading');
         if(heading&&root.querySelector('.tourism-heritage-bullets li'))addButton(heading,'heritage');
