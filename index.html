@@ -11655,6 +11655,9 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 }
 
 </style>
+<style id="indianCalendarStyles">
+.ic-shell{max-width:1450px;margin:auto}.ic-hero{text-align:center;padding:38px 12px 44px;background:radial-gradient(ellipse at top,rgba(212,175,55,.14),transparent 65%)}.ic-kicker{color:#d4af37;letter-spacing:3px;font-size:11px;font-weight:700}.ic-hero h1{font-family:'Noto Serif Devanagari',serif;color:#e7c56a;font-size:clamp(42px,6vw,76px);margin:16px 0 8px}.ic-hero h2{font-size:clamp(27px,4vw,46px);color:#f4ead3}.ic-hero p{max-width:650px;margin:18px auto;color:#aa9a7c}.ic-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.ic-stats>div,.ic-panel,.ic-detail,.ic-learn{background:linear-gradient(145deg,#211b11,#110f0b);border:1px solid rgba(212,175,55,.26);border-radius:22px;box-shadow:0 16px 45px rgba(0,0,0,.2)}.ic-stats>div{padding:20px}.ic-stats small,.ic-detail>small,.ic-toolbar small{display:block;font-size:10px;letter-spacing:1.8px;color:#ad9462}.ic-stats strong{display:block;color:#f2dfad;font-size:18px;margin-top:8px}.ic-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);gap:22px}.ic-panel{padding:25px}.ic-toolbar{display:flex;align-items:center;justify-content:space-between;text-align:center;margin-bottom:24px}.ic-toolbar h3{font-size:30px;color:#f2d583;margin-top:6px}.ic-toolbar button,.ic-actions button{background:#292216;color:#eac875;border:1px solid #6b5427;border-radius:12px;padding:10px 16px;cursor:pointer}.ic-toolbar button:hover,.ic-actions button:hover{background:#46341b}.ic-weekdays,.ic-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}.ic-weekdays{text-align:center;color:#c5a96c;font-size:12px;margin-bottom:9px}.ic-day{min-height:75px;background:#211b12;border:1px solid #3b301c;border-radius:12px;color:#eee0bf;cursor:pointer;text-align:left;padding:10px;transition:.2s}.ic-day:hover{border-color:#d4af37;transform:translateY(-2px)}.ic-day.selected{background:#5a441d;border-color:#edc961}.ic-day.today{box-shadow:inset 0 0 0 1px #d4af37}.ic-day strong{display:block;font-size:18px}.ic-day small{display:block;color:#bca36e;font-size:10px;margin-top:5px}.ic-blank{min-height:75px}.ic-actions{display:flex;align-items:center;gap:16px;margin-top:20px;color:#9e906f;font-size:12px}.ic-detail{padding:28px;height:100%}.ic-detail h3{font-size:29px;color:#f0d38a;margin:12px 0}.ic-detail p{color:#c3ae82}.ic-divider{height:1px;background:#4b3b21;margin:25px 0}.ic-detail h4{color:#f4e3b5;font-size:20px}.ic-limbs{display:grid;gap:8px;margin-top:17px}.ic-limbs>div{display:flex;justify-content:space-between;gap:12px;background:#2a2114;border:1px solid #45351c;border-radius:10px;padding:11px 12px}.ic-limbs b{color:#e4c574}.ic-limbs span{color:#a89b80;font-size:12px}.ic-detail .ic-note{font-size:12px;color:#a99a7a;line-height:1.7;margin-top:20px}.ic-learn{margin-top:24px;padding:27px}.ic-learn h2{font-size:30px;color:#ead28f}.ic-learn>p{color:#ad9d7c}.ic-months{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:20px}.ic-month{background:#292115;border:1px solid #4b3a1e;border-radius:12px;padding:14px}.ic-month b{display:block;color:#f1d996}.ic-month span{color:#b7a37d;font-size:12px}@media(max-width:850px){.ic-layout{grid-template-columns:1fr}.ic-stats{grid-template-columns:1fr}.ic-months{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.ic-panel{padding:12px}.ic-weekdays,.ic-grid{gap:3px}.ic-day,.ic-blank{min-height:57px}.ic-day{padding:5px;border-radius:7px}.ic-day strong{font-size:14px}.ic-day small{font-size:8px}.ic-months{grid-template-columns:repeat(2,1fr)}.ic-toolbar h3{font-size:22px}}
+</style>
 </head>
 <body>
 
@@ -11839,6 +11842,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
                 <a href="#" data-page="home" class="active">Home</a>
                 <a href="#" data-page="kahani">Nani Ki Kahani</a>
                 <a href="#" data-page="festivals">Festivals</a>
+                <a href="#" data-page="bharatiya-calendar">🇮🇳 Indian Calendar</a>
                 <a href="#" data-page="map">Explore India</a>
                 <a href="#" data-page="tourism" data-i18n="nav_tourism">Tourism</a>
                 <a href="#" data-page="happiness">Seva & Sanskriti</a>
@@ -12190,6 +12194,17 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
             <div class="filters" id="festivalFilters"></div>
             <div class="fc-root" id="calendar"></div>
         </section>
+    </div>
+
+
+    <!-- ─── PAGE: BHARATIYA CALENDAR ─── -->
+    <div class="page" id="page-bharatiya-calendar">
+      <section class="section ic-shell">
+        <div class="ic-hero"><div class="ic-kicker">✦ VIRASAT · THE SCIENCE OF TIME ✦</div><h1>भारतीय कैलेंडर</h1><h2>India's Living Calendar</h2><p>Discover the rhythm of Indian seasons, the Saka national calendar, and the five elements of the traditional Panchang.</p></div>
+        <div class="ic-stats"><div><small>TODAY · GREGORIAN</small><strong id="icToday">—</strong></div><div><small>INDIAN NATIONAL CALENDAR</small><strong id="icSakaToday">—</strong></div><div><small>CALENDAR SYSTEM</small><strong>Saka · Solar</strong></div></div>
+        <div class="ic-layout"><div class="ic-panel"><div class="ic-toolbar"><button id="icPrev" aria-label="Previous month">❮</button><div><small>EXPLORE THE YEAR</small><h3 id="icMonthTitle">Calendar</h3></div><button id="icNext" aria-label="Next month">❯</button></div><div class="ic-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div id="icGrid" class="ic-grid"></div><div class="ic-actions"><button id="icReset">↺ Today</button><span>Dates show Gregorian day + Saka date where supported</span></div></div><aside class="ic-side"><div class="ic-detail"><small>✦ SELECTED DATE</small><h3 id="icSelected">—</h3><p id="icSakaSelected">—</p><div class="ic-divider"></div><h4>Five limbs of Panchang</h4><div class="ic-limbs"><div><b>☾ Tithi</b><span>Lunar day</span></div><div><b>☀ Vara</b><span>Weekday</span></div><div><b>✧ Nakshatra</b><span>Lunar mansion</span></div><div><b>◇ Yoga</b><span>Sun–Moon combination</span></div><div><b>◐ Karana</b><span>Half-tithi</span></div></div><p class="ic-note">Panchang values require date, location and astronomical calculations. This preview does not invent them.</p></div></aside></div>
+        <div class="ic-learn"><h2>Explore the Indian Months</h2><p>Traditional Hindu lunisolar months are different from the official solar Saka calendar. Select a month to learn its name.</p><div id="icMonths" class="ic-months"></div></div>
+      </section>
     </div>
 
     <!-- ─── PAGE: GAMING HUB ─── -->
@@ -21149,6 +21164,19 @@ draw();
   queueScan();
 })();
 
+</script>
+<script id="indianCalendarLogic">
+(()=>{
+const root=document.getElementById('page-bharatiya-calendar');if(!root)return;
+const $=id=>document.getElementById(id),now=new Date();let shown=new Date(now.getFullYear(),now.getMonth(),1),selected=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+let saka=null;try{const test=new Intl.DateTimeFormat('en-IN-u-ca-indian',{day:'numeric',month:'long',year:'numeric'});if(test.resolvedOptions().calendar==='indian')saka=test;}catch(e){}
+const greg=d=>new Intl.DateTimeFormat('en-IN',{day:'numeric',month:'long',year:'numeric'}).format(d);
+const sakaDate=d=>saka?saka.format(d)+' (Saka)':'Saka conversion unavailable in this browser';
+const months=[['Chaitra','चैत्र'],['Vaishakha','वैशाख'],['Jyeshtha','ज्येष्ठ'],['Ashadha','आषाढ़'],['Shravana','श्रावण'],['Bhadrapada','भाद्रपद'],['Ashwin','आश्विन'],['Kartika','कार्तिक'],['Margashirsha','मार्गशीर्ष'],['Pausha','पौष'],['Magha','माघ'],['Phalguna','फाल्गुन']];
+$('icMonths').innerHTML=months.map((m,i)=>'<div class="ic-month"><b>'+String(i+1).padStart(2,'0')+' · '+m[0]+'</b><span>'+m[1]+'</span></div>').join('');
+function render(){const y=shown.getFullYear(),m=shown.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();$('icMonthTitle').textContent=new Intl.DateTimeFormat('en-IN',{month:'long',year:'numeric'}).format(shown);$('icToday').textContent=greg(now);$('icSakaToday').textContent=sakaDate(now);$('icSelected').textContent=greg(selected);$('icSakaSelected').textContent=sakaDate(selected);const grid=$('icGrid');grid.replaceChildren();for(let i=0;i<first;i++){const b=document.createElement('div');b.className='ic-blank';grid.append(b)}for(let d=1;d<=days;d++){const date=new Date(y,m,d),btn=document.createElement('button');btn.type='button';btn.className='ic-day'+(date.toDateString()===selected.toDateString()?' selected':'')+(date.toDateString()===now.toDateString()?' today':'');const strong=document.createElement('strong');strong.textContent=d;const small=document.createElement('small');small.textContent=saka?new Intl.DateTimeFormat('en-IN-u-ca-indian',{day:'numeric',month:'short'}).format(date):' ';btn.append(strong,small);btn.addEventListener('click',()=>{selected=date;render()});grid.append(btn)}}
+$('icPrev').addEventListener('click',()=>{shown=new Date(shown.getFullYear(),shown.getMonth()-1,1);render()});$('icNext').addEventListener('click',()=>{shown=new Date(shown.getFullYear(),shown.getMonth()+1,1);render()});$('icReset').addEventListener('click',()=>{shown=new Date(now.getFullYear(),now.getMonth(),1);selected=new Date(now.getFullYear(),now.getMonth(),now.getDate());render()});render();
+})();
 </script>
 </body>
 </html>
