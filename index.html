@@ -21365,5 +21365,47 @@ $('icPrev').addEventListener('click',()=>{shown=new Date(shown.getFullYear(),sho
  }
  document.addEventListener('virasat:language',update);document.addEventListener('DOMContentLoaded',update);setTimeout(update,400);
 })();
-</script></body>
+</script>
+<script id="virasatCalendarCompleteI18n">
+(()=>{
+const C={
+"THE SCIENCE OF TIME":["समय का विज्ञान","कालविज्ञानम्"],
+"India's Living Calendar":["भारत का जीवंत कैलेंडर","भारतस्य जीवितपञ्चाङ्गम्"],
+"Discover the rhythm of Indian seasons, the Saka national calendar, and the five elements of the traditional Panchang.":["भारतीय ऋतुओं, राष्ट्रीय शक कैलेंडर और पारंपरिक पंचांग के पाँच अंगों को जानें।","भारतीयऋतूनां शकसंवत्सरस्य पारम्परिकपञ्चाङ्गस्य पञ्चाङ्गानां च परिचयं प्राप्नुत।"],
+"TODAY · GREGORIAN":["आज · ग्रेगोरियन","अद्य · ग्रेगोरियनम्"],
+"INDIAN NATIONAL CALENDAR":["भारतीय राष्ट्रीय कैलेंडर","भारतीयं राष्ट्रियपञ्चाङ्गम्"],
+"CALENDAR SYSTEM":["कैलेंडर प्रणाली","पञ्चाङ्गपद्धतिः"],
+"Saka · Solar":["शक · सौर","शकः · सौरः"],
+"EXPLORE THE YEAR":["वर्ष देखें","वर्षं पश्यतु"],
+"Calendar":["कैलेंडर","पञ्चाङ्गम्"],
+"Sun":["रवि","रवि"],"Mon":["सोम","सोम"],"Tue":["मंगल","मङ्गल"],"Wed":["बुध","बुध"],"Thu":["गुरु","गुरु"],"Fri":["शुक्र","शुक्र"],"Sat":["शनि","शनि"],
+"↺ Today":["↺ आज","↺ अद्य"],
+"Dates show Gregorian day + Saka date where supported":["तिथियों में ग्रेगोरियन और उपलब्ध होने पर शक दिनांक दिखती है","उपलब्धतायां ग्रेगोरियन-शकदिनाङ्कौ दृश्येते"],
+"✦ SELECTED DATE":["✦ चुनी हुई तारीख","✦ चयनितदिनाङ्कः"],
+"Five limbs of Panchang":["पंचांग के पाँच अंग","पञ्चाङ्गस्य पञ्च अङ्गानि"],
+"Lunar day":["चंद्र तिथि","चन्द्रतिथिः"],"Weekday":["वार","वासरः"],"Lunar mansion":["नक्षत्र","नक्षत्रम्"],"Sun–Moon combination":["सूर्य–चंद्र योग","सूर्यचन्द्रयोगः"],"Half-tithi":["अर्धतिथि · करण","अर्धतिथिः"],
+"Panchang values require date, location and astronomical calculations. This preview does not invent them.":["सटीक पंचांग के लिए दिनांक, स्थान और खगोलीय गणना आवश्यक है। यहाँ अनुमानित मान नहीं दिखाए जाते।","सम्यक्पञ्चाङ्गार्थं दिनाङ्कः स्थानं खगोलीयगणना च आवश्यकाः। अत्र कल्पितानि मूल्यानि न प्रदर्श्यन्ते।"],
+"Explore the Indian Months":["भारतीय महीनों को जानें","भारतीयमासान् जानातु"],
+"Traditional Hindu lunisolar months are different from the official solar Saka calendar. Select a month to learn its name.":["पारंपरिक हिंदू चंद्र-सौर महीने आधिकारिक सौर शक कैलेंडर से अलग हैं। किसी महीने को चुनकर उसका सांस्कृतिक महत्व जानें।","पारम्परिकाः हिन्दुचान्द्रसौरमासाः आधिकारिकशकसौरपञ्चाङ्गात् भिन्नाः। मासं चित्वा तस्य महत्त्वं जानातु।"],
+"APPROXIMATE GREGORIAN PERIOD":["अनुमानित ग्रेगोरियन अवधि","अनुमानितः ग्रेगोरियनकालः"],
+"SEASONAL CONTEXT":["ऋतु और मौसम","ऋतुसन्दर्भः"],
+"Festivals & celebrations":["त्योहार और उत्सव","उत्सवाः"],
+"Traditions & everyday life":["परंपराएँ और दैनिक जीवन","परम्पराः दैनिकजीवनं च"],
+"Across the regions":["क्षेत्रीय विविधताएँ","प्रादेशिकवैविध्यम्"],
+"Listen to story":["कथा सुनें","कथां शृणुत"],
+"Stop listening":["सुनना बंद करें","श्रवणं स्थगयतु"],
+"Explore month ↗":["महीने को जानें ↗","मासं जानातु ↗"],
+"Educational guide: Hindu lunisolar month boundaries, festivals and customs vary by year, region and calendar tradition. The approximate Gregorian periods are not exact Panchang calculations.":["शैक्षिक सूचना: हिंदू चंद्र-सौर महीनों की सीमाएँ, पर्व और रीति-रिवाज वर्ष, क्षेत्र और कैलेंडर परंपरा के अनुसार बदलते हैं। ये अनुमानित ग्रेगोरियन अवधियाँ सटीक पंचांग गणनाएँ नहीं हैं।","शैक्षिकसूचना: हिन्दुचान्द्रसौरमासानां सीमाः उत्सवाः आचाराश्च वर्षप्रदेशपद्धतिभेदेन परिवर्तन्ते। एते अनुमानिताः कालाः न खगोलीयगणनाः।"]
+};
+const months={en:['January','February','March','April','May','June','July','August','September','October','November','December'],hi:['जनवरी','फ़रवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितंबर','अक्टूबर','नवंबर','दिसंबर'],sa:['जनवरी','फेब्रुवरी','मार्च','अप्रैल','मई','जून','जुलाई','अगस्त','सितम्बर','अक्टूबर','नवम्बर','दिसम्बर']};
+let lock=false;
+const lang=()=>{let v=document.documentElement.lang;if(v==='hi'||v==='sa')return v;try{v=localStorage.getItem('virasat_lang')||localStorage.getItem('virasatLanguage')||'en'}catch(e){}return v==='hi'||v==='sa'?v:'en'};
+const reverse=new Map();for(const [key,val] of Object.entries(C)){reverse.set(key,key);val.forEach(v=>reverse.set(v,key))}
+function translateText(t,l){const trimmed=t.trim(),original=reverse.get(trimmed);if(original)return l==='en'?original:C[original][l==='hi'?0:1];if(/^\d{1,2} [A-Za-z]+ \d{4}$/.test(trimmed)){const m=trimmed.match(/^(\d{1,2}) ([A-Za-z]+) (\d{4})$/),i=months.en.indexOf(m[2]);if(i>=0)return `${m[1]} ${months[l][i]} ${m[3]}`;}if(/^[A-Za-z]+ \d{4}$/.test(trimmed)){const m=trimmed.match(/^([A-Za-z]+) (\d{4})$/),i=months.en.indexOf(m[1]);if(i>=0)return `${months[l][i]} ${m[2]}`;}return t}
+function run(){if(lock)return;lock=true;try{const l=lang(),root=document.getElementById('page-bharatiya-calendar');if(!root)return;const walker=document.createTreeWalker(root,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){if(node.parentElement?.closest('script,style'))continue;const v=translateText(node.nodeValue,l);if(v!==node.nodeValue)node.nodeValue=v;}root.querySelectorAll('[aria-label]').forEach(el=>{let v=el.getAttribute('aria-label');if(v==='Previous month')el.setAttribute('aria-label',l==='hi'?'पिछला महीना':l==='sa'?'पूर्वमासः':'Previous month');if(v==='Next month')el.setAttribute('aria-label',l==='hi'?'अगला महीना':l==='sa'?'अग्रिममासः':'Next month')});}finally{lock=false}}
+document.addEventListener('virasat:language',()=>setTimeout(run,0));
+document.addEventListener('DOMContentLoaded',()=>{run();const r=document.getElementById('page-bharatiya-calendar');if(r){let queued=false;new MutationObserver(()=>{if(queued||lock)return;queued=true;requestAnimationFrame(()=>{queued=false;run()})}).observe(r,{childList:true,subtree:true,characterData:true})}});
+})();
+</script>
+</body>
 </html>
