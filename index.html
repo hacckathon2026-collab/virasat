@@ -21125,7 +21125,7 @@ draw();
       const items=root.querySelectorAll('p,.faq-answer,.story-text,.story-body,.history-event-copy p,.history-kingdom p,.education-track p,.education-flow-card p');
       for(const el of items){
         if(el.dataset.virasatSpeakReady==='1'||el.closest('button,a,nav,form,.navlinks,.tourism-site,.tourism-card,.game-card,.login-card,.tourism-info-overlay,.heritage-ai-message,.tourism-fee-panel,.tourism-fee-preview,.tourism-hours,.tourism-story-loading,.tourism-story-unavailable,#kahaniBook'))continue;
-        if(cleanText(el.innerText||el.textContent).length>=190)addButton(el,'paragraph');
+        if(el.matches('.history-event-copy p') || cleanText(el.innerText||el.textContent).length>=190)addButton(el,'paragraph');
       }
     }
   }
