@@ -11655,94 +11655,17 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 }
 
 </style>
-<style id="indianCalendarTransitionFix">
-/* The floating header must never obscure the calendar's introductory heading. */
-#page-bharatiya-calendar { padding-top: max(106px, var(--virasat-nav-height, 0px)); scroll-margin-top: 110px; }
-#page-bharatiya-calendar > .ic-shell { padding-top: 28px; }
-#page-bharatiya-calendar .ic-hero { overflow: visible; }
-#page-bharatiya-calendar .ic-hero .ic-kicker { line-height: 1.6; }
-#page-bharatiya-calendar .ic-hero h1 { line-height: 1.35; padding-top: .08em; margin-top: 5px; }
-@media (max-width: 900px) {
-  #page-bharatiya-calendar { padding-top: 98px; }
-  #page-bharatiya-calendar > .ic-shell { padding-top: 24px; }
-}
-@media (prefers-reduced-motion: reduce) {
-  #page-bharatiya-calendar .ic-hero *,
-  #page-bharatiya-calendar .ic-stats > div,
-  #page-bharatiya-calendar .ic-panel,
-  #page-bharatiya-calendar .ic-detail,
-  #page-bharatiya-calendar .ic-learn { animation: none !important; }
-}
-</style>
 <style id="indianCalendarStyles">
 .ic-shell{max-width:1450px;margin:auto}.ic-hero{text-align:center;padding:38px 12px 44px;background:radial-gradient(ellipse at top,rgba(212,175,55,.14),transparent 65%)}.ic-kicker{color:#d4af37;letter-spacing:3px;font-size:11px;font-weight:700}.ic-hero h1{font-family:'Noto Serif Devanagari',serif;color:#e7c56a;font-size:clamp(42px,6vw,76px);margin:16px 0 8px}.ic-hero h2{font-size:clamp(27px,4vw,46px);color:#f4ead3}.ic-hero p{max-width:650px;margin:18px auto;color:#aa9a7c}.ic-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.ic-stats>div,.ic-panel,.ic-detail,.ic-learn{background:linear-gradient(145deg,#211b11,#110f0b);border:1px solid rgba(212,175,55,.26);border-radius:22px;box-shadow:0 16px 45px rgba(0,0,0,.2)}.ic-stats>div{padding:20px}.ic-stats small,.ic-detail>small,.ic-toolbar small{display:block;font-size:10px;letter-spacing:1.8px;color:#ad9462}.ic-stats strong{display:block;color:#f2dfad;font-size:18px;margin-top:8px}.ic-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);gap:22px}.ic-panel{padding:25px}.ic-toolbar{display:flex;align-items:center;justify-content:space-between;text-align:center;margin-bottom:24px}.ic-toolbar h3{font-size:30px;color:#f2d583;margin-top:6px}.ic-toolbar button,.ic-actions button{background:#292216;color:#eac875;border:1px solid #6b5427;border-radius:12px;padding:10px 16px;cursor:pointer}.ic-toolbar button:hover,.ic-actions button:hover{background:#46341b}.ic-weekdays,.ic-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}.ic-weekdays{text-align:center;color:#c5a96c;font-size:12px;margin-bottom:9px}.ic-day{min-height:75px;background:#211b12;border:1px solid #3b301c;border-radius:12px;color:#eee0bf;cursor:pointer;text-align:left;padding:10px;transition:.2s}.ic-day:hover{border-color:#d4af37;transform:translateY(-2px)}.ic-day.selected{background:#5a441d;border-color:#edc961}.ic-day.today{box-shadow:inset 0 0 0 1px #d4af37}.ic-day strong{display:block;font-size:18px}.ic-day small{display:block;color:#bca36e;font-size:10px;margin-top:5px}.ic-blank{min-height:75px}.ic-actions{display:flex;align-items:center;gap:16px;margin-top:20px;color:#9e906f;font-size:12px}.ic-detail{padding:28px;height:100%}.ic-detail h3{font-size:29px;color:#f0d38a;margin:12px 0}.ic-detail p{color:#c3ae82}.ic-divider{height:1px;background:#4b3b21;margin:25px 0}.ic-detail h4{color:#f4e3b5;font-size:20px}.ic-limbs{display:grid;gap:8px;margin-top:17px}.ic-limbs>div{display:flex;justify-content:space-between;gap:12px;background:#2a2114;border:1px solid #45351c;border-radius:10px;padding:11px 12px}.ic-limbs b{color:#e4c574}.ic-limbs span{color:#a89b80;font-size:12px}.ic-detail .ic-note{font-size:12px;color:#a99a7a;line-height:1.7;margin-top:20px}.ic-learn{margin-top:24px;padding:27px}.ic-learn h2{font-size:30px;color:#ead28f}.ic-learn>p{color:#ad9d7c}.ic-months{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:20px}.ic-month{background:#292115;border:1px solid #4b3a1e;border-radius:12px;padding:14px}.ic-month b{display:block;color:#f1d996}.ic-month span{color:#b7a37d;font-size:12px}@media(max-width:850px){.ic-layout{grid-template-columns:1fr}.ic-stats{grid-template-columns:1fr}.ic-months{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.ic-panel{padding:12px}.ic-weekdays,.ic-grid{gap:3px}.ic-day,.ic-blank{min-height:57px}.ic-day{padding:5px;border-radius:7px}.ic-day strong{font-size:14px}.ic-day small{font-size:8px}.ic-months{grid-template-columns:repeat(2,1fr)}.ic-toolbar h3{font-size:22px}}
-</style>
-<style id="indianCalendarVisibleEntranceV4">
-/* Virasat Indian Calendar: visible post-shutter entrance choreography.
-   Old global page rules use animation:none!important during navigation. */
-#page-bharatiya-calendar.ic-prepare .ic-hero > *,
-#page-bharatiya-calendar.ic-prepare .ic-stats > div,
-#page-bharatiya-calendar.ic-prepare .ic-panel,
-#page-bharatiya-calendar.ic-prepare .ic-side,
-#page-bharatiya-calendar.ic-prepare .ic-learn {
-  opacity:0!important;
-}
-#page-bharatiya-calendar.ic-entering .ic-hero .ic-kicker {
-  animation:icVisibleSlide .65s cubic-bezier(.16,1,.3,1) both!important;
-}
-#page-bharatiya-calendar.ic-entering .ic-hero h1 {
-  animation:icVisibleHero 1s cubic-bezier(.16,1,.3,1) .09s both!important;
-  transform-origin:center 80%;
-}
-#page-bharatiya-calendar.ic-entering .ic-hero h2 {
-  animation:icVisibleSlide .82s cubic-bezier(.16,1,.3,1) .18s both!important;
-}
-#page-bharatiya-calendar.ic-entering .ic-hero p {
-  animation:icVisibleSlide .78s cubic-bezier(.16,1,.3,1) .25s both!important;
-}
-#page-bharatiya-calendar.ic-entering .ic-stats > div {
-  animation:icVisibleCard .85s cubic-bezier(.16,1,.3,1) both!important;
-}
-#page-bharatiya-calendar.ic-entering .ic-stats > div:nth-child(1){animation-delay:.28s!important}
-#page-bharatiya-calendar.ic-entering .ic-stats > div:nth-child(2){animation-delay:.38s!important}
-#page-bharatiya-calendar.ic-entering .ic-stats > div:nth-child(3){animation-delay:.48s!important}
-#page-bharatiya-calendar.ic-entering .ic-panel {
-  animation:icVisiblePanelLeft .98s cubic-bezier(.16,1,.3,1) .52s both!important;
-}
-#page-bharatiya-calendar.ic-entering .ic-side {
-  animation:icVisiblePanelRight .98s cubic-bezier(.16,1,.3,1) .61s both!important;
-}
-#page-bharatiya-calendar.ic-entering .ic-learn {
-  animation:icVisibleSlide .9s cubic-bezier(.16,1,.3,1) .72s both!important;
-}
-@keyframes icVisibleSlide {
-  from {opacity:0; transform:translate3d(0,32px,0)}
-  to {opacity:1; transform:translate3d(0,0,0)}
-}
-@keyframes icVisibleHero {
-  from {opacity:0; transform:perspective(1100px) translate3d(0,70px,-110px) rotateX(9deg); filter:blur(4px)}
-  to {opacity:1; transform:perspective(1100px) translate3d(0,0,0) rotateX(0deg); filter:blur(0)}
-}
-@keyframes icVisibleCard {
-  from {opacity:0; transform:translate3d(0,45px,0) scale(.965)}
-  to {opacity:1; transform:translate3d(0,0,0) scale(1)}
-}
-@keyframes icVisiblePanelLeft {
-  from {opacity:0; transform:perspective(1200px) translate3d(-50px,50px,-120px) rotateY(5deg)}
-  to {opacity:1; transform:perspective(1200px) translate3d(0,0,0) rotateY(0deg)}
-}
-@keyframes icVisiblePanelRight {
-  from {opacity:0; transform:perspective(1200px) translate3d(50px,50px,-120px) rotateY(-5deg)}
-  to {opacity:1; transform:perspective(1200px) translate3d(0,0,0) rotateY(0deg)}
-}
-@media (prefers-reduced-motion: reduce){
- #page-bharatiya-calendar.ic-prepare .ic-hero > *,
- #page-bharatiya-calendar.ic-prepare .ic-stats > div,
- #page-bharatiya-calendar.ic-prepare .ic-panel,
- #page-bharatiya-calendar.ic-prepare .ic-side,
- #page-bharatiya-calendar.ic-prepare .ic-learn{opacity:1!important}
- #page-bharatiya-calendar.ic-entering *{animation:none!important}
-}
+
+/* Calendar motion: stable six-week layout, no scroll-reveal gate on the tall shell. */
+#page-bharatiya-calendar .ic-shell.reveal{opacity:1;transform:none;transition:none}
+#page-bharatiya-calendar .ic-panel{overflow:hidden;min-width:0}
+#icGrid{grid-template-rows:repeat(6,minmax(75px,auto))}
+#page-bharatiya-calendar .ic-day{transition:background-color .18s ease,border-color .18s ease,box-shadow .18s ease,transform .18s ease}
+#page-bharatiya-calendar button:focus-visible{outline:2px solid #edc961;outline-offset:3px}
+@media(max-width:520px){#icGrid{grid-template-rows:repeat(6,minmax(57px,auto))}}
+@media(prefers-reduced-motion:reduce){#page-bharatiya-calendar,#page-bharatiya-calendar .ic-day{animation:none!important;transition:none!important}#page-bharatiya-calendar .ic-day:hover{transform:none}}
 </style>
 </head>
 <body>
@@ -14726,6 +14649,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
             home:      { title:'VIRASAT',          kicker:'HOME / LIVING HERITAGE', meta:'MOTION / MEMORY / MEANING' },
             rasoi:     { title:'MAA KI RASOI',     kicker:'01 / FLAVOUR',           meta:'RECIPES / MEMORY / HOME' },
             kahani:    { title:'NANI KI KAHANI',   kicker:'02 / STORIES',           meta:'VOICE / FOLKLORE / MEMORY' },
+            'bharatiya-calendar': { title:'INDIAN CALENDAR', kicker:'TIME / INDIAN TRADITIONS', meta:'SAKA / SEASONS / PANCHANG' },
             festivals: { title:'FESTIVALS',        kicker:'03 / CELEBRATION',       meta:'RITUAL / SEASON / COMMUNITY' },
             ancient:   { title:'ANCIENT TRANSLATOR',kicker:'04 / SCRIPT',           meta:'BRAHMI / KHAROSTHI / LANGUAGE' },
             map:       { title:'EXPLORE INDIA',    kicker:'05 / PLACES',            meta:'STATES / PEOPLE / HERITAGE' },
@@ -14737,8 +14661,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
             happiness: { title:'Seva & Sanskriti',kicker:'08 / SHARE',             meta:'CARE / MEMORY / COMMUNITY' },
             nuske:     { title:'DESI NUSKE',       kicker:'09 / WISDOM',            meta:'HOME / TRADITION / PRACTICE' },
             dashboard: { title:'DASHBOARD',        kicker:'10 / OVERVIEW',          meta:'DISCOVER / TRACK / RETURN' },
-            economy:   { title:'INDIA',            kicker:'11 / ECONOMY',           meta:'PEOPLE / PROGRESS / SCALE' },
-            'bharatiya-calendar': { title:'INDIAN CALENDAR', kicker:'12 / TIMEKEEPING', meta:'SAKA / PANCHANG / SEASONS' }
+            economy:   { title:'INDIA',            kicker:'11 / ECONOMY',           meta:'PEOPLE / PROGRESS / SCALE' }
         };
         let virasatTransitionBusy = false;
         function virasatEscapeHTML(value){
@@ -14750,7 +14673,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
         // the cinematic transition is still covering the screen, preventing flashes.
         function virasatAnimateRequestedDestination(page) {
             if (!page || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-            if (!['page-home', 'page-happiness', 'page-nuske', 'page-tourism', 'page-education', 'page-history', 'page-bharatiya-calendar'].includes(page.id)) return;
+            if (!['page-home', 'page-happiness', 'page-nuske', 'page-tourism', 'page-education', 'page-history'].includes(page.id)) return;
 
             // Cancel only animations created by this helper, leaving the site's
             // existing hover/orbit/background motion untouched.
@@ -14780,8 +14703,6 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
                 { opacity: .78, transform: 'translate3d(0,22px,0) scale(.994)', filter: 'saturate(.82)' },
                 { opacity: 1, transform: 'translate3d(0,0,0) scale(1)', filter: 'saturate(1)' }
             ], { duration: 760, delay: 35 });
-
-            // Calendar entrance is timed with the shutter below; avoid hidden WAAPI effects.
 
             if (page.id === 'page-home') {
                 add(page.querySelector('.vx-hero-copy'), [
@@ -15000,14 +14921,6 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
             setTimeout(() => {
                 virasatPerformNavigation(clean, sub);
                 target.classList.remove('motion-page-enter','vt-page-enter','vt-page-exit');
-                // Hold calendar sections behind the still-closing shutters. Release them
-                // as the shutters open, rather than finishing the animation invisibly.
-                if (clean === 'bharatiya-calendar') {
-                    target.classList.remove('ic-entering');
-                    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                        target.classList.add('ic-prepare');
-                    }
-                }
                 virasatAnimateRequestedDestination(target);
                 // Mutation observers run in a microtask; clear any legacy class they try to add.
                 queueMicrotask(() => target.classList.remove('motion-page-enter','vt-page-enter','vt-page-exit'));
@@ -15020,19 +14933,6 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
                 });
             }, 520);
 
-            // Reveal the calendar content late enough that the shutter cannot hide it.
-            // !important keyframes beat the global transition reset that used to
-            // prevent or swallow the calendar-specific animation.
-            if (clean === 'bharatiya-calendar' && !reduce) {
-                setTimeout(() => {
-                    if (!target.classList.contains('active')) return;
-                    target.classList.remove('ic-entering');
-                    void target.offsetWidth; // restart the sequence on every visit
-                    target.classList.remove('ic-prepare');
-                    target.classList.add('ic-entering');
-                }, 970);
-                setTimeout(() => target.classList.remove('ic-entering','ic-prepare'), 2800);
-            }
             setTimeout(() => {
                 target.classList.remove('motion-page-enter','vt-page-enter','vt-page-exit');
                 overlay.className = '';
@@ -18334,6 +18234,7 @@ window.virasatTranslateEverything=function(lang){
 };
 
 const TRANSITION={
+ 'bharatiya-calendar':{hi:['भारतीय कैलेंडर','समय / भारतीय परंपरा','शक / ऋतु / पंचांग'],sa:['भारतीयपञ्चाङ्गम्','कालः / भारतीयपरम्परा','शकः / ऋतवः / पञ्चाङ्गम्']},
  home:{hi:['विरासत','होम / जीवंत विरासत','गति / स्मृति / अर्थ'],sa:['विरासत','गृहपृष्ठम् / जीवन्तधरोहरा','गतिः / स्मृतिः / अर्थः']},
  rasoi:{hi:['माँ की रसोई','01 / स्वाद','व्यंजन / स्मृति / घर'],sa:['मातुः पाकशाला','01 / स्वादः','व्यञ्जनानि / स्मृतिः / गृहम्']},
  kahani:{hi:['नानी की कहानी','02 / कहानियाँ','आवाज़ / लोककथा / स्मृति'],sa:['मातामह्याः कथा','02 / कथाः','वाणी / लोककथा / स्मृतिः']},
@@ -21250,7 +21151,7 @@ draw();
       const items=root.querySelectorAll('p,.faq-answer,.story-text,.story-body,.history-event-copy p,.history-kingdom p,.education-track p,.education-flow-card p');
       for(const el of items){
         if(el.dataset.virasatSpeakReady==='1'||el.closest('button,a,nav,form,.navlinks,.tourism-site,.tourism-card,.game-card,.login-card,.tourism-info-overlay,.heritage-ai-message,.tourism-fee-panel,.tourism-fee-preview,.tourism-hours,.tourism-story-loading,.tourism-story-unavailable,#kahaniBook'))continue;
-        if(cleanText(el.innerText||el.textContent).length>=190)addButton(el,'paragraph');
+        if(el.matches('.history-event-copy p') || cleanText(el.innerText||el.textContent).length>=190)addButton(el,'paragraph');
       }
     }
   }
@@ -21275,18 +21176,6 @@ draw();
 })();
 
 </script>
-<style id="icMonthInteractionStyles">
-.ic-month{display:block;width:100%;text-align:left;cursor:pointer;color:inherit;font:inherit;transition:transform .2s ease,border-color .2s ease,background .2s ease,box-shadow .2s ease}
-.ic-month:hover,.ic-month:focus-visible{transform:translateY(-3px);border-color:#d4af37;background:#342817;box-shadow:0 8px 25px rgba(0,0,0,.25);outline:none}
-.ic-month.active{border-color:#eac56a;background:#433118;box-shadow:inset 0 0 0 1px rgba(234,197,106,.25)}
-.ic-month-hint{display:block;margin-top:10px;color:#d4af37;font-size:11px}
-.ic-month-detail{margin-top:18px;padding:24px;border:1px solid rgba(212,175,55,.5);border-radius:18px;background:linear-gradient(135deg,#332716,#19140d);animation:fadeUp .3s ease}
-.ic-month-detail[hidden]{display:none}.ic-month-detail-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
-.ic-month-detail-top small{color:#d4af37;letter-spacing:2px}.ic-month-detail h3{font-size:clamp(24px,3vw,34px);color:#f2d583;margin:8px 0 15px}.ic-month-detail h3 span{font-family:'Noto Sans Devanagari',sans-serif;font-size:.65em}
-.ic-month-detail p{color:#d3c2a0;line-height:1.7}.ic-month-detail p strong{color:#f2d583}.ic-month-detail .ic-month-disclaimer{font-size:12px;color:#ac9b7b;border-top:1px solid #5a4526;padding-top:12px;margin-top:16px}
-#icCloseMonth{background:#322719;color:#f2d583;border:1px solid #715626;border-radius:9px;padding:7px 12px;cursor:pointer}
-@media(prefers-reduced-motion:reduce){.ic-month,.ic-month-detail{transition:none;animation:none}}
-</style>
 <script id="indianCalendarLogic">
 (()=>{
 const root=document.getElementById('page-bharatiya-calendar');if(!root)return;
@@ -21295,25 +21184,62 @@ let saka=null;try{const test=new Intl.DateTimeFormat('en-IN-u-ca-indian',{day:'n
 const greg=d=>new Intl.DateTimeFormat('en-IN',{day:'numeric',month:'long',year:'numeric'}).format(d);
 const sakaDate=d=>saka?saka.format(d)+' (Saka)':'Saka conversion unavailable in this browser';
 const months=[['Chaitra','चैत्र'],['Vaishakha','वैशाख'],['Jyeshtha','ज्येष्ठ'],['Ashadha','आषाढ़'],['Shravana','श्रावण'],['Bhadrapada','भाद्रपद'],['Ashwin','आश्विन'],['Kartika','कार्तिक'],['Margashirsha','मार्गशीर्ष'],['Pausha','पौष'],['Magha','माघ'],['Phalguna','फाल्गुन']];
-const monthInfo=[
-['March–April','Spring begins in many regions. Chaitra Navratri and Rama Navami are traditionally observed in this month.'],
-['April–May','Associated with the arrival of warmer weather. Akshaya Tritiya and Buddha Purnima commonly fall in Vaishakha.'],
-['May–June','The hot season continues across much of India. Vat Savitri observances occur in some traditions.'],
-['June–July','The monsoon begins in many regions. Guru Purnima is celebrated in Ashadha.'],
-['July–August','A sacred monsoon month in many traditions, associated with Shravan Mondays and Raksha Bandhan in several regional calendars.'],
-['August–September','Often associated with Krishna Janmashtami and Ganesh Chaturthi, depending on the regional calendar.'],
-['September–October','Autumn celebrations often include Navratri and Dussehra, with regional variations in month naming.'],
-['October–November','Associated with Diwali, Govardhan Puja and Kartik Purnima in many traditions.'],
-['November–December','A cooler-season month associated with Gita Jayanti and other regional observances.'],
-['December–January','Winter season. Pausha has significance in regional devotional and seasonal traditions.'],
-['January–February','Often associated with Vasant Panchami and Magha Purnima.'],
-['February–March','The approach of spring. Maha Shivaratri and Holi commonly occur during Phalguna.']
-];
-$('icMonths').innerHTML=months.map((m,i)=>'<button type="button" class="ic-month" data-month="'+i+'" aria-expanded="false" aria-controls="icMonthDetail"><b>'+String(i+1).padStart(2,'0')+' · '+m[0]+'</b><span>'+m[1]+'</span><small class="ic-month-hint">Explore month ↗</small></button>').join('');
-const monthDetail=document.createElement('section');monthDetail.id='icMonthDetail';monthDetail.className='ic-month-detail';monthDetail.setAttribute('aria-live','polite');monthDetail.hidden=true;$('icMonths').after(monthDetail);
-$('icMonths').addEventListener('click',event=>{const btn=event.target.closest('[data-month]');if(!btn)return;const i=Number(btn.dataset.month),info=monthInfo[i];$('icMonths').querySelectorAll('.ic-month').forEach(el=>{const active=el===btn;el.classList.toggle('active',active);el.setAttribute('aria-expanded',String(active))});monthDetail.hidden=false;monthDetail.innerHTML='<div class="ic-month-detail-top"><div><small>MONTH '+String(i+1).padStart(2,'0')+' OF 12</small><h3>'+months[i][0]+' <span>('+months[i][1]+')</span></h3></div><button type="button" id="icCloseMonth" aria-label="Close month details">✕</button></div><p><strong>Approximate Gregorian period:</strong> '+info[0]+'</p><p>'+info[1]+'</p><p class="ic-month-disclaimer">Traditional Hindu months are lunisolar. Their exact start and end dates, and festival placement, vary by year and regional calendar. These are educational descriptions, not computed Panchang dates.</p>';$('icCloseMonth').onclick=()=>{monthDetail.hidden=true;$('icMonths').querySelectorAll('.ic-month').forEach(el=>{el.classList.remove('active');el.setAttribute('aria-expanded','false')})};monthDetail.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'nearest'});});
-function render(){const y=shown.getFullYear(),m=shown.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();$('icMonthTitle').textContent=new Intl.DateTimeFormat('en-IN',{month:'long',year:'numeric'}).format(shown);$('icToday').textContent=greg(now);$('icSakaToday').textContent=sakaDate(now);$('icSelected').textContent=greg(selected);$('icSakaSelected').textContent=sakaDate(selected);const grid=$('icGrid');grid.replaceChildren();for(let i=0;i<first;i++){const b=document.createElement('div');b.className='ic-blank';grid.append(b)}for(let d=1;d<=days;d++){const date=new Date(y,m,d),btn=document.createElement('button');btn.type='button';btn.className='ic-day'+(date.toDateString()===selected.toDateString()?' selected':'')+(date.toDateString()===now.toDateString()?' today':'');const strong=document.createElement('strong');strong.textContent=d;const small=document.createElement('small');small.textContent=saka?new Intl.DateTimeFormat('en-IN-u-ca-indian',{day:'numeric',month:'short'}).format(date):' ';btn.append(strong,small);btn.addEventListener('click',()=>{selected=date;render()});grid.append(btn)}}
-$('icPrev').addEventListener('click',()=>{shown=new Date(shown.getFullYear(),shown.getMonth()-1,1);render()});$('icNext').addEventListener('click',()=>{shown=new Date(shown.getFullYear(),shown.getMonth()+1,1);render()});$('icReset').addEventListener('click',()=>{shown=new Date(now.getFullYear(),now.getMonth(),1);selected=new Date(now.getFullYear(),now.getMonth(),now.getDate());render()});render();
+$('icMonths').innerHTML=months.map((m,i)=>'<div class="ic-month"><b>'+String(i+1).padStart(2,'0')+' · '+m[0]+'</b><span>'+m[1]+'</span></div>').join('');
+const grid=$('icGrid'), motion=window.matchMedia('(prefers-reduced-motion: reduce)');
+const shortSaka=saka?new Intl.DateTimeFormat('en-IN-u-ca-indian',{day:'numeric',month:'short'}):null;
+const running=new Map();
+// Cancel an earlier effect before starting another; rapid clicks always show the latest month.
+function animate(el,frames,duration=260){
+  running.get(el)?.cancel();running.delete(el);
+  if(motion.matches||!el.animate||!root.classList.contains('active'))return;
+  const effect=el.animate(frames,{duration,easing:'cubic-bezier(.22,1,.36,1)'});
+  running.set(el,effect);
+  effect.finished.then(()=>{if(running.get(el)===effect)running.delete(el)},()=>{});
+}
+function updateSelection(animateDetail=false){
+  grid.querySelectorAll('.ic-day').forEach(btn=>{
+    const active=Number(btn.dataset.day)===selected.getDate()&&shown.getMonth()===selected.getMonth()&&shown.getFullYear()===selected.getFullYear();
+    btn.classList.toggle('selected',active);btn.setAttribute('aria-pressed',String(active));
+  });
+  $('icSelected').textContent=greg(selected);$('icSakaSelected').textContent=sakaDate(selected);
+  if(animateDetail)[$('icSelected'),$('icSakaSelected')].forEach(el=>animate(el,[{opacity:.35,transform:'translateY(6px)'},{opacity:1,transform:'translateY(0)'}],200));
+}
+function render(direction=0){
+  const y=shown.getFullYear(),m=shown.getMonth(),first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  $('icMonthTitle').textContent=new Intl.DateTimeFormat('en-IN',{month:'long',year:'numeric'}).format(shown);
+  const fragment=document.createDocumentFragment();
+  for(let cell=0;cell<42;cell++){
+    const d=cell-first+1;
+    if(d<1||d>days){const blank=document.createElement('div');blank.className='ic-blank';blank.setAttribute('aria-hidden','true');fragment.append(blank);continue}
+    const date=new Date(y,m,d),btn=document.createElement('button');
+    btn.type='button';btn.dataset.day=d;btn.className='ic-day'+(date.toDateString()===now.toDateString()?' today':'');
+    btn.setAttribute('aria-label',greg(date)+(saka?', '+sakaDate(date):''));
+    if(date.toDateString()===now.toDateString())btn.setAttribute('aria-current','date');
+    const strong=document.createElement('strong'),small=document.createElement('small');strong.textContent=d;small.textContent=shortSaka?shortSaka.format(date):' ';
+    btn.append(strong,small);fragment.append(btn);
+  }
+  grid.replaceChildren(fragment);updateSelection();
+  if(direction){
+    animate(grid,[{opacity:.25,transform:'translateX('+direction*22+'px)'},{opacity:1,transform:'translateX(0)'}]);
+    animate($('icMonthTitle'),[{opacity:.3,transform:'translateY(5px)'},{opacity:1,transform:'translateY(0)'}]);
+  }
+}
+grid.addEventListener('click',event=>{
+  const btn=event.target.closest('.ic-day');if(!btn||!grid.contains(btn))return;
+  selected=new Date(shown.getFullYear(),shown.getMonth(),Number(btn.dataset.day));updateSelection(true);
+});
+$('icPrev').addEventListener('click',()=>{shown=new Date(shown.getFullYear(),shown.getMonth()-1,1);render(-1)});
+$('icNext').addEventListener('click',()=>{shown=new Date(shown.getFullYear(),shown.getMonth()+1,1);render(1)});
+$('icReset').addEventListener('click',()=>{
+  const today=new Date(),target=new Date(today.getFullYear(),today.getMonth(),1),direction=Math.sign(target-shown);
+  shown=target;selected=new Date(today.getFullYear(),today.getMonth(),today.getDate());render(direction);updateSelection(true);
+});
+$('icToday').textContent=greg(now);$('icSakaToday').textContent=sakaDate(now);
+$('icMonthTitle').setAttribute('aria-live','polite');$('icMonthTitle').setAttribute('aria-atomic','true');
+$('icSelected').setAttribute('aria-live','polite');
+motion.addEventListener('change',()=>{if(motion.matches){running.forEach(effect=>effect.cancel());running.clear()}});
+new MutationObserver(()=>{if(!root.classList.contains('active')){running.forEach(effect=>effect.cancel());running.clear()}}).observe(root,{attributes:true,attributeFilter:['class']});
+render();
 })();
 </script>
 </body>
