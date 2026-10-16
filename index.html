@@ -11677,6 +11677,73 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 <style id="indianCalendarStyles">
 .ic-shell{max-width:1450px;margin:auto}.ic-hero{text-align:center;padding:38px 12px 44px;background:radial-gradient(ellipse at top,rgba(212,175,55,.14),transparent 65%)}.ic-kicker{color:#d4af37;letter-spacing:3px;font-size:11px;font-weight:700}.ic-hero h1{font-family:'Noto Serif Devanagari',serif;color:#e7c56a;font-size:clamp(42px,6vw,76px);margin:16px 0 8px}.ic-hero h2{font-size:clamp(27px,4vw,46px);color:#f4ead3}.ic-hero p{max-width:650px;margin:18px auto;color:#aa9a7c}.ic-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px}.ic-stats>div,.ic-panel,.ic-detail,.ic-learn{background:linear-gradient(145deg,#211b11,#110f0b);border:1px solid rgba(212,175,55,.26);border-radius:22px;box-shadow:0 16px 45px rgba(0,0,0,.2)}.ic-stats>div{padding:20px}.ic-stats small,.ic-detail>small,.ic-toolbar small{display:block;font-size:10px;letter-spacing:1.8px;color:#ad9462}.ic-stats strong{display:block;color:#f2dfad;font-size:18px;margin-top:8px}.ic-layout{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(280px,1fr);gap:22px}.ic-panel{padding:25px}.ic-toolbar{display:flex;align-items:center;justify-content:space-between;text-align:center;margin-bottom:24px}.ic-toolbar h3{font-size:30px;color:#f2d583;margin-top:6px}.ic-toolbar button,.ic-actions button{background:#292216;color:#eac875;border:1px solid #6b5427;border-radius:12px;padding:10px 16px;cursor:pointer}.ic-toolbar button:hover,.ic-actions button:hover{background:#46341b}.ic-weekdays,.ic-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px}.ic-weekdays{text-align:center;color:#c5a96c;font-size:12px;margin-bottom:9px}.ic-day{min-height:75px;background:#211b12;border:1px solid #3b301c;border-radius:12px;color:#eee0bf;cursor:pointer;text-align:left;padding:10px;transition:.2s}.ic-day:hover{border-color:#d4af37;transform:translateY(-2px)}.ic-day.selected{background:#5a441d;border-color:#edc961}.ic-day.today{box-shadow:inset 0 0 0 1px #d4af37}.ic-day strong{display:block;font-size:18px}.ic-day small{display:block;color:#bca36e;font-size:10px;margin-top:5px}.ic-blank{min-height:75px}.ic-actions{display:flex;align-items:center;gap:16px;margin-top:20px;color:#9e906f;font-size:12px}.ic-detail{padding:28px;height:100%}.ic-detail h3{font-size:29px;color:#f0d38a;margin:12px 0}.ic-detail p{color:#c3ae82}.ic-divider{height:1px;background:#4b3b21;margin:25px 0}.ic-detail h4{color:#f4e3b5;font-size:20px}.ic-limbs{display:grid;gap:8px;margin-top:17px}.ic-limbs>div{display:flex;justify-content:space-between;gap:12px;background:#2a2114;border:1px solid #45351c;border-radius:10px;padding:11px 12px}.ic-limbs b{color:#e4c574}.ic-limbs span{color:#a89b80;font-size:12px}.ic-detail .ic-note{font-size:12px;color:#a99a7a;line-height:1.7;margin-top:20px}.ic-learn{margin-top:24px;padding:27px}.ic-learn h2{font-size:30px;color:#ead28f}.ic-learn>p{color:#ad9d7c}.ic-months{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:20px}.ic-month{background:#292115;border:1px solid #4b3a1e;border-radius:12px;padding:14px}.ic-month b{display:block;color:#f1d996}.ic-month span{color:#b7a37d;font-size:12px}@media(max-width:850px){.ic-layout{grid-template-columns:1fr}.ic-stats{grid-template-columns:1fr}.ic-months{grid-template-columns:repeat(2,1fr)}}@media(max-width:520px){.ic-panel{padding:12px}.ic-weekdays,.ic-grid{gap:3px}.ic-day,.ic-blank{min-height:57px}.ic-day{padding:5px;border-radius:7px}.ic-day strong{font-size:14px}.ic-day small{font-size:8px}.ic-months{grid-template-columns:repeat(2,1fr)}.ic-toolbar h3{font-size:22px}}
 </style>
+<style id="indianCalendarVisibleEntranceV4">
+/* Virasat Indian Calendar: visible post-shutter entrance choreography.
+   Old global page rules use animation:none!important during navigation. */
+#page-bharatiya-calendar.ic-prepare .ic-hero > *,
+#page-bharatiya-calendar.ic-prepare .ic-stats > div,
+#page-bharatiya-calendar.ic-prepare .ic-panel,
+#page-bharatiya-calendar.ic-prepare .ic-side,
+#page-bharatiya-calendar.ic-prepare .ic-learn {
+  opacity:0!important;
+}
+#page-bharatiya-calendar.ic-entering .ic-hero .ic-kicker {
+  animation:icVisibleSlide .65s cubic-bezier(.16,1,.3,1) both!important;
+}
+#page-bharatiya-calendar.ic-entering .ic-hero h1 {
+  animation:icVisibleHero 1s cubic-bezier(.16,1,.3,1) .09s both!important;
+  transform-origin:center 80%;
+}
+#page-bharatiya-calendar.ic-entering .ic-hero h2 {
+  animation:icVisibleSlide .82s cubic-bezier(.16,1,.3,1) .18s both!important;
+}
+#page-bharatiya-calendar.ic-entering .ic-hero p {
+  animation:icVisibleSlide .78s cubic-bezier(.16,1,.3,1) .25s both!important;
+}
+#page-bharatiya-calendar.ic-entering .ic-stats > div {
+  animation:icVisibleCard .85s cubic-bezier(.16,1,.3,1) both!important;
+}
+#page-bharatiya-calendar.ic-entering .ic-stats > div:nth-child(1){animation-delay:.28s!important}
+#page-bharatiya-calendar.ic-entering .ic-stats > div:nth-child(2){animation-delay:.38s!important}
+#page-bharatiya-calendar.ic-entering .ic-stats > div:nth-child(3){animation-delay:.48s!important}
+#page-bharatiya-calendar.ic-entering .ic-panel {
+  animation:icVisiblePanelLeft .98s cubic-bezier(.16,1,.3,1) .52s both!important;
+}
+#page-bharatiya-calendar.ic-entering .ic-side {
+  animation:icVisiblePanelRight .98s cubic-bezier(.16,1,.3,1) .61s both!important;
+}
+#page-bharatiya-calendar.ic-entering .ic-learn {
+  animation:icVisibleSlide .9s cubic-bezier(.16,1,.3,1) .72s both!important;
+}
+@keyframes icVisibleSlide {
+  from {opacity:0; transform:translate3d(0,32px,0)}
+  to {opacity:1; transform:translate3d(0,0,0)}
+}
+@keyframes icVisibleHero {
+  from {opacity:0; transform:perspective(1100px) translate3d(0,70px,-110px) rotateX(9deg); filter:blur(4px)}
+  to {opacity:1; transform:perspective(1100px) translate3d(0,0,0) rotateX(0deg); filter:blur(0)}
+}
+@keyframes icVisibleCard {
+  from {opacity:0; transform:translate3d(0,45px,0) scale(.965)}
+  to {opacity:1; transform:translate3d(0,0,0) scale(1)}
+}
+@keyframes icVisiblePanelLeft {
+  from {opacity:0; transform:perspective(1200px) translate3d(-50px,50px,-120px) rotateY(5deg)}
+  to {opacity:1; transform:perspective(1200px) translate3d(0,0,0) rotateY(0deg)}
+}
+@keyframes icVisiblePanelRight {
+  from {opacity:0; transform:perspective(1200px) translate3d(50px,50px,-120px) rotateY(-5deg)}
+  to {opacity:1; transform:perspective(1200px) translate3d(0,0,0) rotateY(0deg)}
+}
+@media (prefers-reduced-motion: reduce){
+ #page-bharatiya-calendar.ic-prepare .ic-hero > *,
+ #page-bharatiya-calendar.ic-prepare .ic-stats > div,
+ #page-bharatiya-calendar.ic-prepare .ic-panel,
+ #page-bharatiya-calendar.ic-prepare .ic-side,
+ #page-bharatiya-calendar.ic-prepare .ic-learn{opacity:1!important}
+ #page-bharatiya-calendar.ic-entering *{animation:none!important}
+}
+</style>
 </head>
 <body>
 
@@ -14714,42 +14781,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
                 { opacity: 1, transform: 'translate3d(0,0,0) scale(1)', filter: 'saturate(1)' }
             ], { duration: 760, delay: 35 });
 
-            if (page.id === 'page-bharatiya-calendar') {
-                // Calendar gets Virasat's established cinematic destination choreography.
-                // Delays overlap the shutter reveal; no second full-page fade or flash.
-                add(page.querySelector('.ic-kicker'), [
-                    { opacity:0, transform:'translate3d(0,28px,0)', letterSpacing:'.55em' },
-                    { opacity:1, transform:'translate3d(0,0,0)', letterSpacing:'.18em' }
-                ], { duration:780, delay:190 });
-                add(page.querySelector('.ic-hero h1'), [
-                    { opacity:0, transform:'perspective(1300px) translate3d(0,65px,-110px) rotateX(9deg)', filter:'blur(5px)' },
-                    { opacity:1, transform:'perspective(1300px) translate3d(0,0,0) rotateX(0)', filter:'blur(0)' }
-                ], { duration:1060, delay:240 });
-                add(page.querySelector('.ic-hero h2'), [
-                    { opacity:0, transform:'translate3d(0,42px,0)', filter:'blur(3px)' },
-                    { opacity:1, transform:'translate3d(0,0,0)', filter:'blur(0)' }
-                ], { duration:900, delay:345 });
-                add(page.querySelector('.ic-hero p'), [
-                    { opacity:0, transform:'translate3d(0,24px,0)' },
-                    { opacity:1, transform:'translate3d(0,0,0)' }
-                ], { duration:800, delay:445 });
-                page.querySelectorAll('.ic-stats > div').forEach((el,i) => add(el, [
-                    { opacity:0, transform:`perspective(1400px) translate3d(0,${55+i*8}px,-130px) rotateX(8deg) scale(.97)` },
-                    { opacity:1, transform:'perspective(1400px) translate3d(0,0,0) rotateX(0) scale(1)' }
-                ], { duration:820, delay:490 + i*105 }));
-                add(page.querySelector('.ic-panel'), [
-                    { opacity:0, transform:'perspective(1500px) translate3d(-48px,62px,-160px) rotateY(6deg) scale(.98)' },
-                    { opacity:1, transform:'perspective(1500px) translate3d(0,0,0) rotateY(0) scale(1)' }
-                ], { duration:980, delay:580 });
-                add(page.querySelector('.ic-detail'), [
-                    { opacity:0, transform:'perspective(1500px) translate3d(48px,62px,-160px) rotateY(-6deg) scale(.98)' },
-                    { opacity:1, transform:'perspective(1500px) translate3d(0,0,0) rotateY(0) scale(1)' }
-                ], { duration:980, delay:650 });
-                add(page.querySelector('.ic-learn'), [
-                    { opacity:0, transform:'translate3d(0,60px,0) scale(.985)' },
-                    { opacity:1, transform:'translate3d(0,0,0) scale(1)' }
-                ], { duration:880, delay:790 });
-            }
+            // Calendar entrance is timed with the shutter below; avoid hidden WAAPI effects.
 
             if (page.id === 'page-home') {
                 add(page.querySelector('.vx-hero-copy'), [
@@ -14968,6 +15000,14 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
             setTimeout(() => {
                 virasatPerformNavigation(clean, sub);
                 target.classList.remove('motion-page-enter','vt-page-enter','vt-page-exit');
+                // Hold calendar sections behind the still-closing shutters. Release them
+                // as the shutters open, rather than finishing the animation invisibly.
+                if (clean === 'bharatiya-calendar') {
+                    target.classList.remove('ic-entering');
+                    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                        target.classList.add('ic-prepare');
+                    }
+                }
                 virasatAnimateRequestedDestination(target);
                 // Mutation observers run in a microtask; clear any legacy class they try to add.
                 queueMicrotask(() => target.classList.remove('motion-page-enter','vt-page-enter','vt-page-exit'));
@@ -14980,6 +15020,19 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
                 });
             }, 520);
 
+            // Reveal the calendar content late enough that the shutter cannot hide it.
+            // !important keyframes beat the global transition reset that used to
+            // prevent or swallow the calendar-specific animation.
+            if (clean === 'bharatiya-calendar' && !reduce) {
+                setTimeout(() => {
+                    if (!target.classList.contains('active')) return;
+                    target.classList.remove('ic-entering');
+                    void target.offsetWidth; // restart the sequence on every visit
+                    target.classList.remove('ic-prepare');
+                    target.classList.add('ic-entering');
+                }, 970);
+                setTimeout(() => target.classList.remove('ic-entering','ic-prepare'), 2800);
+            }
             setTimeout(() => {
                 target.classList.remove('motion-page-enter','vt-page-enter','vt-page-exit');
                 overlay.className = '';
