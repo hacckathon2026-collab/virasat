@@ -13165,16 +13165,9 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
       <section class="section ic-shell">
         <div class="ic-hero"><div class="ic-kicker">✦ VIRASAT · THE SCIENCE OF TIME ✦</div><h1 data-calendar-title="hero">Indian Calendar</h1><h2>India's Living Calendar</h2><p>Discover the rhythm of Indian seasons, the Saka national calendar, and the five elements of the traditional Panchang.</p></div>
         <div class="ic-stats"><div><small>TODAY · GREGORIAN</small><strong id="icToday">—</strong></div><div><small>INDIAN NATIONAL CALENDAR</small><strong id="icSakaToday">—</strong></div><div><small>CALENDAR SYSTEM</small><strong>Saka · Solar</strong></div></div>
-        <section class="ic-3d-feature" aria-label="Interactive 3D festival desk calendar">
-  <div class="ic-3d-feature-head"><small>✦ HERITAGE IN MOTION · 2026 ✦</small>
-    <h2>India's 3D Festival Desk Calendar</h2>
-    <p>Turn real hinged calendar pages. Use the arrows, keyboard or swipe to explore India's festivals month by month.</p>
-  </div>
-  <div id="ic3dHost"></div>
-</section>
-<div class="ic-3d-secondary"><h2 class="ic-3d-secondary-title">Saka Calendar &amp; Panchang Explorer</h2>
-<p class="ic-3d-secondary-note">A separate date explorer for the Indian national calendar. The 3D pages above show festival dates for 2026.</p>
-<div class="ic-layout"><div class="ic-panel"><div class="ic-toolbar"><button id="icPrev" aria-label="Previous month">❮</button><div><small>EXPLORE THE YEAR</small><h3 id="icMonthTitle">Calendar</h3></div><button id="icNext" aria-label="Next month">❯</button></div><div class="ic-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div id="icGrid" class="ic-grid"></div><div class="ic-actions"><button id="icReset">↺ Today</button><span>Dates show Gregorian day + Saka date where supported</span></div></div><aside class="ic-side"><div class="ic-detail"><small>✦ SELECTED DATE</small><h3 id="icSelected">—</h3><p id="icSakaSelected">—</p><div class="ic-divider"></div><h4>Five limbs of Panchang</h4><div class="ic-limbs"><div><b>☾ Tithi</b><span>Lunar day</span></div><div><b>☀ Vara</b><span>Weekday</span></div><div><b>✧ Nakshatra</b><span>Lunar mansion</span></div><div><b>◇ Yoga</b><span>Sun–Moon combination</span></div><div><b>◐ Karana</b><span>Half-tithi</span></div></div><p class="ic-note">Panchang values require date, location and astronomical calculations. This preview does not invent them.</p></div></aside></div>
+        <div class="ic-three-dee-label"><span>✦ THE INDIAN NATIONAL CALENDAR ✦</span><h2>India's Interactive 3D Calendar</h2><p>Explore Gregorian and Saka dates on a dimensional desk calendar. Turn each month, select a date, and discover the Panchang.</p></div>
+<div class="ic-3d-secondary">
+<div class="ic-layout ic-dimensional-layout"><div class="ic-panel ic-dimensional-panel"><div class="ic-calendar-spine" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div><div class="ic-toolbar"><button id="icPrev" aria-label="Previous month">❮</button><div><small>EXPLORE THE YEAR</small><h3 id="icMonthTitle">Calendar</h3></div><button id="icNext" aria-label="Next month">❯</button></div><div class="ic-weekdays"><span>Sun</span><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span></div><div id="icGrid" class="ic-grid"></div><div class="ic-actions"><button id="icReset">↺ Today</button><span>Dates show Gregorian day + Saka date where supported</span></div></div><aside class="ic-side"><div class="ic-detail"><small>✦ SELECTED DATE</small><h3 id="icSelected">—</h3><p id="icSakaSelected">—</p><div class="ic-divider"></div><h4>Five limbs of Panchang</h4><div class="ic-limbs"><div><b>☾ Tithi</b><span>Lunar day</span></div><div><b>☀ Vara</b><span>Weekday</span></div><div><b>✧ Nakshatra</b><span>Lunar mansion</span></div><div><b>◇ Yoga</b><span>Sun–Moon combination</span></div><div><b>◐ Karana</b><span>Half-tithi</span></div></div><p class="ic-note">Panchang values require date, location and astronomical calculations. This preview does not invent them.</p></div></aside></div>
         </div>
         <div class="ic-learn"><h2>Explore the Indian Months</h2><p>Traditional Hindu lunisolar months are different from the official solar Saka calendar. Select a month to learn its name.</p><div id="icMonths" class="ic-months"></div></div>
       </section>
@@ -22338,123 +22331,6 @@ draw();
 .festival-story-block p { white-space: pre-line; }
 </style>
 <!-- Calendar-only recovery controller. Existing calendar JS, translation and auth are unchanged. -->
-<script id="virasatIndianCalendarRestoredController">
-(function(){
-  'use strict';
-  const mount=()=>{
-    const page=document.getElementById('page-bharatiya-calendar');
-    if(!page || page.dataset.animatedRestorationMounted==='1') return;
-    page.dataset.animatedRestorationMounted='1';
-    const curtain=document.getElementById('icCurtain');
-    const reduced=()=>window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    let previousActive=page.classList.contains('active');
-    let fallbackTimer=0, fallbackCleanup=0;
-    const runs=new WeakMap();
-    function animate(el,frames,options){
-      if(!el || reduced() || !page.classList.contains('active')) return;
-      const previous=runs.get(el);
-      if(previous)previous.cancel();
-      if(typeof el.animate!=='function')return;
-      const run=el.animate(frames,{duration:options.duration,easing:'cubic-bezier(.16,1,.3,1)'});
-      runs.set(el,run);
-      run.finished.catch(()=>{}).then(()=>{if(runs.get(el)===run)runs.delete(el);});
-    }
-    function fallbackEntry(){
-      if(reduced() || !page.classList.contains('active') ||
-          (curtain && (curtain.classList.contains('ic-playing')||curtain.classList.contains('ic-opening'))) ||
-          document.documentElement.classList.contains('vt-transitioning') ||
-          page.classList.contains('ic-v5-entering') || page.classList.contains('ic-entering'))return;
-      page.classList.remove('ic-restored-entry');
-      // Use next paint instead of the legacy synchronous offsetWidth read.
-      requestAnimationFrame(()=>{
-        if(!page.classList.contains('active'))return;
-        page.classList.add('ic-restored-entry');
-        clearTimeout(fallbackCleanup);
-        fallbackCleanup=setTimeout(()=>page.classList.remove('ic-restored-entry'),1900);
-      });
-    }
-    const observer=new MutationObserver(()=>{
-      const active=page.classList.contains('active');
-      if(active===previousActive)return;
-      previousActive=active;
-      clearTimeout(fallbackTimer);
-      if(active){ page.classList.remove('ic-restored-entry'); }
-      else{
-        clearTimeout(fallbackCleanup);
-        page.classList.remove('ic-restored-entry');
-      }
-    });
-    observer.observe(page,{attributes:true,attributeFilter:['class']});
-    // Month navigation animates only the grid and its label, never the entire page.
-    ['icPrev','icNext','icReset'].forEach(id=>{
-      const button=document.getElementById(id);
-      if(!button)return;
-      button.addEventListener('click',()=>{
-        animate(document.getElementById('icGrid'),[
-          {opacity:.5,transform:'translate3d(0,9px,0) scale(.99)'},
-          {opacity:1,transform:'translate3d(0,0,0) scale(1)'}
-        ],{duration:320});
-        animate(document.getElementById('icMonthTitle'),[
-          {opacity:.48,transform:'translateY(9px)'},{opacity:1,transform:'translateY(0)'}
-        ],{duration:290});
-      });
-    });
-    page.addEventListener('click',event=>{
-      if(!event.target.closest('.ic-day'))return;
-      animate(page.querySelector('.ic-detail'),[
-        {opacity:.55,transform:'translate3d(7px,0,0)'},
-        {opacity:1,transform:'translate3d(0,0,0)'}
-      ],{duration:260});
-    });
-  };
-  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',mount,{once:true});
-  else mount();
-})();
-</script>
-
-<script id="virasatRestored3DCalendarMount">
-(function(){
-'use strict';
-function install(){
- const root=document.getElementById('calendar');
- const original=document.getElementById('page-festivals');
- const indian=document.getElementById('page-bharatiya-calendar');
- const host=document.getElementById('ic3dHost');
- if(!root||!original||!indian||!host)return;
- // Dedicated anchor restores the original festival page without duplicating IDs or calendars.
- const originalAnchor=document.createComment('Original festival calendar position');
- root.parentNode.insertBefore(originalAnchor,root);
- let location='festivals';
- function sync(){
-  const wantIndian=indian.classList.contains('active');
-  const wantFestival=original.classList.contains('active');
-  if(wantIndian && location!=='indian'){
-   host.appendChild(root);location='indian';
-   requestAnimationFrame(()=>{if(window.FestivalCalendar&&indian.classList.contains('active'))window.FestivalCalendar.render();});
-  }else if(wantFestival && location!=='festivals'){
-   originalAnchor.parentNode.insertBefore(root,originalAnchor.nextSibling);location='festivals';
-   requestAnimationFrame(()=>{if(window.FestivalCalendar&&original.classList.contains('active'))window.FestivalCalendar.render();});
-  }
- }
- new MutationObserver(sync).observe(indian,{attributes:true,attributeFilter:['class']});
- new MutationObserver(sync).observe(original,{attributes:true,attributeFilter:['class']});
- sync();
- // Same arrow-key page turning as the original festival route.
- document.addEventListener('keydown',e=>{
-  if(!indian.classList.contains('active')||e.altKey||e.ctrlKey||e.metaKey||!['ArrowLeft','ArrowRight'].includes(e.key))return;
-  if(e.target.closest('input,textarea,select,[contenteditable="true"]'))return;
-  if(document.querySelector('#modal.open,#langModal.open,#globalSearchOverlay.open,#navLinks.open'))return;
-  if(!window.FestivalCalendar)return;
-  const controls=root.querySelectorAll('.fc-chrome [data-fc="prev"],.fc-chrome [data-fc="next"]');
-  // The page-turn widget owns its own buttons; keyboard presses should use them.
-  const btn=Array.from(controls).find(el=>el.matches(e.key==='ArrowRight'?'[data-fc="next"]':'[data-fc="prev"]'));
-  if(btn){e.preventDefault();btn.click();}
- });
-}
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',install,{once:true});else install();
-})();
-</script>
-
 <script id="virasatAuthenticatedScrollRepair">
 (function(){
 'use strict';
@@ -22609,5 +22485,236 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 })();
 </script>
 
+
+<style id="virasatRealIndian3DCalendarFix">
+/* 3D treatment for the ACTUAL Saka/Gregorian Indian Calendar, never the Festival Calendar. */
+#page-bharatiya-calendar .ic-three-dee-label{text-align:center;margin:35px auto 30px;max-width:810px}
+#page-bharatiya-calendar .ic-three-dee-label>span{color:#d4af37;font-size:12px;letter-spacing:2px;font-weight:800}
+#page-bharatiya-calendar .ic-three-dee-label h2{font-size:clamp(25px,4vw,46px);color:#f4e0aa;margin:10px auto}
+#page-bharatiya-calendar .ic-three-dee-label p{color:#bdae8c;line-height:1.7}
+#page-bharatiya-calendar .ic-dimensional-layout{perspective:1700px;perspective-origin:43% 25%;align-items:start}
+#page-bharatiya-calendar .ic-dimensional-panel{position:relative;transform:rotateX(7deg) rotateY(-5deg);transform-style:preserve-3d;transform-origin:center top;margin-top:27px;padding-top:50px!important;border:1px solid rgba(236,194,99,.45)!important;border-radius:14px 14px 22px 22px!important;background:linear-gradient(145deg,#f4e6c9,#e2c99d 82%,#b89054)!important;box-shadow:14px 20px 0 #665031,20px 29px 0 #332719,28px 42px 60px rgba(0,0,0,.7),inset 0 0 30px rgba(91,56,17,.12)!important;color:#322517!important;isolation:isolate;transition:box-shadow .3s ease}
+#page-bharatiya-calendar .ic-dimensional-panel::before{content:'';position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent,transparent 31px,rgba(77,49,16,.018) 32px);border-radius:inherit}
+#page-bharatiya-calendar .ic-calendar-spine{position:absolute;display:flex;justify-content:space-around;align-items:center;top:-16px;left:4%;right:4%;height:62px;pointer-events:none;transform:translateZ(15px)}
+#page-bharatiya-calendar .ic-calendar-spine i{display:block;border:5px solid #c59b43;border-bottom-color:#785728;width:19px;height:48px;border-radius:19px;box-shadow:3px 2px 2px rgba(0,0,0,.27);background:transparent}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-toolbar{border-bottom:2px solid rgba(88,54,16,.25);padding-bottom:15px;margin-bottom:19px;position:relative;z-index:1}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-toolbar h3{color:#3a2817!important;font-size:clamp(22px,3vw,35px)}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-toolbar small,#page-bharatiya-calendar .ic-dimensional-panel .ic-weekdays{color:#6b4a23!important;font-weight:800}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-toolbar button,#page-bharatiya-calendar .ic-dimensional-panel .ic-actions button{background:#392617!important;color:#f9e4ad!important;border:1px solid #b3863a!important;min-width:42px;min-height:42px}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-day{background:rgba(255,252,240,.76)!important;border:1px solid rgba(114,73,26,.19)!important;color:#352614!important;box-shadow:0 3px 0 rgba(94,61,28,.13);transition:transform .16s ease,box-shadow .16s ease,background .16s ease;transform:translateZ(0)}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-day strong{color:#352614!important}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-day small{color:#846239!important}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-day:hover{transform:translateY(-4px);box-shadow:0 7px 0 rgba(94,61,28,.16);background:#fff6dd!important}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-day.today{border:2px solid #b88c31!important}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-day.selected{background:#d4af37!important;color:#2d1e10!important;border-color:#947024!important}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-actions{position:relative;z-index:1;color:#765e3d}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-actions span{color:#6b5533!important}
+#page-bharatiya-calendar .ic-dimensional-panel.ic-sheet-turn{animation:icActualPageTurn .55s cubic-bezier(.2,.72,.2,1) both}
+@keyframes icActualPageTurn{0%{opacity:.55;transform:rotateX(24deg) rotateY(-13deg) translateY(10px) scale(.97)}65%{opacity:1;transform:rotateX(3deg) rotateY(-3deg) translateY(-4px) scale(1.008)}100%{opacity:1;transform:rotateX(7deg) rotateY(-5deg) translateY(0) scale(1)}}
+/* All page-ENTRY transitions belong to shared Virasat navigation, not calendar-specific curtains. */
+#page-bharatiya-calendar.ic-prepare,#page-bharatiya-calendar.ic-entering,#page-bharatiya-calendar.ic-v5-entering,#page-bharatiya-calendar.ic-restored-entry{animation:none!important}
+#page-bharatiya-calendar #icCurtain{display:none!important;pointer-events:none!important}
+@media(max-width:900px){#page-bharatiya-calendar .ic-dimensional-panel{transform:rotateX(4deg) rotateY(-2deg);margin:20px 10px 26px!important}#page-bharatiya-calendar .ic-dimensional-layout{perspective:2100px}}
+@media(max-width:600px){#page-bharatiya-calendar .ic-dimensional-panel{padding:40px 10px 18px!important;margin:15px 5px 35px!important;transform:rotateX(3deg);box-shadow:7px 10px 0 #665031,12px 17px 0 #332719,15px 23px 30px rgba(0,0,0,.6)!important}#page-bharatiya-calendar .ic-calendar-spine{height:49px;top:-15px}#page-bharatiya-calendar .ic-calendar-spine i{width:13px;height:35px;border-width:3px}#page-bharatiya-calendar .ic-dimensional-panel .ic-day{min-height:56px!important;padding:4px 1px!important}#page-bharatiya-calendar .ic-dimensional-panel .ic-day small{font-size:8px!important}#page-bharatiya-calendar .ic-dimensional-panel .ic-weekdays{gap:2px!important;font-size:10px!important}}
+@media(prefers-reduced-motion:reduce){#page-bharatiya-calendar .ic-dimensional-panel.ic-sheet-turn{animation:none!important}}
+</style>
+<style id="virasatIndianPhysicalPageFlip">
+/* Indian Calendar: genuine ring-bound page-turn; festival calendar untouched. */
+#page-bharatiya-calendar .ic-dimensional-panel { isolation:isolate; }
+#page-bharatiya-calendar .ic-dimensional-panel.ic-sheet-turn { animation:none!important; }
+#page-bharatiya-calendar .ic-grid.ic-restored-month-turn { animation:none!important; }
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet {
+ position:absolute;z-index:12;pointer-events:none;transform-origin:50% 0%;
+ backface-visibility:visible;transform-style:preserve-3d;
+ background:#f5e7c9;border:1px solid #b8a073;border-radius:0 0 10px 10px;
+ box-shadow:0 12px 24px rgba(26,16,6,.30), inset 0 1px 0 rgba(255,255,255,.75);
+ overflow:hidden;will-change:transform,opacity;
+ animation:icPhysicalFlip .9s cubic-bezier(.55,.04,.22,1) both;
+}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet::after {
+ content:'';position:absolute;inset:0;pointer-events:none;
+ background:linear-gradient(180deg,rgba(70,42,10,.06),transparent 28%,rgba(63,36,9,.32));
+ opacity:0;animation:icSheetShade .9s ease-in-out both;
+}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet .ic-grid,
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet .ic-weekdays {width:100%;}
+@keyframes icPhysicalFlip {
+ 0%{transform:perspective(1300px) rotateX(0deg);opacity:1}
+ 32%{transform:perspective(1300px) rotateX(-52deg);opacity:1}
+ 67%{transform:perspective(1300px) rotateX(-129deg);opacity:1}
+ 95%{transform:perspective(1300px) rotateX(-177deg);opacity:.35}
+ 100%{transform:perspective(1300px) rotateX(-179deg);opacity:0}
+}
+@keyframes icSheetShade {0%{opacity:0}50%{opacity:.65}100%{opacity:.1}}
+@media(prefers-reduced-motion:reduce){#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet{display:none!important;animation:none!important}}
+</style>
+<script id="virasatRealIndian3DControls">
+(function(){
+ function start(){
+  const page=document.getElementById('page-bharatiya-calendar');
+  if(!page)return;
+  const panel=page.querySelector('.ic-dimensional-panel');
+  const weekdays=panel?.querySelector('.ic-weekdays');
+  const grid=panel?.querySelector('#icGrid');
+  if(!panel || !weekdays || !grid)return;
+  let activeSheet=null, cleanTimer=0;
+  function clearSheet(){
+   if(activeSheet){activeSheet.remove();activeSheet=null;}
+   if(cleanTimer){clearTimeout(cleanTimer);cleanTimer=0;}
+  }
+  function flip(){
+   if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+   clearSheet();
+   // Capture the OLD month during the capture phase. The existing calendar's
+   // own click listener then renders the next Saka/Gregorian month underneath.
+   const a=weekdays.getBoundingClientRect(), b=grid.getBoundingClientRect(), parent=panel.getBoundingClientRect();
+   if(!a.width || !b.width)return;
+   const sheet=document.createElement('div');sheet.className='ic-turning-sheet';sheet.setAttribute('aria-hidden','true');
+   sheet.style.left=(a.left-parent.left+panel.scrollLeft)+'px';
+   sheet.style.top=(a.top-parent.top+panel.scrollTop)+'px';
+   sheet.style.width=Math.max(a.width,b.width)+'px';
+   sheet.style.height=Math.max(1,b.bottom-a.top)+'px';
+   const w=weekdays.cloneNode(true),g=grid.cloneNode(true);
+   w.removeAttribute('id');g.removeAttribute('id');
+   g.classList.remove('ic-restored-month-turn');
+   g.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));
+   w.style.marginTop='0';g.style.marginTop=(b.top-a.bottom)+'px';
+   sheet.append(w,g);
+   sheet.querySelectorAll('button').forEach(x=>{x.tabIndex=-1;x.disabled=true;});
+   panel.appendChild(sheet);activeSheet=sheet;
+   sheet.addEventListener('animationend',e=>{if(e.target===sheet)clearSheet();},{once:true});
+   cleanTimer=setTimeout(clearSheet,1500);
+  }
+  ['icPrev','icNext','icReset'].forEach(id=>{
+    const b=document.getElementById(id);
+    if(b)b.addEventListener('click',flip,{capture:true});
+  });
+  // Discard any detached sheet on navigation away.
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)clearSheet();});
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',start,{once:true});else start();
+})();
+</script>
+<style id="virasatForwardCalendarFlipFix">
+/* Keep the real Indian calendar square-on, retaining depth through its shadows and rings. */
+#page-bharatiya-calendar .ic-dimensional-panel {transform:none!important;transform-style:flat!important;overflow:visible!important;perspective:1300px!important}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet {
+  transform-origin:50% 0%!important;transform-style:preserve-3d!important;
+  backface-visibility:visible!important;z-index:90!important;overflow:visible!important;
+  animation:virasatFlipOverTop 950ms cubic-bezier(.35,.05,.21,1) both!important;
+}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet .ic-sheet-face{height:100%;width:100%;overflow:hidden;background:#f5e7c9;backface-visibility:visible;border-radius:0 0 10px 10px}
+@keyframes virasatFlipOverTop {
+  0%   {transform:translateZ(16px) rotateX(0deg);opacity:1}
+  25%  {transform:translateZ(34px) rotateX(42deg);opacity:1}
+  55%  {transform:translateZ(44px) rotateX(105deg);opacity:1}
+  88%  {transform:translateZ(25px) rotateX(171deg);opacity:1}
+  100% {transform:translateZ(16px) rotateX(179deg);opacity:0}
+}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet::after{animation:none!important;opacity:.14!important}
+#icMonthDetail .ic-month-listen {margin:8px 0 14px;border-radius:999px;border:1px solid rgba(212,175,55,.64);background:linear-gradient(135deg,#d4af37,#f3d87d);color:#211600;min-height:46px;padding:10px 20px;font-weight:800;cursor:pointer;display:inline-flex;align-items:center;gap:8px}
+#icMonthDetail .ic-month-listen:hover{filter:brightness(1.08)}
+@media(prefers-reduced-motion:reduce){#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet{animation:none!important;display:none!important}}
+</style>
+<script id="virasatIndianMonthNarrator">
+(function(){
+  'use strict';
+  const list=document.getElementById('icMonths');
+  if(!list)return;
+  const labels={
+    en:['Listen to story','Stop listening','Approximate period','Seasonal context','Festivals and celebrations','Traditions and everyday life','Across the regions'],
+    hi:['कहानी सुनें','सुनना बंद करें','अनुमानित अवधि','ऋतु संदर्भ','त्योहार और उत्सव','परंपराएँ और दैनिक जीवन','विभिन्न क्षेत्रों में'],
+    sa:['कथां शृणुत','श्रवणं स्थगयतु','अनुमानितकालः','ऋतुसन्दर्भः','उत्सवाः समारोहाश्च','परम्पराः दैनिकजीवनं च','विविधेषु प्रदेशेषु']
+  };
+  const devNames=['चैत्र','वैशाख','ज्येष्ठ','आषाढ','श्रावण','भाद्रपद','आश्विन','कार्तिक','मार्गशीर्ष','पौष','माघ','फाल्गुन'];
+  let active=null;
+  const code=()=>{let l=(document.documentElement.lang||'en').toLowerCase();return l.startsWith('hi')?'hi':l.startsWith('sa')?'sa':'en';};
+  function update(){
+    const detail=document.getElementById('icMonthDetail');
+    if(!detail||detail.hidden)return;
+    detail.setAttribute('data-no-narration','');
+    const monthBtn=list.querySelector('.ic-month.active');if(!monthBtn)return;
+    const index=Number(monthBtn.dataset.month);
+    if(!Number.isInteger(index)||index<0||index>11)return;
+    const lang=code(),dict=labels[lang],title=detail.querySelector('h3'),lede=detail.querySelector('.ic-month-lede');
+    const meta=detail.querySelectorAll('.ic-month-meta strong');
+    const articles=detail.querySelectorAll('.ic-month-story-grid article');
+    // Structured reading excludes the educational guide/disclaimer and close controls.
+    const lines=[];
+    lines.push(lang==='en'?(title?.childNodes[0]?.textContent||title?.textContent||'').trim():devNames[index]);
+    if(lede?.textContent)lines.push(lede.textContent.trim());
+    if(meta[0])lines.push(dict[2]+'. '+meta[0].textContent.trim());
+    if(meta[1])lines.push(dict[3]+'. '+meta[1].textContent.trim());
+    for(let i=0;i<3;i++){const para=articles[i]?.querySelector('p');if(para?.textContent)lines.push(dict[4+i]+'. '+para.textContent.trim());}
+    const text=lines.join('. ');
+    let button=detail.querySelector('.ic-month-listen');
+    if(!button){button=document.createElement('button');button.type='button';button.className='ic-month-listen';
+      button.addEventListener('click',e=>{
+        e.preventDefault();e.stopPropagation();
+        if(active===button){window.VirasatNarration?.stop?.();active=null;button.textContent=labels[code()][0];return;}
+        window.VirasatNarration?.stop?.();active=button;
+        const lang=code();button.textContent='■ '+labels[lang][1];
+        if(window.VirasatNarration?.isSupported){window.VirasatNarration.speak(button,button.dataset.narration||'',lang==='en'?'en-IN':lang==='hi'?'hi-IN':'sa-IN');}
+        else{active=null;button.textContent=labels[lang][0];}
+      });
+      const top=detail.querySelector('.ic-month-detail-top');
+      if(top)top.after(button);else detail.prepend(button);
+    }
+    button.dataset.narration=text;
+    button.textContent='▶ '+dict[0];active=null;
+  }
+  list.addEventListener('click',e=>{if(e.target.closest('[data-month]'))queueMicrotask(update);});
+  document.addEventListener('click',e=>{if(e.target.closest('#icCloseMonth')){window.VirasatNarration?.stop?.();active=null;}});
+  new MutationObserver(()=>{const d=document.getElementById('icMonthDetail');if(d&&!d.hidden&&d.querySelector('h3')&&!d.querySelector('.ic-month-listen'))update();}).observe(document.getElementById('page-bharatiya-calendar'),{subtree:true,childList:true});
+  const localeObserver=new MutationObserver(()=>{const d=document.getElementById('icMonthDetail');const b=d?.querySelector('.ic-month-listen');if(b&&!d.hidden){b.textContent='▶ '+labels[code()][0];}});
+  localeObserver.observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+})();
+</script>
+
+<style id="virasatSilkyIndianCalendarFlip">
+/* Only the Saka/Gregorian Indian Calendar month leaf is animated. */
+#page-bharatiya-calendar .ic-dimensional-panel {
+  transform:none!important; transform-style:preserve-3d!important;
+  perspective:1800px!important; perspective-origin:50% 9%!important;
+}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet {
+  transform-origin:50% 0%!important;
+  backface-visibility:hidden!important;
+  transform-style:preserve-3d!important;
+  z-index:100!important;
+  overflow:hidden!important;
+  will-change:transform,filter,opacity;
+  box-shadow:0 15px 24px rgba(26,16,6,.28),0 3px 4px rgba(54,33,8,.12)!important;
+  animation:virasatSilkyLeafTurn 1250ms linear both!important;
+}
+#page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet::after {
+  animation:virasatSilkyLeafShading 1250ms linear both!important;
+  background:linear-gradient(to bottom,rgba(255,248,227,.22),rgba(41,25,8,.02) 30%,rgba(37,22,7,.33) 88%,rgba(20,10,1,.42))!important;
+}
+/* Multiple close-spaced frames imitate the acceleration, curl and gentle landing of paper. */
+@keyframes virasatSilkyLeafTurn {
+  0% {transform:translate3d(0,0,2px) rotateX(0deg);opacity:1;filter:brightness(1)}
+  8% {transform:translate3d(0,-1px,9px) rotateX(3deg);opacity:1;filter:brightness(1.015)}
+  19% {transform:translate3d(0,-3px,18px) rotateX(16deg);opacity:1;filter:brightness(1.03)}
+  31% {transform:translate3d(0,-6px,26px) rotateX(42deg);opacity:1;filter:brightness(.99)}
+  44% {transform:translate3d(0,-8px,36px) rotateX(75deg);opacity:1;filter:brightness(.91)}
+  57% {transform:translate3d(0,-8px,40px) rotateX(111deg);opacity:1;filter:brightness(.81)}
+  70% {transform:translate3d(0,-5px,35px) rotateX(145deg);opacity:1;filter:brightness(.76)}
+  82% {transform:translate3d(0,-3px,23px) rotateX(166deg);opacity:1;filter:brightness(.8)}
+  91% {transform:translate3d(0,-1px,12px) rotateX(176deg);opacity:.95;filter:brightness(.87)}
+  100% {transform:translate3d(0,0,2px) rotateX(181deg);opacity:0;filter:brightness(.9)}
+}
+@keyframes virasatSilkyLeafShading {
+  0%,8% {opacity:0}
+  27% {opacity:.17}
+  51% {opacity:.46}
+  74% {opacity:.62}
+  91% {opacity:.35}
+  100% {opacity:0}
+}
+@media(prefers-reduced-motion:reduce){
+  #page-bharatiya-calendar .ic-dimensional-panel .ic-turning-sheet{animation:none!important;display:none!important}
+}
+</style>
 </body>
 </html>
