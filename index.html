@@ -13204,8 +13204,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 /* 2026 refinements: same mega-menu heading as Maa Ki Rasoi, no decorative dot. */
 /* Inherit the exact Maa Ki Rasoi .nav-item > a rules already defined by Virasat. */
 #navLinks .mega-discover > .rasoi-studio-nav-item{display:block!important;}
-#navLinks .mega-discover > .rasoi-studio-nav-item > a.rasoi-studio-native-link::before,
-#navLinks .mega-discover > .rasoi-studio-nav-item > a.rasoi-studio-native-link::after{content:none!important;display:none!important;}
+/* Let Rasoi Studio inherit the exact same leading arrow as Ancient Translator. */
 #navLinks .mega-discover > .rasoi-studio-nav-item > a.rasoi-studio-native-link:hover{color:var(--gold)!important;}
 #page-rasoi-studio #virasatStudioBackbar[hidden]{display:none!important;}
 /* Polished native select: gold-on-charcoal, rounded ends and styled dropdown popup where supported. */
@@ -13259,6 +13258,32 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
   .nav,.navlinks,#heritageAiChatBox{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
 }
 @media(prefers-reduced-motion:reduce){#page-rasoi-studio .rs-native *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
+
+<style id="virasatStudioFinalPolish">
+/* Rasoi Studio uses Virasat's existing premium leading arrow, identical to Ancient Translator. */
+#navLinks .mega-discover > .rasoi-studio-nav-item > a.rasoi-studio-native-link::after{content:none!important;display:none!important;}
+/* Back belongs next to the selected dish's actions, never above the recipe catalogue. */
+#page-rasoi-studio .rs-native .workspace-title .virasat-studio-backbar{margin:0!important;display:inline-flex;align-items:center;}
+#page-rasoi-studio .rs-native .workspace-title .virasat-studio-backbar[hidden]{display:none!important;}
+#page-rasoi-studio .rs-native .workspace-title .virasat-studio-back{font-size:12px;padding:10px 13px;white-space:normal;text-align:center;}
+/* Custom, fully themed sort: no native white/blue browser dropdown. */
+#page-rasoi-studio .rs-native .rs-sort-control{position:relative;min-width:190px;flex:0 0 auto;z-index:42;}
+#page-rasoi-studio .rs-native .rs-sort-source{position:absolute!important;opacity:0!important;pointer-events:none!important;width:1px!important;height:1px!important;padding:0!important;min-width:0!important;}
+#page-rasoi-studio .rs-native .rs-sort-trigger{width:100%;min-height:49px;display:flex;align-items:center;gap:11px;padding:11px 15px!important;border:1px solid rgba(212,175,55,.48)!important;border-radius:16px!important;background:linear-gradient(130deg,#211a10,#110f0c)!important;color:#f6e6bf!important;font:650 14px 'DM Sans',sans-serif!important;box-shadow:0 6px 24px #0005;transition:border-color .2s,box-shadow .2s,background .2s!important;}
+#page-rasoi-studio .rs-native .rs-sort-trigger:hover,#page-rasoi-studio .rs-native .rs-sort-trigger[aria-expanded="true"]{border-color:var(--gold)!important;box-shadow:0 0 0 3px rgba(212,175,55,.10),0 10px 27px #0005!important;}
+#page-rasoi-studio .rs-native .rs-sort-icon{color:#d4af37;font-size:19px;line-height:1;}
+#page-rasoi-studio .rs-native #rsSortLabel{flex:1;text-align:left;}
+#page-rasoi-studio .rs-native .rs-sort-trigger svg{color:var(--gold);transition:transform .2s;}
+#page-rasoi-studio .rs-native .rs-sort-trigger[aria-expanded="true"] svg{transform:rotate(180deg);}
+#page-rasoi-studio .rs-native .rs-sort-menu{position:absolute;inset:auto 0 auto 0;top:calc(100% + 8px);padding:7px;border:1px solid rgba(212,175,55,.5);border-radius:16px;background:#18130b;box-shadow:0 18px 46px rgba(0,0,0,.7);z-index:1000;}
+#page-rasoi-studio .rs-native .rs-sort-menu[hidden]{display:none!important;}
+#page-rasoi-studio .rs-native .rs-sort-option{display:flex;justify-content:space-between;align-items:center;gap:12px;width:100%;padding:13px 12px;border:0!important;border-radius:10px!important;background:transparent!important;color:#eee0c8!important;text-align:left;font:600 13px 'DM Sans',sans-serif;transition:background .15s!important;}
+#page-rasoi-studio .rs-native .rs-sort-option:hover,#page-rasoi-studio .rs-native .rs-sort-option:focus-visible{background:rgba(212,175,55,.13)!important;outline:none;}
+#page-rasoi-studio .rs-native .rs-sort-option.is-selected{color:var(--gold)!important;background:rgba(212,175,55,.10)!important;}
+#page-rasoi-studio .rs-native .rs-sort-option:not(.is-selected) span:last-child{visibility:hidden;}
+@media(max-width:600px){#page-rasoi-studio .rs-native .rs-sort-control{width:100%;flex:1 0 100%;}#page-rasoi-studio .rs-native .workspace-title .actions{width:100%;}}
+@media(prefers-reduced-motion:reduce){#page-rasoi-studio .rs-native .rs-sort-trigger,#page-rasoi-studio .rs-native .rs-sort-trigger svg{transition:none!important;}}
 </style>
 </head>
 <body>
@@ -13797,16 +13822,13 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
     <!-- NATIVE RASOI STUDIO — 64 recipes and calculator; no iframe, no external HTML -->
     <div class="page" id="page-rasoi-studio">
       <section class="section virasat-rasoi-internal-shell">
-        <div class="virasat-studio-backbar" id="virasatStudioBackbar" hidden>
-          <a href="#rasoi" data-page="rasoi" data-sub="restore" class="virasat-studio-back" data-i18n="rasoi_studio_back">← Back to Maa Ki Rasoi</a>
-          <span class="virasat-studio-back-caption" data-i18n="rasoi_studio_internal">✦ A part of Virasat · India's Living Heritage</span>
-        </div>
+
         <div class="virasat-studio-page-intro">
           <span class="eyebrow" data-i18n="rasoi_studio_kicker">Cook tradition, your way</span>
           <h1 data-i18n="rasoi_studio_nav">Rasoi Studio</h1>
           <p data-i18n="rasoi_studio_page_desc">Explore 64 regional recipes, calculate ingredients for your guests and bring India's living heritage to your kitchen.</p>
         </div>
-        <div class="rs-native" id="virasatRasoiNativeRoot"><div class="rs-toolbar-head"><div class="rs-utility-actions"><button class="btn" id="favFilter" type="button">♡ Favourites</button><button class="btn" id="shoppingJump" type="button">🛒 List</button></div></div><main><section class="hero"><div><div class="eyebrow">02 / Taste · Tradition · Technology</div><h1>Every recipe<br/>has a <em>story.</em></h1><p>Explore the flavours of India, scale approachable home recipes to your table, and turn ingredients into an intelligent shopping list. Culture you can actually cook.</p><div class="stats"><span><strong id="recipeCount">64</strong> regional dishes</span><span><strong>1–30</strong> servings</span><span><strong>100%</strong> browser-based</span></div></div><div aria-label="Traditional Indian food photography" class="ornament" id="heroPhoto" role="img"></div></section><div class="eyebrow catalogue-eyebrow">03 / Discover your dish</div><div class="catalogue-heading"><h2>Explore the Indian table.</h2><p id="catalogueCount">54 dishes from Virasat, plus 10 studio favourites · 8 courses · 5 regions</p></div><div aria-label="Browse recipes by type" class="browse-modes" id="browseModes"><button class="mode active" data-mode="all" type="button">All dishes</button><button class="mode" data-mode="course" type="button">By Course</button><button class="mode" data-mode="region" type="button">By Region</button></div><div aria-label="Selected category" class="category-chips" id="categoryChips"></div><div class="toolbar"><input aria-label="Search recipes" class="search" id="search" placeholder="Search dish, ingredient, region…" type="search"/><select aria-label="Filter by region" id="region"><option value="all">All regions</option></select><select aria-label="Filter by course" id="course"><option value="all">All courses</option></select><select aria-label="Sort recipes" id="sort"><option value="name">A to Z</option><option value="time">Quickest first</option></select></div><section aria-label="Recipe collection" class="recipe-grid" id="cards"></section><section aria-live="polite" class="workspace hide" id="workspace"><div class="workspace-title"><div><div class="eyebrow">04 / Your cooking companion</div><div class="work-heading"><img alt="Photo illustration of selected dish" class="selected-photo" id="selectedPhoto"/><div><h2 id="selectedTitle"></h2><p class="recipe-description" id="selectedDesc"></p><p class="subtle" id="selectedMeta"></p></div></div></div><div class="actions"><button class="btn" id="share" type="button">↗ Share recipe / PDF</button><button class="btn" id="print" type="button">⎙ Print</button><button class="btn" id="listen" type="button">♫ Listen to recipe and ingredients</button></div></div><div class="work-grid"><div class="surface"><div class="eyebrow">Smart portion calculator</div><h3>Made for your table</h3><p class="subtle">Ingredient quantities update instantly for your selected guests. Cooking time is adjusted approximately, not multiplied with servings.</p><div class="servings"><span>Serves</span><button aria-label="Reduce servings" class="btn" id="minus">−</button><strong id="servingCount">4</strong><button aria-label="Increase servings" class="btn" id="plus">+</button></div><div class="servings-manual"><label for="servingInput">Input the no. of servings here</label><input aria-label="Input the number of servings here" class="number" id="servingInput" inputmode="numeric" max="30" min="1" type="number" value="4"/></div><div class="tip" id="scaleTip"></div><div id="ingredients"></div><div class="actions" style="margin-top:17px"><button class="btn primary" id="addList">＋ Add to shopping list</button><button class="btn" id="resetChecks">Reset ticks</button></div></div><div class="surface"><div class="eyebrow">Learn the heritage</div><h3>More than a meal</h3><p id="story"></p><div class="eyebrow" style="margin-top:23px">Step-by-step method</div><div class="progress"><div id="stepProgress"></div></div><div class="subtle" id="progressLabel"></div><ol class="steps" id="steps"></ol><div class="tip" id="chefTip"></div></div></div></section>
+        <div class="rs-native" id="virasatRasoiNativeRoot"><div class="rs-toolbar-head"><div class="rs-utility-actions"><button class="btn" id="favFilter" type="button">♡ Favourites</button><button class="btn" id="shoppingJump" type="button">🛒 List</button></div></div><main><section class="hero"><div><div class="eyebrow">02 / Taste · Tradition · Technology</div><h1>Every recipe<br/>has a <em>story.</em></h1><p>Explore the flavours of India, scale approachable home recipes to your table, and turn ingredients into an intelligent shopping list. Culture you can actually cook.</p><div class="stats"><span><strong id="recipeCount">64</strong> regional dishes</span><span><strong>1–30</strong> servings</span><span><strong>100%</strong> browser-based</span></div></div><div aria-label="Traditional Indian food photography" class="ornament" id="heroPhoto" role="img"></div></section><div class="eyebrow catalogue-eyebrow">03 / Discover your dish</div><div class="catalogue-heading"><h2>Explore the Indian table.</h2><p id="catalogueCount">54 dishes from Virasat, plus 10 studio favourites · 8 courses · 5 regions</p></div><div aria-label="Browse recipes by type" class="browse-modes" id="browseModes"><button class="mode active" data-mode="all" type="button">All dishes</button><button class="mode" data-mode="course" type="button">By Course</button><button class="mode" data-mode="region" type="button">By Region</button></div><div aria-label="Selected category" class="category-chips" id="categoryChips"></div><div class="toolbar"><input aria-label="Search recipes" class="search" id="search" placeholder="Search dish, ingredient, region…" type="search"/><select aria-label="Filter by region" id="region"><option value="all">All regions</option></select><select aria-label="Filter by course" id="course"><option value="all">All courses</option></select><div class="rs-sort-control" id="rsSortControl"><select aria-label="Sort recipes" id="sort" class="rs-sort-source" tabindex="-1"><option value="name">A to Z</option><option value="time">Quickest first</option></select><button class="rs-sort-trigger" id="rsSortTrigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="rsSortMenu"><span class="rs-sort-icon" aria-hidden="true">⇅</span><span id="rsSortLabel">A to Z</span><svg aria-hidden="true" viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></button><div id="rsSortMenu" class="rs-sort-menu" role="listbox" aria-label="Sort recipes" hidden><button type="button" class="rs-sort-option is-selected" role="option" aria-selected="true" data-sort-value="name"><span>A to Z</span><span aria-hidden="true">✓</span></button><button type="button" class="rs-sort-option" role="option" aria-selected="false" data-sort-value="time"><span>Quickest first</span><span aria-hidden="true">✓</span></button></div></div></div><section aria-label="Recipe collection" class="recipe-grid" id="cards"></section><section aria-live="polite" class="workspace hide" id="workspace"><div class="workspace-title"><div><div class="eyebrow">04 / Your cooking companion</div><div class="work-heading"><img alt="Photo illustration of selected dish" class="selected-photo" id="selectedPhoto"/><div><h2 id="selectedTitle"></h2><p class="recipe-description" id="selectedDesc"></p><p class="subtle" id="selectedMeta"></p></div></div></div><div class="actions"><div class="virasat-studio-backbar" id="virasatStudioBackbar" hidden><a href="#rasoi" data-page="rasoi" data-sub="restore" class="virasat-studio-back" data-i18n="rasoi_studio_back">← Back to Maa Ki Rasoi</a></div><button class="btn" id="share" type="button">↗ Share recipe / PDF</button><button class="btn" id="print" type="button">⎙ Print</button><button class="btn" id="listen" type="button">♫ Listen to recipe and ingredients</button></div></div><div class="work-grid"><div class="surface"><div class="eyebrow">Smart portion calculator</div><h3>Made for your table</h3><p class="subtle">Ingredient quantities update instantly for your selected guests. Cooking time is adjusted approximately, not multiplied with servings.</p><div class="servings"><span>Serves</span><button aria-label="Reduce servings" class="btn" id="minus">−</button><strong id="servingCount">4</strong><button aria-label="Increase servings" class="btn" id="plus">+</button></div><div class="servings-manual"><label for="servingInput">Input the no. of servings here</label><input aria-label="Input the number of servings here" class="number" id="servingInput" inputmode="numeric" max="30" min="1" type="number" value="4"/></div><div class="tip" id="scaleTip"></div><div id="ingredients"></div><div class="actions" style="margin-top:17px"><button class="btn primary" id="addList">＋ Add to shopping list</button><button class="btn" id="resetChecks">Reset ticks</button></div></div><div class="surface"><div class="eyebrow">Learn the heritage</div><h3>More than a meal</h3><p id="story"></p><div class="eyebrow" style="margin-top:23px">Step-by-step method</div><div class="progress"><div id="stepProgress"></div></div><div class="subtle" id="progressLabel"></div><ol class="steps" id="steps"></ol><div class="tip" id="chefTip"></div></div></div></section>
 <section aria-label="Kitchen timer" class="timer-atelier" id="timerSection">
 <div class="timer-topline"><span class="timer-mini"><span class="status-dot" id="timerDot"></span> YOUR KITCHEN COMPANION</span><span class="timer-mini">⏱ ALWAYS READY · WORKS WITHOUT SIGN-IN</span></div>
 <div class="timer-atelier-grid">
@@ -23133,7 +23155,7 @@ draw();
     scanQueued=false;
     const roots=document.querySelectorAll('.page.active,.modal.open,.tourism-info-overlay.open');
     for(const root of roots){
-      if(root.closest('.virasat-auth-locked') || root.id==='page-kahani')continue;
+      if(root.closest('.virasat-auth-locked') || root.id==='page-kahani' || root.id==='page-rasoi-studio')continue;
       if(root.matches('.tourism-info-overlay')){
         const heading=root.querySelector('.tourism-bullets-heading');
         if(heading&&root.querySelector('.tourism-heritage-bullets li'))addButton(heading,'heritage');
@@ -23841,6 +23863,24 @@ if(direct){
   else window.addEventListener('load',()=>setTimeout(whenReady,200),{once:true});
 }
 
+})();
+</script>
+<script id="virasatSortPolishBehaviour">
+(function(){
+ function init(){
+  const root=document.getElementById('rsSortControl'),trigger=document.getElementById('rsSortTrigger'),menu=document.getElementById('rsSortMenu'),select=document.getElementById('sort'),label=document.getElementById('rsSortLabel');
+  if(!root||!trigger||!menu||!select||root.dataset.ready)return;root.dataset.ready='1';
+  const options=[...menu.querySelectorAll('[data-sort-value]')];
+  function close(){menu.hidden=true;trigger.setAttribute('aria-expanded','false');}
+  function open(){menu.hidden=false;trigger.setAttribute('aria-expanded','true');}
+  function sync(){label.textContent=select.value==='time'?'Quickest first':'A to Z';options.forEach(b=>{const on=b.dataset.sortValue===select.value;b.classList.toggle('is-selected',on);b.setAttribute('aria-selected',String(on));});}
+  trigger.addEventListener('click',()=>menu.hidden?open():close());
+  options.forEach(b=>b.addEventListener('click',()=>{select.value=b.dataset.sortValue;select.dispatchEvent(new Event('change',{bubbles:true}));sync();close();trigger.focus();}));
+  document.addEventListener('click',e=>{if(!root.contains(e.target))close();});
+  root.addEventListener('keydown',e=>{if(e.key==='Escape'){close();trigger.focus();}else if(e.key==='ArrowDown' || e.key==='ArrowUp'){e.preventDefault();if(menu.hidden)open();const i=options.findIndex(x=>x.dataset.sortValue===select.value);options[(i+(e.key==='ArrowDown'?1:options.length-1))%options.length].focus();}});
+  select.addEventListener('change',sync);sync();
+ }
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 </body>
