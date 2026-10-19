@@ -10,17 +10,42 @@ service cloud.firestore {
     function validName(n) { return n is string && n.size() >= 2 && n.size() <= 24; }
     function games() { return ['match', 'quiz', 'festival', 'scramble']; }
 
-    // ── Profiles: users/{uid} — private to their owner ──
-    // role is picked at sign-up. Nobody can change their own role afterwards;
-    // change it in the Firebase console (Firestore → Data → users) when needed.
-    function validRole(r) { return r in ['student', 'teacher', 'admin']; }
+    // ── Roles ──
+    // Admins = exactly these emails (lowercase). Kept here, not in index.html, so the
+    // public website never shows them. To add or remove an admin, edit this list and
+    // publish the rules; the site updates their role on their next visit.
+    function adminEmails() {
+      return [
+        'vedanshtyagi925@gmail.com',
+        'shyamak@gmail.com',
+        'ritvik-test@gmail.com',
+        'paarthobuisness@gmail.com',
+        'hacckathon2026@gmail.com',
+        'abc@gmail.com',
+        'advikdhiman@gmail.com',
+        'virasat@gmail.com',
+        'medhanshgulati05@gmail.com',
+        'google@gmail.com'
+      ];
+    }
+    function isAdminEmail() { return request.auth.token.email in adminEmails(); }
+    // On the list → must be 'admin'. Everyone else → 'student' or 'teacher' (picked at sign-up).
+    function roleAllowed(r) { return isAdminEmail() ? r == 'admin' : r in ['student', 'teacher']; }
 
+    // Lets the site ask "am I an admin?" without revealing the list: reading
+    // adminCheck/<your own email> is allowed only if that email is on it. (No documents
+    // live here; a person on the list gets "not found", everyone else gets "denied".)
+    match /adminCheck/{email} {
+      allow get: if signedIn() && email == request.auth.token.email && isAdminEmail();
+    }
+
+    // ── Profiles: users/{uid} — private to their owner ──
     function validProfile(d) {
       return d.keys().hasAll(['displayName', 'email', 'createdAt', 'lastLoginAt'])
         && d.keys().hasOnly(['displayName', 'email', 'role', 'language', 'theme', 'createdAt', 'lastLoginAt'])
         && validName(d.displayName)
         && d.email == request.auth.token.email
-        && (!('role' in d) || validRole(d.role))
+        && (!('role' in d) || roleAllowed(d.role))
         && (!('language' in d) || d.language in ['en', 'hi', 'sa'])
         && (!('theme' in d) || d.theme in ['dark', 'light'])
         && d.createdAt is timestamp
@@ -35,12 +60,13 @@ service cloud.firestore {
       allow update: if isOwner(uid)
         && validProfile(request.resource.data)
         && request.resource.data.createdAt == resource.data.createdAt
-        // role stays the same, except a profile with no role gets one, once:
-        // 'admin' if it was made before roles launched (20 Oct 2026), otherwise 'student'
+        // Nobody switches between student and teacher themselves. A role only changes when:
+        // the email is on the admin list (→ admin), or a profile with no role / an admin role
+        // that is not on the list is set to 'student'.
         && (request.resource.data.get('role', null) == resource.data.get('role', null)
-          || (resource.data.get('role', null) == null
-            && request.resource.data.get('role', null)
-              == (resource.data.createdAt < timestamp.date(2026, 10, 20) ? 'admin' : 'student')));
+          || isAdminEmail()
+          || (request.resource.data.get('role', null) == 'student'
+            && (resource.data.get('role', null) == null || resource.data.get('role', null) == 'admin')));
       allow delete: if false;
     }
 
