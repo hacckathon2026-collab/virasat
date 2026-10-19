@@ -11327,20 +11327,6 @@ body.festival-story-open { overflow: hidden; }
 </style>
 
 
-<style id="virasatEducationRefinements2026">
-/* Education-only spacing and fixed-navigation-safe film navigation. */
-#page-education .education-hero-pills{margin-top:34px;margin-bottom:clamp(22px,3vw,34px);gap:10px;align-items:center}
-#page-education .education-hero-copy{min-width:0}
-#page-education .education-hero{row-gap:clamp(30px,4vw,54px)}
-#page-education .education-video-stage{scroll-margin-top:clamp(96px,11vw,140px)}
-#page-education .education-featured-episode{margin-top:clamp(24px,3vw,38px)}
-#page-education .vo-film.selected{border-color:#d4af37;box-shadow:0 0 0 1px rgba(212,175,55,.35),0 14px 35px rgba(0,0,0,.25)}
-#page-education .vo-film-trigger:focus-visible{outline:2px solid #d4af37;outline-offset:-3px}
-#page-education .vo-film-content strong{overflow-wrap:break-word}
-@media(max-width:1050px){#page-education .education-hero-pills{margin-bottom:4px}}
-@media(max-width:680px){#page-education .education-hero-pills{margin-top:25px;margin-bottom:6px;gap:9px}#page-education .education-hero-pills span{padding:9px 12px}#page-education .education-featured-episode{margin-top:22px}#page-education .education-video-stage{scroll-margin-top:88px}}
-@media(prefers-reduced-motion:reduce){#page-education .vo-film,#page-education .vo-film img{transition:none!important}#page-education .vo-film:hover,#page-education .vo-film.selected{transform:none}}
-</style>
 <style id="virasatHistoryStyles">
 #page-history{background:#070503;min-height:100vh;overflow:hidden}
 .history-shell{position:relative;max-width:1560px;margin:0 auto;padding:118px 4.5% 92px}
@@ -12687,6 +12673,35 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 }
 </style>
 
+
+<!-- Rasoi Studio integration: scoped solely to recipe cards and recipe popups -->
+<style id="virasatRasoiStudioLinkStyle">
+  #page-rasoi .rasoi-studio-card-link {
+    display: inline-flex; align-items: center; justify-content: center;
+    margin-top: 8px; padding: 10px 14px; max-width: 100%;
+    background: rgba(212,175,55,.08); border: 1px solid rgba(212,175,55,.36);
+    border-radius: 12px; color: var(--marigold); font-weight: 700;
+    font-size: 12px; line-height: 1.4; text-align: center;
+    text-decoration: none; transition: background .2s ease,border-color .2s ease,color .2s ease;
+    position: relative; z-index: 2;
+  }
+  #page-rasoi .rasoi-studio-card-link:hover,
+  #page-rasoi .rasoi-studio-card-link:focus-visible {
+    color: var(--espresso); background: var(--marigold); border-color: var(--gold);
+  }
+  .rasoi-studio-modal-action {
+    margin-top: 22px; padding: 18px; border-radius: 18px;
+    border: 1px solid rgba(212,175,55,.26); background: rgba(212,175,55,.065);
+  }
+  .rasoi-studio-modal-action p {margin: 0 0 14px; font-size: 13px; line-height:1.6; color: var(--muted);}
+  .rasoi-studio-modal-link {display: inline-flex; align-items:center;justify-content:center;max-width:100%;line-height:1.5;}
+  @media (max-width: 520px) {
+    .rasoi-studio-modal-link {width: 100%;padding:12px 14px;font-size:13px;}
+    #page-rasoi .rasoi-studio-card-link {width: 100%;}
+  }
+  [data-theme="light"] #page-rasoi .rasoi-studio-card-link{color:var(--terracotta);}
+  [data-theme="light"] #page-rasoi .rasoi-studio-card-link:hover{color:white;background:var(--terracotta);}
+</style>
 </head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
@@ -13634,15 +13649,15 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
   <button type="button" class="vo-film-trigger"
     data-vo-src="assets/hampi_final.mp4"
     data-vo-poster="assets/hampi_poster.png"
-    data-vo-title="Hampi: Journey Through the Vijayanagara Empire"
-    aria-label="Play Hampi: Journey Through the Vijayanagara Empire">
+    data-vo-title="Hampi"
+    aria-label="Play Hampi">
     <span class="vo-image">
-      <img loading="lazy" src="assets/hampi_poster.png" alt="Hampi: Journey Through the Vijayanagara Empire documentary poster">
+      <img loading="lazy" src="assets/hampi_poster.png" alt="Hampi poster">
       <span class="vo-play">▶</span>
     </span>
     <span class="vo-film-content">
       <small>EPISODE 07 · HISTORY</small>
-      <strong>Hampi: Journey Through the Vijayanagara Empire</strong>
+      <strong>Hampi</strong>
       <span>Journey through the ruins and architectural legacy of the Vijayanagara Empire.</span>
       <b data-i18n="vo_watch">WATCH FILM ↗</b>
     </span>
@@ -15134,6 +15149,68 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
         // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
         // ── Recipes ──
+        // Maa Ki Rasoi -> Rasoi Studio: 54 verified name/ID pairs from this site's recipe catalogue.
+        // Both HTML files belong in the same directory for local and deployed relative links.
+        const VIRASAT_RASOI_DISH_IDS = Object.freeze({
+            "Dal Makhani": "dal-makhani",
+            "Butter Chicken": "butter-chicken",
+            "Chole Bhature": "chole-bhature",
+            "Aloo Paratha": "aloo-paratha",
+            "Paneer Tikka": "paneer-tikka",
+            "Rogan Josh": "rogan-josh",
+            "Dum Aloo": "dum-aloo",
+            "Shahi Paneer": "shahi-paneer",
+            "Tandoori Chicken": "tandoori-chicken",
+            "Nihari": "nihari",
+            "Galouti Kebab": "galouti-kebab",
+            "Awadhi Biryani": "awadhi-biryani",
+            "Mathura Peda": "mathura-peda",
+            "Agra Petha": "agra-petha",
+            "Kulfi": "kulfi",
+            "Masala Dosa": "masala-dosa",
+            "Medu Vada": "medu-vada",
+            "Sambar": "sambar",
+            "Rasam": "rasam",
+            "Payasam": "payasam",
+            "Avial": "avial",
+            "Puttu": "puttu",
+            "Appam": "appam",
+            "Kerala Fish Curry": "kerala-fish-curry",
+            "Chettinad Chicken": "chettinad-chicken",
+            "Hyderabadi Biryani": "hyderabadi-biryani",
+            "Mysore Pak": "mysore-pak",
+            "Rava Kesari": "rava-kesari",
+            "Filter Coffee": "filter-coffee",
+            "Rosogolla": "rosogolla",
+            "Sandesh": "sandesh",
+            "Mishti Doi": "mishti-doi",
+            "Macher Jhol": "macher-jhol",
+            "Shorshe Ilish": "shorshe-ilish",
+            "Momo": "momo",
+            "Thukpa": "thukpa",
+            "Litti Chokha": "litti-chokha",
+            "Chhena Poda": "chhena-poda",
+            "Dalma": "dalma",
+            "Dhokla": "dhokla",
+            "Khandvi": "khandvi",
+            "Fafda": "fafda",
+            "Pav Bhaji": "pav-bhaji",
+            "Vada Pav": "vada-pav",
+            "Misal Pav": "misal-pav",
+            "Puran Poli": "puran-poli",
+            "Shrikhand": "shrikhand",
+            "Goan Fish Curry": "goan-fish-curry",
+            "Sorpotel": "sorpotel",
+            "Modak": "modak",
+            "Poha": "poha",
+            "Dal Baati Churma": "dal-baati-churma",
+            "Bhutte Ka Kees": "bhutte-ka-kees",
+            "Chakki Ki Shak": "chakki-ki-shak"
+});
+        function rasoiStudioURL(recipe) {
+            const dishID = VIRASAT_RASOI_DISH_IDS[recipe.name];
+            return dishID ? 'rasoi-studio.html?dish=' + encodeURIComponent(dishID) : null;
+        }
         let activeRecipeFilter = 'all';
         let recipeBrowseMode = 'all';
         const RECIPE_COURSES = ['Breakfast','Main','Sweet','Starter','Snack','Soup','Side','Beverage'];
@@ -15161,6 +15238,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
                 <span class="tag">${L.region} · ${L.type}</span>
                 <h3>${L.name}</h3>
                 <p>${L.desc}</p>
+                <a class="rasoi-studio-card-link" href="${rasoiStudioURL(r)}" onclick="event.stopPropagation()" aria-label="${esc(t('rasoi_studio_card'))}: ${esc(L.name)}">${t('rasoi_studio_card')}</a>
               </div>
             </article>`);
             });
@@ -15209,6 +15287,10 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
             <h3 style="margin-top:16px;">${t('recipe_cultural_story_h')}</h3>
             <p style="color:var(--muted);">${getRecipeCulturalStory(r)}</p>
             <p style="font-size:13px;color:var(--muted);margin-top:12px;">${t('recipe_from_tradition', { region: L.region })}</p>
+            <div class="rasoi-studio-modal-action">
+              <p>${t('rasoi_studio_description')}</p>
+              <a class="btn primary rasoi-studio-modal-link" href="${rasoiStudioURL(r)}" aria-label="${esc(t('rasoi_studio_modal'))}: ${esc(L.name)}">${t('rasoi_studio_modal')}</a>
+            </div>
           `, () => showRecipe(i));
         }
 
@@ -16765,6 +16847,23 @@ Object.assign(VIRASAT_I18N.ui, {
   lb_your_best_norank:{en:'Your best: {result}',hi:'आपका सर्वश्रेष्ठ: {result}',sa:'भवतः श्रेष्ठम्: {result}'}
 });
 
+        Object.assign(VIRASAT_I18N.ui, {
+            rasoi_studio_card: {
+                en: 'Open recipe calculator ↗',
+                hi: 'रेसिपी कैलकुलेटर खोलें ↗',
+                sa: 'पाकविधि-गणकं उद्घाटयतु ↗'
+            },
+            rasoi_studio_modal: {
+                en: 'Calculate ingredients & cook this dish ↗',
+                hi: 'सामग्री की मात्रा निकालें और यह व्यंजन बनाएँ ↗',
+                sa: 'सामग्रीमात्रां गणयित्वा इदं व्यञ्जनं पचतु ↗'
+            },
+            rasoi_studio_description: {
+                en: 'Choose servings, see ingredients and cooking steps, use the kitchen timer, or download a recipe PDF in Rasoi Studio.',
+                hi: 'सर्विंग चुनें, सामग्री और विधि देखें, किचन टाइमर इस्तेमाल करें या रेसिपी PDF डाउनलोड करें।',
+                sa: 'परिवेषणसङ्ख्यां चिनुत, सामग्रीं पाकक्रमं च पश्यत, पाकसमययन्त्रं प्रयुञ्जीत अथवा पाकविधेः PDF अवतारयत।'
+            }
+        });
 let LANG = (function () { try { const l = localStorage.getItem('virasat_language'); return ['en', 'hi', 'sa'].indexOf(l) > -1 ? l : 'en'; } catch (e) { return 'en'; } })();
 function t(key, vars) {
     const e = (VIRASAT_I18N.ui || {})[key];
@@ -22072,64 +22171,35 @@ draw();
 <script id="virasatOriginalsArchiveScript">
 (function(){
  function init(){
-  const page=document.getElementById('page-education');
-  const video=document.getElementById('virasatEducationVideo');
-  const stage=document.getElementById('educationVideoStage');
-  if(!page||!video||!stage)return;
+  const page=document.getElementById('page-education');if(!page)return;
+  const video=document.getElementById('virasatEducationVideo');if(!video)return;
   const heading=document.getElementById('indusEpisodeHeading');
   const label=page.querySelector('.education-featured-episode .education-episode-label');
   const desc=page.querySelector('.education-featured-body p');
   const duration=page.querySelector('.education-episode-duration');
-  const placeholder=document.getElementById('educationVideoPlaceholder');
   const source=video.querySelector('source');
   const films=[...page.querySelectorAll('.vo-film')];
-  const reduceMotion=window.matchMedia('(prefers-reduced-motion: reduce)');
-  const buttons=[...page.querySelectorAll('.vo-film-trigger')];
-  function scrollToPlayer(){
-   const nav=document.querySelector('.nav');
-   const navBottom=nav?nav.getBoundingClientRect().bottom:0;
-   const gap=window.innerWidth<=680?14:20;
-   const top=Math.max(0,window.scrollY+stage.getBoundingClientRect().top-Math.max(0,navBottom)-gap);
-   window.scrollTo({top,behavior:reduceMotion.matches?'instant':'smooth'});
-  }
-  function selectFilm(btn,index){
-   const src=btn.dataset.voSrc;
-   if(!src)return;
-   // Pause before changing sources, so different selections never overlap.
-   video.pause();
-   const oldSrc=source?source.getAttribute('src'):video.getAttribute('src');
-   if(source)source.setAttribute('src',src);else video.setAttribute('src',src);
-   const title=btn.dataset.voTitle||btn.querySelector('.vo-film-content strong')?.textContent?.trim()||'Virasat documentary';
-   const poster=btn.dataset.voPoster;
-   if(poster)video.setAttribute('poster',poster);
-   video.setAttribute('aria-label',title+' documentary');
-   video.hidden=false;
-   stage.classList.add('has-video');
-   if(placeholder)placeholder.hidden=true;
-   if(heading){heading.textContent=title;heading.removeAttribute('data-i18n');}
-   if(label){label.textContent='VIRASAT ORIGINALS / EPISODE '+String(index+1).padStart(2,'0');label.removeAttribute('data-i18n');}
-   const summary=btn.querySelector('.vo-film-content > span')?.textContent?.trim();
-   if(desc&&summary){desc.textContent=summary;desc.removeAttribute('data-i18n');}
-   const time=btn.querySelector('.vo-time')?.textContent?.trim();
-   if(duration)duration.textContent=(time?time+' · ':'')+'HD · 16:9';
-   films.forEach(card=>card.classList.toggle('selected',card.contains(btn)));
-   buttons.forEach(button=>button.setAttribute('aria-pressed',String(button===btn)));
-   if(oldSrc!==src)video.load();
-   scrollToPlayer();
-   // Browser policies may reject script-initiated playback; native controls remain usable.
-   try{const playPromise=video.play();if(playPromise&&typeof playPromise.catch==='function')playPromise.catch(()=>{});}catch(e){}
-  }
-  buttons.forEach((btn,index)=>{
-   btn.setAttribute('aria-pressed','false');
-   btn.addEventListener('click',()=>selectFilm(btn,index));
-  });
+  page.querySelectorAll('.vo-film-trigger').forEach((btn,i)=>btn.addEventListener('click',()=>{
+   const src=btn.dataset.voSrc; if(!src)return;
+   video.pause();if(source)source.src=src;else video.src=src;
+   video.poster=btn.dataset.voPoster||'';
+   video.setAttribute('aria-label',btn.dataset.voTitle+' documentary');
+   video.load();video.hidden=false;
+   if(heading){heading.textContent=btn.querySelector('.vo-film-content strong').textContent;heading.removeAttribute('data-i18n');}
+   if(label){label.textContent='VIRASAT ORIGINALS / EPISODE '+String(i+1).padStart(2,'0');label.removeAttribute('data-i18n');}
+   if(desc){desc.textContent=btn.querySelector('.vo-film-content > span').textContent;desc.removeAttribute('data-i18n');}
+   if(duration)duration.textContent=(btn.querySelector('.vo-time')?.textContent || 'DOCUMENTARY')+' · HD · 16:9';
+   page.querySelectorAll('.vo-film').forEach(card=>card.classList.toggle('selected',card.contains(btn)));
+   document.getElementById('educationVideoStage').scrollIntoView({behavior:'smooth',block:'center'});
+   const p=video.play();if(p&&p.catch)p.catch(()=>{});
+  }));
   page.querySelectorAll('.vo-filter').forEach(btn=>btn.addEventListener('click',()=>{
-   const filter=btn.dataset.voFilter;
+   const f=btn.dataset.voFilter;
    page.querySelectorAll('.vo-filter').forEach(b=>{const active=b===btn;b.classList.toggle('active',active);b.setAttribute('aria-pressed',String(active));});
-   films.forEach(card=>{card.hidden=filter!=='all'&&card.dataset.voCategory!==filter;});
+   films.forEach(card=>{card.hidden=f!=='all'&&card.dataset.voCategory!==f;});
   }));
  }
- if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});else init();
+ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
 })();
 </script>
 <script id="virasatAssetsFallbackScript">
