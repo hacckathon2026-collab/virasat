@@ -13198,6 +13198,43 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 @media(prefers-reduced-motion:reduce){#page-rasoi-studio, #page-rasoi-studio .rs-native, #page-rasoi-studio .rs-native *{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important;}}
 
 </style>
+
+<style id="rasoiNativeLayoutAndPerformance2026">
+/* Separate Discover Culture destination, visually equal to Maa Ki Rasoi. */
+#navLinks .mega-discover > a.rasoi-studio-native-link{
+  display:block!important;width:100%!important;margin:0 0 19px!important;padding:0 0 0 12px!important;position:relative!important;
+  font-family:inherit!important;font-size:19px!important;font-weight:700!important;
+  color:#fff!important;letter-spacing:-.015em!important;line-height:1.35!important;
+  border:0!important;box-shadow:none!important;text-transform:none!important;
+  background:transparent!important;transform:none!important;
+}
+#navLinks .mega-discover > a.rasoi-studio-native-link::before{content:""!important;display:block!important;position:absolute!important;left:0!important;top:.55em!important;width:4px!important;height:4px!important;border-radius:50%!important;background:#D4AF37!important}
+#navLinks .mega-discover > a.rasoi-studio-native-link:hover,
+#navLinks .mega-discover > a.rasoi-studio-native-link:focus-visible{color:var(--gold)!important;background:rgba(212,175,55,.09)!important}
+/* Full-bleed section: no inset outer surface, redundant promotional hero, or imitation header. */
+#page-rasoi-studio{width:100%;background:var(--ivory)!important;overflow:visible!important}
+#page-rasoi-studio > .virasat-rasoi-internal-shell{
+  max-width:none!important;width:100%!important;margin:0!important;
+  padding:32px clamp(18px,5.5vw,95px) 90px!important;
+  border:0!important;border-radius:0!important;box-shadow:none!important;
+  background:transparent!important;
+}
+#page-rasoi-studio .rs-native{background:transparent!important;border:0!important;border-radius:0!important;box-shadow:none!important;outline:0!important;}
+#page-rasoi-studio .rs-native main{max-width:none!important;margin:0!important;width:100%!important;}
+#page-rasoi-studio .rs-native > .rs-toolbar-head{margin:0 0 22px!important;}
+#page-rasoi-studio .rs-native > main > .hero{display:none!important;}
+#page-rasoi-studio .virasat-studio-page-intro{margin-bottom:12px!important;}
+#page-rasoi-studio .rs-native .recipe-card{content-visibility:auto;contain-intrinsic-size:auto 360px;}
+
+/* Reduce expensive effects during scrolling and on devices where it matters. */
+@media(max-width:900px){
+  #page-rasoi-studio > .virasat-rasoi-internal-shell{padding:20px 5% 65px!important;}
+  #page-rasoi-studio .rs-native .recipe-card{contain-intrinsic-size:auto 400px;}
+  #page-rasoi-studio .rs-native .recipe-card:hover{transform:none!important;}
+  .nav,.navlinks,#heritageAiChatBox{backdrop-filter:none!important;-webkit-backdrop-filter:none!important;}
+}
+@media(prefers-reduced-motion:reduce){#page-rasoi-studio .rs-native *{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+</style>
 </head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
@@ -13406,9 +13443,9 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
                         <a href="#" data-page="rasoi" data-sub="all" role="menuitem">All Recipes</a>
                         <a href="#" data-page="rasoi" data-sub="region" role="menuitem">By Region</a>
                         <a href="#" data-page="rasoi" data-sub="type" role="menuitem">By Course</a>
-                        <a href="#rasoi-studio" data-page="rasoi-studio" role="menuitem" class="rasoi-studio-menu-link" data-i18n="rasoi_studio_nav">Rasoi Studio</a>
                     </div>
                 </div>
+                <a href="#rasoi-studio" data-page="rasoi-studio" class="rasoi-studio-native-link" data-i18n="rasoi_studio_nav">Rasoi Studio</a>
 
                 <div class="nav-item" role="none">
                     <a href="#" data-page="ancient" role="menuitem" aria-haspopup="true" aria-expanded="true" data-i18n="vx_ancient">Ancient Translator</a>
