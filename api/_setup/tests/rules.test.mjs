@@ -63,6 +63,42 @@ describe('profiles', () => {
     });
 });
 
+describe('roles', () => {
+    const seeded = over => ({ ...profile(over), createdAt: Timestamp.fromMillis(1000), lastLoginAt: Timestamp.now() });
+    test('sign-up can pick student, teacher or admin', async () => {
+        for (const role of ['student', 'teacher', 'admin']) {
+            await env.clearFirestore();
+            await assertSucceeds(setDoc(doc(asAsha(), 'users/asha'), profile({ role })));
+        }
+    });
+    test('rejects an unknown role', async () => {
+        await assertFails(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'principal' })));
+        await assertFails(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'Admin' })));
+    });
+    test('nobody can change their own role later', async () => {
+        await seed('users/asha', seeded({ role: 'student' }));
+        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'admin' }));
+        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'teacher' }));
+        await assertSucceeds(updateDoc(doc(asAsha(), 'users/asha'), { lastLoginAt: serverTimestamp() }));
+    });
+    test('a profile from before 20 Oct 2026 with no role becomes admin, nothing else', async () => {
+        await seed('users/asha', seeded({}));   // createdAt 1970 = an existing account
+        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'teacher' }));
+        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'student' }));
+        await assertSucceeds(updateDoc(doc(asAsha(), 'users/asha'), { role: 'admin' }));
+    });
+    test('a newer profile with no role can only become student', async () => {
+        await seed('users/asha', { ...seeded({}), createdAt: Timestamp.fromDate(new Date('2026-11-01T00:00:00Z')) });
+        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'admin' }));
+        await assertSucceeds(updateDoc(doc(asAsha(), 'users/asha'), { role: 'student' }));
+    });
+    test('the role cannot be removed', async () => {
+        await seed('users/asha', seeded({ role: 'teacher' }));
+        const { role, ...withoutRole } = seeded({ role: 'teacher' });
+        await assertFails(setDoc(doc(asAsha(), 'users/asha'), withoutRole));
+    });
+});
+
 describe('leaderboards', () => {
     test('signed-in players can read; strangers cannot', async () => {
         await seed('leaderboards/quiz/entries/ravi', { ...seededQuiz({ uid: 'ravi', displayName: 'Ravi' }) });

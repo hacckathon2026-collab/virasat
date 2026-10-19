@@ -11,11 +11,16 @@ service cloud.firestore {
     function games() { return ['match', 'quiz', 'festival', 'scramble']; }
 
     // ── Profiles: users/{uid} — private to their owner ──
+    // role is picked at sign-up. Nobody can change their own role afterwards;
+    // change it in the Firebase console (Firestore → Data → users) when needed.
+    function validRole(r) { return r in ['student', 'teacher', 'admin']; }
+
     function validProfile(d) {
       return d.keys().hasAll(['displayName', 'email', 'createdAt', 'lastLoginAt'])
-        && d.keys().hasOnly(['displayName', 'email', 'language', 'theme', 'createdAt', 'lastLoginAt'])
+        && d.keys().hasOnly(['displayName', 'email', 'role', 'language', 'theme', 'createdAt', 'lastLoginAt'])
         && validName(d.displayName)
         && d.email == request.auth.token.email
+        && (!('role' in d) || validRole(d.role))
         && (!('language' in d) || d.language in ['en', 'hi', 'sa'])
         && (!('theme' in d) || d.theme in ['dark', 'light'])
         && d.createdAt is timestamp
@@ -29,7 +34,13 @@ service cloud.firestore {
         && request.resource.data.createdAt == request.time;
       allow update: if isOwner(uid)
         && validProfile(request.resource.data)
-        && request.resource.data.createdAt == resource.data.createdAt;
+        && request.resource.data.createdAt == resource.data.createdAt
+        // role stays the same, except a profile with no role gets one, once:
+        // 'admin' if it was made before roles launched (20 Oct 2026), otherwise 'student'
+        && (request.resource.data.get('role', null) == resource.data.get('role', null)
+          || (resource.data.get('role', null) == null
+            && request.resource.data.get('role', null)
+              == (resource.data.createdAt < timestamp.date(2026, 10, 20) ? 'admin' : 'student')));
       allow delete: if false;
     }
 
