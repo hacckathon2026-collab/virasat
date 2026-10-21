@@ -14522,6 +14522,38 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
 @media(max-width:700px){#virasatScreenshotFX .vs-title,#virasatHomeFX .homefx-title{font-size:clamp(55px,14vw,86px)!important}#virasatScreenshotFX .vs-kicker{font-size:8px;letter-spacing:.15em}#virasatScreenshotFX .vs-meta{font-size:7px;letter-spacing:.16em}}
 @media(prefers-reduced-motion:reduce){#virasatScreenshotFX{display:none!important}}
 </style>
+
+<style id="virasatTrimMegaMenuBlankSpace">
+/* Remove the forced equal-column height that creates empty panels beneath the last link. */
+@media (min-width: 901px) {
+  body .nav #navLinks {
+    align-items: start !important;
+    grid-auto-rows: max-content !important;
+  }
+  body .nav #navLinks .mega-col,
+  body .nav #navLinks .mega-col:first-child,
+  body .nav #navLinks .mega-col:nth-child(2),
+  body .nav #navLinks .mega-col:nth-child(3) {
+    min-height: 0 !important;
+    height: max-content !important;
+    align-self: start !important;
+  }
+}
+</style>
+
+<style id="virasatReliableCinematicHold">
+/* Make the screenshot-style transition prominent, not a barely visible flash. */
+#virasatScreenshotFX{z-index:2147483000!important;contain:layout paint style!important;}
+#virasatScreenshotFX.active{display:block!important;visibility:visible!important;opacity:1!important;}
+#virasatScreenshotFX.cover .vs-screen{animation:vsScreenIn .23s linear forwards!important;}
+#virasatScreenshotFX.cover .vs-left{animation:vsCloseL .48s cubic-bezier(.74,0,.2,1) forwards!important;}
+#virasatScreenshotFX.cover .vs-right{animation:vsCloseR .48s cubic-bezier(.74,0,.2,1) forwards!important;}
+#virasatScreenshotFX.cover .vs-copy{animation:vsTitleIn .52s cubic-bezier(.16,1,.3,1) .29s forwards!important;}
+#virasatScreenshotFX.cover .vs-line{animation:vsLineShow .49s ease .28s forwards!important;}
+#virasatScreenshotFX.reveal .vs-copy{animation:vsTitleOut .38s ease forwards!important;}
+#virasatScreenshotFX.reveal .vs-screen{animation:vsScreenOut .65s ease forwards!important;}
+@media(prefers-reduced-motion:reduce){#virasatScreenshotFX.active{display:none!important;}}
+</style>
 </head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
@@ -18336,7 +18368,7 @@ if (clean === 'bharatiya-calendar') {
                 document.documentElement.classList.remove('vt-transitioning');
                 virasatTransitionBusy = false;
             }
-            failSafe = setTimeout(finishTransition, 4200);
+            failSafe = setTimeout(finishTransition, 5200);
             setTimeout(() => {
                 if (finished) return;
                 try {
@@ -18353,7 +18385,7 @@ if (clean === 'bharatiya-calendar') {
                         setTimeout(finishTransition, 700);
                     }));
                 }
-            }, 1050);
+            }, 1680);
             return true;
         }
 
@@ -18406,10 +18438,7 @@ if (clean === 'bharatiya-calendar') {
             e.preventDefault();
             e.stopPropagation();
             if (page === 'rasoi-studio' && document.getElementById('modal')?.classList.contains('open')) closeModal();
-            if (routeLink.id === 'homeBrandLink' && page === 'home') {
-                virasatRunHomecoming('brand');
-                return;
-            }
+            // Route the brand logo through the exact same cinematic transition as all pages.
             navigateTo(page, sub);
         }, true);
 
