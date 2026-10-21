@@ -14012,7 +14012,11 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
 @media(max-width:600px){#page-home #vx-worlds .vx-bento>.vx-tile{flex-basis:82vw;width:82vw;height:490px;min-height:490px!important}#page-home #vx-worlds .vx-tile>div:last-child{top:25px;left:23px;right:23px}#vx-worlds .vx-shelf-arrow{width:40px;height:40px;font-size:30px}#vx-worlds .vx-shelf-prev{left:4px}#vx-worlds .vx-shelf-next{right:4px}}
 @media(prefers-reduced-motion:reduce){#page-home #vx-worlds .vx-tile,#page-home #vx-worlds .vx-tile img{transition:none!important}}
 </style>
-</head>
+<style id="ways-visible-controls">
+#page-home #vx-worlds .vx-shelf-controls{display:flex;justify-content:flex-end;gap:12px;padding:0 7%;margin-top:0}
+#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow{position:static;display:grid;flex-shrink:0;width:48px;height:48px;background:#d4af37;color:#15120b;border:1px solid #d4af37;font-size:34px;opacity:1}
+#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow:disabled{opacity:.35}
+</style></head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
 
@@ -14404,7 +14408,7 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                 <div><span class="vx-index">02 / DISCOVER</span><h2 data-i18n="vx_worlds_title">Ten ways into <em>India.</em></h2></div>
                 <p data-i18n="vx_worlds_desc">No empty catalogue. Every tile is a doorway into a different layer of living heritage.</p>
             </div>
-            <div class="vx-bento">
+            <div class="vx-bento" id="vx-ways-rail">
                 <a class="vx-tile vx-tile-wide" href="#" data-page="rasoi"><img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Vegetarian_Curry.jpeg" alt="Indian cuisine" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>01</span><div><small data-i18n="vx_flavours">FLAVOURS</small><h3 data-i18n="x_rasoi">Maa Ki Rasoi</h3><p data-i18n="vx_food_desc">Regional recipes, memory and the taste of home.</p></div></a>
                 <a class="vx-tile vx-tile-tall" href="#" data-page="kahani"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Bodhisattva_Padmapani%2C_cave_1%2C_Ajanta%2C_India.jpg/960px-Bodhisattva_Padmapani%2C_cave_1%2C_Ajanta%2C_India.jpg" alt="Ajanta mural" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>02</span><div><small data-i18n="vx_stories">STORIES</small><h3 data-i18n="x_kahani">Nani Ki Kahani</h3><p data-i18n="vx_story_desc">Folklore and imagination passed from voice to voice.</p></div></a>
                 <a class="vx-tile" href="#" data-page="festivals"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Rangoli_and_Diyas.jpg/960px-Rangoli_and_Diyas.jpg" alt="Festival lights" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>03</span><div><small data-i18n="vx_celebrate">CELEBRATE</small><h3 data-i18n="x_festivals">Festival Calendar</h3></div></a>
@@ -14416,7 +14420,8 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                 <a class="vx-tile vx-tile-wide" href="#" data-page="education"><img src="https://upload.wikimedia.org/wikipedia/commons/d/d2/Ruins_of_Nalanda_University.JPG" alt="Ruins of Nalanda, an ancient centre of learning in India" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>09</span><div><small data-i18n="edu_tile_kicker">LEARN</small><h3 data-i18n="edu_tile_title">Virasat Education</h3><p data-i18n="edu_tile_desc">Watch, explore and test your understanding of India's living heritage.</p></div></a>
                 <a class="vx-tile vx-tile-wide" href="#" data-page="history"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg/960px-Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg" alt="Ashoka pillar at Vaishali" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>10</span><div><small data-i18n="hist_tile_kicker">HISTORY</small><h3 data-i18n="hist_tile_title">India Through Time</h3><p data-i18n="hist_tile_desc">Trace empires, rulers, rivalries and turning points across the subcontinent.</p></div></a>
             </div>
-        </section>
+        <div class="vx-shelf-controls" role="group" aria-label="Browse experiences"><button type="button" class="vx-shelf-arrow vx-shelf-prev" aria-label="Previous experiences" aria-controls="vx-ways-rail">‹</button><button type="button" class="vx-shelf-arrow vx-shelf-next" aria-label="Next experiences" aria-controls="vx-ways-rail">›</button></div>
+</section>
 
         <section class="vx-manifest">
             <div class="vx-manifest-left">
@@ -24843,19 +24848,7 @@ let currentQuiz=[];
 function quiz(){currentQuiz=questions();el('vxQuiz').innerHTML=currentQuiz.map((q,i)=>`<section class="vx-question" role="group" aria-labelledby="vxqtitle${i}"><div class="vx-question-title" id="vxqtitle${i}">${i+1}. ${escapeHtml(q.question)}</div><div class="vx-question-options">${q.choices.map((c,j)=>`<label class="vx-answer"><input type="radio" name="vxq${i}" value="${j}" required/><span>${escapeHtml(c)}</span></label>`).join('')}</div><div class="vx-answer-explain" id="vxWhy${i}"></div></section>`).join('')+`<button type="submit" class="vx-btn vx-btn-gold">Submit all 12 answers</button><p id="vxQuizResult" class="vx-status" aria-live="polite"></p>`}
 function report(){let rows=KEYS.map(k=>{let v=(saved.visited[k]||[]).filter(n=>n<bookSpreadCount(DATA[k])).length,q=saved.quizGrades[k],m=saved.matchGrades[k],total=bookSpreadCount(DATA[k]);return `<tr><th>${escapeHtml(DATA[k].name)}</th><td>${v}/${total}</td><td>${q===undefined?'Not submitted':q+'/12'}</td><td>${m===undefined?'Not completed':m+'/6'}</td></tr>`}).join('');el('vxReport').innerHTML=`<div class="vx-report-header"><p class="vv-eyebrow">PERSONAL LEARNING SUMMARY</p><h3>VedaVerse · Report Card</h3><p>Four interactive booklets, vocabulary cards, a six-pair matching round and a 12-question challenge per Veda. Scores are stored on this device.</p></div><div class="vx-report-table"><table><thead><tr><th>Veda</th><th>Pages read</th><th>Knowledge Challenge</th><th>Memory Match</th></tr></thead><tbody>${rows}</tbody></table></div><div class="vx-controls"><button class="vx-btn vx-btn-gold" type="button" id="vxPrint">Print / Save PDF</button><button class="vx-btn" type="button" id="vxReset">Reset VedaVerse progress</button></div>`;
  el('vxReset').onclick=()=>{if(!confirm('Clear VedaVerse booklet, matching and quiz progress on this device?'))return;saved={visited:{},answers:{},activity:{},matchGrades:{},quizGrades:{}};persist();choose(selected)};
- el('vxPrint').onclick=()=>{let ww=window.open('','_blank','width=850,height=680');if(!ww){window.print();return}let doc=`<!doctype html><html><head><meta charset="utf-8"><title>Virasat · VedaVerse Report Card</title><style>body{font-family:Georgia,serif;padding:35px;color:#302310}h1{color:#94701d}table{border-collapse:collapse;width:100%;margin:22px 0}th,td{border:1px solid #c7b48c;padding:13px;text-align:left}thead{background:#f3e6be}</style></head><body><small>VIRASAT · INDIA'S LIVING HERITAGE</small><h1>VedaVerse · Learning Report</h1><p>Generated ${escapeHtml(new Date().toLocaleDateString('en-IN'))}. Locally stored learning results.</p><table><thead><tr><th>Veda</th><th>Pages</th><th>Quiz</th><th>Match</th></tr></thead><tbody>${rows}</tbody></table><p>Educational self-assessment, not a school-issued certificate.</p>
-<script id="virasat-ways-carousel-controls">
-(function(){
- const section=document.getElementById('vx-worlds');if(!section)return;
- const rail=section.querySelector('.vx-bento');rail.id='vx-ways-rail';
- rail.setAttribute('aria-label','Explore ten ways into India');
- const prev=document.createElement('button'),next=document.createElement('button');
- [prev,next].forEach((b,i)=>{b.type='button';b.className='vx-shelf-arrow vx-shelf-'+(i?'next':'prev');b.textContent=i?'›':'‹';b.setAttribute('aria-controls',rail.id);section.appendChild(b);b.addEventListener('click',()=>{const card=rail.firstElementChild;rail.scrollBy({left:(i?1:-1)*(card.getBoundingClientRect().width+20),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});});
- function update(){prev.disabled=rail.scrollLeft<=2;next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;const l=document.documentElement.lang||'en';const labels=l.startsWith('hi')?['पिछले अनुभव','अगले अनुभव']:l.startsWith('sa')?['पूर्वानुभवाः','अग्रिमानुभवाः']:['Previous experiences','Next experiences'];prev.setAttribute('aria-label',labels[0]);next.setAttribute('aria-label',labels[1]);}
- rail.addEventListener('scroll',update,{passive:true});new ResizeObserver(update).observe(rail);new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});update();
-})();
-</script>
-</body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
+ el('vxPrint').onclick=()=>{let ww=window.open('','_blank','width=850,height=680');if(!ww){window.print();return}let doc=`<!doctype html><html><head><meta charset="utf-8"><title>Virasat · VedaVerse Report Card</title><style>body{font-family:Georgia,serif;padding:35px;color:#302310}h1{color:#94701d}table{border-collapse:collapse;width:100%;margin:22px 0}th,td{border:1px solid #c7b48c;padding:13px;text-align:left}thead{background:#f3e6be}</style></head><body><small>VIRASAT · INDIA'S LIVING HERITAGE</small><h1>VedaVerse · Learning Report</h1><p>Generated ${escapeHtml(new Date().toLocaleDateString('en-IN'))}. Locally stored learning results.</p><table><thead><tr><th>Veda</th><th>Pages</th><th>Quiz</th><th>Match</th></tr></thead><tbody>${rows}</tbody></table><p>Educational self-assessment, not a school-issued certificate.</p></body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
 }
 function enhanceComparison(){
  ['vvCompareA','vvCompareB'].forEach(id=>{let select=document.getElementById(id);if(!select||select.dataset.vxCustom==='1')return;select.dataset.vxCustom='1';const wrapper=document.createElement('div');wrapper.className='vxp-select';select.parentNode.insertBefore(wrapper,select);wrapper.append(select);let button=document.createElement('button');button.type='button';button.className='vxp-trigger';button.setAttribute('aria-haspopup','listbox');button.setAttribute('aria-expanded','false');let menu=document.createElement('div');menu.className='vxp-menu';menu.setAttribute('role','listbox');menu.hidden=true;wrapper.append(button,menu);
@@ -25009,6 +25002,18 @@ const observer=new MutationObserver(records=>{if(processing)return;if(records.so
 observer.observe(root,{subtree:true,childList:true});
 new MutationObserver(()=>{try{window.VirasatNarration?.stop()}catch(e){}schedule()}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
 translate();
+})();
+</script>
+
+<script id="virasat-ways-carousel-controls">
+(function(){
+ const section=document.getElementById('vx-worlds');if(!section)return;
+ const rail=section.querySelector('.vx-bento');rail.id='vx-ways-rail';
+ rail.setAttribute('aria-label','Explore ten ways into India');
+ const prev=section.querySelector('.vx-shelf-prev'),next=section.querySelector('.vx-shelf-next');
+ [prev,next].forEach((b,i)=>{b.type='button';b.className='vx-shelf-arrow vx-shelf-'+(i?'next':'prev');b.textContent=i?'›':'‹';b.setAttribute('aria-controls',rail.id);b.addEventListener('click',()=>{const card=rail.firstElementChild;rail.scrollBy({left:(i?1:-1)*(card.getBoundingClientRect().width+20),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});});
+ function update(){prev.disabled=rail.scrollLeft<=2;next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;const l=document.documentElement.lang||'en';const labels=l.startsWith('hi')?['पिछले अनुभव','अगले अनुभव']:l.startsWith('sa')?['पूर्वानुभवाः','अग्रिमानुभवाः']:['Previous experiences','Next experiences'];prev.setAttribute('aria-label',labels[0]);next.setAttribute('aria-label',labels[1]);}
+ rail.addEventListener('scroll',update,{passive:true});new ResizeObserver(update).observe(rail);new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});update();
 })();
 </script>
 </body>
