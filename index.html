@@ -14013,9 +14013,14 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
 @media(prefers-reduced-motion:reduce){#page-home #vx-worlds .vx-tile,#page-home #vx-worlds .vx-tile img{transition:none!important}}
 </style>
 <style id="ways-visible-controls">
-#page-home #vx-worlds .vx-shelf-controls{display:flex;justify-content:flex-end;gap:12px;padding:0 7%;margin-top:0}
-#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow{position:static;display:grid;flex-shrink:0;width:48px;height:48px;background:#d4af37;color:#15120b;border:1px solid #d4af37;font-size:34px;opacity:1}
-#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow:disabled{opacity:.35}
+#page-home #vx-worlds .vx-shelf-stage{position:relative;width:100%}
+#page-home #vx-worlds .vx-shelf-controls{position:absolute;inset:0;z-index:5;pointer-events:none}
+#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow{position:absolute;top:50%;transform:translateY(-50%);display:grid;place-items:center;width:52px;height:52px;padding:0;border-radius:50%;background:rgba(35,32,26,.55);color:#fff0c9;border:1px solid rgba(255,238,191,.35);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);box-shadow:0 4px 18px rgba(0,0,0,.22);font:38px/1 Arial;opacity:1;pointer-events:auto;transition:background .2s,opacity .2s}
+#page-home #vx-worlds .vx-shelf-controls .vx-shelf-prev{left:24px;right:auto}
+#page-home #vx-worlds .vx-shelf-controls .vx-shelf-next{right:24px;left:auto}
+#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow:hover:not(:disabled){background:rgba(126,104,44,.7)}
+#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow:disabled{opacity:.35;cursor:default}
+@media(max-width:600px){#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow{width:42px;height:42px;font-size:32px}#page-home #vx-worlds .vx-shelf-controls .vx-shelf-prev{left:10px}#page-home #vx-worlds .vx-shelf-controls .vx-shelf-next{right:10px}}
 </style></head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
@@ -14408,6 +14413,7 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                 <div><span class="vx-index">02 / DISCOVER</span><h2 data-i18n="vx_worlds_title">Ten ways into <em>India.</em></h2></div>
                 <p data-i18n="vx_worlds_desc">No empty catalogue. Every tile is a doorway into a different layer of living heritage.</p>
             </div>
+            <div class="vx-shelf-stage">
             <div class="vx-bento" id="vx-ways-rail">
                 <a class="vx-tile vx-tile-wide" href="#" data-page="rasoi"><img src="https://upload.wikimedia.org/wikipedia/commons/4/49/Vegetarian_Curry.jpeg" alt="Indian cuisine" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>01</span><div><small data-i18n="vx_flavours">FLAVOURS</small><h3 data-i18n="x_rasoi">Maa Ki Rasoi</h3><p data-i18n="vx_food_desc">Regional recipes, memory and the taste of home.</p></div></a>
                 <a class="vx-tile vx-tile-tall" href="#" data-page="kahani"><img src="https://thumb.wikimedia.org/wikipedia/commons/thumb/c/cd/Bodhisattva_Padmapani%2C_cave_1%2C_Ajanta%2C_India.jpg/960px-Bodhisattva_Padmapani%2C_cave_1%2C_Ajanta%2C_India.jpg" alt="Ajanta mural" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>02</span><div><small data-i18n="vx_stories">STORIES</small><h3 data-i18n="x_kahani">Nani Ki Kahani</h3><p data-i18n="vx_story_desc">Folklore and imagination passed from voice to voice.</p></div></a>
@@ -14421,6 +14427,7 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                 <a class="vx-tile vx-tile-wide" href="#" data-page="history"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg/960px-Ashoka_pillar_at_Vaishali%2C_Bihar%2C_India.jpg" alt="Ashoka pillar at Vaishali" loading="lazy" decoding="async"><div class="vx-tile-shade"></div><span>10</span><div><small data-i18n="hist_tile_kicker">HISTORY</small><h3 data-i18n="hist_tile_title">India Through Time</h3><p data-i18n="hist_tile_desc">Trace empires, rulers, rivalries and turning points across the subcontinent.</p></div></a>
             </div>
         <div class="vx-shelf-controls" role="group" aria-label="Browse experiences"><button type="button" class="vx-shelf-arrow vx-shelf-prev" aria-label="Previous experiences" aria-controls="vx-ways-rail">‹</button><button type="button" class="vx-shelf-arrow vx-shelf-next" aria-label="Next experiences" aria-controls="vx-ways-rail">›</button></div>
+        </div>
 </section>
 
         <section class="vx-manifest">
