@@ -11167,6 +11167,8 @@ body.festival-story-open { overflow: hidden; }
 /* Ancient Scripts: photo reader */
 .scripture-scan{margin-top:22px}
 #scriptureScan .btn[hidden]{display:none !important}
+.scripture-locked{color:var(--muted);font-weight:600;margin:0 0 4px}
+.scripture-locked[hidden]{display:none}
 .scripture-scan h2{font-size:clamp(26px,3.4vw,34px);margin:6px 0 8px}
 .scripture-scan-desc{color:var(--muted);margin:0 0 16px;max-width:680px}
 .scripture-scan-body{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:22px;margin-top:20px;align-items:start}
@@ -16009,8 +16011,9 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                     <div class="eyebrow" data-i18n="scan_eyebrow">Photo reader</div>
                     <h2 data-i18n="scan_title">Read an ancient text from a photo</h2>
                     <p class="scripture-scan-desc" data-i18n="scan_desc">Upload a photo of a manuscript, inscription or scripture page, or take one with your phone. Virasat AI will try to read and translate it.</p>
+                    <p class="scripture-locked" id="scriptureLocked" data-i18n="scan_signin">Please sign in to use the photo reader.</p>
                     <div class="ancient-actions">
-                        <button class="btn primary" id="scriptureUploadBtn" type="button" data-i18n="scan_upload">Upload a photo</button>
+                        <button class="btn primary" id="scriptureUploadBtn" type="button" data-i18n="scan_upload" hidden>Upload a photo</button>
                         <button class="btn secondary" id="scriptureCameraBtn" type="button" data-i18n="scan_camera" hidden>Take a photo</button>
                     </div>
                     <input type="file" id="scriptureUpload" accept="image/*" hidden />
@@ -24058,6 +24061,7 @@ draw();
     const body = document.getElementById('scriptureScanBody');
     const preview = document.getElementById('scripturePreview');
     const out = document.getElementById('scriptureResult');
+    const locked = document.getElementById('scriptureLocked');
 
     const MAX_SIDE = 1600;          // pixels; plenty for reading text, small enough for phones and Groq
     const MAX_CHARS = 2800000;      // the server accepts up to 3.5 million characters
@@ -24068,8 +24072,22 @@ draw();
     let state = { kind: 'idle' };   // idle | reading | busy | error | done
     let runId = 0, previewUrl = null;
 
-    // Phones and tablets get a "Take a photo" button that opens the camera directly.
-    if (window.matchMedia && matchMedia('(pointer: coarse)').matches) cameraBtn.hidden = false;
+    // Only signed-in people can use the reader (the server checks too). Phones and tablets also get
+    // a "Take a photo" button that opens the camera directly.
+    const touch = !!(window.matchMedia && matchMedia('(pointer: coarse)').matches);
+    function paintAccess(user) {
+        uploadBtn.hidden = !user;
+        cameraBtn.hidden = !(user && touch);
+        locked.hidden = !!user;
+        if (!user) {
+            // Signed out (or a different person next): forget the last photo and result.
+            runId++;
+            if (previewUrl) { URL.revokeObjectURL(previewUrl); previewUrl = null; }
+            preview.removeAttribute('src');
+            body.hidden = true;
+            setState({ kind: 'idle' });
+        }
+    }
     uploadBtn.addEventListener('click', () => uploadInput.click());
     cameraBtn.addEventListener('click', () => cameraInput.click());
     [uploadInput, cameraInput].forEach(input => input.addEventListener('change', () => {
@@ -24106,6 +24124,7 @@ draw();
     }
 
     async function start(file) {
+        if (!window.virasatCloud || !virasatCloud.user()) return paintAccess(null);
         const id = ++runId;
         if (previewUrl) URL.revokeObjectURL(previewUrl);
         previewUrl = URL.createObjectURL(file);
@@ -24196,6 +24215,9 @@ draw();
             block(r.translationLang === 'hi' ? 'scan_translation_hi' : 'scan_translation_en', r.translation) +
             block('scan_about', r.explanation);
     }
+
+    paintAccess(null);
+    if (window.virasatCloud) virasatCloud.onAuth(paintAccess);
 
     // Labels follow the site language (the AI's own words stay in the language they were read in).
     window.virasatScriptureScan = { refresh: render };
