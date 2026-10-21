@@ -11165,7 +11165,7 @@ body.festival-story-open { overflow: hidden; }
 .login-form .signup-role label.role-option:has(input:checked){border-color:var(--gold);background:rgba(212,175,55,.16);box-shadow:0 0 0 3px rgba(212,175,55,.09)}
 .login-form .signup-role label.role-option:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:2px}
 /* Ancient Scripts: photo reader */
-.scripture-scan{margin-top:22px}
+.scripture-scan{margin-bottom:22px}
 #scriptureScan .btn[hidden]{display:none !important}
 .scripture-locked{color:var(--muted);font-weight:600;margin:0 0 4px}
 .scripture-locked[hidden]{display:none}
@@ -11189,7 +11189,7 @@ body.festival-story-open { overflow: hidden; }
 .scripture-block p{margin:0;white-space:pre-line;overflow-wrap:anywhere;line-height:1.7}
 .scripture-original{font-size:20px;font-family:'Noto Serif Devanagari','Noto Sans Brahmi','Noto Sans Kharoshthi',serif}
 .scripture-disclaimer{color:var(--muted);font-size:12px;margin:16px 0 0}
-@media (max-width:760px){.scripture-scan-body{grid-template-columns:minmax(0,1fr)}.scripture-preview img{max-height:280px}}
+@media (max-width:900px){.scripture-scan-body{grid-template-columns:minmax(0,1fr)}.scripture-preview img{max-height:280px}}
 /* Phones: the controls row is full, so sit the nickname on the logo row instead */
 @media (max-width:620px){.nav-controls > .nav-user{position:absolute;top:14px;right:14px;min-height:36px;padding:0 10px;max-width:150px}}
 @media (max-width:520px){
@@ -15934,6 +15934,26 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
         <section class="section" style="padding-top:28px;">
             <div class="ancient-shell">
 
+                <!-- Photo reader: reads a photo of an ancient text with AI (virasatScriptureScanScript;
+                     server part: api/scripture-read.js) -->
+                <div class="ancient-panel scripture-scan" id="scriptureScan">
+                    <div class="eyebrow" data-i18n="scan_eyebrow">Photo reader</div>
+                    <h2 data-i18n="scan_title">Read an ancient text from a photo</h2>
+                    <p class="scripture-scan-desc" data-i18n="scan_desc">Upload a photo of a manuscript, inscription or scripture page, or take one with your phone. Virasat AI will try to read and translate it.</p>
+                    <p class="scripture-locked" id="scriptureLocked" data-i18n="scan_signin">Please sign in to use the photo reader.</p>
+                    <div class="ancient-actions">
+                        <button class="btn primary" id="scriptureUploadBtn" type="button" data-i18n="scan_upload" hidden>Upload a photo</button>
+                        <button class="btn secondary" id="scriptureCameraBtn" type="button" data-i18n="scan_camera" hidden>Take a photo</button>
+                    </div>
+                    <input type="file" id="scriptureUpload" accept="image/*" hidden />
+                    <input type="file" id="scriptureCamera" accept="image/*" capture="environment" hidden />
+                    <div class="scripture-scan-body" id="scriptureScanBody" hidden>
+                        <figure class="scripture-preview"><img id="scripturePreview" alt="" /></figure>
+                        <div class="scripture-result" id="scriptureResult" aria-live="polite"></div>
+                    </div>
+                    <p class="scripture-disclaimer" data-i18n="scan_disclaimer">This is the AI's best guess. It reads printed text well, but it can be wrong about handwriting and very old inscriptions.</p>
+                </div>
+
                 <div class="ancient-panel ancient-input-panel">
                     <label for="ancientInput">
                         <span>English / Roman text</span>
@@ -16003,26 +16023,6 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                     This is a phonetic script transliterator, not a historical-language grammar translator.
                     Brahmi and Kharosthi are shown simultaneously so there is no script-switching navigation.
                     Unsupported sounds remain visible rather than being silently removed.
-                </div>
-
-                <!-- Photo reader: reads a photo of an ancient text with AI (virasatScriptureScanScript;
-                     server part: api/scripture-read.js) -->
-                <div class="ancient-panel scripture-scan" id="scriptureScan">
-                    <div class="eyebrow" data-i18n="scan_eyebrow">Photo reader</div>
-                    <h2 data-i18n="scan_title">Read an ancient text from a photo</h2>
-                    <p class="scripture-scan-desc" data-i18n="scan_desc">Upload a photo of a manuscript, inscription or scripture page, or take one with your phone. Virasat AI will try to read and translate it.</p>
-                    <p class="scripture-locked" id="scriptureLocked" data-i18n="scan_signin">Please sign in to use the photo reader.</p>
-                    <div class="ancient-actions">
-                        <button class="btn primary" id="scriptureUploadBtn" type="button" data-i18n="scan_upload" hidden>Upload a photo</button>
-                        <button class="btn secondary" id="scriptureCameraBtn" type="button" data-i18n="scan_camera" hidden>Take a photo</button>
-                    </div>
-                    <input type="file" id="scriptureUpload" accept="image/*" hidden />
-                    <input type="file" id="scriptureCamera" accept="image/*" capture="environment" hidden />
-                    <div class="scripture-scan-body" id="scriptureScanBody" hidden>
-                        <figure class="scripture-preview"><img id="scripturePreview" alt="" /></figure>
-                        <div class="scripture-result" id="scriptureResult" aria-live="polite"></div>
-                    </div>
-                    <p class="scripture-disclaimer" data-i18n="scan_disclaimer">This is the AI's best guess. It reads printed text well, but it can be wrong about handwriting and very old inscriptions.</p>
                 </div>
 
             </div>
