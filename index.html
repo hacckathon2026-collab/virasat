@@ -8,9 +8,9 @@
       document.documentElement.classList.add('virasat-preboot','virasat-auth-locked');
       try {if (sessionStorage.getItem('virasat_logged_in') !== 'true') document.documentElement.classList.add('virasat-guest-mode');}
       catch (_) {document.documentElement.classList.add('virasat-guest-mode');}
+      // Respect explicit accessibility/data-saving preferences. CPU core count
+      // alone should not silently remove Virasat's animations.
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches ||
-          (navigator.deviceMemory && navigator.deviceMemory <= 4) ||
-          (navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4) ||
           (navigator.connection && navigator.connection.saveData)) {
         document.documentElement.classList.add('virasat-lite-motion');
       }
@@ -14340,6 +14340,132 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
 }
 </style>
 
+
+<style id="virasatNavRefineFinal">
+/* Restore earlier serif menu feel, simplify direct links, and add light translucency to the main navbar. */
+.nav {
+  background: rgba(9, 7, 5, 0.72) !important;
+  backdrop-filter: blur(18px) saturate(1.18) !important;
+  -webkit-backdrop-filter: blur(18px) saturate(1.18) !important;
+  border: 1px solid rgba(212,175,55,.16) !important;
+  box-shadow: 0 10px 34px rgba(0,0,0,.20) !important;
+}
+
+.navlinks .mega-primary > a,
+.navlinks .mega-discover > a,
+.navlinks .mega-secondary > a,
+.navlinks .mega-direct-link,
+.navlinks .nav-item > a,
+.navlinks .mega-parent-title,
+.navlinks .mega-secondary > a {
+  font-family: 'Playfair Display', 'Noto Serif Devanagari', serif !important;
+  font-weight: 600 !important;
+  letter-spacing: -.01em !important;
+}
+
+.navlinks .mega-kicker {
+  font-family: 'Playfair Display', 'Noto Serif Devanagari', serif !important;
+  font-weight: 700 !important;
+  letter-spacing: -.02em !important;
+}
+
+.navlinks .mega-primary > a,
+.navlinks .mega-discover > a,
+.navlinks .mega-secondary > a,
+.navlinks .mega-direct-link {
+  font-size: 18px !important;
+  line-height: 1.25 !important;
+}
+
+.navlinks .mega-direct-link::before,
+.navlinks .mega-discover > a::before,
+.navlinks .mega-primary > a::before,
+.navlinks .mega-secondary > a::before {
+  content: '→' !important;
+}
+
+[data-theme="light"] .nav {
+  background: rgba(255, 248, 236, 0.78) !important;
+  border-color: rgba(179,138,35,.18) !important;
+  box-shadow: 0 10px 30px rgba(145, 110, 24, 0.10) !important;
+}
+</style>
+
+
+<style id="virasatMotionRestored2026">
+/* Animate the existing three-column mega menu without altering any routes,
+   typography, dimensions, auth, or section markup. */
+@media (prefers-reduced-motion: no-preference) {
+  .navlinks {
+    opacity: 0 !important;
+    transform: translate3d(0,-22px,0) scale(.994) !important;
+    transition:
+      opacity .48s cubic-bezier(.16,1,.3,1),
+      transform .56s cubic-bezier(.16,1,.3,1),
+      visibility .56s !important;
+  }
+  .navlinks.open {
+    opacity: 1 !important;
+    transform: translate3d(0,0,0) scale(1) !important;
+  }
+  /* Desktop's existing 50% centering is preserved. Its higher-specificity
+     rule previously compressed open motion to 0.25 seconds. */
+  @media (min-width: 901px) {
+    body .nav #navLinks {
+      transform: translate(-50%, -22px) scale(.994) !important;
+      transition: opacity .48s cubic-bezier(.16,1,.3,1),
+                  transform .56s cubic-bezier(.16,1,.3,1),
+                  visibility .56s !important;
+    }
+    body .nav #navLinks.open {
+      transform: translate(-50%, 0) scale(1) !important;
+    }
+  }
+  @media (max-width: 900px) {
+    body .nav #navLinks {
+      transform: translateY(-18px) scale(.994) !important;
+      transition: opacity .43s cubic-bezier(.16,1,.3,1),
+                  transform .52s cubic-bezier(.16,1,.3,1),
+                  visibility .52s !important;
+    }
+    body .nav #navLinks.open {
+      transform: translateY(0) scale(1) !important;
+    }
+  }
+  /* Item entrance uses translate (not transform), so the existing hover
+     translations keep working after each entrance finishes. */
+  .navlinks.open .mega-col > .mega-kicker,
+  .navlinks.open .mega-col > a,
+  .navlinks.open .mega-col > .nav-item {
+    animation: virasatMegaStagger .54s cubic-bezier(.22,1,.36,1) backwards !important;
+  }
+  .navlinks.open .mega-col > :nth-child(1) { animation-delay: .08s !important; }
+  .navlinks.open .mega-col > :nth-child(2) { animation-delay: .13s !important; }
+  .navlinks.open .mega-col > :nth-child(3) { animation-delay: .17s !important; }
+  .navlinks.open .mega-col > :nth-child(4) { animation-delay: .21s !important; }
+  .navlinks.open .mega-col > :nth-child(5) { animation-delay: .25s !important; }
+  .navlinks.open .mega-col > :nth-child(6) { animation-delay: .29s !important; }
+  .navlinks.open .mega-col > :nth-child(7) { animation-delay: .33s !important; }
+  .navlinks.open .mega-col > :nth-child(8) { animation-delay: .37s !important; }
+  @keyframes virasatMegaStagger {
+    from { opacity: 0; translate: 0 18px; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  .nav .logo-wrap {
+    transition: translate .35s cubic-bezier(.22,1,.36,1) !important;
+  }
+  .nav .logo-wrap:hover,
+  .nav .logo-wrap:focus-visible {
+    translate: 0 -2px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .navlinks,
+  .navlinks.open { transition: none !important; animation: none !important; }
+  .navlinks.open .mega-col > * { animation: none !important; }
+}
+</style>
+
 </head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
@@ -14629,23 +14755,10 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                 <div class="mega-kicker">Discover India</div>
                 <a href="#" data-page="festivals">Festivals</a>
                 <a href="#" data-page="bharatiya-calendar">Indian Calendar</a>
-                <div class="nav-item" role="none">
-                    <a href="#" data-page="rasoi" role="menuitem" aria-haspopup="true" aria-expanded="true">Maa Ki Rasoi</a>
-                    <div class="nav-dropdown" role="menu" aria-label="Maa Ki Rasoi submenu">
-                        <a href="#" data-page="rasoi" data-sub="all" role="menuitem">All Recipes</a>
-                        <a href="#" data-page="rasoi" data-sub="region" role="menuitem">By Region</a>
-                        <a href="#" data-page="rasoi" data-sub="type" role="menuitem">By Course</a>
-                    </div>
-                </div>
+                <a href="#" data-page="rasoi" class="mega-direct-link" data-i18n="x_rasoi">Maa Ki Rasoi</a>
                 <div class="nav-item rasoi-studio-nav-item" role="none"><a href="#rasoi-studio" data-page="rasoi-studio" class="rasoi-studio-native-link" data-i18n="rasoi_studio_nav">Rasoi Studio</a></div>
 
-                <div class="nav-item" role="none">
-                    <a href="#" data-page="ancient" role="menuitem" aria-haspopup="true" aria-expanded="true" data-i18n="vx_ancient">Ancient Translator</a>
-                    <div class="nav-dropdown" role="menu" aria-label="Ancient Translator scripts">
-                        <a href="#" data-page="ancient" data-sub="brahmi" role="menuitem" data-i18n="nav_brahmi">Brahmi</a>
-                        <a href="#" data-page="ancient" data-sub="kharosthi" role="menuitem" data-i18n="nav_kharosthi">Kharosthi</a>
-                    </div>
-                </div>
+                <a href="#" data-page="ancient" class="mega-direct-link" data-i18n="vx_ancient">Ancient Translator</a>
             </div>
 
             <div class="mega-col mega-secondary">
@@ -25471,5 +25584,129 @@ refresh();monumentChange();translations();
 })();
 
 </script>
+
+<style id="virasatNavbarHazyGlassFinal2026">
+/* Only the fixed navigation bar changes. Preserve the existing dropdown and page animations.
+   Frosted medium-opacity charcoal with real backdrop blur in both themes, including scroll. */
+html body .nav,
+html.virasat-scrolling body .nav,
+html.virasat-lite-motion body .nav,
+html body.motion-has-scrolled .nav {
+  background-color: rgba(14, 12, 10, .54) !important;
+  background-image: linear-gradient(120deg, rgba(255,255,255,.045), rgba(212,175,55,.018) 45%, rgba(3,3,3,.03)) !important;
+  -webkit-backdrop-filter: blur(17px) saturate(1.22) !important;
+  backdrop-filter: blur(17px) saturate(1.22) !important;
+  border-color: rgba(212,175,55,.24) !important;
+  box-shadow: 0 10px 32px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.055) !important;
+}
+html[data-theme="light"] body .nav,
+html[data-theme="light"].virasat-scrolling body .nav,
+html[data-theme="light"].virasat-lite-motion body .nav,
+html[data-theme="light"] body.motion-has-scrolled .nav,
+html body[data-theme="light"] .nav,
+html body[data-theme="light"].motion-has-scrolled .nav {
+  background-color: rgba(247, 241, 229, .68) !important;
+  background-image: linear-gradient(120deg, rgba(255,255,255,.16), rgba(255,246,222,.035)) !important;
+  border-color: rgba(157,117,39,.23) !important;
+  box-shadow: 0 10px 28px rgba(77,57,25,.13), inset 0 1px 0 rgba(255,255,255,.42) !important;
+}
+@media (max-width: 900px) {
+  html body .nav, html.virasat-scrolling body .nav,
+  html.virasat-lite-motion body .nav, html body.motion-has-scrolled .nav {
+    -webkit-backdrop-filter: blur(13px) saturate(1.14) !important;
+    backdrop-filter: blur(13px) saturate(1.14) !important;
+  }
+}
+</style>
+
+<style id="virasatHeritageFilmWipe2026">
+/* Unified cinematic transition polish. CSS-only choreography layered over existing
+   navigation state machines; no modification to auth, translation, routing or timing. */
+:root { --vw-ease: cubic-bezier(.76,0,.18,1); --vw-out: cubic-bezier(.22,1,.36,1); }
+
+/* Main destinations: two layered, satin-charcoal film slats enter vertically. */
+#virasatPageTransition .vt-panel {
+  width: 112% !important; height: 60% !important;
+  left: -6% !important; right: auto !important; top: auto !important; bottom: auto !important;
+  background: linear-gradient(155deg,#0d0a06 0%,#050403 52%,#110d06 100%) !important;
+  box-shadow: 0 2px 0 rgba(212,175,55,.13) inset, 0 15px 55px rgba(0,0,0,.29) !important;
+  border: 0 !important;
+  will-change: transform;
+}
+#virasatPageTransition .vt-panel::after{
+  content:'' !important; background:
+  repeating-linear-gradient(114deg,transparent 0 48px,rgba(212,175,55,.022) 49px 50px),
+  linear-gradient(90deg,transparent 5%,rgba(240,209,123,.05) 50%,transparent 92%) !important;
+  opacity: 1 !important;
+}
+#virasatPageTransition .vt-panel-left{top:-10% !important;bottom:auto !important;transform:translate3d(0,-112%,0) skewY(-2deg);}
+#virasatPageTransition .vt-panel-right{bottom:-10% !important;top:auto !important;transform:translate3d(0,112%,0) skewY(-2deg);}
+#virasatPageTransition.cover .vt-panel-left{animation:vwCloseTop .49s var(--vw-ease) both !important;}
+#virasatPageTransition.cover .vt-panel-right{animation:vwCloseBottom .49s var(--vw-ease) both !important;}
+#virasatPageTransition.reveal .vt-panel-left{animation:vwOpenTop .55s var(--vw-out) both !important;}
+#virasatPageTransition.reveal .vt-panel-right{animation:vwOpenBottom .55s var(--vw-out) both !important;}
+@keyframes vwCloseTop {from{transform:translate3d(0,-112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwCloseBottom {from{transform:translate3d(0,112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwOpenTop {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,-116%,0) skewY(-2deg)}}
+@keyframes vwOpenBottom {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,116%,0) skewY(-2deg)}}
+
+/* Avoid a solid black flash at the beginning. The panels themselves cover the previous page. */
+#virasatPageTransition.cover .vt-transition-base{animation:vwBaseLate .49s steps(1,end) both !important;}
+#virasatPageTransition.reveal .vt-transition-base{animation:vwBaseDepart .55s var(--vw-out) both !important;}
+@keyframes vwBaseLate {0%,98%{opacity:0}100%{opacity:1}}
+@keyframes vwBaseDepart {0%,14%{opacity:1}100%{opacity:0}}
+#virasatPageTransition .vt-gold-line{
+  left:0 !important;right:0 !important;top:50% !important;
+  width:100% !important;height:2px !important;
+  background:linear-gradient(90deg,transparent 0%,rgba(242,205,107,.85) 25%,#f9df8a 50%,rgba(212,175,55,.85) 75%,transparent 100%) !important;
+  box-shadow:0 0 24px rgba(212,175,55,.38) !important;
+  transform:scaleX(0);transform-origin:50% 50% !important;
+}
+#virasatPageTransition.cover .vt-gold-line{animation:vwGoldDraw .39s var(--vw-out) .15s both !important;}
+#virasatPageTransition.reveal .vt-gold-line{animation:vwGoldFade .3s ease both !important;}
+@keyframes vwGoldDraw {from{opacity:0;transform:scaleX(0)}to{opacity:.78;transform:scaleX(1)}}
+@keyframes vwGoldFade {from{opacity:.78;transform:scaleX(1)}to{opacity:0;transform:scaleX(.65)}}
+#virasatPageTransition .vt-copy{transform:translate(-50%,-48%);}
+#virasatPageTransition.cover .vt-copy{animation:vwWordsIn .38s var(--vw-out) .19s both !important;}
+#virasatPageTransition.reveal .vt-copy{animation:vwWordsOut .30s ease both !important;}
+@keyframes vwWordsIn {from{opacity:0;transform:translate(-50%,-34%) scale(.97);filter:blur(4px)}to{opacity:1;transform:translate(-50%,-48%) scale(1);filter:blur(0)}}
+@keyframes vwWordsOut {from{opacity:1;transform:translate(-50%,-48%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(1.03)}}
+#virasatPageTransition .vt-title{font-weight:600 !important;text-shadow:0 18px 62px rgba(0,0,0,.65),0 0 38px rgba(212,175,55,.13) !important;}
+#virasatPageTransition .vt-design-word{-webkit-text-stroke:1px rgba(212,175,55,.15) !important;}
+
+/* Homecoming and post-login transition use the same vertical movement. */
+#virasatHomeFX{background:transparent !important;}
+#virasatHomeFX .homefx-panel{
+  width:112% !important; height:60% !important;
+  left:-6% !important;right:auto !important;top:auto !important;bottom:auto !important;
+  background:linear-gradient(155deg,#0d0a06 0%,#050403 52%,#110d06 100%) !important;
+  box-shadow:0 2px 0 rgba(212,175,55,.13) inset,0 15px 55px rgba(0,0,0,.29) !important;
+}
+#virasatHomeFX .homefx-left{top:-10% !important;bottom:auto !important;transform:translate3d(0,-112%,0) skewY(-2deg);}
+#virasatHomeFX .homefx-right{bottom:-10% !important;top:auto !important;transform:translate3d(0,112%,0) skewY(-2deg);}
+#virasatHomeFX.homefx-cover .homefx-left{animation:vwCloseTop .49s var(--vw-ease) both !important;}
+#virasatHomeFX.homefx-cover .homefx-right{animation:vwCloseBottom .49s var(--vw-ease) both !important;}
+#virasatHomeFX.homefx-reveal .homefx-left{animation:vwOpenTop .65s var(--vw-out) both !important;}
+#virasatHomeFX.homefx-reveal .homefx-right{animation:vwOpenBottom .65s var(--vw-out) both !important;}
+#virasatHomeFX.homefx-cover .homefx-base{animation:vwBaseLate .52s steps(1,end) both !important;}
+#virasatHomeFX.homefx-reveal .homefx-base{animation:vwBaseDepart .7s var(--vw-out) both !important;}
+#virasatHomeFX .homefx-line{left:0 !important;right:0 !important;top:50% !important;width:100% !important;height:2px !important;
+  background:linear-gradient(90deg,transparent,#f2cd6b 40%,#f9df8a 50%,#d4af37 60%,transparent) !important;
+  transform:scaleX(0);transform-origin:center !important;}
+#virasatHomeFX.homefx-cover .homefx-line{animation:vwGoldDraw .39s var(--vw-out) .16s both !important;}
+#virasatHomeFX.homefx-reveal .homefx-line{animation:vwGoldFade .34s ease both !important;}
+#virasatHomeFX.homefx-cover .homefx-copy{animation:vwWordsIn .38s var(--vw-out) .19s both !important;}
+#virasatHomeFX.homefx-reveal .homefx-copy{animation:vwWordsOut .36s ease both !important;}
+#virasatHomeFX .homefx-copy{transform:translate(-50%,-48%);}
+
+@media (max-width:700px){
+  #virasatPageTransition .vt-title,#virasatHomeFX .homefx-title{font-size:clamp(40px,12vw,76px) !important;}
+  #virasatPageTransition .vt-kicker,#virasatHomeFX .homefx-kicker{letter-spacing:.12em !important;}
+}
+@media (prefers-reduced-motion: reduce){
+  #virasatPageTransition,#virasatHomeFX{display:none !important;}
+}
+</style>
+
 </body>
 </html>
