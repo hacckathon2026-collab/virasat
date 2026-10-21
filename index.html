@@ -18355,7 +18355,7 @@ if (clean === 'bharatiya-calendar') {
             void overlay.offsetWidth;
             overlay.classList.add('cover');
 
-            // Finish the 510ms title entrance before switching behind the shutters.
+            // Let the 570ms title entrance finish before switching behind the shutters.
             // Cleanup is relative to the reveal, so rendering work cannot cut it short.
             let finished = false;
             let failSafe;
@@ -18385,7 +18385,7 @@ if (clean === 'bharatiya-calendar') {
                         setTimeout(finishTransition, 700);
                     }));
                 }
-            }, 1680);
+            }, 760);
             return true;
         }
 
@@ -25453,7 +25453,65 @@ let currentQuiz=[];
 function quiz(){currentQuiz=questions();el('vxQuiz').innerHTML=currentQuiz.map((q,i)=>`<section class="vx-question" role="group" aria-labelledby="vxqtitle${i}"><div class="vx-question-title" id="vxqtitle${i}">${i+1}. ${escapeHtml(q.question)}</div><div class="vx-question-options">${q.choices.map((c,j)=>`<label class="vx-answer"><input type="radio" name="vxq${i}" value="${j}" required/><span>${escapeHtml(c)}</span></label>`).join('')}</div><div class="vx-answer-explain" id="vxWhy${i}"></div></section>`).join('')+`<button type="submit" class="vx-btn vx-btn-gold">Submit all 12 answers</button><p id="vxQuizResult" class="vx-status" aria-live="polite"></p>`}
 function report(){let rows=KEYS.map(k=>{let v=(saved.visited[k]||[]).filter(n=>n<bookSpreadCount(DATA[k])).length,q=saved.quizGrades[k],m=saved.matchGrades[k],total=bookSpreadCount(DATA[k]);return `<tr><th>${escapeHtml(DATA[k].name)}</th><td>${v}/${total}</td><td>${q===undefined?'Not submitted':q+'/12'}</td><td>${m===undefined?'Not completed':m+'/6'}</td></tr>`}).join('');el('vxReport').innerHTML=`<div class="vx-report-header"><p class="vv-eyebrow">PERSONAL LEARNING SUMMARY</p><h3>VedaVerse · Report Card</h3><p>Four interactive booklets, vocabulary cards, a six-pair matching round and a 12-question challenge per Veda. Scores are stored on this device.</p></div><div class="vx-report-table"><table><thead><tr><th>Veda</th><th>Pages read</th><th>Knowledge Challenge</th><th>Memory Match</th></tr></thead><tbody>${rows}</tbody></table></div><div class="vx-controls"><button class="vx-btn vx-btn-gold" type="button" id="vxPrint">Print / Save PDF</button><button class="vx-btn" type="button" id="vxReset">Reset VedaVerse progress</button></div>`;
  el('vxReset').onclick=()=>{if(!confirm('Clear VedaVerse booklet, matching and quiz progress on this device?'))return;saved={visited:{},answers:{},activity:{},matchGrades:{},quizGrades:{}};persist();choose(selected)};
- el('vxPrint').onclick=()=>{let ww=window.open('','_blank','width=850,height=680');if(!ww){window.print();return}let doc=`<!doctype html><html><head><meta charset="utf-8"><title>Virasat · VedaVerse Report Card</title><style>body{font-family:Georgia,serif;padding:35px;color:#302310}h1{color:#94701d}table{border-collapse:collapse;width:100%;margin:22px 0}th,td{border:1px solid #c7b48c;padding:13px;text-align:left}thead{background:#f3e6be}</style></head><body><small>VIRASAT · INDIA'S LIVING HERITAGE</small><h1>VedaVerse · Learning Report</h1><p>Generated ${escapeHtml(new Date().toLocaleDateString('en-IN'))}. Locally stored learning results.</p><table><thead><tr><th>Veda</th><th>Pages</th><th>Quiz</th><th>Match</th></tr></thead><tbody>${rows}</tbody></table><p>Educational self-assessment, not a school-issued certificate.</p></body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
+ el('vxPrint').onclick=()=>{let ww=window.open('','_blank','width=850,height=680');if(!ww){window.print();return}let doc=`<!doctype html><html><head><meta charset="utf-8"><title>Virasat · VedaVerse Report Card</title><style>body{font-family:Georgia,serif;padding:35px;color:#302310}h1{color:#94701d}table{border-collapse:collapse;width:100%;margin:22px 0}th,td{border:1px solid #c7b48c;padding:13px;text-align:left}thead{background:#f3e6be}</style></head><body><small>VIRASAT · INDIA'S LIVING HERITAGE</small><h1>VedaVerse · Learning Report</h1><p>Generated ${escapeHtml(new Date().toLocaleDateString('en-IN'))}. Locally stored learning results.</p><table><thead><tr><th>Veda</th><th>Pages</th><th>Quiz</th><th>Match</th></tr></thead><tbody>${rows}</tbody></table><p>Educational self-assessment, not a school-issued certificate.</p><style id="virasatActivePageWipe">
+/* Main destinations: two layered, satin-charcoal film slats enter vertically. */
+#virasatScreenshotFX .vs-panel {
+  width: 112% !important; height: 60% !important;
+  left: -6% !important; right: auto !important; top: auto !important; bottom: auto !important;
+  background: linear-gradient(155deg,#0d0a06 0%,#050403 52%,#110d06 100%) !important;
+  box-shadow: 0 2px 0 rgba(212,175,55,.13) inset, 0 15px 55px rgba(0,0,0,.29) !important;
+  border: 0 !important;
+  will-change: transform;
+}
+#virasatScreenshotFX .vs-panel::after{
+  content:'' !important; background:
+  repeating-linear-gradient(114deg,transparent 0 48px,rgba(212,175,55,.022) 49px 50px),
+  linear-gradient(90deg,transparent 5%,rgba(240,209,123,.05) 50%,transparent 92%) !important;
+  opacity: 1 !important;
+}
+#virasatScreenshotFX .vs-left{top:-10% !important;bottom:auto !important;transform:translate3d(0,-112%,0) skewY(-2deg);}
+#virasatScreenshotFX .vs-right{bottom:-10% !important;top:auto !important;transform:translate3d(0,112%,0) skewY(-2deg);}
+#virasatScreenshotFX.cover .vs-left{animation:vwCloseTop .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.cover .vs-right{animation:vwCloseBottom .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.reveal .vs-left{animation:vwOpenTop .55s var(--vw-out) both !important;}
+#virasatScreenshotFX.reveal .vs-right{animation:vwOpenBottom .55s var(--vw-out) both !important;}
+@keyframes vwCloseTop {from{transform:translate3d(0,-112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwCloseBottom {from{transform:translate3d(0,112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwOpenTop {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,-116%,0) skewY(-2deg)}}
+@keyframes vwOpenBottom {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,116%,0) skewY(-2deg)}}
+
+/* Avoid a solid black flash at the beginning. The panels themselves cover the previous page. */
+#virasatScreenshotFX.cover .vs-screen{animation:vwBaseLate .49s steps(1,end) both !important;}
+#virasatScreenshotFX.reveal .vs-screen{animation:vwBaseDepart .55s var(--vw-out) both !important;}
+@keyframes vwBaseLate {0%,98%{opacity:0}100%{opacity:1}}
+@keyframes vwBaseDepart {0%,14%{opacity:1}100%{opacity:0}}
+#virasatScreenshotFX .vs-line{
+  left:0 !important;right:0 !important;top:50% !important;
+  width:100% !important;height:2px !important;
+  background:linear-gradient(90deg,transparent 0%,rgba(242,205,107,.85) 25%,#f9df8a 50%,rgba(212,175,55,.85) 75%,transparent 100%) !important;
+  box-shadow:0 0 24px rgba(212,175,55,.38) !important;
+  transform:scaleX(0);transform-origin:50% 50% !important;
+}
+#virasatScreenshotFX.cover .vs-line{animation:vwGoldDraw .39s var(--vw-out) .15s both !important;}
+#virasatScreenshotFX.reveal .vs-line{animation:vwGoldFade .3s ease both !important;}
+@keyframes vwGoldDraw {from{opacity:0;transform:scaleX(0)}to{opacity:.78;transform:scaleX(1)}}
+@keyframes vwGoldFade {from{opacity:.78;transform:scaleX(1)}to{opacity:0;transform:scaleX(.65)}}
+#virasatScreenshotFX .vs-copy{transform:translate(-50%,-48%);}
+#virasatScreenshotFX.cover .vs-copy{animation:vwWordsIn .38s var(--vw-out) .19s both !important;}
+#virasatScreenshotFX.reveal .vs-copy{animation:vwWordsOut .30s ease both !important;}
+@keyframes vwWordsIn {from{opacity:0;transform:translate(-50%,-34%) scale(.97);filter:blur(4px)}to{opacity:1;transform:translate(-50%,-48%) scale(1);filter:blur(0)}}
+@keyframes vwWordsOut {from{opacity:1;transform:translate(-50%,-48%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(1.03)}}
+#virasatScreenshotFX .vs-title{font-weight:600 !important;text-shadow:0 18px 62px rgba(0,0,0,.65),0 0 38px rgba(212,175,55,.13) !important;}
+#virasatScreenshotFX .vs-unused{-webkit-text-stroke:1px rgba(212,175,55,.15) !important;}
+
+
+#virasatScreenshotFX.cover .vs-lines{animation:vsFadeIn .25s ease .24s forwards!important}
+#virasatScreenshotFX.reveal .vs-lines{animation:vsFadeOut .28s ease forwards!important}
+#virasatScreenshotFX .vs-line{bottom:auto!important;box-sizing:border-box;}
+@media(prefers-reduced-motion:reduce){#virasatScreenshotFX.active{display:none!important}}
+
+</style>
+</body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
 }
 function enhanceComparison(){
  ['vvCompareA','vvCompareB'].forEach(id=>{let select=document.getElementById(id);if(!select||select.dataset.vxCustom==='1')return;select.dataset.vxCustom='1';const wrapper=document.createElement('div');wrapper.className='vxp-select';select.parentNode.insertBefore(wrapper,select);wrapper.append(select);let button=document.createElement('button');button.type='button';button.className='vxp-trigger';button.setAttribute('aria-haspopup','listbox');button.setAttribute('aria-expanded','false');let menu=document.createElement('div');menu.className='vxp-menu';menu.setAttribute('role','listbox');menu.hidden=true;wrapper.append(button,menu);
@@ -25525,7 +25583,65 @@ window.virasatOpenVedicChapter=switchTo;
 const vbBack=$('vbReturnToVedas');if(vbBack)vbBack.addEventListener('click',()=>document.getElementById('vvCollection').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'}));
 function report(){const done=KEYS.filter(k=>state.done[k]).length, assessed=KEYS.filter(k=>state.grades[k]!==undefined).length,total=KEYS.reduce((n,k)=>n+(state.grades[k]||0),0);$('vbReport').innerHTML=`<p class="vb-kicker">PERSONAL LEARNING REPORT</p><h3>🎓 The Vedic Blueprint · Report Card</h3><p>Track your reading and self-assessment in one place. This progress is stored only in your current browser.</p><div class="vb-report-cards"><div class="vb-stat"><b>${done}/4</b><strong>Chapters read</strong></div><div class="vb-stat"><b>${assessed}/4</b><strong>Quizzes assessed</strong></div><div class="vb-stat"><b>${total}/${assessed*3||12}</b><strong>Answers correct</strong></div></div><div class="vb-table-wrap"><table class="vb-table"><thead><tr><th>Chapter</th><th>Reading</th><th>Quiz</th></tr></thead><tbody>${KEYS.map(k=>`<tr><td>${esc(BOOKS[k].name)}</td><td>${state.done[k]?'Completed':'Not yet marked'}</td><td>${state.grades[k]!==undefined?state.grades[k]+'/3':'Not assessed'}</td></tr>`).join('')}</tbody></table></div><p>${assessed===4?'All four chapter checks completed. Review any missed answers and strengthen your understanding.':'Complete each chapter and attempt its assessment to finish your report card.'}</p><div class="vb-actions"><button class="vb-btn vb-primary" id="vbSaveReport" type="button">↓ Download report card (.txt)</button><button class="vb-btn" id="vbPrintReport" type="button">Print / Save as PDF</button></div>`;
 $('vbSaveReport').onclick=()=>{const text=['THE VEDIC BLUEPRINT — VIRASAT LEARNING REPORT','',...KEYS.map(k=>`${BOOKS[k].name}: ${state.done[k]?'Read':'Not yet read'} · Quiz ${state.grades[k]!==undefined?state.grades[k]+'/3':'Not assessed'}`),'',`Chapters read: ${done}/4`,`Quizzes assessed: ${assessed}/4`,`Correct responses: ${total}/${assessed*3||12}`,'',`Generated: ${new Date().toLocaleDateString('en-IN')}`].join('\n');const blob=new Blob([text],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='Virasat_Vedic_Blueprint_Report.txt';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500)};
-$('vbPrintReport').onclick=()=>{const win=window.open('','_blank','width=800,height=700');if(!win){window.print();return}const rows=KEYS.map(k=>`<tr><td>${esc(BOOKS[k].name)}</td><td>${state.done[k]?'Completed':'Not completed'}</td><td>${state.grades[k]!==undefined?state.grades[k]+'/3':'Not assessed'}</td></tr>`).join('');win.document.write(`<!doctype html><html><head><title>Virasat · Vedic Blueprint Report Card</title><style>body{font-family:Georgia,serif;margin:55px;color:#26221b}h1{color:#80601a}table{width:100%;border-collapse:collapse;margin-top:25px}td,th{border:1px solid #888;padding:12px;text-align:left}th{background:#f4ebd5}</style></head><body><p>VIRASAT · LEARN & PLAY</p><h1>The Vedic Blueprint</h1><h2>Learning report card</h2><p>Chapters read: ${done}/4 · Quizzes assessed: ${assessed}/4 · Correct: ${total}/${assessed*3||12}</p><table><tr><th>Chapter</th><th>Reading</th><th>Quiz</th></tr>${rows}</table><p>Created ${esc(new Date().toLocaleDateString('en-IN'))}</p><p>Scores are based on four 3-question self-assessments.</p></body></html>`);win.document.close();win.focus();setTimeout(()=>win.print(),150)};
+$('vbPrintReport').onclick=()=>{const win=window.open('','_blank','width=800,height=700');if(!win){window.print();return}const rows=KEYS.map(k=>`<tr><td>${esc(BOOKS[k].name)}</td><td>${state.done[k]?'Completed':'Not completed'}</td><td>${state.grades[k]!==undefined?state.grades[k]+'/3':'Not assessed'}</td></tr>`).join('');win.document.write(`<!doctype html><html><head><title>Virasat · Vedic Blueprint Report Card</title><style>body{font-family:Georgia,serif;margin:55px;color:#26221b}h1{color:#80601a}table{width:100%;border-collapse:collapse;margin-top:25px}td,th{border:1px solid #888;padding:12px;text-align:left}th{background:#f4ebd5}</style></head><body><p>VIRASAT · LEARN & PLAY</p><h1>The Vedic Blueprint</h1><h2>Learning report card</h2><p>Chapters read: ${done}/4 · Quizzes assessed: ${assessed}/4 · Correct: ${total}/${assessed*3||12}</p><table><tr><th>Chapter</th><th>Reading</th><th>Quiz</th></tr>${rows}</table><p>Created ${esc(new Date().toLocaleDateString('en-IN'))}</p><p>Scores are based on four 3-question self-assessments.</p><style id="virasatActivePageWipe">
+/* Main destinations: two layered, satin-charcoal film slats enter vertically. */
+#virasatScreenshotFX .vs-panel {
+  width: 112% !important; height: 60% !important;
+  left: -6% !important; right: auto !important; top: auto !important; bottom: auto !important;
+  background: linear-gradient(155deg,#0d0a06 0%,#050403 52%,#110d06 100%) !important;
+  box-shadow: 0 2px 0 rgba(212,175,55,.13) inset, 0 15px 55px rgba(0,0,0,.29) !important;
+  border: 0 !important;
+  will-change: transform;
+}
+#virasatScreenshotFX .vs-panel::after{
+  content:'' !important; background:
+  repeating-linear-gradient(114deg,transparent 0 48px,rgba(212,175,55,.022) 49px 50px),
+  linear-gradient(90deg,transparent 5%,rgba(240,209,123,.05) 50%,transparent 92%) !important;
+  opacity: 1 !important;
+}
+#virasatScreenshotFX .vs-left{top:-10% !important;bottom:auto !important;transform:translate3d(0,-112%,0) skewY(-2deg);}
+#virasatScreenshotFX .vs-right{bottom:-10% !important;top:auto !important;transform:translate3d(0,112%,0) skewY(-2deg);}
+#virasatScreenshotFX.cover .vs-left{animation:vwCloseTop .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.cover .vs-right{animation:vwCloseBottom .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.reveal .vs-left{animation:vwOpenTop .55s var(--vw-out) both !important;}
+#virasatScreenshotFX.reveal .vs-right{animation:vwOpenBottom .55s var(--vw-out) both !important;}
+@keyframes vwCloseTop {from{transform:translate3d(0,-112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwCloseBottom {from{transform:translate3d(0,112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwOpenTop {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,-116%,0) skewY(-2deg)}}
+@keyframes vwOpenBottom {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,116%,0) skewY(-2deg)}}
+
+/* Avoid a solid black flash at the beginning. The panels themselves cover the previous page. */
+#virasatScreenshotFX.cover .vs-screen{animation:vwBaseLate .49s steps(1,end) both !important;}
+#virasatScreenshotFX.reveal .vs-screen{animation:vwBaseDepart .55s var(--vw-out) both !important;}
+@keyframes vwBaseLate {0%,98%{opacity:0}100%{opacity:1}}
+@keyframes vwBaseDepart {0%,14%{opacity:1}100%{opacity:0}}
+#virasatScreenshotFX .vs-line{
+  left:0 !important;right:0 !important;top:50% !important;
+  width:100% !important;height:2px !important;
+  background:linear-gradient(90deg,transparent 0%,rgba(242,205,107,.85) 25%,#f9df8a 50%,rgba(212,175,55,.85) 75%,transparent 100%) !important;
+  box-shadow:0 0 24px rgba(212,175,55,.38) !important;
+  transform:scaleX(0);transform-origin:50% 50% !important;
+}
+#virasatScreenshotFX.cover .vs-line{animation:vwGoldDraw .39s var(--vw-out) .15s both !important;}
+#virasatScreenshotFX.reveal .vs-line{animation:vwGoldFade .3s ease both !important;}
+@keyframes vwGoldDraw {from{opacity:0;transform:scaleX(0)}to{opacity:.78;transform:scaleX(1)}}
+@keyframes vwGoldFade {from{opacity:.78;transform:scaleX(1)}to{opacity:0;transform:scaleX(.65)}}
+#virasatScreenshotFX .vs-copy{transform:translate(-50%,-48%);}
+#virasatScreenshotFX.cover .vs-copy{animation:vwWordsIn .38s var(--vw-out) .19s both !important;}
+#virasatScreenshotFX.reveal .vs-copy{animation:vwWordsOut .30s ease both !important;}
+@keyframes vwWordsIn {from{opacity:0;transform:translate(-50%,-34%) scale(.97);filter:blur(4px)}to{opacity:1;transform:translate(-50%,-48%) scale(1);filter:blur(0)}}
+@keyframes vwWordsOut {from{opacity:1;transform:translate(-50%,-48%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(1.03)}}
+#virasatScreenshotFX .vs-title{font-weight:600 !important;text-shadow:0 18px 62px rgba(0,0,0,.65),0 0 38px rgba(212,175,55,.13) !important;}
+#virasatScreenshotFX .vs-unused{-webkit-text-stroke:1px rgba(212,175,55,.15) !important;}
+
+
+#virasatScreenshotFX.cover .vs-lines{animation:vsFadeIn .25s ease .24s forwards!important}
+#virasatScreenshotFX.reveal .vs-lines{animation:vsFadeOut .28s ease forwards!important}
+#virasatScreenshotFX .vs-line{bottom:auto!important;box-sizing:border-box;}
+@media(prefers-reduced-motion:reduce){#virasatScreenshotFX.active{display:none!important}}
+
+</style>
+</body></html>`);win.document.close();win.focus();setTimeout(()=>win.print(),150)};
 }
 $('vbJumpReport').onclick=()=>{$('vbReport').scrollIntoView({block:'start',behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})};
 render();
@@ -25662,7 +25778,65 @@ const itinerary=t('scheduleItems').map((title,i)=>`<li><b>${['09:00','10:00','10
 return `<div class="et-disclaimer"><b>${safe(t('draft'))}</b> · ${safe(t('reportNote'))}</div><div class="et-report-grid"><section class="et-panel"><h3>${safe(t('reportDetails'))}</h3>${el('destination',m.name+' · '+m.location)}${el('institution',p.school)}${el('preferred',p.date)}${el('grade',p.grade)}${el('participants',(Number(p.students)||0)+' + '+(Number(p.teachers)||0))}${el('bookingStatus',t('draft'))}<h3 style="margin-top:23px">${safe(t('objective'))}</h3><p>${safe(p.goal)}</p><h3 style="margin-top:23px">${safe(t('schedule'))}</h3><ul>${itinerary}</ul></section><section class="et-panel"><h3>${safe(t('budget'))}</h3>${el('admission',money(cost.tickets))}${el('transport',money(cost.transport))}${el('food',money(cost.food))}${el('other',money(cost.other))}${el('total',money(cost.total))}<h3 style="margin-top:25px">${safe(t('safety'))}</h3>${checks('reportSafe')}</section></div><div class="et-report-grid" style="margin-top:18px"><section class="et-panel"><h3>${safe(t('heritageQuest'))}</h3>${checks('quest')}</section><section class="et-panel"><h3>${safe(t('consent'))}</h3><p>${safe(t('consentBody'))}</p><p><b>${safe(m.name)}</b> · ${safe(p.date)}</p><p style="margin-top:28px">${safe(t('sign'))}</p></section></div>`;
 }
 function report(p){currentReport=p;$('etReportBody').innerHTML=reportHtml(p);setView('report')}
-function printReport(){if(!currentReport)return;const w=window.open('','_blank');if(!w){message('Allow popups to print the report.');return}const title=safe('Virasat EduTrips · '+getM(currentReport.monumentId).name);const body=reportHtml(currentReport);const doc=`<!doctype html><html lang="${lang()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${title}</title><style>body{font:14px/1.6 Arial,sans-serif;color:#222;margin:35px auto;max-width:1000px;padding:0 20px}h1,h2,h3{color:#553e16}.et-report-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.et-panel,.et-disclaimer{border:1px solid #c9ba91;border-radius:12px;padding:18px;margin:8px 0}.et-pair{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid #eee;padding:7px 0}.et-pair span{color:#555}.et-check{display:flex;gap:9px;margin:9px 0;align-items:flex-start}p,li{line-height:1.7}h3{margin:7px 0 12px}ul{padding-left:20px}button{display:none}@page{size:A4;margin:13mm}@media print{body{margin:0;padding:0;max-width:none}.et-report-grid{break-inside:avoid}}@media(max-width:700px){.et-report-grid{grid-template-columns:1fr}}</style></head><body><h1>VIRASAT · EDUTRIPS</h1><p>${safe(t('reportTitle'))} · ${safe(t('draft'))}</p>${body}</body></html>`;w.document.open();w.document.write(doc);w.document.close();w.focus();setTimeout(()=>w.print(),250)}
+function printReport(){if(!currentReport)return;const w=window.open('','_blank');if(!w){message('Allow popups to print the report.');return}const title=safe('Virasat EduTrips · '+getM(currentReport.monumentId).name);const body=reportHtml(currentReport);const doc=`<!doctype html><html lang="${lang()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${title}</title><style>body{font:14px/1.6 Arial,sans-serif;color:#222;margin:35px auto;max-width:1000px;padding:0 20px}h1,h2,h3{color:#553e16}.et-report-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.et-panel,.et-disclaimer{border:1px solid #c9ba91;border-radius:12px;padding:18px;margin:8px 0}.et-pair{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid #eee;padding:7px 0}.et-pair span{color:#555}.et-check{display:flex;gap:9px;margin:9px 0;align-items:flex-start}p,li{line-height:1.7}h3{margin:7px 0 12px}ul{padding-left:20px}button{display:none}@page{size:A4;margin:13mm}@media print{body{margin:0;padding:0;max-width:none}.et-report-grid{break-inside:avoid}}@media(max-width:700px){.et-report-grid{grid-template-columns:1fr}}</style></head><body><h1>VIRASAT · EDUTRIPS</h1><p>${safe(t('reportTitle'))} · ${safe(t('draft'))}</p>${body}<style id="virasatActivePageWipe">
+/* Main destinations: two layered, satin-charcoal film slats enter vertically. */
+#virasatScreenshotFX .vs-panel {
+  width: 112% !important; height: 60% !important;
+  left: -6% !important; right: auto !important; top: auto !important; bottom: auto !important;
+  background: linear-gradient(155deg,#0d0a06 0%,#050403 52%,#110d06 100%) !important;
+  box-shadow: 0 2px 0 rgba(212,175,55,.13) inset, 0 15px 55px rgba(0,0,0,.29) !important;
+  border: 0 !important;
+  will-change: transform;
+}
+#virasatScreenshotFX .vs-panel::after{
+  content:'' !important; background:
+  repeating-linear-gradient(114deg,transparent 0 48px,rgba(212,175,55,.022) 49px 50px),
+  linear-gradient(90deg,transparent 5%,rgba(240,209,123,.05) 50%,transparent 92%) !important;
+  opacity: 1 !important;
+}
+#virasatScreenshotFX .vs-left{top:-10% !important;bottom:auto !important;transform:translate3d(0,-112%,0) skewY(-2deg);}
+#virasatScreenshotFX .vs-right{bottom:-10% !important;top:auto !important;transform:translate3d(0,112%,0) skewY(-2deg);}
+#virasatScreenshotFX.cover .vs-left{animation:vwCloseTop .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.cover .vs-right{animation:vwCloseBottom .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.reveal .vs-left{animation:vwOpenTop .55s var(--vw-out) both !important;}
+#virasatScreenshotFX.reveal .vs-right{animation:vwOpenBottom .55s var(--vw-out) both !important;}
+@keyframes vwCloseTop {from{transform:translate3d(0,-112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwCloseBottom {from{transform:translate3d(0,112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwOpenTop {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,-116%,0) skewY(-2deg)}}
+@keyframes vwOpenBottom {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,116%,0) skewY(-2deg)}}
+
+/* Avoid a solid black flash at the beginning. The panels themselves cover the previous page. */
+#virasatScreenshotFX.cover .vs-screen{animation:vwBaseLate .49s steps(1,end) both !important;}
+#virasatScreenshotFX.reveal .vs-screen{animation:vwBaseDepart .55s var(--vw-out) both !important;}
+@keyframes vwBaseLate {0%,98%{opacity:0}100%{opacity:1}}
+@keyframes vwBaseDepart {0%,14%{opacity:1}100%{opacity:0}}
+#virasatScreenshotFX .vs-line{
+  left:0 !important;right:0 !important;top:50% !important;
+  width:100% !important;height:2px !important;
+  background:linear-gradient(90deg,transparent 0%,rgba(242,205,107,.85) 25%,#f9df8a 50%,rgba(212,175,55,.85) 75%,transparent 100%) !important;
+  box-shadow:0 0 24px rgba(212,175,55,.38) !important;
+  transform:scaleX(0);transform-origin:50% 50% !important;
+}
+#virasatScreenshotFX.cover .vs-line{animation:vwGoldDraw .39s var(--vw-out) .15s both !important;}
+#virasatScreenshotFX.reveal .vs-line{animation:vwGoldFade .3s ease both !important;}
+@keyframes vwGoldDraw {from{opacity:0;transform:scaleX(0)}to{opacity:.78;transform:scaleX(1)}}
+@keyframes vwGoldFade {from{opacity:.78;transform:scaleX(1)}to{opacity:0;transform:scaleX(.65)}}
+#virasatScreenshotFX .vs-copy{transform:translate(-50%,-48%);}
+#virasatScreenshotFX.cover .vs-copy{animation:vwWordsIn .38s var(--vw-out) .19s both !important;}
+#virasatScreenshotFX.reveal .vs-copy{animation:vwWordsOut .30s ease both !important;}
+@keyframes vwWordsIn {from{opacity:0;transform:translate(-50%,-34%) scale(.97);filter:blur(4px)}to{opacity:1;transform:translate(-50%,-48%) scale(1);filter:blur(0)}}
+@keyframes vwWordsOut {from{opacity:1;transform:translate(-50%,-48%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(1.03)}}
+#virasatScreenshotFX .vs-title{font-weight:600 !important;text-shadow:0 18px 62px rgba(0,0,0,.65),0 0 38px rgba(212,175,55,.13) !important;}
+#virasatScreenshotFX .vs-unused{-webkit-text-stroke:1px rgba(212,175,55,.15) !important;}
+
+
+#virasatScreenshotFX.cover .vs-lines{animation:vsFadeIn .25s ease .24s forwards!important}
+#virasatScreenshotFX.reveal .vs-lines{animation:vsFadeOut .28s ease forwards!important}
+#virasatScreenshotFX .vs-line{bottom:auto!important;box-sizing:border-box;}
+@media(prefers-reduced-motion:reduce){#virasatScreenshotFX.active{display:none!important}}
+
+</style>
+</body></html>`;w.document.open();w.document.write(doc);w.document.close();w.focus();setTimeout(()=>w.print(),250)}
 function translations(){root.querySelectorAll('[data-et-t]').forEach(el=>{const k=el.dataset.etT;if(t(k))el.textContent=t(k)});root.querySelectorAll('[data-et-placeholder]').forEach(el=>el.placeholder=t(el.dataset.etPlaceholder));document.querySelectorAll('[data-page="edutrips"]').forEach(el=>el.textContent=t('nav'));renderMonuments();renderSaved();if(currentReport){$('etReportBody').innerHTML=reportHtml(currentReport)}}
 root.addEventListener('click',e=>{const item=e.target.closest('[data-et-view],[data-et-go],[data-et-monument],[data-et-report],[data-et-delete]');if(!item||!root.contains(item))return;if(item.dataset.etView)setView(item.dataset.etView);else if(item.dataset.etGo)setView(item.dataset.etGo);else if(item.dataset.etMonument)goMonument(item.dataset.etMonument);else if(item.dataset.etReport){const plan=getPlans().find(x=>x.id===item.dataset.etReport);if(plan)report(plan)}else if(item.dataset.etDelete){if(!confirm(t('confirmDelete')))return;storePlans(getPlans().filter(x=>x.id!==item.dataset.etDelete));refresh();renderSaved()}});
 $('etSearch').addEventListener('input',renderMonuments);$('etRegion').addEventListener('change',renderMonuments);$('etMonument').addEventListener('change',monumentChange);$('etTripForm').addEventListener('submit',save);$('etPrint').addEventListener('click',printReport);
@@ -25797,5 +25971,63 @@ html body[data-theme="light"].motion-has-scrolled .nav {
 }
 </style>
 
+<style id="virasatActivePageWipe">
+/* Main destinations: two layered, satin-charcoal film slats enter vertically. */
+#virasatScreenshotFX .vs-panel {
+  width: 112% !important; height: 60% !important;
+  left: -6% !important; right: auto !important; top: auto !important; bottom: auto !important;
+  background: linear-gradient(155deg,#0d0a06 0%,#050403 52%,#110d06 100%) !important;
+  box-shadow: 0 2px 0 rgba(212,175,55,.13) inset, 0 15px 55px rgba(0,0,0,.29) !important;
+  border: 0 !important;
+  will-change: transform;
+}
+#virasatScreenshotFX .vs-panel::after{
+  content:'' !important; background:
+  repeating-linear-gradient(114deg,transparent 0 48px,rgba(212,175,55,.022) 49px 50px),
+  linear-gradient(90deg,transparent 5%,rgba(240,209,123,.05) 50%,transparent 92%) !important;
+  opacity: 1 !important;
+}
+#virasatScreenshotFX .vs-left{top:-10% !important;bottom:auto !important;transform:translate3d(0,-112%,0) skewY(-2deg);}
+#virasatScreenshotFX .vs-right{bottom:-10% !important;top:auto !important;transform:translate3d(0,112%,0) skewY(-2deg);}
+#virasatScreenshotFX.cover .vs-left{animation:vwCloseTop .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.cover .vs-right{animation:vwCloseBottom .49s var(--vw-ease) both !important;}
+#virasatScreenshotFX.reveal .vs-left{animation:vwOpenTop .55s var(--vw-out) both !important;}
+#virasatScreenshotFX.reveal .vs-right{animation:vwOpenBottom .55s var(--vw-out) both !important;}
+@keyframes vwCloseTop {from{transform:translate3d(0,-112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwCloseBottom {from{transform:translate3d(0,112%,0) skewY(-2deg)}to{transform:translate3d(0,0,0) skewY(-2deg)}}
+@keyframes vwOpenTop {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,-116%,0) skewY(-2deg)}}
+@keyframes vwOpenBottom {from{transform:translate3d(0,0,0) skewY(-2deg)}to{transform:translate3d(0,116%,0) skewY(-2deg)}}
+
+/* Avoid a solid black flash at the beginning. The panels themselves cover the previous page. */
+#virasatScreenshotFX.cover .vs-screen{animation:vwBaseLate .49s steps(1,end) both !important;}
+#virasatScreenshotFX.reveal .vs-screen{animation:vwBaseDepart .55s var(--vw-out) both !important;}
+@keyframes vwBaseLate {0%,98%{opacity:0}100%{opacity:1}}
+@keyframes vwBaseDepart {0%,14%{opacity:1}100%{opacity:0}}
+#virasatScreenshotFX .vs-line{
+  left:0 !important;right:0 !important;top:50% !important;
+  width:100% !important;height:2px !important;
+  background:linear-gradient(90deg,transparent 0%,rgba(242,205,107,.85) 25%,#f9df8a 50%,rgba(212,175,55,.85) 75%,transparent 100%) !important;
+  box-shadow:0 0 24px rgba(212,175,55,.38) !important;
+  transform:scaleX(0);transform-origin:50% 50% !important;
+}
+#virasatScreenshotFX.cover .vs-line{animation:vwGoldDraw .39s var(--vw-out) .15s both !important;}
+#virasatScreenshotFX.reveal .vs-line{animation:vwGoldFade .3s ease both !important;}
+@keyframes vwGoldDraw {from{opacity:0;transform:scaleX(0)}to{opacity:.78;transform:scaleX(1)}}
+@keyframes vwGoldFade {from{opacity:.78;transform:scaleX(1)}to{opacity:0;transform:scaleX(.65)}}
+#virasatScreenshotFX .vs-copy{transform:translate(-50%,-48%);}
+#virasatScreenshotFX.cover .vs-copy{animation:vwWordsIn .38s var(--vw-out) .19s both !important;}
+#virasatScreenshotFX.reveal .vs-copy{animation:vwWordsOut .30s ease both !important;}
+@keyframes vwWordsIn {from{opacity:0;transform:translate(-50%,-34%) scale(.97);filter:blur(4px)}to{opacity:1;transform:translate(-50%,-48%) scale(1);filter:blur(0)}}
+@keyframes vwWordsOut {from{opacity:1;transform:translate(-50%,-48%) scale(1)}to{opacity:0;transform:translate(-50%,-62%) scale(1.03)}}
+#virasatScreenshotFX .vs-title{font-weight:600 !important;text-shadow:0 18px 62px rgba(0,0,0,.65),0 0 38px rgba(212,175,55,.13) !important;}
+#virasatScreenshotFX .vs-unused{-webkit-text-stroke:1px rgba(212,175,55,.15) !important;}
+
+
+#virasatScreenshotFX.cover .vs-lines{animation:vsFadeIn .25s ease .24s forwards!important}
+#virasatScreenshotFX.reveal .vs-lines{animation:vsFadeOut .28s ease forwards!important}
+#virasatScreenshotFX .vs-line{bottom:auto!important;box-sizing:border-box;}
+@media(prefers-reduced-motion:reduce){#virasatScreenshotFX.active{display:none!important}}
+
+</style>
 </body>
 </html>
