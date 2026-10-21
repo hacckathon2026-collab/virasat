@@ -998,7 +998,7 @@
 
         .team-member-list {
             border-right: 1px solid rgba(212,175,55,.22);
-background: rgba(5,4,3,.26);
+            background: rgba(5,4,3,.26);
         }
 
         .team-member-btn {
@@ -1998,7 +1998,8 @@ background: rgba(5,4,3,.26);
             font-size: 20px;
             margin-bottom: 12px;
         }
-#page-map .states {
+
+        #page-map .states {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
@@ -2997,7 +2998,7 @@ background: rgba(5,4,3,.26);
             font-size:34px;
             font-weight:700;
             color:var(--cream);
-}
+        }
         .login-welcome-original p {
             margin:8px 0 0;
             max-width:440px;
@@ -3997,7 +3998,7 @@ background: rgba(5,4,3,.26);
 
         [data-theme="light"] .section.alt {
             background: #f1e9dc;
-}
+        }
 
         [data-theme="light"] .card,
         [data-theme="light"] .story-card,
@@ -4997,7 +4998,7 @@ background: rgba(5,4,3,.26);
 .navlinks .mega-secondary > a:focus-visible,
 .navlinks .mega-secondary > a.active {
     color: var(--marigold) !important;
-transform: translateX(3px) !important;
+    transform: translateX(3px) !important;
 }
 
 /* Full-width footer keeps utilities neat and balanced */
@@ -5995,6 +5996,8 @@ transform: translateX(3px) !important;
     .global-search-overlay.open,.global-search-shell,.search-target-flash{animation:none!important}
     .global-search-toggle,.global-search-result,.global-search-arrow,.global-search-chip{transition:none!important}
 }
+
+
 /* ═══════════════════════════════════════════════════════════════
    VIRASAT SEARCH — COMPETITION POLISH
    Clean hierarchy, tighter relevance, no utility footer.
@@ -6995,7 +6998,7 @@ body::after {
 
 .virasat-depth-card::after {
     content: '↗';
-position: absolute;
+    position: absolute;
     z-index: 6;
     right: 17px;
     top: 15px;
@@ -9995,6 +9998,7 @@ html.vt-transitioning .page.vt-page-enter > *{
 #page-festivals [data-season="spring"] { --fc-c: var(--fc-spring); --fc-soft: #e3eedc; --fc-deep: #375f2e; }
 #page-festivals [data-season="summer"] { --fc-c: var(--fc-summer); --fc-soft: #f8e7cc; --fc-deep: #85500d; }
 #page-festivals [data-season="autumn"] { --fc-c: var(--fc-autumn); --fc-soft: #f5ddd4; --fc-deep: #8c2f16; }
+
 /* Corner tab that turns to the next month */
 #page-festivals .fc-curl {
     position: absolute;
@@ -10994,7 +10998,7 @@ html[data-theme="light"] #page-objects .object-stats span,
     margin: 0 !important;
   }
   .login-welcome-original p {
-margin: 7px 0 0 !important;
+    margin: 7px 0 0 !important;
     line-height: 1.5 !important;
   }
 
@@ -11994,7 +11998,7 @@ html[data-theme="light"] .virasat-speak-button[aria-pressed="true"]{
 #page-bharatiya-calendar .fc-shadow {
     position: absolute;
     left: 3%;
-right: 3%;
+    right: 3%;
     bottom: -9%;
     height: 22%;
     border-radius: 50%;
@@ -14017,7 +14021,326 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
 #page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow:hover:not(:disabled){background:rgba(126,104,44,.7)}
 #page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow:disabled{opacity:.35;cursor:default}
 @media(max-width:600px){#page-home #vx-worlds .vx-shelf-controls .vx-shelf-arrow{width:42px;height:42px;font-size:32px}#page-home #vx-worlds .vx-shelf-controls .vx-shelf-prev{left:10px}#page-home #vx-worlds .vx-shelf-controls .vx-shelf-next{right:10px}}
-</style></head>
+</style><style id="virasatEduTripsNativeStyles">
+
+/* EduTrips native feature. Deliberately scoped to its own .page: no global site CSS changes. */
+#page-edutrips{--et-gold:var(--gold,#d4af37);--et-ink:var(--ink,#f2e6cc);--et-muted:var(--muted,#a3936f);--et-panel:var(--card,#17130c);--et-border:rgba(212,175,55,.22);min-height:100vh;background:var(--ivory);color:var(--et-ink);font-family:'DM Sans','Noto Sans Devanagari',sans-serif}
+#page-edutrips *{box-sizing:border-box}
+#page-edutrips .et-shell{width:min(1320px,92%);margin:0 auto;padding:42px 0 94px}
+#page-edutrips h1,#page-edutrips h2,#page-edutrips h3{font-family:'Playfair Display','Noto Serif Devanagari',serif}
+#page-edutrips .et-hero{position:relative;min-height:340px;overflow:hidden;display:flex;align-items:center;border:1px solid var(--et-border);border-radius:28px;padding:44px clamp(25px,5vw,70px);background:linear-gradient(90deg,rgba(7,7,6,.98) 0%,rgba(7,7,6,.89) 48%,rgba(7,7,6,.22) 100%),url('https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1500&q=85') center 46%/cover}
+#page-edutrips .et-hero::after{content:'';position:absolute;height:3px;left:0;right:0;bottom:0;background:linear-gradient(90deg,var(--et-gold),transparent 70%)}
+#page-edutrips .et-hero-inner{position:relative;z-index:1;max-width:710px}
+#page-edutrips .et-eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:var(--et-gold);text-transform:uppercase}
+#page-edutrips .et-hero h1{font-size:clamp(39px,5vw,66px);line-height:1.06;color:#f6ebd6;margin:14px 0 14px}
+#page-edutrips .et-hero h1 em{color:#e4bd56}
+#page-edutrips .et-hero p{color:#ded2ba;line-height:1.75;max-width:575px;font-size:15px}
+#page-edutrips .et-hero-tags{display:flex;gap:9px;flex-wrap:wrap;margin-top:24px}
+#page-edutrips .et-hero-tags span{font-size:11px;color:#e8d5a2;background:rgba(13,11,8,.72);border:1px solid rgba(212,175,55,.35);border-radius:99px;padding:7px 12px}
+#page-edutrips .et-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:25px 0 28px;padding:7px;border:1px solid var(--et-border);border-radius:16px;background:var(--et-panel)}
+#page-edutrips .et-tab{flex:1 1 auto;text-align:center;white-space:nowrap;background:transparent;border:1px solid transparent;border-radius:12px;color:var(--et-muted);cursor:pointer;padding:12px 15px;font-size:13px;font-weight:700;transition:background .2s ease,color .2s ease}
+#page-edutrips .et-tab:hover{color:var(--et-ink);background:rgba(212,175,55,.08)}
+#page-edutrips .et-tab[aria-selected="true"]{background:linear-gradient(135deg,var(--gold),var(--marigold));color:var(--espresso);border-color:transparent}
+#page-edutrips .et-view[hidden]{display:none!important}
+#page-edutrips .et-view.et-reveal{animation:etEnter .42s cubic-bezier(.16,1,.3,1)}
+@keyframes etEnter{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+#page-edutrips .et-section-heading{display:flex;align-items:end;justify-content:space-between;gap:15px;margin:26px 0 17px}
+#page-edutrips .et-section-heading h2{font-size:clamp(27px,3.1vw,37px);line-height:1.12;margin:5px 0}
+#page-edutrips .et-section-heading p{color:var(--et-muted);margin:8px 0 0;font-size:14px;max-width:640px}
+#page-edutrips .et-button{border:1px solid var(--et-gold);border-radius:999px;background:linear-gradient(135deg,var(--gold),var(--marigold));color:var(--espresso);font:700 13px 'DM Sans','Noto Sans Devanagari',sans-serif;padding:12px 19px;cursor:pointer;transition:transform .22s ease,filter .22s ease;display:inline-flex;align-items:center;justify-content:center;gap:7px;text-align:center}
+#page-edutrips .et-button:hover{transform:translateY(-2px);filter:brightness(1.07)}
+#page-edutrips .et-button.et-outline{color:var(--et-ink);background:transparent;border-color:var(--et-border)}
+#page-edutrips .et-button.et-outline:hover{background:rgba(212,175,55,.12);border-color:var(--et-gold)}
+#page-edutrips .et-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+#page-edutrips .et-stat{background:var(--et-panel);border:1px solid var(--et-border);border-radius:19px;padding:23px;display:flex;align-items:center;gap:15px}
+#page-edutrips .et-stat-symbol{border:1px solid var(--et-border);border-radius:14px;background:rgba(212,175,55,.09);color:var(--et-gold);width:50px;height:50px;display:grid;place-items:center;font-size:27px;flex:none}
+#page-edutrips .et-stat b{font-size:25px;color:var(--et-ink);line-height:1.2;display:block}
+#page-edutrips .et-stat small{font-size:12px;color:var(--et-muted)}
+#page-edutrips .et-cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+#page-edutrips .et-card{background:var(--et-panel);border:1px solid var(--et-border);border-radius:23px;overflow:hidden;transition:transform .24s ease,border-color .24s ease,box-shadow .24s ease}
+#page-edutrips .et-card:hover{transform:translateY(-5px);border-color:rgba(212,175,55,.45);box-shadow:0 20px 35px rgba(0,0,0,.12)}
+#page-edutrips .et-photo{height:190px;background:#231d13 center/cover;position:relative}
+#page-edutrips .et-photo span{position:absolute;left:15px;bottom:13px;font-size:11px;color:#f3dfb2;padding:6px 11px;border:1px solid rgba(212,175,55,.35);background:rgba(9,7,5,.82);border-radius:999px}
+#page-edutrips .et-card-body{padding:22px}
+#page-edutrips .et-card h3{font-size:25px;line-height:1.2;margin:0 0 7px}
+#page-edutrips .et-card .et-location{font-size:12px;color:var(--et-gold);font-weight:700}
+#page-edutrips .et-card p{color:var(--et-muted);font-size:13px;line-height:1.65;min-height:66px;margin:13px 0 18px}
+#page-edutrips .et-resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+#page-edutrips .et-resource{background:var(--et-panel);border:1px solid var(--et-border);border-radius:17px;padding:20px}
+#page-edutrips .et-resource strong{display:block;font-size:15px;margin:9px 0}
+#page-edutrips .et-resource p{font-size:12px;line-height:1.7;color:var(--et-muted);margin:0}
+#page-edutrips .et-tools{display:grid;grid-template-columns:minmax(0,2fr) minmax(200px,.8fr);gap:13px;margin-bottom:23px}
+#page-edutrips .et-input,#page-edutrips .et-select,#page-edutrips .et-textarea{width:100%;background:var(--ivory);color:var(--et-ink);border:1px solid var(--et-border);border-radius:12px;padding:12px 13px;font-family:'DM Sans','Noto Sans Devanagari',sans-serif;font-size:14px;outline:0;min-width:0}
+#page-edutrips .et-input:focus,#page-edutrips .et-select:focus,#page-edutrips .et-textarea:focus{border-color:var(--et-gold);box-shadow:0 0 0 3px rgba(212,175,55,.11)}
+#page-edutrips .et-textarea{resize:vertical;min-height:110px}
+#page-edutrips .et-input::placeholder{color:var(--et-muted);opacity:.75}
+#page-edutrips .et-two-col{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(320px,.8fr);gap:20px;align-items:start}
+#page-edutrips .et-panel{border:1px solid var(--et-border);background:var(--et-panel);padding:26px;border-radius:22px;min-width:0}
+#page-edutrips .et-panel h3{font-size:23px;margin:0 0 20px}
+#page-edutrips .et-form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+#page-edutrips .et-field{min-width:0}
+#page-edutrips .et-field.et-full{grid-column:1/-1}
+#page-edutrips .et-field label{display:block;font-size:12px;font-weight:700;color:var(--et-muted);margin-bottom:7px}
+#page-edutrips .et-field small{display:block;font-size:11px;color:var(--et-muted);margin-top:6px}
+#page-edutrips .et-preview-photo{height:205px;background:#21180c center/cover;border-radius:15px;border:1px solid var(--et-border);margin-bottom:18px}
+#page-edutrips .et-mini-info{font-size:12px;line-height:1.85;color:var(--et-muted)}
+#page-edutrips .et-mini-info b{color:var(--et-ink)}
+#page-edutrips .et-budget-row{display:flex;justify-content:space-between;gap:10px;padding:11px 0;border-bottom:1px solid var(--et-border);font-size:13px}
+#page-edutrips .et-budget-row:last-child{border-bottom:0}
+#page-edutrips .et-budget-row strong{color:var(--et-gold);font-size:19px}
+#page-edutrips .et-disclaimer{background:rgba(212,175,55,.055);border:1px solid var(--et-border);border-radius:15px;padding:14px 17px;color:var(--et-muted);font-size:12px;line-height:1.8;margin:20px 0}
+#page-edutrips .et-empty{text-align:center;padding:55px 15px;border:1px dashed var(--et-border);border-radius:18px;color:var(--et-muted);grid-column:1/-1}
+#page-edutrips .et-list{display:grid;gap:12px}
+#page-edutrips .et-saved{display:flex;justify-content:space-between;gap:20px;align-items:center;border:1px solid var(--et-border);border-radius:18px;background:var(--et-panel);padding:20px}
+#page-edutrips .et-saved h3{font-size:20px;margin:0 0 7px}
+#page-edutrips .et-saved p{color:var(--et-muted);font-size:12px;margin:4px 0}
+#page-edutrips .et-saved-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+#page-edutrips .et-report-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+#page-edutrips .et-report h3{font-size:23px;margin:0 0 15px}
+#page-edutrips .et-report p,#page-edutrips .et-report li{font-size:13px;line-height:1.7;color:var(--et-muted)}
+#page-edutrips .et-report ul{padding-left:20px}
+#page-edutrips .et-report .et-pair{display:flex;justify-content:space-between;gap:13px;padding:8px 0;border-bottom:1px solid var(--et-border);font-size:13px}
+#page-edutrips .et-report .et-pair span{color:var(--et-muted)}
+#page-edutrips .et-report .et-pair strong{text-align:right}
+#page-edutrips .et-check{display:flex;gap:9px;align-items:flex-start;font-size:13px;line-height:1.6;margin:11px 0;color:var(--et-ink)}
+#page-edutrips .et-check input{accent-color:var(--gold);margin-top:4px}
+#page-edutrips .et-toast{position:fixed;bottom:24px;right:24px;z-index:500;padding:14px 20px;background:var(--et-panel);border:1px solid var(--et-gold);box-shadow:var(--shadow);border-radius:14px;font-size:13px;max-width:min(380px,90vw)}
+#page-edutrips .et-toast[hidden]{display:none}
+[data-theme="light"] #page-edutrips .et-hero{color:#fff}
+[data-theme="light"] #page-edutrips .et-hero p{color:#f1e8d7}
+@media(max-width:1000px){#page-edutrips .et-cards{grid-template-columns:repeat(2,1fr)}#page-edutrips .et-two-col{grid-template-columns:1fr}#page-edutrips .et-report-grid{grid-template-columns:1fr}}
+@media(max-width:700px){#page-edutrips .et-shell{padding:24px 0 60px}#page-edutrips .et-hero{min-height:310px;padding:28px 22px}#page-edutrips .et-stats,#page-edutrips .et-cards,#page-edutrips .et-resource-grid{grid-template-columns:1fr}#page-edutrips .et-tools{grid-template-columns:1fr}#page-edutrips .et-form-grid{grid-template-columns:1fr}#page-edutrips .et-field.et-full{grid-column:auto}#page-edutrips .et-panel{padding:18px}#page-edutrips .et-section-heading{align-items:start;flex-direction:column}#page-edutrips .et-saved{flex-direction:column;align-items:stretch}#page-edutrips .et-saved-actions{justify-content:start}#page-edutrips .et-tab{font-size:12px;padding:10px 11px}}
+@media(prefers-reduced-motion:reduce){#page-edutrips .et-view.et-reveal{animation:none}#page-edutrips .et-card,#page-edutrips .et-button{transition:none}}
+
+</style>
+<style id="virasatCleanMegaMenuOctober2026">
+/* Nav-only polish. Existing data-page navigation, auth, page transitions and content untouched. */
+@media (min-width: 901px) {
+  body .nav #navLinks {
+    width: min(1160px, calc(100vw - 36px)) !important;
+    max-width: 1160px !important;
+    left: 50% !important;
+    right: auto !important;
+    top: 82px !important;
+    height: auto !important;
+    max-height: calc(100dvh - 92px) !important;
+    padding: 14px !important;
+    margin: 0 !important;
+    display: grid !important;
+    grid-template-columns: .97fr 1.12fr .94fr !important;
+    gap: 14px !important;
+    align-items: stretch !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    background: #101010 !important;
+    border: 1px solid rgba(212,175,55,.26) !important;
+    border-radius: 22px !important;
+    box-shadow: 0 26px 76px rgba(0,0,0,.64) !important;
+    transform: translate(-50%, -9px) !important;
+    transition: opacity .2s ease, transform .25s cubic-bezier(.2,.8,.2,1), visibility .2s !important;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(212,175,55,.32) transparent;
+  }
+  body .nav #navLinks.open { transform: translate(-50%,0) !important; }
+  body .nav #navLinks .mega-col,
+  body .nav #navLinks .mega-col:first-child,
+  body .nav #navLinks .mega-col:nth-child(2),
+  body .nav #navLinks .mega-col:nth-child(3) {
+    min-height: 440px !important;
+    height: auto !important;
+    align-self: stretch !important;
+    position: relative !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    padding: 21px 20px 23px !important;
+    margin: 0 !important;
+    border: 1px solid rgba(212,175,55,.12) !important;
+    border-radius: 15px !important;
+    background: #1a1a1a !important;
+    box-shadow: none !important;
+  }
+  body .nav #navLinks .mega-col::before,
+  body .nav #navLinks .mega-col::after { content: none !important; display: none !important; }
+  body .nav #navLinks .mega-kicker {
+    display: block !important;
+    margin: 0 0 12px !important;
+    padding: 0 0 13px !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(212,175,55,.25) !important;
+    color: #deb95a !important;
+    font-family: 'Playfair Display','Noto Serif Devanagari',serif !important;
+    font-size: clamp(20px,1.8vw,24px) !important;
+    font-weight: 700 !important;
+    line-height: 1.24 !important;
+    letter-spacing: -.025em !important;
+    text-transform: none !important;
+  }
+  body .nav #navLinks .mega-kicker::before { content:none !important; display:none !important; }
+  body .nav #navLinks .mega-primary > a,
+  body .nav #navLinks .mega-secondary > a,
+  body .nav #navLinks .mega-discover > a,
+  body .nav #navLinks .mega-discover > .nav-item > a {
+    display: flex !important;
+    align-items: center !important;
+    min-height: 38px !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding: 8px 11px 8px 27px !important;
+    margin: 1px 0 !important;
+    border: 1px solid transparent !important;
+    border-radius: 9px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #edd6a0 !important;
+    font-family: 'DM Sans','Noto Sans Devanagari',sans-serif !important;
+    font-size: 14.5px !important;
+    font-weight: 650 !important;
+    letter-spacing: 0 !important;
+    line-height: 1.3 !important;
+    text-transform: none !important;
+    white-space: normal !important;
+    transform: none !important;
+    transition: background-color .17s ease, color .17s ease !important;
+  }
+  body .nav #navLinks .mega-primary > a::before,
+  body .nav #navLinks .mega-secondary > a::before,
+  body .nav #navLinks .mega-discover > a::before,
+  body .nav #navLinks .mega-discover > .nav-item > a::before {
+    content: '›' !important;
+    display: block !important;
+    position: absolute !important;
+    top: 50% !important;
+    left: 10px !important;
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    color: #ba9446 !important;
+    font-family: 'DM Sans',sans-serif !important;
+    font-size: 18px !important;
+    font-weight: 500 !important;
+    line-height: 1 !important;
+    opacity: .8 !important;
+    transform: translateY(-54%) !important;
+    pointer-events: none !important;
+  }
+  body .nav #navLinks .mega-primary > a::after,
+  body .nav #navLinks .mega-secondary > a::after,
+  body .nav #navLinks .mega-discover > a::after,
+  body .nav #navLinks .mega-discover > .nav-item > a::after { content:none !important; display:none !important; }
+  body .nav #navLinks .mega-primary > a:hover,
+  body .nav #navLinks .mega-primary > a:focus-visible,
+  body .nav #navLinks .mega-secondary > a:hover,
+  body .nav #navLinks .mega-secondary > a:focus-visible,
+  body .nav #navLinks .mega-discover > a:hover,
+  body .nav #navLinks .mega-discover > a:focus-visible,
+  body .nav #navLinks .mega-discover > .nav-item > a:hover,
+  body .nav #navLinks .mega-discover > .nav-item > a:focus-visible,
+  body .nav #navLinks .mega-primary > a.active,
+  body .nav #navLinks .mega-secondary > a.active {
+    color: #f6d77d !important;
+    background: rgba(212,175,55,.105) !important;
+    border-color: rgba(212,175,55,.12) !important;
+    padding-left: 27px !important;
+    transform: none !important;
+  }
+  body .nav #navLinks .mega-discover > .nav-item {
+    position: relative !important;
+    display: block !important;
+    min-height: 0 !important;
+    width: 100% !important;
+    margin: 0 0 5px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    background: transparent !important;
+  }
+  body .nav #navLinks .mega-discover > .nav-item:last-child { margin-bottom:0 !important; }
+  body .nav #navLinks .mega-discover > .nav-item > a { position:relative !important; }
+  body .nav #navLinks .mega-discover .nav-dropdown,
+  body .nav #navLinks .mega-discover .nav-item:hover .nav-dropdown,
+  body .nav #navLinks .mega-discover .nav-item:focus-within .nav-dropdown {
+    display: grid !important;
+    position: static !important;
+    width: 100% !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 3px 5px !important;
+    margin: 1px 0 4px 13px !important;
+    padding: 0 11px 2px !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: none !important;
+    max-height: none !important;
+  }
+  body .nav #navLinks .mega-discover .nav-dropdown a {
+    display: flex !important;
+    align-items: center !important;
+    min-width: 0 !important;
+    min-height: 28px !important;
+    padding: 4px 6px !important;
+    margin: 0 !important;
+    border: 0 !important;
+    border-radius: 6px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #bdb4a2 !important;
+    font-family: 'DM Sans','Noto Sans Devanagari',sans-serif !important;
+    font-size: 12px !important;
+    font-weight: 500 !important;
+    line-height: 1.3 !important;
+    letter-spacing:0 !important;
+    transform:none !important;
+    transition: background-color .16s ease, color .16s ease !important;
+    white-space: normal !important;
+  }
+  body .nav #navLinks .mega-discover .nav-dropdown a::before { content:none !important; display:none !important; }
+  body .nav #navLinks .mega-discover .nav-dropdown a:hover,
+  body .nav #navLinks .mega-discover .nav-dropdown a:focus-visible {
+    color: #f2cd6b !important;
+    background: rgba(212,175,55,.08) !important;
+    padding-left: 6px !important;
+    transform:none !important;
+  }
+  body .nav #navLinks .mega-footer { display:none !important; }
+}
+@media (max-width: 900px) {
+  body .nav #navLinks .mega-discover > a {
+    display:flex !important; align-items:center !important; position:relative !important;
+    width:100% !important; min-height:42px !important; margin:0 !important;
+    padding:9px 11px 9px 29px !important; border:1px solid transparent !important;
+    border-radius:11px !important; color:#f0d48b !important;
+    font:600 15px/1.35 'DM Sans','Noto Sans Devanagari',sans-serif !important;
+  }
+  body .nav #navLinks .mega-discover > a::before { content:'›' !important; position:absolute !important; left:10px !important; color:#ba9446 !important; }
+}
+@media (min-width: 601px) and (max-width: 900px) {
+  body .nav #navLinks { gap:12px !important; padding:16px !important; }
+  body .nav #navLinks .mega-col { border-radius:14px !important; }
+  body .nav #navLinks .mega-primary > a,
+  body .nav #navLinks .mega-secondary > a,
+  body .nav #navLinks .mega-discover .nav-item > a { font-size:15px !important; }
+}
+[data-theme="light"] body .nav #navLinks .mega-col {
+  background:#fffaf2 !important;
+  border-color:rgba(125,92,38,.16) !important;
+}
+[data-theme="light"] body .nav #navLinks .mega-kicker {
+  color:#885e1e !important;
+  border-bottom-color:rgba(125,92,38,.2) !important;
+}
+[data-theme="light"] body .nav #navLinks .mega-primary > a,
+[data-theme="light"] body .nav #navLinks .mega-secondary > a,
+[data-theme="light"] body .nav #navLinks .mega-discover > .nav-item > a { color:#5d471f !important; }
+[data-theme="light"] body .nav #navLinks .mega-discover .nav-dropdown a { color:#6b6253 !important; }
+@media (prefers-reduced-motion: reduce) {
+  body .nav #navLinks, body .nav #navLinks a { transition:none !important; }
+}
+</style>
+
+</head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
 
@@ -14295,16 +14618,17 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                 <div class="mega-kicker">Explore Virasat</div>
                 <a href="#" data-page="home" class="active">Home</a>
                 <a href="#" data-page="kahani">Nani Ki Kahani</a>
-                <a href="#" data-page="festivals">Festivals</a>
-                <a href="#" data-page="bharatiya-calendar">🇮🇳 Indian Calendar</a>
                 <a href="#" data-page="map">Explore India</a>
                 <a href="#" data-page="tourism" data-i18n="nav_tourism">Tourism</a>
+                <a href="#edutrips" data-page="edutrips" class="edutrips-nav-link">EduTrips Planner</a>
                 <a href="#" data-page="happiness">Seva & Sanskriti</a>
                 <a href="#" data-page="nuske">Desi Nuske</a>
             </div>
 
             <div class="mega-col mega-discover">
-                <div class="mega-kicker">Discover Culture</div>
+                <div class="mega-kicker">Discover India</div>
+                <a href="#" data-page="festivals">Festivals</a>
+                <a href="#" data-page="bharatiya-calendar">Indian Calendar</a>
                 <div class="nav-item" role="none">
                     <a href="#" data-page="rasoi" role="menuitem" aria-haspopup="true" aria-expanded="true">Maa Ki Rasoi</a>
                     <div class="nav-dropdown" role="menu" aria-label="Maa Ki Rasoi submenu">
@@ -14994,7 +15318,7 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
         </section>
         <!-- Retired duplicate course overview: students now open the full Vedic Blueprint directly. -->
         <section class="vv-compare" id="vvCompare" aria-labelledby="vvCompareTitle">
-<div class="vv-subheading"><div><p class="vv-eyebrow">02 / THINK &amp; COMPARE</p><h2 id="vvCompareTitle">What makes each Veda different?</h2><p id="vvCompareLead">Choose two traditions to compare what they contain, how they are organised, and why they matter.</p></div></div>
+          <div class="vv-subheading"><div><p class="vv-eyebrow">02 / THINK &amp; COMPARE</p><h2 id="vvCompareTitle">What makes each Veda different?</h2><p id="vvCompareLead">Choose two traditions to compare what they contain, how they are organised, and why they matter.</p></div></div>
           <div class="vv-compare-wrap">
             <div class="vv-compare-selects">
               <div><label for="vvCompareA" id="vvCompareLabelA">First Veda</label><select id="vvCompareA"></select></div>
@@ -15263,6 +15587,80 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
         <div id="tourismContent" aria-live="polite"></div>
         <p class="tourism-footnote">Heritage suggestions include some nearby day trips. Opening hours and access rules can change; check official tourism information before visiting.</p>
       </section>
+    </div>
+
+
+    <!-- VIRASAT EDUTRIPS: native Virasat page (not an iframe / no external navigation). -->
+    <div id="page-edutrips" class="page" aria-label="Virasat EduTrips heritage field trip planner">
+      <div class="et-shell" id="etRoot">
+        <header class="et-hero">
+          <div class="et-hero-inner">
+            <div class="et-eyebrow" data-et-t="eyebrow">VIRASAT / HERITAGE BEYOND CLASSROOMS</div>
+            <h1><span data-et-t="heroTitle">Classrooms end.</span><br><em data-et-t="heroAccent">Heritage begins.</em></h1>
+            <p data-et-t="heroDesc">Plan meaningful school visits to India's living monuments. Build itineraries, estimate costs, prepare learning activities and save printable trip proposals.</p>
+            <div class="et-hero-tags"><span data-et-t="tag1">✦ Teacher planning workspace</span><span data-et-t="tag2">◇ No booking subscription</span><span data-et-t="tag3">▣ Printable reports</span></div>
+          </div>
+        </header>
+        <nav class="et-tabs" role="tablist" aria-label="EduTrips sections">
+          <button type="button" class="et-tab" role="tab" aria-selected="true" data-et-view="overview" data-et-t="tabOverview">◈ Overview</button>
+          <button type="button" class="et-tab" role="tab" aria-selected="false" data-et-view="discover" data-et-t="tabDiscover">⌖ Explore Monuments</button>
+          <button type="button" class="et-tab" role="tab" aria-selected="false" data-et-view="planner" data-et-t="tabPlanner">✎ Plan a Trip</button>
+          <button type="button" class="et-tab" role="tab" aria-selected="false" data-et-view="saved" data-et-t="tabSaved">▣ My Plans</button>
+        </nav>
+        <section class="et-view et-reveal" data-et-panel="overview" role="tabpanel">
+          <div class="et-stats">
+            <div class="et-stat"><div class="et-stat-symbol">♜</div><div><b id="etMonumentCount">6</b><small data-et-t="statMonuments">Featured monuments</small></div></div>
+            <div class="et-stat"><div class="et-stat-symbol">▣</div><div><b id="etTripCount">0</b><small data-et-t="statPlans">Saved trip plans</small></div></div>
+            <div class="et-stat"><div class="et-stat-symbol">✧</div><div><b>5</b><small data-et-t="statResources">Planning resources</small></div></div>
+          </div>
+          <div class="et-section-heading"><div><div class="et-eyebrow" data-et-t="discoverEyebrow">THE HERITAGE COLLECTION</div><h2 data-et-t="featuredTitle">Where will history take your class?</h2><p data-et-t="featuredDesc">Start with a monument, then create an educational field-trip plan.</p></div><button class="et-button et-outline" type="button" data-et-go="discover" data-et-t="viewAll">Explore all ↗</button></div>
+          <div class="et-cards" id="etFeatured"></div>
+          <div class="et-section-heading" style="margin-top:38px"><div><h2 data-et-t="resourceTitle">Designed for educators</h2><p data-et-t="resourceDesc">Prepare learning objectives, logistics and follow-up activities in one place.</p></div></div>
+          <div class="et-resource-grid">
+            <div class="et-resource"><div class="et-stat-symbol">✎</div><strong data-et-t="resourceOne">Smart trip planner</strong><p data-et-t="resourceOneDesc">Set destinations, group size, preferred date and learning goals.</p></div>
+            <div class="et-resource"><div class="et-stat-symbol">₹</div><strong data-et-t="resourceTwo">Budget estimates</strong><p data-et-t="resourceTwoDesc">Add your own ticket, transport and food figures. No invented live prices.</p></div>
+            <div class="et-resource"><div class="et-stat-symbol">▣</div><strong data-et-t="resourceThree">Reports &amp; activities</strong><p data-et-t="resourceThreeDesc">Print itineraries, safety checklists and a student heritage quest.</p></div>
+          </div>
+          <div class="et-disclaimer" data-et-t="notice">EduTrips is a planning tool, not a reservation agency. Trips remain drafts until your school and the monument's official authority confirm arrangements.</div>
+        </section>
+        <section class="et-view" data-et-panel="discover" role="tabpanel" hidden>
+          <div class="et-section-heading"><div><div class="et-eyebrow" data-et-t="discoverEyebrow">THE HERITAGE COLLECTION</div><h2 data-et-t="discoverTitle">Explore heritage destinations</h2><p data-et-t="discoverDesc">Browse monuments by location, architecture or historical period.</p></div></div>
+          <div class="et-tools"><input class="et-input" type="search" id="etSearch" data-et-placeholder="searchPlaceholder" placeholder="Search monuments, cities or historical periods…" aria-label="Search monuments"/><select class="et-select" id="etRegion" aria-label="Filter monuments by region"><option value="all" data-et-t="regionAll">All regions</option><option value="North" data-et-t="regionNorth">North India</option><option value="West" data-et-t="regionWest">West India</option><option value="Central" data-et-t="regionCentral">Central India</option></select></div>
+          <div class="et-cards" id="etAllMonuments"></div>
+        </section>
+        <section class="et-view" data-et-panel="planner" role="tabpanel" hidden>
+          <div class="et-section-heading"><div><div class="et-eyebrow" data-et-t="planEyebrow">BUILD AN EDUCATIONAL EXPERIENCE</div><h2 data-et-t="planTitle">Design a field trip</h2><p data-et-t="planDesc">Plan a school visit with a proposed schedule, costs and curriculum goals.</p></div></div>
+          <div class="et-two-col"><div class="et-panel"><h3 data-et-t="detailsTitle">Trip information</h3>
+            <form id="etTripForm">
+              <div class="et-form-grid">
+                <div class="et-field et-full"><label for="etMonument" data-et-t="destination">Destination monument</label><select id="etMonument" class="et-select" required></select></div>
+                <div class="et-field"><label for="etDate" data-et-t="visitDate">Preferred visit date</label><input class="et-input" type="date" id="etDate" required /></div>
+                <div class="et-field"><label for="etGrade" data-et-t="grade">Grade level</label><select class="et-select" id="etGrade"><option>Class 6–8</option><option>Class 9–10</option><option>Class 11–12</option><option>Mixed grades</option></select></div>
+                <div class="et-field"><label for="etStudents" data-et-t="students">Number of students</label><input class="et-input" type="number" id="etStudents" value="40" min="1" max="500" required /></div>
+                <div class="et-field"><label for="etTeachers" data-et-t="teachers">Accompanying teachers</label><input class="et-input" type="number" id="etTeachers" value="4" min="1" max="50" required /></div>
+                <div class="et-field et-full"><label for="etSchool" data-et-t="school">School / Institution name</label><input class="et-input" id="etSchool" maxlength="100" placeholder="Name of your institution" required /></div>
+                <div class="et-field et-full"><label for="etGoal" data-et-t="goal">Educational objectives</label><textarea class="et-textarea" id="etGoal" maxlength="600">Explore India's architectural heritage, observe historical evidence, and understand the significance of protected monuments.</textarea></div>
+                <div class="et-field"><label for="etTicket" data-et-t="ticketCost">Estimated entry fee per student (₹)</label><input class="et-input" id="etTicket" type="number" min="0" max="100000" value="0" /></div>
+                <div class="et-field"><label for="etTransport" data-et-t="transportCost">Total transport estimate (₹)</label><input class="et-input" id="etTransport" type="number" min="0" max="10000000" value="6000" /></div>
+                <div class="et-field"><label for="etFood" data-et-t="foodCost">Food cost per student (₹)</label><input class="et-input" id="etFood" type="number" min="0" max="100000" value="150" /></div>
+                <div class="et-field"><label for="etOther" data-et-t="otherCost">Other / contingency (₹)</label><input class="et-input" id="etOther" type="number" min="0" max="10000000" value="1000" /></div>
+              </div>
+              <div class="et-disclaimer" data-et-t="priceNote">Fees are estimates that you enter yourself. Verify actual monument access, school group rules, tickets and availability through official channels. No reservation or payment is made here.</div>
+              <button type="submit" class="et-button" data-et-t="savePlan">Save Draft &amp; Generate Report ↗</button>
+            </form></div>
+            <div><div class="et-panel"><div class="et-preview-photo" id="etPlanPhoto"></div><h3 id="etPlanName" style="margin-bottom:8px">Red Fort</h3><div class="et-mini-info"><span id="etPlanLocation"></span><br/><b data-et-t="focus">Learning focus:</b> <span id="etPlanActivity"></span></div></div>
+            <div class="et-panel" style="margin-top:17px"><h3 data-et-t="budgetTitle">Live budget estimate</h3><div class="et-budget-row"><span data-et-t="admission">Admission</span><b id="etBudgetTicket">₹0</b></div><div class="et-budget-row"><span data-et-t="transport">Transport</span><b id="etBudgetTransport">₹6,000</b></div><div class="et-budget-row"><span data-et-t="food">Food</span><b id="etBudgetFood">₹6,000</b></div><div class="et-budget-row"><span data-et-t="other">Other</span><b id="etBudgetOther">₹1,000</b></div><div class="et-budget-row"><b data-et-t="total">Estimated total</b><strong id="etBudgetTotal">₹13,000</strong></div><div class="et-disclaimer" style="margin-bottom:0" data-et-t="sampleCost">For planning only. These values are not official prices.</div></div></div>
+          </div>
+        </section>
+        <section class="et-view" data-et-panel="saved" role="tabpanel" hidden>
+          <div class="et-section-heading"><div><h2 data-et-t="myTrips">My saved field trips</h2><p data-et-t="savedDesc">Drafts are saved in this browser only. They are not booked or sent to any monument.</p></div><button class="et-button" type="button" data-et-go="planner" data-et-t="newPlan">+ Create Plan</button></div><div class="et-list" id="etSavedList"></div>
+        </section>
+        <section class="et-view" data-et-panel="report" role="tabpanel" hidden>
+          <div class="et-section-heading"><div><div class="et-eyebrow" data-et-t="reportEyebrow">VIRASAT EDUTRIPS / PROPOSED TRIP</div><h2 data-et-t="reportTitle">Educational field trip report</h2><p data-et-t="reportDesc">A printable draft proposal for school review.</p></div><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="et-button" type="button" id="etPrint" data-et-t="print">Print / Save PDF ↗</button><button class="et-button et-outline" type="button" data-et-go="saved" data-et-t="backPlans">My Plans</button></div></div>
+          <div class="et-report" id="etReportBody"></div>
+        </section>
+        <div class="et-toast" id="etToast" role="status" aria-live="polite" hidden></div>
+      </div>
     </div>
 
     <!-- START OF EXPLORE INDIA MAP SECTION -->
@@ -15994,7 +16392,7 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
             const captchaText = {
               required: {en:'Complete the security check first.',hi:'पहले सुरक्षा जाँच पूरी करें।',sa:'प्रथमं सुरक्षापरीक्षणं समापयतु।'},
               config: {en:'Security verification is not configured yet. Contact the site administrator.',hi:'सुरक्षा सत्यापन अभी कॉन्फ़िगर नहीं किया गया है।',sa:'सुरक्षापरीक्षणस्य विन्यासः अद्यापि न कृतः।'},
-failed: {en:'Security check failed or expired. Please try again.',hi:'सुरक्षा जाँच विफल हुई या समय समाप्त हो गया। पुनः प्रयास करें।',sa:'सुरक्षापरीक्षणं विफलम् अथवा समाप्तम्। पुनः प्रयतताम्।'}
+              failed: {en:'Security check failed or expired. Please try again.',hi:'सुरक्षा जाँच विफल हुई या समय समाप्त हो गया। पुनः प्रयास करें।',sa:'सुरक्षापरीक्षणं विफलम् अथवा समाप्तम्। पुनः प्रयतताम्।'}
             };
             function captchaMessage(key) {
               const lang = (document.documentElement.lang || 'en').toLowerCase();
@@ -16994,7 +17392,7 @@ failed: {en:'Security check failed or expired. Please try again.',hi:'सुर�
             if (typeof atlasLabels === 'function') atlasLabels();
             const info = document.getElementById('stateInfo');
             if (!info) return;
-if (lastRegionKey && STATE_DATA[lastRegionKey]) { renderStateProfile(lastRegionKey); return; }
+            if (lastRegionKey && STATE_DATA[lastRegionKey]) { renderStateProfile(lastRegionKey); return; }
             if (info.querySelector('.map-loading-msg')) { info.innerHTML = `<div class="map-loading-msg">${t('map_loading')}</div>`; return; }
             if (info.querySelector('.empty-state') && !info.querySelector('.state-profile') && !/<b>/.test(info.innerHTML)) {
                 info.innerHTML = stateEmptyHTML();
@@ -17473,6 +17871,7 @@ if (lastRegionKey && STATE_DATA[lastRegionKey]) { renderStateProfile(lastRegionK
             ancient:   { title:'ANCIENT TRANSLATOR',kicker:'04 / SCRIPT',           meta:'BRAHMI / KHAROSTHI / LANGUAGE' },
             map:       { title:'EXPLORE INDIA',    kicker:'05 / PLACES',            meta:'STATES / PEOPLE / HERITAGE' },
             tourism:   { title:'TOURISM',          kicker:'06 / TRAVEL',            meta:'PLACES / JOURNEYS / HERITAGE' },
+            edutrips:  { title:'EDUTRIPS', kicker:'VIRASAT / EDUCATIONAL VISITS', meta:'MONUMENTS / PLANNING / LEARNING' },
             vedaverse: { title:'VEDAVERSE', kicker:'LEARN & PLAY / VEDIC LIBRARY', meta:'FOUR VEDAS / TEXTS / TRADITIONS' },
             education: { title:'VIRASAT EDUCATION', kicker:'EDU / LEARN',           meta:'WATCH / EXPLORE / UNDERSTAND' },
             history:   { title:'INDIA THROUGH TIME', kicker:'HISTORY / CHRONICLE',   meta:'KINGDOMS / RIVALRIES / TURNING POINTS' },
@@ -17994,7 +18393,7 @@ if (clean === 'bharatiya-calendar') {
                     if (win) win.style.display = 'block';
                     if (grid) grid.style.display = 'none';
                     toast(t('toast_game_win_main'), t('toast_game_win_sub'));
-}, 500);
+                }, 500);
             }
         }
 
@@ -18994,7 +19393,7 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
 <script id="virasatUniversalSearchScript">
 (function(){
     const btn = document.getElementById('globalSearchBtn');
-const overlay = document.getElementById('globalSearchOverlay');
+    const overlay = document.getElementById('globalSearchOverlay');
     const input = document.getElementById('globalSearchInput');
     const closeBtn = document.getElementById('globalSearchClose');
     const output = document.getElementById('globalSearchOutput');
@@ -19993,7 +20392,8 @@ const overlay = document.getElementById('globalSearchOverlay');
                 requestAnimationFrame(updateDepthStage);
             }
         }
-window.addEventListener('scroll', scheduleDepth, { passive: true });
+
+        window.addEventListener('scroll', scheduleDepth, { passive: true });
         window.addEventListener('resize', scheduleDepth, { passive: true });
         updateDepthStage();
 
@@ -20319,6 +20719,7 @@ const EXTRA = {
   "Festivals":{hi:"त्योहार",sa:"उत्सवाः"},
   "Home":{hi:"होम",sa:"गृहपृष्ठम्"},
   "Discover Culture":{hi:"संस्कृति खोजें",sa:"संस्कृतिम् अन्विष्यताम्"},
+  "Discover India":{hi:"भारत को जानें",sa:"भारतं अन्विष्यताम्"},
   "All Recipes":{hi:"सभी व्यंजन",sa:"सर्वाणि व्यञ्जनानि"},
   "By Region":{hi:"क्षेत्र के अनुसार",sa:"प्रदेशानुसारम्"},
   "By Course":{hi:"कोर्स के अनुसार",sa:"भोजनक्रमानुसारम्"},
@@ -20993,7 +21394,7 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
             if (Math.abs(dy) > Math.abs(dx)) { drag = null; return; }
             const dir = single ? (dx < 0 ? 1 : -1) : (drag.x0 >= drag.spine ? 1 : -1);
             if ((dir === 1 && (dx > 0 || pos >= maxPos())) || (dir === -1 && (dx < 0 || pos <= 0))) { drag = null; return; }
-const i = dir === 1 ? pos : pos - 1;
+            const i = dir === 1 ? pos : pos - 1;
             Object.assign(drag, { active: true, dir, i, leaf: leaves[i], reach: Math.max(pageWidth() * .55, Math.abs(drag.x0 - drag.spine)) });
             clearTimeout(drag.leaf._kbSettle);
             drag.leaf.classList.add('is-turning');
@@ -21993,7 +22394,8 @@ const i = dir === 1 ? pos : pos - 1;
     document.body.appendChild(fx);
     return fx;
   }
-function restartHomeArrival(home){
+
+  function restartHomeArrival(home){
     if (!home) return;
     home.classList.remove('homefx-arrival');
     void home.offsetWidth;
@@ -23992,7 +24394,7 @@ if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',
 </style>
 <script id="virasatRealIndian3DControls">
 (function(){
-function start(){
+ function start(){
   const page=document.getElementById('page-bharatiya-calendar');
   if(!page)return;
   const panel=page.querySelector('.ic-dimensional-panel');
@@ -24992,7 +25394,7 @@ function schedule(){if(pending)return;pending=true;requestAnimationFrame(()=>{pe
 function speak(btn,section){const l=lang();const voiceLang=l==='hi'?'hi-IN':l==='sa'?'sa-IN':'en-IN';
  const content=Array.from(section.querySelectorAll('h3,h4,p,li,blockquote,.vb-note,.vx-paper h3,.vx-paper p')).filter(x=>!x.closest('button,.vl-reading-bar')).map(x=>x.textContent.trim()).filter(Boolean).join('. ').slice(0,4800);
  if(!content)return;if(window.VirasatNarration?.isSupported){window.VirasatNarration.speak(btn,content,voiceLang);return;}
-if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(content);const voices=speechSynthesis.getVoices();const v=voices.find(x=>x.lang.toLowerCase().startsWith(l))||(l==='sa'?voices.find(x=>x.lang.toLowerCase().startsWith('hi')):null);u.lang=v?.lang||voiceLang;if(v)u.voice=v;u.rate=.9;speechSynthesis.speak(u);
+ if(!('speechSynthesis'in window))return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(content);const voices=speechSynthesis.getVoices();const v=voices.find(x=>x.lang.toLowerCase().startsWith(l))||(l==='sa'?voices.find(x=>x.lang.toLowerCase().startsWith('hi')):null);u.lang=v?.lang||voiceLang;if(v)u.voice=v;u.rate=.9;speechSynthesis.speak(u);
 }
 function installReadingButtons(){const chapter=document.getElementById('vbChapter');if(!chapter)return;
  const sections=[...chapter.querySelectorAll('.vb-reader > section,.vb-objectives,.vb-note')];
@@ -25017,117 +25419,57 @@ translate();
  rail.addEventListener('scroll',update,{passive:true});new ResizeObserver(update).observe(rail);new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});update();
 })();
 </script>
+<script id="virasatEduTripsNativeScript">
 
-<!-- VIRASAT MOTION EDITION: additive effects only. No replacements of existing components. -->
-<style id="virasatLandoMotion2026">
-:root{--ln-ease:cubic-bezier(.16,1,.3,1);--ln-gold:#d4af37}
-/* Oversized magazine-style entrances, without changing text nodes or translations. */
-html.ln-motion-ready:not(.virasat-lite-motion):not(.virasat-guest-mode) #page-home.active .vx-hero-copy > .vx-kicker{animation:lnRise .82s var(--ln-ease) .04s both!important}
-html.ln-motion-ready:not(.virasat-lite-motion):not(.virasat-guest-mode) #page-home.active .vx-hero-copy > h1{animation:lnHeadline 1.17s var(--ln-ease) .13s both!important}
-html.ln-motion-ready:not(.virasat-lite-motion):not(.virasat-guest-mode) #page-home.active .vx-hero-copy > p{animation:lnRise .92s var(--ln-ease) .37s both!important}
-html.ln-motion-ready:not(.virasat-lite-motion):not(.virasat-guest-mode) #page-home.active .vx-hero-actions{animation:lnRise .84s var(--ln-ease) .49s both!important}
-html.ln-motion-ready:not(.virasat-lite-motion):not(.virasat-guest-mode) #page-home.active .vx-hero-micro{animation:lnRise .84s var(--ln-ease) .6s both!important}
-@keyframes lnRise{from{opacity:0;translate:0 32px}to{opacity:1;translate:0 0}}
-@keyframes lnHeadline{0%{opacity:0;clip-path:inset(0 0 95% 0);translate:0 52px}100%{opacity:1;clip-path:inset(0 0 0 0);translate:0 0}}
-/* A photographic reveal that does not replace existing hover transforms. */
-html.ln-motion-ready:not(.virasat-lite-motion):not(.virasat-guest-mode) #page-home.active .vx-original-hero-image{animation:lnPhotoReveal 1.55s var(--ln-ease) .12s both}
-@keyframes lnPhotoReveal{0%{opacity:.2;clip-path:inset(0 0 100% 0)}100%{opacity:1;clip-path:inset(0 0 0 0)}}
-/* Heading masks are opt-in only: existing UI/form headings remain untouched. */
-html.ln-motion-ready:not(.virasat-lite-motion) .page.active .ln-heading:not(.ln-visible){opacity:0;clip-path:inset(0 0 95% 0);translate:0 34px}
-html.ln-motion-ready:not(.virasat-lite-motion) .page.active .ln-heading{transition:opacity .76s ease,clip-path 1.08s var(--ln-ease),translate 1.08s var(--ln-ease);transition-delay:var(--ln-delay,0ms)}
-html.ln-motion-ready .page.active .ln-heading.ln-visible{opacity:1;clip-path:inset(0 0 0 0);translate:0 0}
-/* Editorial tiles enter in staggered waves; transform remains owned by original site. */
-html.ln-motion-ready:not(.virasat-lite-motion) #page-home.active .ln-tile:not(.ln-visible){opacity:0;translate:0 34px}
-html.ln-motion-ready:not(.virasat-lite-motion) #page-home.active .ln-tile{transition:translate .94s var(--ln-ease),opacity .78s ease,box-shadow .45s var(--ln-ease);transition-delay:var(--ln-delay,0ms)}
-html.ln-motion-ready #page-home.active .ln-tile.ln-visible{opacity:1;translate:0 0}
-/* Card corner arrows are decorative and do not intercept navigation. */
-#page-home .vx-tile .ln-card-arrow{position:absolute;top:15px;right:17px;z-index:5;display:grid;place-items:center;width:32px;height:32px;border:1px solid rgba(251,223,153,.52);border-radius:50%;background:rgba(9,7,5,.34);color:#ffe0a0;font:600 21px/1 'DM Sans',sans-serif;pointer-events:none;opacity:.68;scale:.82;translate:-4px 4px;transition:opacity .42s var(--ln-ease),scale .42s var(--ln-ease),translate .42s var(--ln-ease)}
-@media(hover:hover) and (pointer:fine){
-  #page-home .vx-tile:hover .ln-card-arrow{opacity:1;scale:1;translate:0 0}
-  #page-home .vx-tile:hover{box-shadow:0 19px 55px rgba(0,0,0,.34),inset 0 0 0 1px rgba(212,175,55,.39)}
-  #page-home .vx-tile img{transition:transform 1s var(--ln-ease)!important}
-  #page-home .vx-tile:hover img{transform:scale(1.09)!important}
-  .page .btn.primary:hover{scale:1.027;box-shadow:0 14px 38px rgba(212,175,55,.18)}
-  .page .btn.primary{transition:scale .34s var(--ln-ease),box-shadow .34s var(--ln-ease),background .25s ease}
-  .navlinks a[data-page]:hover{text-shadow:0 0 20px rgba(235,194,92,.38)}
-  .navlinks a[data-page]{transition:text-shadow .3s ease,color .3s ease}
-  .page .story-card:hover,.page .education-track:hover,.page .object-card:hover{translate:0 -4px;transition:translate .4s var(--ln-ease)}
-}
-/* Desktop-only, subtle scroll parallax; the map and 3D games are deliberately excluded. */
-@media(min-width:901px) and (prefers-reduced-motion:no-preference){
- #page-home .ln-photo-parallax{translate:0 var(--ln-photo-y,0px);will-change:auto}
- #page-home .vx-hero-word{translate:var(--ln-hero-word-x,0px) var(--ln-hero-word-y,0px);transition:translate .55s ease-out}
- #page-home .vx-hero-stage{translate:var(--ln-hero-stage-x,0px) var(--ln-hero-stage-y,0px);transition:translate .6s ease-out}
-}
-/* No new animation on input focus, map interactions, or gaming canvases. */
-@media(max-width:900px){#page-home .vx-tile .ln-card-arrow{width:27px;height:27px;font-size:18px;top:12px;right:12px}}
-@media(prefers-reduced-motion:reduce){
- #page-home .vx-hero-copy>* ,#page-home .vx-original-hero-image{animation:none!important;clip-path:none!important}
- .ln-heading,.ln-tile{opacity:1!important;translate:none!important;clip-path:none!important;transition:none!important}
- #page-home .ln-photo-parallax,#page-home .vx-hero-word,#page-home .vx-hero-stage{translate:none!important;transition:none!important}
- .ln-card-arrow{transition:none!important}
-}
-</style>
-<script id="virasatLandoMotionController2026">
+/* Native Virasat EduTrips: namespaced, no globals and no auth/router modifications. */
 (function(){
- 'use strict';
- const html=document.documentElement;
- const home=document.getElementById('page-home');
- if(!home)return;
- const reduced=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
- const lite=html.classList.contains('virasat-lite-motion')||reduced;
- const finePointer=window.matchMedia('(hover:hover) and (pointer:fine) and (min-width:901px)').matches;
- const items=[];
- // Leave all translated strings and interactive components exactly as they were.
- document.querySelectorAll('#page-home .vx-worlds h2,#page-home .vx-manifest h2,#page-home .vx-collection h2,#page-home .vx-dual h2,#page-home .vx-cinema h2,#page-home .vx-section-title h2,#page-home .vx-dashboard-strip h2,.page:not(#page-home) > .section:first-of-type .sectionhead h2').forEach((node,index)=>{
-   if(node.closest('.modal,.vg-tour'))return;
-   node.classList.add('ln-heading');node.style.setProperty('--ln-delay',((index%3)*65)+'ms');items.push(node);
- });
- home.querySelectorAll('.vx-tile,.vx-dual-panel').forEach((card,index)=>{
-   card.classList.add('ln-tile');card.style.setProperty('--ln-delay',((index%4)*66)+'ms');items.push(card);
-   if(card.classList.contains('vx-tile')&&!card.querySelector('.ln-card-arrow')){
-     const icon=document.createElement('i');icon.className='ln-card-arrow';icon.setAttribute('aria-hidden','true');icon.textContent='↗';card.appendChild(icon);
-   }
- });
- function visible(el){el.classList.add('ln-visible')}
- if(!lite && 'IntersectionObserver' in window){
-   const io=new IntersectionObserver(entries=>{
-     for(const entry of entries){if(entry.isIntersecting){visible(entry.target);io.unobserve(entry.target)}}
-   },{threshold:0,rootMargin:'0px 0px -2% 0px'});
-   items.forEach(el=>io.observe(el));
- }else items.forEach(visible);
- html.classList.add('ln-motion-ready');
- if(lite || !finePointer)return;
- const hero=home.querySelector('.vx-hero');
- if(hero){
-   let pointerFrame=0,px=0,py=0;
-   hero.addEventListener('pointermove',e=>{
-     const r=hero.getBoundingClientRect();
-     px=Math.max(-1,Math.min(1,((e.clientX-r.left)/Math.max(r.width,1)-0.5)*2));
-     py=Math.max(-1,Math.min(1,((e.clientY-r.top)/Math.max(r.height,1)-0.5)*2));
-     if(pointerFrame)return;
-     pointerFrame=requestAnimationFrame(()=>{pointerFrame=0;hero.style.setProperty('--ln-hero-word-x',(px*12).toFixed(1)+'px');hero.style.setProperty('--ln-hero-word-y',(py*8).toFixed(1)+'px');hero.style.setProperty('--ln-hero-stage-x',(px*-8).toFixed(1)+'px');hero.style.setProperty('--ln-hero-stage-y',(py*-6).toFixed(1)+'px')});
-   },{passive:true});
-   hero.addEventListener('pointerleave',()=>{hero.style.setProperty('--ln-hero-word-x','0px');hero.style.setProperty('--ln-hero-word-y','0px');hero.style.setProperty('--ln-hero-stage-x','0px');hero.style.setProperty('--ln-hero-stage-y','0px')});
- }
- const photos=Array.from(home.querySelectorAll('.vx-tile img,.vx-dual-panel img')).slice(0,16);
- photos.forEach(i=>i.classList.add('ln-photo-parallax'));
- let raf=0;
- function scrollPhotos(){raf=0;if(!home.classList.contains('active')||html.classList.contains('virasat-auth-locked')||html.classList.contains('virasat-guest-mode'))return;
-  const vh=window.innerHeight||800;
-  photos.forEach(img=>{
-    const box=img.getBoundingClientRect();
-    if(box.bottom<0||box.top>vh)return;
-    const center=(box.top+box.bottom)/2;
-    const y=Math.max(-11,Math.min(11,((vh/2-center)/vh)*22));
-    img.style.setProperty('--ln-photo-y',y.toFixed(1)+'px');
-  });
- }
- window.addEventListener('scroll',()=>{if(!raf)raf=requestAnimationFrame(scrollPhotos)},{passive:true});
- window.addEventListener('resize',()=>{if(!raf)raf=requestAnimationFrame(scrollPhotos)},{passive:true});
- // The native router continues to own transitions. No click interceptors are added.
- scrollPhotos();
+'use strict';
+const root=document.getElementById('etRoot');if(!root)return;
+const monuments=[
+{id:'redfort',name:'Red Fort',location:'Delhi',region:'North',period:'Mughal',activity:'Architecture & history',desc:'Explore the architectural legacy of Mughal-era Delhi and the fort’s later place in Indian national history.',image:'https://images.unsplash.com/photo-1595601982920-3da89d7ffbdf?auto=format&fit=crop&w=1000&q=85'},
+{id:'qutub',name:'Qutub Minar',location:'Delhi',region:'North',period:'Delhi Sultanate',activity:'Architecture & inscriptions',desc:'Study early Delhi Sultanate monuments, stone carving and architecture in the Qutb complex.',image:'https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=1000&q=85'},
+{id:'taj',name:'Taj Mahal',location:'Agra, Uttar Pradesh',region:'North',period:'Mughal',activity:'Geometry & craftsmanship',desc:'Discover Mughal art, geometric planning, marble craftsmanship and architectural symmetry.',image:'https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1000&q=85'},
+{id:'hawa',name:'Hawa Mahal',location:'Jaipur, Rajasthan',region:'West',period:'Rajput era',activity:'Climate-sensitive architecture',desc:'Examine the iconic façade and its relationship with traditional architecture and climate.',image:'https://images.unsplash.com/photo-1599661046827-dacff0c0f09a?auto=format&fit=crop&w=1000&q=85'},
+{id:'sanchi',name:'Sanchi Stupa',location:'Sanchi, Madhya Pradesh',region:'Central',period:'Ancient India',activity:'Buddhist art & symbolism',desc:'Learn about Buddhist heritage, sculpted gateways and the evolution of the Sanchi complex.',image:'https://images.unsplash.com/photo-1620766165457-a8025baa82c2?auto=format&fit=crop&w=1000&q=85'},
+{id:'gateway',name:'Gateway of India',location:'Mumbai, Maharashtra',region:'West',period:'Colonial era',activity:'Urban & colonial history',desc:'Explore the historic waterfront and discuss colonial-era architecture and urban change.',image:'https://images.unsplash.com/photo-1570168007204-dfb528c6958f?auto=format&fit=crop&w=1000&q=85'}];
+const $=id=>root.querySelector('#'+id), money=n=>'₹'+Math.round(Number(n)||0).toLocaleString('en-IN');
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const TEXT={
+ en:{nav:'EduTrips Planner',eyebrow:'VIRASAT / HERITAGE BEYOND CLASSROOMS',heroTitle:'Classrooms end.',heroAccent:'Heritage begins.',heroDesc:"Plan meaningful school visits to India's living monuments. Build itineraries, estimate costs, prepare learning activities and save printable trip proposals.",tag1:'✦ Teacher planning workspace',tag2:'◇ No booking subscription',tag3:'▣ Printable reports',tabOverview:'◈ Overview',tabDiscover:'⌖ Explore Monuments',tabPlanner:'✎ Plan a Trip',tabSaved:'▣ My Plans',statMonuments:'Featured monuments',statPlans:'Saved trip plans',statResources:'Planning resources',discoverEyebrow:'THE HERITAGE COLLECTION',featuredTitle:'Where will history take your class?',featuredDesc:'Start with a monument, then create an educational field-trip plan.',viewAll:'Explore all ↗',resourceTitle:'Designed for educators',resourceDesc:'Prepare learning objectives, logistics and follow-up activities in one place.',resourceOne:'Smart trip planner',resourceOneDesc:'Set destinations, group size, preferred date and learning goals.',resourceTwo:'Budget estimates',resourceTwoDesc:'Add your own ticket, transport and food figures. No invented live prices.',resourceThree:'Reports & activities',resourceThreeDesc:'Print itineraries, safety checklists and a student heritage quest.',notice:"EduTrips is a planning tool, not a reservation agency. Trips remain drafts until your school and the monument's official authority confirm arrangements.",discoverTitle:'Explore heritage destinations',discoverDesc:'Browse monuments by location, architecture or historical period.',searchPlaceholder:'Search monuments, cities or historical periods…',regionAll:'All regions',regionNorth:'North India',regionWest:'West India',regionCentral:'Central India',planEyebrow:'BUILD AN EDUCATIONAL EXPERIENCE',planTitle:'Design a field trip',planDesc:'Plan a school visit with a proposed schedule, costs and curriculum goals.',detailsTitle:'Trip information',destination:'Destination monument',visitDate:'Preferred visit date',grade:'Grade level',students:'Number of students',teachers:'Accompanying teachers',school:'School / Institution name',goal:'Educational objectives',ticketCost:'Estimated entry fee per student (₹)',transportCost:'Total transport estimate (₹)',foodCost:'Food cost per student (₹)',otherCost:'Other / contingency (₹)',priceNote:'Fees are estimates that you enter yourself. Verify actual monument access, school group rules, tickets and availability through official channels. No reservation or payment is made here.',savePlan:'Save Draft & Generate Report ↗',focus:'Learning focus:',budgetTitle:'Live budget estimate',admission:'Admission',transport:'Transport',food:'Food',other:'Other',total:'Estimated total',sampleCost:'For planning only. These values are not official prices.',myTrips:'My saved field trips',savedDesc:'Drafts are saved in this browser only. They are not booked or sent to any monument.',newPlan:'+ Create Plan',reportEyebrow:'VIRASAT EDUTRIPS / PROPOSED TRIP',reportTitle:'Educational field trip report',reportDesc:'A printable draft proposal for school review.',print:'Print / Save PDF ↗',backPlans:'My Plans',planVisit:'Plan a visit →',noMatches:'No monuments match your search.',noPlans:'No saved plans yet. Create a proposed field trip to get started.',viewReport:'View report',remove:'Delete',draft:'DRAFT · NOT BOOKED',confirmDelete:'Delete this local draft?',saved:'Trip plan saved locally. No booking has been made.',storageError:'Browser storage is unavailable. Your trip cannot be saved.',invalidStudents:'Choose between 1 and 500 students.',reportDetails:'Visit details',institution:'Institution',preferred:'Preferred date',participants:'Participants',bookingStatus:'Booking status',objective:'Educational objective',schedule:'Sample itinerary',budget:'Estimated budget',safety:'Pre-trip safety checklist',heritageQuest:'Student Heritage Quest',consent:'Parent / guardian consent template',consentBody:'Our school proposes a supervised heritage visit. Final schedules, costs, permissions and safety details must be confirmed by the school before travel.',sign:'Parent/guardian name and signature: __________________________',reportNote:'This is a draft plan, not a confirmed booking. Times are sample suggestions. Contact the monument authority and follow school safeguarding procedures.',reportSafe:['Obtain school approval and parent/guardian consent','Verify official access, group policies and admission charges','Confirm transport, accessibility, supervision and emergency contacts','Prepare first-aid arrangements and student groups','Complete headcounts and safety briefing'],quest:['Sketch an architectural detail and label its purpose','Identify two ways the monument reflects its era','Find and explain a heritage conservation notice','Write a reflection about what you learned'],scheduleItems:['Assembly and safety briefing','Arrival, entry and orientation','Guided observation and learning activity','Reflection, headcount and departure']},
+ hi:{nav:'शैक्षिक भ्रमण योजना',eyebrow:'विरासत / कक्षा से आगे',heroTitle:'कक्षा से बाहर।',heroAccent:'विरासत के करीब।',heroDesc:'भारत के ऐतिहासिक स्मारकों की शैक्षिक यात्रा की योजना बनाएँ, बजट का अनुमान लगाएँ और रिपोर्ट तैयार करें।',tag1:'✦ शिक्षक योजना केंद्र',tag2:'◇ कोई सदस्यता नहीं',tag3:'▣ मुद्रण योग्य रिपोर्ट',tabOverview:'◈ परिचय',tabDiscover:'⌖ स्मारक खोजें',tabPlanner:'✎ यात्रा योजना',tabSaved:'▣ मेरी योजनाएँ',statMonuments:'प्रमुख स्मारक',statPlans:'सहेजी गई योजनाएँ',statResources:'योजना संसाधन',discoverEyebrow:'ऐतिहासिक धरोहरें',featuredTitle:'अपनी कक्षा को कहाँ ले जाएँगे?',featuredDesc:'स्मारक चुनकर शैक्षिक यात्रा की योजना बनाएँ।',viewAll:'सभी देखें ↗',resourceTitle:'शिक्षकों के लिए',resourceDesc:'शिक्षण लक्ष्य, यात्रा व्यवस्था और गतिविधियाँ एक जगह।',resourceOne:'यात्रा योजनाकार',resourceOneDesc:'स्थान, छात्र संख्या, तारीख और लक्ष्य तय करें।',resourceTwo:'बजट अनुमान',resourceTwoDesc:'अपनी टिकट, परिवहन और भोजन की राशि भरें।',resourceThree:'रिपोर्ट और गतिविधियाँ',resourceThreeDesc:'यात्रा कार्यक्रम और सुरक्षा सूची प्रिंट करें।',notice:'EduTrips केवल यात्रा योजना बनाने का साधन है, टिकट बुकिंग सेवा नहीं। अंतिम अनुमति विद्यालय और स्मारक प्राधिकरण से लें।',discoverTitle:'ऐतिहासिक स्थलों को खोजें',discoverDesc:'शहर, वास्तुकला या ऐतिहासिक काल के अनुसार खोजें।',searchPlaceholder:'स्मारक, शहर या इतिहास खोजें…',regionAll:'सभी क्षेत्र',regionNorth:'उत्तर भारत',regionWest:'पश्चिम भारत',regionCentral:'मध्य भारत',planEyebrow:'शैक्षिक अनुभव तैयार करें',planTitle:'शैक्षिक भ्रमण की योजना',planDesc:'कार्यक्रम, खर्च और पाठ्यक्रम के लक्ष्य तैयार करें।',detailsTitle:'यात्रा विवरण',destination:'गंतव्य स्मारक',visitDate:'प्रस्तावित तारीख',grade:'कक्षा स्तर',students:'छात्रों की संख्या',teachers:'साथ जाने वाले शिक्षक',school:'विद्यालय का नाम',goal:'शैक्षिक उद्देश्य',ticketCost:'प्रति छात्र अनुमानित प्रवेश शुल्क (₹)',transportCost:'कुल परिवहन खर्च (₹)',foodCost:'प्रति छात्र भोजन (₹)',otherCost:'अन्य खर्च (₹)',priceNote:'सभी शुल्क आपके अनुमान हैं। वास्तविक दरें, पहुँच और अनुमति आधिकारिक स्रोतों से जाँचें। यहाँ कोई बुकिंग या भुगतान नहीं होता।',savePlan:'योजना सहेजें और रिपोर्ट बनाएँ ↗',focus:'अध्ययन का विषय:',budgetTitle:'अनुमानित बजट',admission:'प्रवेश',transport:'परिवहन',food:'भोजन',other:'अन्य',total:'कुल अनुमान',sampleCost:'ये आधिकारिक दरें नहीं हैं।',myTrips:'मेरी सहेजी योजनाएँ',savedDesc:'योजनाएँ केवल इस ब्राउज़र में सहेजी जाती हैं। यह पुष्टि की गई बुकिंग नहीं है।',newPlan:'+ नई योजना',reportEyebrow:'विरासत / प्रस्तावित यात्रा',reportTitle:'शैक्षिक भ्रमण रिपोर्ट',reportDesc:'विद्यालय की समीक्षा के लिए प्रारूप।',print:'प्रिंट / PDF ↗',backPlans:'मेरी योजनाएँ',planVisit:'यात्रा की योजना →',noMatches:'कोई स्मारक नहीं मिला।',noPlans:'अभी कोई योजना नहीं है। पहले यात्रा की योजना बनाएँ।',viewReport:'रिपोर्ट देखें',remove:'हटाएँ',draft:'प्रारूप · बुक नहीं',confirmDelete:'यह प्रारूप हटाएँ?',saved:'योजना सहेजी गई। बुकिंग नहीं हुई है।',storageError:'ब्राउज़र में योजना सहेजी नहीं जा सकी।',invalidStudents:'1 से 500 छात्र चुनें।',reportDetails:'यात्रा विवरण',institution:'विद्यालय',preferred:'प्रस्तावित तारीख',participants:'भाग लेने वाले',bookingStatus:'बुकिंग स्थिति',objective:'शैक्षिक उद्देश्य',schedule:'नमूना यात्रा कार्यक्रम',budget:'अनुमानित बजट',safety:'सुरक्षा जाँच सूची',heritageQuest:'विद्यार्थी विरासत गतिविधियाँ',consent:'अभिभावक अनुमति प्रारूप',consentBody:'विद्यालय एक पर्यवेक्षित शैक्षिक भ्रमण का प्रस्ताव करता है। यात्रा और सुरक्षा का अंतिम निर्णय विद्यालय करेगा।',sign:'अभिभावक नाम और हस्ताक्षर: __________________',reportNote:'यह केवल यात्रा की योजना है। वास्तविक बुकिंग या प्रवेश की पुष्टि नहीं हुई है।',reportSafe:['विद्यालय और अभिभावकों की अनुमति लें','प्रवेश शुल्क और आधिकारिक नियम जाँचें','परिवहन व आपातकालीन संपर्क तय करें','प्राथमिक उपचार एवं छात्र समूह तैयार करें','उपस्थिति एवं सुरक्षा निर्देश दें'],quest:['किसी वास्तुकला विशेषता का चित्र बनाएँ','स्मारक का ऐतिहासिक काल बताएँ','संरक्षण सूचना का उद्देश्य समझाएँ','अपने अनुभव पर विचार लिखें'],scheduleItems:['एकत्र होना और सुरक्षा निर्देश','पहुँचना, प्रवेश एवं परिचय','अवलोकन व शिक्षण गतिविधि','समीक्षा और वापसी']},
+ sa:{nav:'शैक्षिकयात्रायोजना',eyebrow:'विरासत् / कक्षातः बहिः',heroTitle:'कक्षायाः बहिः।',heroAccent:'धरोहरस्य समीपे।',heroDesc:'भारतस्य स्मारकेषु शैक्षिकयात्रां योजयतु, व्ययमनुमिनोतु, प्रतिवेदनं रचयतु।',tag1:'✦ शिक्षकयोजनाकेन्द्रम्',tag2:'◇ सदस्यता न आवश्यकी',tag3:'▣ मुद्रणीयं प्रतिवेदनम्',tabOverview:'◈ परिचयः',tabDiscover:'⌖ स्मारकाणि',tabPlanner:'✎ यात्रायोजना',tabSaved:'▣ मम योजनाः',statMonuments:'प्रमुखस्मारकाणि',statPlans:'रक्षितयोजनाः',statResources:'योजनासाधनानि',discoverEyebrow:'भारतस्य धरोहरः',featuredTitle:'क्व गमिष्यति भवतः कक्षा?',featuredDesc:'स्मारकं चित्वा शैक्षिकयात्रां योजयतु।',viewAll:'सर्वाणि पश्यतु ↗',resourceTitle:'शिक्षकाणां कृते',resourceDesc:'अध्ययनलक्ष्याणि यात्राव्यवस्था च एकत्र।',resourceOne:'यात्रायोजनाकारः',resourceOneDesc:'स्थानं, छात्रसङ्ख्यां, दिनाङ्कं च चिनोतु।',resourceTwo:'व्ययानुमानम्',resourceTwoDesc:'प्रवेशयानभोजनव्ययं स्वयम् प्रविशतु।',resourceThree:'प्रतिवेदनानि',resourceThreeDesc:'यात्राक्रमं सुरक्षासूचीं च मुद्रयतु।',notice:'EduTrips केवलं योजनासाधनम्, न तु आरक्षणसेवा। विद्यालयात् स्मारकप्राधिकरणाच्च अनुमतिं प्राप्नोतु।',discoverTitle:'धरोहरस्थानानि अन्विष्यतु',discoverDesc:'नगरम्, वास्तुकला, कालं वा अनुसृत्य अन्विष्यतु।',searchPlaceholder:'स्मारकं नगरं वा अन्विष्यतु…',regionAll:'सर्वे प्रदेशाः',regionNorth:'उत्तरभारतम्',regionWest:'पश्चिमभारतम्',regionCentral:'मध्यभारतम्',planEyebrow:'शैक्षिकानुभवस्य योजना',planTitle:'यात्रायोजनां रचयतु',planDesc:'दिनाङ्कं, व्ययं, अध्ययनलक्ष्यं च निश्चितु।',detailsTitle:'यात्राविवरणम्',destination:'गन्तव्यस्मारकम्',visitDate:'इष्टदिनाङ्कः',grade:'कक्षास्तरः',students:'छात्रसङ्ख्या',teachers:'सहगामिशिक्षकाः',school:'विद्यालयनाम',goal:'अध्ययनलक्ष्यम्',ticketCost:'प्रतिछात्रं प्रवेशव्ययः (₹)',transportCost:'यानस्य समग्रव्ययः (₹)',foodCost:'प्रतिछात्रं भोजनव्ययः (₹)',otherCost:'अन्यव्ययः (₹)',priceNote:'एते व्ययाः अनुमानमात्रम्। वास्तविकानि शुल्कानि नियमान् च अधिकृतस्रोतसि परीक्षताम्। अत्र आरक्षणं न क्रियते।',savePlan:'योजनां रक्षतु, प्रतिवेदनं रचयतु ↗',focus:'अध्ययनविषयः:',budgetTitle:'व्ययानुमानम्',admission:'प्रवेशः',transport:'यानम्',food:'भोजनम्',other:'अन्यः',total:'कुलव्ययः',sampleCost:'एते अधिकृतशुल्कानि न सन्ति।',myTrips:'मम रक्षितयोजनाः',savedDesc:'योजनाः अस्मिन् ब्राउज़रे एव रक्षिताः, आरक्षिताः न सन्ति।',newPlan:'+ नूतनयोजना',reportEyebrow:'विरासत् / प्रस्तावितयात्रा',reportTitle:'शैक्षिकयात्राप्रतिवेदनम्',reportDesc:'विद्यालयस्य समीक्षार्थं प्रारूपम्।',print:'मुद्रणम् / PDF ↗',backPlans:'मम योजनाः',planVisit:'यात्रां योजयतु →',noMatches:'स्मारकं न प्राप्तम्।',noPlans:'कापि योजना न रक्षिता।',viewReport:'प्रतिवेदनं पश्यतु',remove:'अपाकरोतु',draft:'प्रारूपम् · अनारक्षितम्',confirmDelete:'प्रारूपं अपाकरोतु?',saved:'योजना रक्षिता। आरक्षणं न जातम्।',storageError:'योजना रक्षितुं न शक्यते।',invalidStudents:'१ तः ५०० छात्रान् चिनोतु।',reportDetails:'यात्राविवरणम्',institution:'विद्यालयः',preferred:'दिनाङ्कः',participants:'सहभागिनः',bookingStatus:'आरक्षणस्थितिः',objective:'अध्ययनलक्ष्यम्',schedule:'यात्राक्रमः',budget:'व्ययानुमानम्',safety:'सुरक्षासूची',heritageQuest:'विद्यार्थिकार्यम्',consent:'अभिभावकानुमतिपत्रम्',consentBody:'विद्यालयः पर्यवेक्षितयात्रां प्रस्तावयति। अन्तिमव्यवस्था विद्यालयेनैव निश्चेया।',sign:'अभिभावकनाम हस्ताक्षरं च: ________________',reportNote:'इयं योजना एव, न आरक्षणनिश्चयः।',reportSafe:['विद्यालयस्य अभिभावकानां च अनुमतिः','प्रवेशनियमानां शुल्कस्य च परीक्षणम्','यानव्यवस्था तथा आपत्कालीनसम्पर्कः','प्राथमिकचिकित्सा एवं छात्रसमूहाः','उपस्थितिगणना तथा सुरक्षा'],quest:['वास्तुकलायाः एकं चित्रं लिखतु','स्मारकस्य ऐतिहासिककालं वर्णयतु','संरक्षणसूचनायाः अर्थं वदतु','स्वानुभवं लिखतु'],scheduleItems:['समागमः सुरक्षानिर्देशाश्च','आगमनम् प्रवेशः परिचयः','अवलोकनं शैक्षिककार्यम्','समीक्षा प्रत्यागमनं च']}
+};
+const lang=()=>{let l=(document.documentElement.lang||'en').toLowerCase().slice(0,2);return TEXT[l]?l:'en'}, t=k=>(TEXT[lang()][k]??TEXT.en[k]??k);
+const getPlans=()=>{try{const arr=JSON.parse(localStorage.getItem('virasat_edutrips_plans_v1')||'[]');return Array.isArray(arr)?arr:[]}catch{return []}};
+function storePlans(a){try{localStorage.setItem('virasat_edutrips_plans_v1',JSON.stringify(a));return true}catch{message(t('storageError'));return false}}
+function message(s){let e=$('etToast');e.textContent=s;e.hidden=false;clearTimeout(message.timer);message.timer=setTimeout(()=>{e.hidden=true},3600)}
+function moneyParts(){const num=id=>Math.max(0,Math.min(1e7,Number($(id).value)||0)),students=num('etStudents');const tickets=students*num('etTicket'),transport=num('etTransport'),food=students*num('etFood'),other=num('etOther');return {students,tickets,transport,food,other,total:tickets+transport+food+other}}
+function budget(){let b=moneyParts();for(const [id,v] of Object.entries({etBudgetTicket:b.tickets,etBudgetTransport:b.transport,etBudgetFood:b.food,etBudgetOther:b.other,etBudgetTotal:b.total}))$(id).textContent=money(v)}
+function refresh(){ $('etMonumentCount').textContent=monuments.length;$('etTripCount').textContent=getPlans().length; }
+function getM(id){return monuments.find(m=>m.id===id)||monuments[0]}
+function card(m){return `<article class="et-card"><div class="et-photo" style="background-image:linear-gradient(0deg,rgba(0,0,0,.28),transparent),url('${m.image}')"><span>${safe(m.period)}</span></div><div class="et-card-body"><h3>${safe(m.name)}</h3><div class="et-location">⌖ ${safe(m.location)}</div><p>${safe(m.desc)}</p><button type="button" class="et-button et-outline" data-et-monument="${safe(m.id)}">${safe(t('planVisit'))}</button></div></article>`}
+function renderMonuments(){const q=$('etSearch').value.toLowerCase().trim(),region=$('etRegion').value;const found=monuments.filter(m=>(region==='all'||region===m.region)&&[m.name,m.location,m.region,m.period,m.activity,m.desc].some(v=>v.toLowerCase().includes(q)));$('etAllMonuments').innerHTML=found.length?found.map(card).join(''):`<div class="et-empty">${safe(t('noMatches'))}</div>`;$('etFeatured').innerHTML=monuments.slice(0,3).map(card).join('')}
+function setView(view){const found=root.querySelector('[data-et-panel="'+view+'"]');if(!found)return;root.querySelectorAll('.et-view').forEach(el=>{el.hidden=el!==found;el.classList.remove('et-reveal')});found.classList.add('et-reveal');root.querySelectorAll('[data-et-view]').forEach(btn=>btn.setAttribute('aria-selected',String(btn.dataset.etView===view)));if(view==='saved')renderSaved();if(view==='planner')monumentChange();root.scrollIntoView({block:'start',behavior:'instant'})}
+function monumentChange(){const m=getM($('etMonument').value);$('etPlanPhoto').style.backgroundImage=`url('${m.image}')`;$('etPlanName').textContent=m.name;$('etPlanLocation').textContent=m.location;$('etPlanActivity').textContent=m.activity;budget()}
+function goMonument(id){$('etMonument').value=getM(id).id;setView('planner')}
+function save(e){e.preventDefault();if(!e.target.reportValidity())return;const b=moneyParts();if(b.students<1||b.students>500){message(t('invalidStudents'));return}const plan={id:Date.now().toString(36)+'-'+Math.random().toString(36).slice(2,7),monumentId:$('etMonument').value,date:$('etDate').value,grade:$('etGrade').value,students:b.students,teachers:Math.max(1,Math.round(Number($('etTeachers').value)||1)),school:$('etSchool').value.trim().slice(0,100),goal:$('etGoal').value.trim().slice(0,600),costs:b,created:new Date().toISOString()};if(!plan.school)return;const arr=getPlans();arr.unshift(plan);if(!storePlans(arr))return;refresh();report(plan);message(t('saved'))}
+function renderSaved(){const plans=getPlans();$('etSavedList').innerHTML=plans.length?plans.map(p=>{const m=getM(p.monumentId);return `<article class="et-saved"><div><div class="et-eyebrow">${safe(t('draft'))}</div><h3>${safe(m.name)} · ${safe(m.location)}</h3><p>${safe(p.school)} · ${safe(p.date)} · ${Math.round(Number(p.students)||0)} ${safe(t('students').toLowerCase())} · ${money(p.costs?.total||0)}</p></div><div class="et-saved-actions"><button class="et-button et-outline" type="button" data-et-report="${safe(p.id)}">${safe(t('viewReport'))}</button><button class="et-button et-outline" type="button" data-et-delete="${safe(p.id)}">${safe(t('remove'))}</button></div></article>`}).join(''):`<div class="et-empty">${safe(t('noPlans'))}</div>`}
+let currentReport=null;
+function reportHtml(p){const m=getM(p.monumentId);const cost=p.costs||{};const el=(key,val)=>`<div class="et-pair"><span>${safe(t(key))}</span><strong>${safe(val)}</strong></div>`;
+const itinerary=t('scheduleItems').map((title,i)=>`<li><b>${['09:00','10:00','10:30','12:15'][i]}</b> · ${safe(title)}</li>`).join('');const checks=list=>t(list).map(x=>`<label class="et-check"><input type="checkbox"/> <span>${safe(x)}</span></label>`).join('');
+return `<div class="et-disclaimer"><b>${safe(t('draft'))}</b> · ${safe(t('reportNote'))}</div><div class="et-report-grid"><section class="et-panel"><h3>${safe(t('reportDetails'))}</h3>${el('destination',m.name+' · '+m.location)}${el('institution',p.school)}${el('preferred',p.date)}${el('grade',p.grade)}${el('participants',(Number(p.students)||0)+' + '+(Number(p.teachers)||0))}${el('bookingStatus',t('draft'))}<h3 style="margin-top:23px">${safe(t('objective'))}</h3><p>${safe(p.goal)}</p><h3 style="margin-top:23px">${safe(t('schedule'))}</h3><ul>${itinerary}</ul></section><section class="et-panel"><h3>${safe(t('budget'))}</h3>${el('admission',money(cost.tickets))}${el('transport',money(cost.transport))}${el('food',money(cost.food))}${el('other',money(cost.other))}${el('total',money(cost.total))}<h3 style="margin-top:25px">${safe(t('safety'))}</h3>${checks('reportSafe')}</section></div><div class="et-report-grid" style="margin-top:18px"><section class="et-panel"><h3>${safe(t('heritageQuest'))}</h3>${checks('quest')}</section><section class="et-panel"><h3>${safe(t('consent'))}</h3><p>${safe(t('consentBody'))}</p><p><b>${safe(m.name)}</b> · ${safe(p.date)}</p><p style="margin-top:28px">${safe(t('sign'))}</p></section></div>`;
+}
+function report(p){currentReport=p;$('etReportBody').innerHTML=reportHtml(p);setView('report')}
+function printReport(){if(!currentReport)return;const w=window.open('','_blank');if(!w){message('Allow popups to print the report.');return}const title=safe('Virasat EduTrips · '+getM(currentReport.monumentId).name);const body=reportHtml(currentReport);const doc=`<!doctype html><html lang="${lang()}"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>${title}</title><style>body{font:14px/1.6 Arial,sans-serif;color:#222;margin:35px auto;max-width:1000px;padding:0 20px}h1,h2,h3{color:#553e16}.et-report-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px}.et-panel,.et-disclaimer{border:1px solid #c9ba91;border-radius:12px;padding:18px;margin:8px 0}.et-pair{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid #eee;padding:7px 0}.et-pair span{color:#555}.et-check{display:flex;gap:9px;margin:9px 0;align-items:flex-start}p,li{line-height:1.7}h3{margin:7px 0 12px}ul{padding-left:20px}button{display:none}@page{size:A4;margin:13mm}@media print{body{margin:0;padding:0;max-width:none}.et-report-grid{break-inside:avoid}}@media(max-width:700px){.et-report-grid{grid-template-columns:1fr}}</style></head><body><h1>VIRASAT · EDUTRIPS</h1><p>${safe(t('reportTitle'))} · ${safe(t('draft'))}</p>${body}</body></html>`;w.document.open();w.document.write(doc);w.document.close();w.focus();setTimeout(()=>w.print(),250)}
+function translations(){root.querySelectorAll('[data-et-t]').forEach(el=>{const k=el.dataset.etT;if(t(k))el.textContent=t(k)});root.querySelectorAll('[data-et-placeholder]').forEach(el=>el.placeholder=t(el.dataset.etPlaceholder));document.querySelectorAll('[data-page="edutrips"]').forEach(el=>el.textContent=t('nav'));renderMonuments();renderSaved();if(currentReport){$('etReportBody').innerHTML=reportHtml(currentReport)}}
+root.addEventListener('click',e=>{const item=e.target.closest('[data-et-view],[data-et-go],[data-et-monument],[data-et-report],[data-et-delete]');if(!item||!root.contains(item))return;if(item.dataset.etView)setView(item.dataset.etView);else if(item.dataset.etGo)setView(item.dataset.etGo);else if(item.dataset.etMonument)goMonument(item.dataset.etMonument);else if(item.dataset.etReport){const plan=getPlans().find(x=>x.id===item.dataset.etReport);if(plan)report(plan)}else if(item.dataset.etDelete){if(!confirm(t('confirmDelete')))return;storePlans(getPlans().filter(x=>x.id!==item.dataset.etDelete));refresh();renderSaved()}});
+$('etSearch').addEventListener('input',renderMonuments);$('etRegion').addEventListener('change',renderMonuments);$('etMonument').addEventListener('change',monumentChange);$('etTripForm').addEventListener('submit',save);$('etPrint').addEventListener('click',printReport);
+['etStudents','etTeachers','etTicket','etTransport','etFood','etOther'].forEach(id=>$(id).addEventListener('input',budget));
+const iso=d=>[d.getFullYear(),String(d.getMonth()+1).padStart(2,'0'),String(d.getDate()).padStart(2,'0')].join('-');const now=new Date();const plus=new Date(now.getFullYear(),now.getMonth(),now.getDate()+14);$('etDate').min=iso(now);$('etDate').value=iso(plus);$('etMonument').innerHTML=monuments.map(m=>`<option value="${safe(m.id)}">${safe(m.name)} · ${safe(m.location)}</option>`).join('');
+new MutationObserver(translations).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+refresh();monumentChange();translations();
 })();
+
 </script>
 </body>
 </html>
