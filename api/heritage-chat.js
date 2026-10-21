@@ -81,6 +81,11 @@ module.exports = async function handler(req, res) {
         });
         const data = await groqRes.json().catch(() => ({}));
 
+        if (groqRes.status === 429) {
+            // Groq's free plan allows only so many requests per minute/day.
+            return res.status(429).json({ error: 'Limit exceeded. Please try again in a few minutes.' });
+        }
+
         if (!groqRes.ok) {
             console.error('Groq error', groqRes.status, data.error?.message);
             return res.status(502).json({ error: 'Heritage AI is busy right now. Please try again in a moment.' });

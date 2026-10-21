@@ -84,11 +84,11 @@ describe('api/scripture-read', () => {
         assert.equal((await call({ token: idToken, body: { image: 'data:image/svg+xml;base64,PHN2Zz4=' } })).statusCode, 400);
         assert.equal((await call({ token: idToken, body: { image: 'data:image/jpeg;base64,' + 'A'.repeat(3500001) } })).statusCode, 413);
     });
-    test('passes on how long to wait when Groq is busy', async () => {
+    test('says the limit was exceeded when Groq refuses with 429', async () => {
         groqReply = reply('', 429, { 'Content-Type': 'application/json', 'retry-after': '7' });
         const res = await call({ token: idToken, body: { image: PHOTO } });
         assert.equal(res.statusCode, 429);
-        assert.equal(res.payload.retryAfter, 7);
+        assert.equal(res.payload.error, 'Limit exceeded. Please try again in a few minutes.');
     });
     test('a Sanskrit page gets its translation in Hindi; an English page in English', async () => {
         groqCalls = []; groqReply = reply(JSON.stringify(GOOD));

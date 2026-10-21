@@ -124,9 +124,8 @@ module.exports = async function handler(req, res) {
         });
 
         if (groqRes.status === 429) {
-            // Free tier: only a few photos a minute for the whole site. Tell the page how long to wait.
-            const retryAfter = Math.min(60, Math.ceil(Number(groqRes.headers.get('retry-after')) || 10));
-            return res.status(429).json({ error: 'The photo reader is busy. Please try again shortly.', retryAfter });
+            // Free tier: only a few photos a minute (and 1,000 a day) for the whole site.
+            return res.status(429).json({ error: 'Limit exceeded. Please try again in a few minutes.' });
         }
 
         const data = await groqRes.json().catch(() => ({}));

@@ -79,8 +79,14 @@ describe('api/heritage-chat', () => {
         assert.equal(pre.headers['Access-Control-Allow-Origin'], '*');
         assert.equal((await call({ method: 'GET' })).statusCode, 405);
     });
+    test('says the limit was exceeded when Groq refuses with 429', async () => {
+        groqReply = { status: 429, body: { error: { message: 'Rate limit reached for model' } } };
+        const res = await call({ token: idToken, body: { message: 'hi' } });
+        assert.equal(res.statusCode, 429);
+        assert.equal(res.payload.error, 'Limit exceeded. Please try again in a few minutes.');
+    });
     test('hides Groq errors behind a friendly message', async () => {
-        groqReply = { status: 429, body: { error: { message: 'rate limit: key gsk_live_xyz' } } };
+        groqReply = { status: 500, body: { error: { message: 'internal error: key gsk_live_xyz' } } };
         const res = await call({ token: idToken, body: { message: 'hi' } });
         assert.equal(res.statusCode, 502);
         assert.ok(!res.payload.error.includes('gsk_'));

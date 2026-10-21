@@ -19006,6 +19006,12 @@ if (clean === 'bharatiya-calendar') {
 
                 const data = await response.json().catch(() => ({}));
 
+                if (response.status === 429) {
+                    // Groq's free plan limit: say so plainly instead of "something went wrong".
+                    thinking.textContent = '⚠️ ' + (data.error || 'Limit exceeded. Please try again in a few minutes.');
+                    return;
+                }
+
                 if (!response.ok) {
                     throw new Error(data.error || 'Heritage AI error');
                 }
@@ -19174,8 +19180,7 @@ Object.assign(VIRASAT_I18N.ui, {
   scan_upload:{en:'Upload a photo',hi:'फोटो अपलोड करें',sa:'चित्रम् आरोपयतु'},
   scan_camera:{en:'Take a photo',hi:'फोटो खींचें',sa:'चित्रं गृह्णातु'},
   scan_reading:{en:'Reading the text…',hi:'लेख पढ़ा जा रहा है…',sa:'लेखः पठ्यते…'},
-  scan_busy:{en:'The photo reader is busy. Trying again in {s} s…',hi:'फोटो रीडर व्यस्त है। {s} सेकंड में फिर कोशिश…',sa:'चित्रपाठकः व्यस्तः। {s} क्षणेषु पुनः प्रयत्नः…'},
-  scan_busy_final:{en:'The photo reader is busy right now. Please try again in a minute.',hi:'फोटो रीडर अभी व्यस्त है। कृपया एक मिनट बाद फिर कोशिश करें।',sa:'चित्रपाठकः इदानीं व्यस्तः। कृपया किञ्चित् कालानन्तरं पुनः प्रयततु।'},
+  scan_limit:{en:'Limit exceeded. Please try again in a few minutes.',hi:'सीमा पार हो गई। कृपया कुछ मिनट बाद फिर कोशिश करें।',sa:'सीमा अतिक्रान्ता। कृपया किञ्चित्कालानन्तरं पुनः प्रयततु।'},
   scan_error:{en:"Couldn't read this photo. Please try again.",hi:'यह फोटो पढ़ी नहीं जा सकी। कृपया फिर कोशिश करें।',sa:'इदं चित्रं पठितुं न शक्तम्। कृपया पुनः प्रयततु।'},
   scan_bad_image:{en:"This photo couldn't be opened. Please use a JPG or PNG photo.",hi:'यह फोटो खुल नहीं सकी। कृपया JPG या PNG फोटो इस्तेमाल करें।',sa:'इदं चित्रम् उद्घाटयितुं न शक्तम्। कृपया JPG अथवा PNG चित्रं प्रयुङ्क्ताम्।'},
   scan_signin:{en:'Please sign in to use the photo reader.',hi:'फोटो रीडर इस्तेमाल करने के लिए साइन इन करें।',sa:'चित्रपाठकस्य उपयोगाय प्रविशतु।'},
@@ -24065,11 +24070,10 @@ draw();
 
     const MAX_SIDE = 1600;          // pixels; plenty for reading text, small enough for phones and Groq
     const MAX_CHARS = 2800000;      // the server accepts up to 3.5 million characters
-    const MAX_RETRIES = 3;          // when the free Groq plan says "busy"
     const say = (key, vars) => (typeof t === 'function' ? t(key, vars) : key);
     const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-    let state = { kind: 'idle' };   // idle | reading | busy | error | done
+    let state = { kind: 'idle' };   // idle | reading | error | done
     let runId = 0, previewUrl = null;
 
     // Only signed-in people can use the reader (the server checks too). Phones and tablets also get
@@ -24135,10 +24139,10 @@ draw();
         let image;
         try { image = await prepare(file); }
         catch (e) { if (id === runId) setState({ kind: 'error', key: 'scan_bad_image' }); return; }
-        read(image, id, 0);
+        read(image, id);
     }
 
-    async function read(image, id, attempt) {
+    async function read(image, id) {
         const cloud = window.virasatCloud;
         const token = cloud ? await cloud.idToken().catch(() => null) : null;
         if (id !== runId) return;
@@ -24157,20 +24161,7 @@ draw();
             return;
         }
         if (id !== runId) return;
-        if (res.status === 429 && attempt < MAX_RETRIES) {
-            // Busy: count down, then try again by itself.
-            let left = Math.max(3, Number(data.retryAfter) || 10);
-            setState({ kind: 'busy', left: left });
-            const timer = setInterval(() => {
-                if (id !== runId) return clearInterval(timer);
-                left -= 1;
-                if (left > 0) return setState({ kind: 'busy', left: left });
-                clearInterval(timer);
-                read(image, id, attempt + 1);
-            }, 1000);
-            return;
-        }
-        if (res.status === 429) return setState({ kind: 'error', key: 'scan_busy_final' });
+        if (res.status === 429) return setState({ kind: 'error', key: 'scan_limit' });   // Groq's free plan limit
         if (res.status === 401) return setState({ kind: 'error', key: 'scan_signin' });
         if (!res.ok || !data.result) return setState({ kind: 'error', key: 'scan_error' });
         setState({ kind: 'done', result: data.result });
@@ -24188,10 +24179,6 @@ draw();
         if (state.kind === 'idle') { out.innerHTML = ''; return; }
         if (state.kind === 'reading') {
             out.innerHTML = '<div class="scripture-status"><span class="scripture-spinner" aria-hidden="true"></span>' + esc(say('scan_reading')) + '</div>';
-            return;
-        }
-        if (state.kind === 'busy') {
-            out.innerHTML = '<div class="scripture-status"><span class="scripture-spinner" aria-hidden="true"></span>' + esc(say('scan_busy', { s: state.left })) + '</div>';
             return;
         }
         if (state.kind === 'error') {
