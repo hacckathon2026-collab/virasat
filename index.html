@@ -13990,6 +13990,28 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
 @media(max-width:600px){#page-vedaverse .vb-cover{grid-template-columns:1fr}#page-vedaverse .vb-cover-photo{height:185px}#page-vedaverse .vb-photo-block .vb-photo-frame{height:220px}#page-vedaverse .vv-book-cover .vv-book-photo img{opacity:.65}}
 @media(prefers-reduced-motion:reduce){#page-vedaverse .vv-book-photo img,#page-vedaverse .vb-photo-frame img{transition:none}}
 </style>
+
+<style id="virasat-ways-carousel">
+#page-home #vx-worlds{position:relative;overflow:hidden;padding:72px 0 64px}
+#page-home #vx-worlds .vx-section-title{margin:0 7% 28px;max-width:none}
+#page-home #vx-worlds .vx-bento{display:flex!important;gap:20px!important;max-width:none;margin:0;padding:12px 7% 28px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:7%;scrollbar-width:none;grid-template-columns:none!important}
+#vx-worlds .vx-bento::-webkit-scrollbar{display:none}
+#page-home #vx-worlds .vx-bento>.vx-tile{flex:0 0 clamp(310px,38vw,480px);width:clamp(310px,38vw,480px);min-width:0;height:570px;min-height:570px!important;display:block;scroll-snap-align:start;grid-column:auto;grid-row:auto;border-radius:24px;background:#191713;box-shadow:0 8px 24px #0003;transform:none!important;transform-style:flat!important;text-decoration:none;transition:box-shadow .25s,border-color .25s}
+#page-home #vx-worlds .vx-tile>div:last-child{position:absolute;top:30px;left:28px;right:28px;bottom:auto;z-index:2}
+#page-home #vx-worlds .vx-tile small{font-size:11px;letter-spacing:.1em;color:#d4af37}
+#page-home #vx-worlds .vx-tile h3{font-size:clamp(26px,2.5vw,34px);line-height:1.15;margin:10px 0 10px}
+#page-home #vx-worlds .vx-tile p{font-size:14px;line-height:1.5;color:#cdc5b4;max-width:360px;margin:0}
+#page-home #vx-worlds .vx-tile>span{top:auto;bottom:20px;left:26px;z-index:3;color:white;text-shadow:0 1px 5px #000;font-size:12px}
+#page-home #vx-worlds .vx-tile img{position:absolute;inset:auto 0 0;width:100%;height:65%;object-fit:cover;filter:saturate(.95) brightness(.93);transform:none;transition:transform .5s}
+#page-home #vx-worlds .vx-tile .vx-tile-shade{position:absolute;inset:auto 0 0;height:66%;background:linear-gradient(#191713 0%,transparent 23%,transparent 80%,#0005);pointer-events:none;z-index:1}
+#page-home #vx-worlds .vx-tile:hover{box-shadow:0 12px 32px #0006!important;border-color:#d4af3780!important}
+#page-home #vx-worlds .vx-tile:hover img{transform:scale(1.025);filter:saturate(1) brightness(1)}
+#vx-worlds .vx-shelf-arrow{position:absolute;top:58%;z-index:5;display:grid;place-items:center;width:52px;height:52px;padding:0;border:1px solid #d4af3738;border-radius:50%;background:#ddd9cfe6;color:#27251f;box-shadow:0 4px 18px #0003;font:38px/1 Arial;cursor:pointer;transition:opacity .2s,background .2s}
+#vx-worlds .vx-shelf-arrow:hover{background:#d4af37}#vx-worlds .vx-shelf-arrow:disabled{opacity:.25;cursor:default}#vx-worlds .vx-shelf-prev{left:14px}#vx-worlds .vx-shelf-next{right:14px}
+#vx-worlds :focus-visible{outline:3px solid #d4af37;outline-offset:3px}
+@media(max-width:600px){#page-home #vx-worlds .vx-bento>.vx-tile{flex-basis:82vw;width:82vw;height:490px;min-height:490px!important}#page-home #vx-worlds .vx-tile>div:last-child{top:25px;left:23px;right:23px}#vx-worlds .vx-shelf-arrow{width:40px;height:40px;font-size:30px}#vx-worlds .vx-shelf-prev{left:4px}#vx-worlds .vx-shelf-next{right:4px}}
+@media(prefers-reduced-motion:reduce){#page-home #vx-worlds .vx-tile,#page-home #vx-worlds .vx-tile img{transition:none!important}}
+</style>
 </head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
@@ -24821,7 +24843,19 @@ let currentQuiz=[];
 function quiz(){currentQuiz=questions();el('vxQuiz').innerHTML=currentQuiz.map((q,i)=>`<section class="vx-question" role="group" aria-labelledby="vxqtitle${i}"><div class="vx-question-title" id="vxqtitle${i}">${i+1}. ${escapeHtml(q.question)}</div><div class="vx-question-options">${q.choices.map((c,j)=>`<label class="vx-answer"><input type="radio" name="vxq${i}" value="${j}" required/><span>${escapeHtml(c)}</span></label>`).join('')}</div><div class="vx-answer-explain" id="vxWhy${i}"></div></section>`).join('')+`<button type="submit" class="vx-btn vx-btn-gold">Submit all 12 answers</button><p id="vxQuizResult" class="vx-status" aria-live="polite"></p>`}
 function report(){let rows=KEYS.map(k=>{let v=(saved.visited[k]||[]).filter(n=>n<bookSpreadCount(DATA[k])).length,q=saved.quizGrades[k],m=saved.matchGrades[k],total=bookSpreadCount(DATA[k]);return `<tr><th>${escapeHtml(DATA[k].name)}</th><td>${v}/${total}</td><td>${q===undefined?'Not submitted':q+'/12'}</td><td>${m===undefined?'Not completed':m+'/6'}</td></tr>`}).join('');el('vxReport').innerHTML=`<div class="vx-report-header"><p class="vv-eyebrow">PERSONAL LEARNING SUMMARY</p><h3>VedaVerse · Report Card</h3><p>Four interactive booklets, vocabulary cards, a six-pair matching round and a 12-question challenge per Veda. Scores are stored on this device.</p></div><div class="vx-report-table"><table><thead><tr><th>Veda</th><th>Pages read</th><th>Knowledge Challenge</th><th>Memory Match</th></tr></thead><tbody>${rows}</tbody></table></div><div class="vx-controls"><button class="vx-btn vx-btn-gold" type="button" id="vxPrint">Print / Save PDF</button><button class="vx-btn" type="button" id="vxReset">Reset VedaVerse progress</button></div>`;
  el('vxReset').onclick=()=>{if(!confirm('Clear VedaVerse booklet, matching and quiz progress on this device?'))return;saved={visited:{},answers:{},activity:{},matchGrades:{},quizGrades:{}};persist();choose(selected)};
- el('vxPrint').onclick=()=>{let ww=window.open('','_blank','width=850,height=680');if(!ww){window.print();return}let doc=`<!doctype html><html><head><meta charset="utf-8"><title>Virasat · VedaVerse Report Card</title><style>body{font-family:Georgia,serif;padding:35px;color:#302310}h1{color:#94701d}table{border-collapse:collapse;width:100%;margin:22px 0}th,td{border:1px solid #c7b48c;padding:13px;text-align:left}thead{background:#f3e6be}</style></head><body><small>VIRASAT · INDIA'S LIVING HERITAGE</small><h1>VedaVerse · Learning Report</h1><p>Generated ${escapeHtml(new Date().toLocaleDateString('en-IN'))}. Locally stored learning results.</p><table><thead><tr><th>Veda</th><th>Pages</th><th>Quiz</th><th>Match</th></tr></thead><tbody>${rows}</tbody></table><p>Educational self-assessment, not a school-issued certificate.</p></body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
+ el('vxPrint').onclick=()=>{let ww=window.open('','_blank','width=850,height=680');if(!ww){window.print();return}let doc=`<!doctype html><html><head><meta charset="utf-8"><title>Virasat · VedaVerse Report Card</title><style>body{font-family:Georgia,serif;padding:35px;color:#302310}h1{color:#94701d}table{border-collapse:collapse;width:100%;margin:22px 0}th,td{border:1px solid #c7b48c;padding:13px;text-align:left}thead{background:#f3e6be}</style></head><body><small>VIRASAT · INDIA'S LIVING HERITAGE</small><h1>VedaVerse · Learning Report</h1><p>Generated ${escapeHtml(new Date().toLocaleDateString('en-IN'))}. Locally stored learning results.</p><table><thead><tr><th>Veda</th><th>Pages</th><th>Quiz</th><th>Match</th></tr></thead><tbody>${rows}</tbody></table><p>Educational self-assessment, not a school-issued certificate.</p>
+<script id="virasat-ways-carousel-controls">
+(function(){
+ const section=document.getElementById('vx-worlds');if(!section)return;
+ const rail=section.querySelector('.vx-bento');rail.id='vx-ways-rail';
+ rail.setAttribute('aria-label','Explore ten ways into India');
+ const prev=document.createElement('button'),next=document.createElement('button');
+ [prev,next].forEach((b,i)=>{b.type='button';b.className='vx-shelf-arrow vx-shelf-'+(i?'next':'prev');b.textContent=i?'›':'‹';b.setAttribute('aria-controls',rail.id);section.appendChild(b);b.addEventListener('click',()=>{const card=rail.firstElementChild;rail.scrollBy({left:(i?1:-1)*(card.getBoundingClientRect().width+20),behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'});});});
+ function update(){prev.disabled=rail.scrollLeft<=2;next.disabled=rail.scrollLeft+rail.clientWidth>=rail.scrollWidth-2;const l=document.documentElement.lang||'en';const labels=l.startsWith('hi')?['पिछले अनुभव','अगले अनुभव']:l.startsWith('sa')?['पूर्वानुभवाः','अग्रिमानुभवाः']:['Previous experiences','Next experiences'];prev.setAttribute('aria-label',labels[0]);next.setAttribute('aria-label',labels[1]);}
+ rail.addEventListener('scroll',update,{passive:true});new ResizeObserver(update).observe(rail);new MutationObserver(update).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});update();
+})();
+</script>
+</body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
 }
 function enhanceComparison(){
  ['vvCompareA','vvCompareB'].forEach(id=>{let select=document.getElementById(id);if(!select||select.dataset.vxCustom==='1')return;select.dataset.vxCustom='1';const wrapper=document.createElement('div');wrapper.className='vxp-select';select.parentNode.insertBefore(wrapper,select);wrapper.append(select);let button=document.createElement('button');button.type='button';button.className='vxp-trigger';button.setAttribute('aria-haspopup','listbox');button.setAttribute('aria-expanded','false');let menu=document.createElement('div');menu.className='vxp-menu';menu.setAttribute('role','listbox');menu.hidden=true;wrapper.append(button,menu);
