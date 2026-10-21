@@ -11164,6 +11164,30 @@ body.festival-story-open { overflow: hidden; }
 .login-form .signup-role label.role-option:hover{border-color:rgba(212,175,55,.5)}
 .login-form .signup-role label.role-option:has(input:checked){border-color:var(--gold);background:rgba(212,175,55,.16);box-shadow:0 0 0 3px rgba(212,175,55,.09)}
 .login-form .signup-role label.role-option:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:2px}
+/* Ancient Scripts: photo reader */
+.scripture-scan{margin-top:22px}
+#scriptureScan .btn[hidden]{display:none !important}
+.scripture-scan h2{font-size:clamp(26px,3.4vw,34px);margin:6px 0 8px}
+.scripture-scan-desc{color:var(--muted);margin:0 0 16px;max-width:680px}
+.scripture-scan-body{display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:22px;margin-top:20px;align-items:start}
+.scripture-scan-body[hidden]{display:none}
+.scripture-preview{margin:0;border-radius:16px;overflow:hidden;border:1px solid rgba(212,175,55,.25);background:var(--ivory)}
+.scripture-preview img{display:block;width:100%;height:auto;max-height:420px;object-fit:contain}
+.scripture-result{min-width:0}
+.scripture-status{display:flex;align-items:center;gap:10px;color:var(--muted);font-weight:600;padding:8px 0}
+.scripture-status.is-error{color:#e87a68}
+.scripture-spinner{width:18px;height:18px;border-radius:50%;border:2px solid rgba(212,175,55,.25);border-top-color:var(--gold);animation:scriptureSpin .8s linear infinite;flex:0 0 18px}
+@keyframes scriptureSpin{to{transform:rotate(360deg)}}
+.scripture-meta{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px}
+.scripture-chip{display:inline-flex;gap:6px;align-items:baseline;padding:6px 12px;border-radius:999px;border:1px solid rgba(212,175,55,.25);background:rgba(212,175,55,.06);font-size:13px}
+.scripture-chip b{color:var(--muted);font-weight:600;font-size:11px;letter-spacing:.4px;text-transform:uppercase}
+.scripture-chip.conf-high{border-color:rgba(76,175,80,.5)}.scripture-chip.conf-medium{border-color:rgba(232,200,116,.6)}.scripture-chip.conf-low{border-color:rgba(232,122,104,.6)}
+.scripture-block{margin:0 0 14px}
+.scripture-block h4{margin:0 0 4px;font:700 11px 'DM Sans',sans-serif;letter-spacing:.6px;text-transform:uppercase;color:var(--gold)}
+.scripture-block p{margin:0;white-space:pre-line;overflow-wrap:anywhere;line-height:1.7}
+.scripture-original{font-size:20px;font-family:'Noto Serif Devanagari','Noto Sans Brahmi','Noto Sans Kharoshthi',serif}
+.scripture-disclaimer{color:var(--muted);font-size:12px;margin:16px 0 0}
+@media (max-width:760px){.scripture-scan-body{grid-template-columns:minmax(0,1fr)}.scripture-preview img{max-height:280px}}
 /* Phones: the controls row is full, so sit the nickname on the logo row instead */
 @media (max-width:620px){.nav-controls > .nav-user{position:absolute;top:14px;right:14px;min-height:36px;padding:0 10px;max-width:150px}}
 @media (max-width:520px){
@@ -15979,6 +16003,25 @@ body .nav #navLinks .mega-discover > .rasoi-studio-nav-item > a {margin-bottom:0
                     Unsupported sounds remain visible rather than being silently removed.
                 </div>
 
+                <!-- Photo reader: reads a photo of an ancient text with AI (virasatScriptureScanScript;
+                     server part: api/scripture-read.js) -->
+                <div class="ancient-panel scripture-scan" id="scriptureScan">
+                    <div class="eyebrow" data-i18n="scan_eyebrow">Photo reader</div>
+                    <h2 data-i18n="scan_title">Read an ancient text from a photo</h2>
+                    <p class="scripture-scan-desc" data-i18n="scan_desc">Upload a photo of a manuscript, inscription or scripture page, or take one with your phone. Virasat AI will try to read and translate it.</p>
+                    <div class="ancient-actions">
+                        <button class="btn primary" id="scriptureUploadBtn" type="button" data-i18n="scan_upload">Upload a photo</button>
+                        <button class="btn secondary" id="scriptureCameraBtn" type="button" data-i18n="scan_camera" hidden>Take a photo</button>
+                    </div>
+                    <input type="file" id="scriptureUpload" accept="image/*" hidden />
+                    <input type="file" id="scriptureCamera" accept="image/*" capture="environment" hidden />
+                    <div class="scripture-scan-body" id="scriptureScanBody" hidden>
+                        <figure class="scripture-preview"><img id="scripturePreview" alt="" /></figure>
+                        <div class="scripture-result" id="scriptureResult" aria-live="polite"></div>
+                    </div>
+                    <p class="scripture-disclaimer" data-i18n="scan_disclaimer">This is the AI's best guess. It reads printed text well, but it can be wrong about handwriting and very old inscriptions.</p>
+                </div>
+
             </div>
         </section>
     </div>
@@ -19122,6 +19165,31 @@ Object.assign(VIRASAT_I18N.ui, {
   role_student:{en:'Student',hi:'छात्र',sa:'छात्रः'},
   role_teacher:{en:'Teacher',hi:'शिक्षक',sa:'शिक्षकः'},
   role_admin:{en:'Admin',hi:'व्यवस्थापक',sa:'प्रशासकः'},
+  scan_eyebrow:{en:'Photo reader',hi:'फोटो रीडर',sa:'चित्रपाठकः'},
+  scan_title:{en:'Read an ancient text from a photo',hi:'फोटो से प्राचीन लेख पढ़ें',sa:'चित्रात् प्राचीनलेखं पठतु'},
+  scan_desc:{en:'Upload a photo of a manuscript, inscription or scripture page, or take one with your phone. Virasat AI will try to read and translate it.',hi:'किसी पांडुलिपि, शिलालेख या ग्रंथ के पृष्ठ की फोटो अपलोड करें, या फोन से खींचें। विरासत AI उसे पढ़ने और अनुवाद करने की कोशिश करेगा।',sa:'पाण्डुलिपेः शिलालेखस्य ग्रन्थपृष्ठस्य वा चित्रम् आरोपयतु, अथवा दूरवाणीना गृह्णातु। विरासत AI तत् पठितुम् अनुवदितुं च प्रयतिष्यते।'},
+  scan_upload:{en:'Upload a photo',hi:'फोटो अपलोड करें',sa:'चित्रम् आरोपयतु'},
+  scan_camera:{en:'Take a photo',hi:'फोटो खींचें',sa:'चित्रं गृह्णातु'},
+  scan_reading:{en:'Reading the text…',hi:'लेख पढ़ा जा रहा है…',sa:'लेखः पठ्यते…'},
+  scan_busy:{en:'The photo reader is busy. Trying again in {s} s…',hi:'फोटो रीडर व्यस्त है। {s} सेकंड में फिर कोशिश…',sa:'चित्रपाठकः व्यस्तः। {s} क्षणेषु पुनः प्रयत्नः…'},
+  scan_busy_final:{en:'The photo reader is busy right now. Please try again in a minute.',hi:'फोटो रीडर अभी व्यस्त है। कृपया एक मिनट बाद फिर कोशिश करें।',sa:'चित्रपाठकः इदानीं व्यस्तः। कृपया किञ्चित् कालानन्तरं पुनः प्रयततु।'},
+  scan_error:{en:"Couldn't read this photo. Please try again.",hi:'यह फोटो पढ़ी नहीं जा सकी। कृपया फिर कोशिश करें।',sa:'इदं चित्रं पठितुं न शक्तम्। कृपया पुनः प्रयततु।'},
+  scan_bad_image:{en:"This photo couldn't be opened. Please use a JPG or PNG photo.",hi:'यह फोटो खुल नहीं सकी। कृपया JPG या PNG फोटो इस्तेमाल करें।',sa:'इदं चित्रम् उद्घाटयितुं न शक्तम्। कृपया JPG अथवा PNG चित्रं प्रयुङ्क्ताम्।'},
+  scan_signin:{en:'Please sign in to use the photo reader.',hi:'फोटो रीडर इस्तेमाल करने के लिए साइन इन करें।',sa:'चित्रपाठकस्य उपयोगाय प्रविशतु।'},
+  scan_not_script:{en:"We couldn't find ancient writing in this photo. Try a closer, clearer photo of the text.",hi:'इस फोटो में प्राचीन लेख नहीं मिला। लेख की पास से, साफ़ फोटो लेकर देखें।',sa:'अस्मिन् चित्रे प्राचीनलेखः न लब्धः। लेखस्य समीपात् स्पष्टं चित्रं गृह्णातु।'},
+  scan_disclaimer:{en:"This is the AI's best guess. It reads printed text well, but it can be wrong about handwriting and very old inscriptions.",hi:'यह AI का सबसे अच्छा अनुमान है। छपा हुआ लेख यह अच्छी तरह पढ़ता है, पर हस्तलिखित और बहुत पुराने शिलालेखों में गलती कर सकता है।',sa:'एतत् AI इत्यस्य श्रेष्ठम् अनुमानम्। मुद्रितलेखं सम्यक् पठति, किन्तु हस्तलिखिते अतिप्राचीनशिलालेखेषु च प्रमाद्येत्।'},
+  scan_script:{en:'Script',hi:'लिपि',sa:'लिपिः'},
+  scan_language:{en:'Language',hi:'भाषा',sa:'भाषा'},
+  scan_period:{en:'Period',hi:'काल',sa:'कालः'},
+  scan_confidence:{en:'Confidence',hi:'विश्वास',sa:'विश्वासः'},
+  scan_conf_high:{en:'High',hi:'उच्च',sa:'उच्चः'},
+  scan_conf_medium:{en:'Medium',hi:'मध्यम',sa:'मध्यमः'},
+  scan_conf_low:{en:'Low',hi:'निम्न',sa:'न्यूनः'},
+  scan_original:{en:'Original text',hi:'मूल लेख',sa:'मूललेखः'},
+  scan_transliteration:{en:'Transliteration',hi:'लिप्यंतरण',sa:'लिप्यन्तरणम्'},
+  scan_translation_en:{en:'English translation',hi:'अंग्रेज़ी अनुवाद',sa:'आङ्ग्लानुवादः'},
+  scan_translation_hi:{en:'Hindi translation',hi:'हिंदी अनुवाद',sa:'हिन्द्यनुवादः'},
+  scan_about:{en:'What is this?',hi:'यह क्या है?',sa:'किम् इदम्?'},
   auth_err_too_many:{en:'Too many attempts. Please wait a minute and try again.',hi:'बहुत अधिक प्रयास। एक मिनट रुककर फिर कोशिश करें।',sa:'अतिप्रयत्नाः। किञ्चित् प्रतीक्ष्य पुनः प्रयततु।'},
   auth_err_network:{en:"Can't reach the server. Check your internet connection.",hi:'सर्वर से नहीं जुड़ पा रहे। इंटरनेट कनेक्शन जाँचें।',sa:'सेवकेन सह सम्पर्कः न भवति। अन्तर्जालं परीक्षताम्।'},
   auth_err_disabled:{en:'This account has been disabled.',hi:'यह खाता बंद कर दिया गया है।',sa:'इदं पञ्जीकरणं निष्क्रियं कृतम्।'},
@@ -19284,6 +19352,7 @@ function applyLanguage(lang) {
     if (typeof refreshStateInfo === 'function') refreshStateInfo();
     if (typeof refreshGames === 'function') refreshGames();
     if (window.virasatCloud) { virasatCloud.refreshUI(); virasatCloud.savePrefs(); }
+    if (window.virasatScriptureScan) virasatScriptureScan.refresh();
     updateLangUI();
     const modal = document.getElementById('modal');
     if (modal && modal.classList.contains('open') && window.__modalRebuild) window.__modalRebuild();
@@ -20271,8 +20340,10 @@ document.addEventListener('keydown', function (e) { if (e.key === 'Escape') clos
             const loginOverlay = document.getElementById('loginOverlay');
             const alreadyLoggedIn = sessionStorage.getItem('virasat_logged_in') === 'true';
 
-            /* Keep the right screen beneath the intro, before fading it away. */
-            if (guestFirst) {
+            /* Keep the right screen beneath the intro, before fading it away.
+               Check guest mode NOW, not at page load: a remembered visitor ("Remember me")
+               is signed in by Firebase during the intro, which clears guest mode. */
+            if (document.documentElement.classList.contains('virasat-guest-mode')) {
                 // The login overlay stays hidden behind the guest landing screen.
                 // It is shown only after the visitor explicitly clicks Sign in/up.
                 document.documentElement.classList.add('virasat-auth-locked');
@@ -23968,6 +24039,166 @@ draw();
   }));
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<script id="virasatScriptureScanScript">
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  PHOTO READER (Ancient Scripts page)
+//  Upload a photo (laptop) or take one (phone) → shrink it here → send it to
+//  api/scripture-read.js on Vercel, which asks Groq's vision model to read it.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(function () {
+    'use strict';
+    const card = document.getElementById('scriptureScan');
+    if (!card) return;
+    const uploadBtn = document.getElementById('scriptureUploadBtn');
+    const cameraBtn = document.getElementById('scriptureCameraBtn');
+    const uploadInput = document.getElementById('scriptureUpload');
+    const cameraInput = document.getElementById('scriptureCamera');
+    const body = document.getElementById('scriptureScanBody');
+    const preview = document.getElementById('scripturePreview');
+    const out = document.getElementById('scriptureResult');
+
+    const MAX_SIDE = 1600;          // pixels; plenty for reading text, small enough for phones and Groq
+    const MAX_CHARS = 2800000;      // the server accepts up to 3.5 million characters
+    const MAX_RETRIES = 3;          // when the free Groq plan says "busy"
+    const say = (key, vars) => (typeof t === 'function' ? t(key, vars) : key);
+    const esc = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
+    let state = { kind: 'idle' };   // idle | reading | busy | error | done
+    let runId = 0, previewUrl = null;
+
+    // Phones and tablets get a "Take a photo" button that opens the camera directly.
+    if (window.matchMedia && matchMedia('(pointer: coarse)').matches) cameraBtn.hidden = false;
+    uploadBtn.addEventListener('click', () => uploadInput.click());
+    cameraBtn.addEventListener('click', () => cameraInput.click());
+    [uploadInput, cameraInput].forEach(input => input.addEventListener('change', () => {
+        const file = input.files && input.files[0];
+        input.value = '';             // so choosing the same photo again still works
+        if (file) start(file);
+    }));
+
+    function endpoint() {
+        // Same rule as Heritage AI: our own server on the website, the live site when opened from a laptop.
+        const onWeb = /^https?:$/.test(location.protocol) && !/^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+        return (onWeb ? '' : (window.VIRASAT_LIVE_URL || '')) + '/api/scripture-read';
+    }
+
+    // Shrink the photo and turn it into JPEG text the server can take.
+    function prepare(file) {
+        return new Promise((resolve, reject) => {
+            const url = URL.createObjectURL(file);
+            const img = new Image();
+            img.onload = () => {
+                const scale = Math.min(1, MAX_SIDE / Math.max(img.naturalWidth, img.naturalHeight));
+                const canvas = document.createElement('canvas');
+                canvas.width = Math.max(1, Math.round(img.naturalWidth * scale));
+                canvas.height = Math.max(1, Math.round(img.naturalHeight * scale));
+                canvas.getContext('2d').drawImage(img, 0, 0, canvas.width, canvas.height);
+                URL.revokeObjectURL(url);
+                let quality = 0.85, data = canvas.toDataURL('image/jpeg', quality);
+                while (data.length > MAX_CHARS && quality > 0.4) { quality -= 0.15; data = canvas.toDataURL('image/jpeg', quality); }
+                resolve(data);
+            };
+            img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('bad-image')); };
+            img.src = url;
+        });
+    }
+
+    async function start(file) {
+        const id = ++runId;
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
+        previewUrl = URL.createObjectURL(file);
+        preview.src = previewUrl;
+        preview.alt = file.name || '';
+        body.hidden = false;
+        setState({ kind: 'reading' });
+        let image;
+        try { image = await prepare(file); }
+        catch (e) { if (id === runId) setState({ kind: 'error', key: 'scan_bad_image' }); return; }
+        read(image, id, 0);
+    }
+
+    async function read(image, id, attempt) {
+        const cloud = window.virasatCloud;
+        const token = cloud ? await cloud.idToken().catch(() => null) : null;
+        if (id !== runId) return;
+        if (!token) return setState({ kind: 'error', key: 'scan_signin' });
+        setState({ kind: 'reading' });
+        let res, data;
+        try {
+            res = await fetch(endpoint(), {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                body: JSON.stringify({ image: image, lang: typeof LANG === 'string' ? LANG : 'en' })
+            });
+            data = await res.json().catch(() => ({}));
+        } catch (e) {
+            if (id === runId) setState({ kind: 'error', key: 'scan_error' });
+            return;
+        }
+        if (id !== runId) return;
+        if (res.status === 429 && attempt < MAX_RETRIES) {
+            // Busy: count down, then try again by itself.
+            let left = Math.max(3, Number(data.retryAfter) || 10);
+            setState({ kind: 'busy', left: left });
+            const timer = setInterval(() => {
+                if (id !== runId) return clearInterval(timer);
+                left -= 1;
+                if (left > 0) return setState({ kind: 'busy', left: left });
+                clearInterval(timer);
+                read(image, id, attempt + 1);
+            }, 1000);
+            return;
+        }
+        if (res.status === 429) return setState({ kind: 'error', key: 'scan_busy_final' });
+        if (res.status === 401) return setState({ kind: 'error', key: 'scan_signin' });
+        if (!res.ok || !data.result) return setState({ kind: 'error', key: 'scan_error' });
+        setState({ kind: 'done', result: data.result });
+    }
+
+    function setState(next) { state = next; render(); }
+
+    function block(labelKey, text, extraClass) {
+        if (!text) return '';
+        return '<div class="scripture-block"><h4>' + esc(say(labelKey)) + '</h4><p' +
+            (extraClass ? ' class="' + extraClass + '"' : '') + '>' + esc(text) + '</p></div>';
+    }
+
+    function render() {
+        if (state.kind === 'idle') { out.innerHTML = ''; return; }
+        if (state.kind === 'reading') {
+            out.innerHTML = '<div class="scripture-status"><span class="scripture-spinner" aria-hidden="true"></span>' + esc(say('scan_reading')) + '</div>';
+            return;
+        }
+        if (state.kind === 'busy') {
+            out.innerHTML = '<div class="scripture-status"><span class="scripture-spinner" aria-hidden="true"></span>' + esc(say('scan_busy', { s: state.left })) + '</div>';
+            return;
+        }
+        if (state.kind === 'error') {
+            out.innerHTML = '<div class="scripture-status is-error">' + esc(say(state.key)) + '</div>';
+            return;
+        }
+        const r = state.result;
+        if (!r.isScript) {
+            out.innerHTML = '<div class="scripture-status">' + esc(say('scan_not_script')) + '</div>';
+            return;
+        }
+        const chip = (labelKey, value, cls) => value
+            ? '<span class="scripture-chip' + (cls ? ' ' + cls : '') + '"><b>' + esc(say(labelKey)) + '</b>' + esc(value) + '</span>' : '';
+        out.innerHTML =
+            '<div class="scripture-meta">' +
+                chip('scan_script', r.script) + chip('scan_language', r.language) + chip('scan_period', r.period) +
+                chip('scan_confidence', say('scan_conf_' + r.confidence), 'conf-' + r.confidence) +
+            '</div>' +
+            block('scan_original', r.original, 'scripture-original') +
+            block('scan_transliteration', r.transliteration) +
+            block(r.translationLang === 'hi' ? 'scan_translation_hi' : 'scan_translation_en', r.translation) +
+            block('scan_about', r.explanation);
+    }
+
+    // Labels follow the site language (the AI's own words stay in the language they were read in).
+    window.virasatScriptureScan = { refresh: render };
 })();
 </script>
 <script id="virasatAssetsFallbackScript">
