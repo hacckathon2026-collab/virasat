@@ -11156,14 +11156,16 @@ body.festival-story-open { overflow: hidden; }
 [data-theme="light"] .nav-controls > .nav-user{background:#fffaf2;border-color:rgba(140,107,46,.28);color:#5b4730}
 [data-theme="light"] .nav-user-role{background:rgba(140,107,46,.12);color:#7a5a1f}
 @media (max-width:820px){.nav-controls > .nav-user{min-height:38px;padding:0 10px;font-size:11px;max-width:170px}}
-/* Sign-up: role picker (Student / Teacher / Admin) */
-.signup-role .role-heading{display:block;font-size:13px;font-weight:600;margin-bottom:6px;letter-spacing:.3px;color:#d7d3dc}
-.signup-role .role-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
-.login-form .signup-role label.role-option{position:relative;display:flex;align-items:center;justify-content:center;min-height:46px;margin:0;padding:0 8px;border-radius:14px;border:1px solid rgba(212,175,55,.25);background:#171310;cursor:pointer;font-size:14px;font-weight:600;text-align:center;transition:var(--transition)}
-.login-form .signup-role input[type="radio"]{position:absolute;opacity:0;width:1px;height:1px;margin:0;padding:0;pointer-events:none}
-.login-form .signup-role label.role-option:hover{border-color:rgba(212,175,55,.5)}
-.login-form .signup-role label.role-option:has(input:checked){border-color:var(--gold);background:rgba(212,175,55,.16);box-shadow:0 0 0 3px rgba(212,175,55,.09)}
-.login-form .signup-role label.role-option:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:2px}
+/* Leaderboard: admin tools (edit score / remove) */
+.lb-admin .lb-row{grid-template-columns:42px 1fr auto auto auto}
+.lb-actions{display:flex;gap:6px;justify-content:flex-end}
+.lb-act{border:1px solid rgba(212,175,55,.35);background:transparent;color:var(--ink);border-radius:999px;padding:4px 10px;font:600 11.5px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
+.lb-act:hover{border-color:var(--gold)}
+.lb-act-danger{border-color:rgba(232,122,104,.5);color:#e87a68}
+.lb-edit{display:inline-flex;align-items:center;gap:6px}
+.lb-edit-input{width:74px;padding:4px 8px;border-radius:8px;border:1px solid rgba(212,175,55,.45);background:var(--ivory);color:var(--ink);font:700 13px 'DM Sans',sans-serif}
+.lb-row-error{grid-column:1/-1;color:#e87a68;font-size:12px;font-weight:600}
+@media (max-width:520px){.lb-admin .lb-row{grid-template-columns:32px 1fr auto}.lb-admin .lb-actions{grid-column:2/4;justify-content:flex-start}}
 /* Gaming Hub: admin page for quiz questions */
 .hub-admin-card[hidden]{display:none!important}
 .hub-admin-tag{display:inline-block;margin-bottom:8px;padding:3px 10px;border-radius:999px;background:rgba(212,175,55,.16);color:var(--marigold);font:700 10.5px 'DM Sans',sans-serif;letter-spacing:.5px;text-transform:uppercase}
@@ -14860,13 +14862,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             <div class="form-container hidden" id="signupContainer">
                 <div class="login-error" id="signupError"><span data-i18n="signup_error_default">Please fix the errors below.</span></div>
                 <form class="login-form" id="signupForm" autocomplete="off">
-                    <div class="field signup-role" role="radiogroup" aria-labelledby="signupRoleHeading">
-                        <span class="role-heading" id="signupRoleHeading" data-i18n="signup_role_label">Your role</span>
-                        <div class="role-options">
-                            <label class="role-option"><input type="radio" name="signupRole" value="student" /><span data-i18n="role_student">Student</span></label>
-                            <label class="role-option"><input type="radio" name="signupRole" value="teacher" /><span data-i18n="role_teacher">Teacher</span></label>
-                        </div>
-                    </div>
                     <div class="field">
                         <label for="signupName" data-i18n="signup_name_label">Nickname (shown on leaderboards)</label>
                         <input type="text" id="signupName" placeholder="e.g. HeritageHero" data-i18n-attr="placeholder:signup_name_placeholder" maxlength="24" autocomplete="nickname" required />
@@ -15423,7 +15418,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                         <div class="eyebrow" data-i18n="adm_tag">Admins only</div>
                         <h2 style="font-size:32px;" data-i18n="adm_card_title">Add quiz questions</h2>
                     </div>
-                    <p data-i18n="adm_desc">New questions are added after the built-in ones and go live for every player straight away.</p>
+                    <p data-i18n="adm_desc">New questions are asked first, before the built-in ones, and go live for every player straight away.</p>
                 </div>
                 <div class="quiz-area adm-area">
                     <p class="adm-locked" id="admLocked" data-i18n="adm_only">Only admins can add quiz questions.</p>
@@ -16242,8 +16237,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 'auth/operation-not-allowed': 'auth_err_not_configured',
                 'auth/invalid-api-key': 'auth_err_not_configured',
                 'auth/api-key-not-valid.-please-pass-a-valid-api-key.': 'auth_err_not_configured',
-                'virasat/not-configured': 'auth_err_not_configured',
-                'virasat/no-role': 'auth_err_role'
+                'virasat/not-configured': 'auth_err_not_configured'
             };
             function errorMessage(err) {
                 const key = ERROR_KEYS[err && err.code];
@@ -16265,12 +16259,11 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             }
             const savedPrefs = {};
 
-            // ── Roles: stored in users/{uid}.role — 'student' | 'teacher' | 'admin' ──
-            // People pick Student or Teacher at sign-up. Admins are a fixed list of emails kept
-            // only in firestore.rules (never in this public file). The rules let each person look
-            // up their own email — and nobody else's — so the page can tell whether they're on it.
-            const ROLES = ['student', 'teacher', 'admin'];
-            const SIGNUP_ROLES = ['student', 'teacher'];
+            // ── Roles: stored in users/{uid}.role — 'student' | 'admin' ──
+            // Everyone signs up as a student. Admins are a fixed list of emails kept only in
+            // firestore.rules (never in this public file). The rules let each person look up their
+            // own email — and nobody else's — so the page can tell whether they're on it.
+            const ROLES = ['student', 'admin'];
             let currentRole = null;
             const adminChecks = {};   // uid → Promise<boolean>
 
@@ -16280,6 +16273,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 if (currentRole) document.documentElement.dataset.role = currentRole;
                 else delete document.documentElement.dataset.role;
                 paintNavUser();
+                renderBoard();
                 document.dispatchEvent(new CustomEvent('virasat:role', { detail: currentRole }));
             }
 
@@ -16296,11 +16290,9 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 return adminChecks[user.uid];
             }
 
-            // On the list → admin. Otherwise student/teacher stay as they are; no role, or an
-            // admin role from before the list, becomes student.
-            function targetRole(admin, stored) {
-                if (admin) return 'admin';
-                return SIGNUP_ROLES.indexOf(stored) > -1 ? stored : 'student';
+            // On the admin list → admin; everyone else → student (including old 'teacher' profiles).
+            function targetRole(admin) {
+                return admin ? 'admin' : 'student';
             }
 
             async function loadRole(user) {
@@ -16309,12 +16301,12 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 const [snap, admin] = await Promise.all([fb.F.getDocFromServer(ref), isAdmin(fb, user)]);
                 // A missing profile is being created right now (sign-up / first sign-in); its role arrives from there.
                 if (currentUser !== user || !snap.exists()) return;
-                const stored = snap.data().role, role = targetRole(admin, stored);
+                const stored = snap.data().role, role = targetRole(admin);
                 if (role !== stored) await fb.F.updateDoc(ref, { role: role });
                 if (currentUser === user) setRole(role);
             }
 
-            async function saveProfile(fb, user, isNew, picked) {
+            async function saveProfile(fb, user, isNew) {
                 const F = fb.F;
                 const ref = F.doc(fb.db, 'users', user.uid);
                 const data = Object.assign({
@@ -16323,12 +16315,11 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                     lastLoginAt: F.serverTimestamp()
                 }, currentPrefs());
                 const [snap, admin] = await Promise.all([isNew ? null : F.getDocFromServer(ref), isAdmin(fb, user)]);
+                data.role = targetRole(admin);
                 if (snap && snap.exists()) {
-                    data.role = targetRole(admin, snap.data().role);
                     await F.setDoc(ref, data, { merge: true });
                 } else {
                     data.createdAt = F.serverTimestamp();
-                    data.role = admin ? 'admin' : (SIGNUP_ROLES.indexOf(picked) > -1 ? picked : 'student');
                     await F.setDoc(ref, data);
                 }
                 Object.assign(savedPrefs, currentPrefs());
@@ -16355,14 +16346,13 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 return cred.user;
             }
 
-            async function signUp(name, email, password, role) {
-                if (SIGNUP_ROLES.indexOf(role) < 0) throw Object.assign(new Error('Unknown role'), { code: 'virasat/no-role' });
+            async function signUp(name, email, password) {
                 const fb = await ready;
                 await fb.A.setPersistence(fb.auth, fb.A.indexedDBLocalPersistence);
                 const cred = await fb.A.createUserWithEmailAndPassword(fb.auth, email, password);
                 await fb.A.updateProfile(cred.user, { displayName: name });
                 paintNavUser();   // the sign-in event fired before the nickname was set
-                await saveProfile(fb, cred.user, true, role).catch(err => console.warn('[Virasat] Could not create profile:', err));
+                await saveProfile(fb, cred.user, true).catch(err => console.warn('[Virasat] Could not create profile:', err));
                 return cred.user;
             }
 
@@ -16446,23 +16436,45 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             let activeGame = 'match';
             let watchKey = null, stopWatch = null;
             let rows = null, boardError = false, meInfo = null;
+            let editingUid = null, editError = '';     // admin: the row whose score is being edited
 
             function renderBoard() {
                 const list = document.getElementById('lbList');
                 if (!list) return;
                 const me = currentUser && currentUser.uid;
+                const admin = currentRole === 'admin';
                 let html;
                 if (boardError) html = '<li class="lb-empty">' + escHtml(text('lb_unavailable')) + '</li>';
                 else if (!rows) html = '<li class="lb-empty">' + escHtml(text('lb_loading')) + '</li>';
                 else if (!rows.length) html = '<li class="lb-empty">' + escHtml(text('lb_empty')) + '</li>';
-                else html = rows.map((r, i) =>
-                    '<li class="lb-row' + (r.uid === me ? ' is-me' : '') + '">' +
+                else html = rows.map((r, i) => {
+                    const editing = admin && r.uid === editingUid;
+                    const uid = escHtml(r.uid);
+                    let score = '<span class="lb-score">' + escHtml(formatResult(activeGame, r)) + '</span>';
+                    let actions = '';
+                    if (editing) {
+                        const lim = scoreLimits(activeGame, r);
+                        score = '<span class="lb-score lb-edit"><input class="lb-edit-input" type="number" inputmode="numeric" min="' + lim.lo + '" max="' + lim.hi + '" value="' + (isMatch(activeGame) ? r.moves : r.score) + '" aria-label="' + escHtml(text('lb_edit')) + '">' +
+                            (isMatch(activeGame) ? '' : '<span>/ ' + r.total + '</span>') + '</span>';
+                        actions = '<span class="lb-actions"><button class="lb-act" type="button" data-lb-save="' + uid + '">' + escHtml(text('lb_save')) + '</button>' +
+                            '<button class="lb-act" type="button" data-lb-cancel>' + escHtml(text('lb_cancel')) + '</button></span>';
+                    } else if (admin) {
+                        actions = '<span class="lb-actions"><button class="lb-act" type="button" data-lb-edit="' + uid + '">' + escHtml(text('lb_edit')) + '</button>' +
+                            '<button class="lb-act lb-act-danger" type="button" data-lb-remove="' + uid + '">' + escHtml(text('lb_remove')) + '</button></span>';
+                    }
+                    return '<li class="lb-row' + (r.uid === me ? ' is-me' : '') + '">' +
                         '<span class="lb-rank">' + (i + 1) + '</span>' +
                         '<span class="lb-name">' + escHtml(r.displayName) + (r.uid === me ? ' · ' + escHtml(text('lb_you')) : '') + '</span>' +
-                        '<span class="lb-score">' + escHtml(formatResult(activeGame, r)) + '</span>' +
+                        score +
                         '<span class="lb-time">' + escHtml(formatTime(r.timeMs)) + '</span>' +
-                    '</li>').join('');
+                        actions +
+                        (editing && editError ? '<span class="lb-row-error">' + escHtml(editError) + '</span>' : '') +
+                    '</li>';
+                }).join('');
+                list.classList.toggle('lb-admin', admin);
                 list.innerHTML = html;
+                const editInput = list.querySelector('.lb-edit-input');
+                if (editInput && document.activeElement !== editInput) editInput.focus();
 
                 const meEl = document.getElementById('lbMe');
                 if (!meEl) return;
@@ -16504,7 +16516,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 if (key === watchKey) return;
                 if (stopWatch) { stopWatch(); stopWatch = null; }
                 watchKey = key;
-                rows = null; boardError = false; meInfo = null;
+                rows = null; boardError = false; meInfo = null; editingUid = null; editError = '';
                 renderBoard();
                 if (!key) return;
 
@@ -16534,7 +16546,61 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 });
             }
 
+            // ── Admin tools on the leaderboard: edit a score, or remove an entry ──
+            // (firestore.rules allow these only for emails on the admin list.)
+            function scoreLimits(game, r) {
+                return isMatch(game) ? { lo: r.pairs * 2, hi: 5000 } : { lo: 0, hi: r.total };
+            }
+
+            async function adminSaveScore(uid) {
+                const game = activeGame, r = rows && rows.find(x => x.uid === uid);
+                const input = document.querySelector('#lbList .lb-edit-input');
+                if (!r || !input) return;
+                const value = Number(input.value), lim = scoreLimits(game, r);
+                if (!Number.isInteger(value) || value < lim.lo || value > lim.hi) {
+                    editError = text('lb_edit_range', { min: lim.lo, max: lim.hi });
+                    return renderBoard();
+                }
+                try {
+                    const fb = await ready;
+                    await fb.F.updateDoc(fb.F.doc(fb.db, 'leaderboards', game, 'entries', uid), isMatch(game) ? { moves: value } : { score: value });
+                    editingUid = null; editError = '';
+                } catch (err) {
+                    console.warn('[Virasat] Could not edit score:', err);
+                    editError = text('lb_admin_failed');
+                }
+                renderBoard();
+            }
+
+            async function adminRemove(uid) {
+                const game = activeGame, r = rows && rows.find(x => x.uid === uid);
+                if (!r || !confirm(text('lb_confirm_remove', { name: r.displayName }))) return;
+                try {
+                    const fb = await ready;
+                    await fb.F.deleteDoc(fb.F.doc(fb.db, 'leaderboards', game, 'entries', uid));
+                } catch (err) {
+                    console.warn('[Virasat] Could not remove entry:', err);
+                    alert(text('lb_admin_failed'));
+                }
+            }
+
             function setupBoard() {
+                const list = document.getElementById('lbList');
+                if (list) {
+                    list.addEventListener('click', function (e) {
+                        const b = e.target.closest('button');
+                        if (!b || currentRole !== 'admin') return;
+                        if (b.dataset.lbEdit) { editingUid = b.dataset.lbEdit; editError = ''; renderBoard(); }
+                        else if (b.hasAttribute('data-lb-cancel')) { editingUid = null; editError = ''; renderBoard(); }
+                        else if (b.dataset.lbSave) adminSaveScore(b.dataset.lbSave);
+                        else if (b.dataset.lbRemove) adminRemove(b.dataset.lbRemove);
+                    });
+                    list.addEventListener('keydown', function (e) {
+                        if (!e.target.classList.contains('lb-edit-input')) return;
+                        if (e.key === 'Enter') { e.preventDefault(); adminSaveScore(editingUid); }
+                        if (e.key === 'Escape') { editingUid = null; editError = ''; renderBoard(); }
+                    });
+                }
                 document.querySelectorAll('#leaderboard .lb-tab').forEach(function (tab) {
                     tab.addEventListener('click', function () {
                         activeGame = tab.dataset.game;
@@ -16636,7 +16702,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 ready, onAuth, signIn, signUp, resetPassword, signOut, idToken, savePrefs, errorMessage, refreshUI,
                 isConfigured: () => configured,
                 user: () => currentUser,
-                role: () => currentRole        // 'student' | 'teacher' | 'admin' | null — for role-based features later
+                role: () => currentRole        // 'student' | 'admin' | null — for role-based features
             };
             window.virasatGames = { start, finish };
         })();
@@ -16878,15 +16944,8 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 const email = document.getElementById('signupEmail').value.trim();
                 const password = document.getElementById('signupPassword').value;
                 const confirm = document.getElementById('signupConfirm').value;
-                const roleInput = signupForm.querySelector('input[name="signupRole"]:checked');
-                const role = roleInput ? roleInput.value : '';
 
                 signupError.classList.remove('show');
-
-                if (!role) {
-                    showError(signupError, msg('auth_err_role'));
-                    return;
-                }
 
                 if (!name || !email || !password || !confirm) {
                     showError(signupError, msg('auth_err_all_fields'));
@@ -16911,7 +16970,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
 
                 formBusy = true;
                 setBusy(signupForm, true);
-                verifyCaptcha('signup').then(function() { return cloud.signUp(name, email, password, role); }).then(function() {
+                verifyCaptcha('signup').then(function() { return cloud.signUp(name, email, password); }).then(function() {
                     // Auto-login — use the same cinematic home arrival as a normal login.
                     virasatRunHomecoming('login', function() {
                         hideLoginOverlay();
@@ -18794,7 +18853,7 @@ if (clean === 'bharatiya-calendar') {
                 return;
             }
             const item = QUIZ_DATA[quizIndex];
-            const L = LANG === 'en' ? item : Object.assign({}, item, (VIRASAT_I18N.quiz[quizIndex] || {})[LANG]);   // new questions without a translation show in English
+            const L = LANG === 'en' ? item : Object.assign({}, item, (VIRASAT_I18N.quiz[item.i18n === undefined ? quizIndex : item.i18n] || {})[LANG]);   // new questions without a translation show in English
             box.innerHTML = `<div class="quiz-q">${quizIndex + 1}. ${L.q}</div>
                 <div class="quiz-opts">${L.opts.map((o,i) =>
                     `<button class="quiz-opt" type="button" data-i="${i}" onclick="answerQuiz(${i})">${o}</button>`
@@ -18850,7 +18909,7 @@ if (clean === 'bharatiya-calendar') {
                 return;
             }
             const item = FESTIVAL_QUIZ[festIndex];
-            const L = LANG === 'en' ? item : Object.assign({}, item, (VIRASAT_I18N.festQuiz[festIndex] || {})[LANG]);
+            const L = LANG === 'en' ? item : Object.assign({}, item, (VIRASAT_I18N.festQuiz[item.i18n === undefined ? festIndex : item.i18n] || {})[LANG]);
             box.innerHTML = `<div class="quiz-q">${festIndex + 1}. ${L.q}</div>
                 <div class="quiz-opts">${L.opts.map((o,i) =>
                     `<button class="quiz-opt" type="button" onclick="answerFest(${i})">${o}</button>`
@@ -19246,10 +19305,7 @@ Object.assign(VIRASAT_I18N.ui, {
   auth_err_all_fields:{en:'All fields are required.',hi:'सभी फ़ील्ड ज़रूरी हैं।',sa:'सर्वाणि क्षेत्राणि आवश्यकानि।'},
   auth_err_name:{en:'Nickname must be 2–24 characters.',hi:'उपनाम 2–24 अक्षरों का होना चाहिए।',sa:'उपनाम 2–24 अक्षरात्मकं भवेत्।'},
   auth_err_mismatch:{en:'Passwords do not match.',hi:'पासवर्ड मेल नहीं खाते।',sa:'गुप्तशब्दौ न मिलतः।'},
-  auth_err_role:{en:'Please choose your role.',hi:'कृपया अपनी भूमिका चुनें।',sa:'कृपया स्वभूमिकां चिनोतु।'},
-  signup_role_label:{en:'Your role',hi:'आपकी भूमिका',sa:'भवतः भूमिका'},
   role_student:{en:'Student',hi:'छात्र',sa:'छात्रः'},
-  role_teacher:{en:'Teacher',hi:'शिक्षक',sa:'शिक्षकः'},
   role_admin:{en:'Admin',hi:'व्यवस्थापक',sa:'प्रशासकः'},
   scan_eyebrow:{en:'Photo reader',hi:'फोटो रीडर',sa:'चित्रपाठकः'},
   scan_title:{en:'Read an ancient text from a photo',hi:'फोटो से प्राचीन लेख पढ़ें',sa:'चित्रात् प्राचीनलेखं पठतु'},
@@ -19279,7 +19335,7 @@ Object.assign(VIRASAT_I18N.ui, {
   adm_card_title:{en:'Add quiz questions',hi:'क्विज़ प्रश्न जोड़ें',sa:'प्रश्नोत्तर्यां प्रश्नान् योजयतु'},
   adm_card_desc:{en:'Write new questions for Heritage Quiz and Festival Match. They go live for everyone straight away.',hi:'धरोहर प्रश्नोत्तरी और त्योहार मिलान के लिए नए प्रश्न लिखें। ये तुरंत सबके लिए लाइव हो जाते हैं।',sa:'धरोहरप्रश्नोत्तर्याः उत्सवमेलनस्य च कृते नूतनप्रश्नान् लिखतु। ते सद्यः सर्वेभ्यः उपलभ्यन्ते।'},
   adm_open:{en:'Open',hi:'खोलें',sa:'उद्घाटयतु'},
-  adm_desc:{en:'New questions are added after the built-in ones and go live for every player straight away.',hi:'नए प्रश्न पहले से मौजूद प्रश्नों के बाद जुड़ते हैं और तुरंत हर खिलाड़ी के लिए लाइव हो जाते हैं।',sa:'नूतनप्रश्नाः विद्यमानप्रश्नानाम् अनन्तरं योज्यन्ते, सद्यः सर्वक्रीडकेभ्यः उपलभ्यन्ते च।'},
+  adm_desc:{en:'New questions are asked first, before the built-in ones, and go live for every player straight away.',hi:'नए प्रश्न पहले से मौजूद प्रश्नों से पहले पूछे जाते हैं और तुरंत हर खिलाड़ी के लिए लाइव हो जाते हैं।',sa:'नूतनप्रश्नाः विद्यमानप्रश्नेभ्यः पूर्वं पृच्छ्यन्ते, सद्यः सर्वक्रीडकेभ्यः उपलभ्यन्ते च।'},
   adm_only:{en:'Only admins can add quiz questions.',hi:'केवल एडमिन क्विज़ प्रश्न जोड़ सकते हैं।',sa:'केवलं प्रशासकाः प्रश्नान् योजयितुं शक्नुवन्ति।'},
   adm_game:{en:'Game',hi:'खेल',sa:'क्रीडा'},
   adm_question:{en:'Question',hi:'प्रश्न',sa:'प्रश्नः'},
@@ -19320,7 +19376,14 @@ Object.assign(VIRASAT_I18N.ui, {
   lb_new_best:{en:'🏅 New personal best! Rank #{rank}',hi:'🏅 नया व्यक्तिगत रिकॉर्ड! रैंक #{rank}',sa:'🏅 नूतनः व्यक्तिगतकीर्तिमानः! स्थानम् #{rank}'},
   lb_new_best_norank:{en:'🏅 New personal best!',hi:'🏅 नया व्यक्तिगत रिकॉर्ड!',sa:'🏅 नूतनः व्यक्तिगतकीर्तिमानः!'},
   lb_your_best:{en:'Your best: {result} · Rank #{rank}',hi:'आपका सर्वश्रेष्ठ: {result} · रैंक #{rank}',sa:'भवतः श्रेष्ठम्: {result} · स्थानम् #{rank}'},
-  lb_your_best_norank:{en:'Your best: {result}',hi:'आपका सर्वश्रेष्ठ: {result}',sa:'भवतः श्रेष्ठम्: {result}'}
+  lb_your_best_norank:{en:'Your best: {result}',hi:'आपका सर्वश्रेष्ठ: {result}',sa:'भवतः श्रेष्ठम्: {result}'},
+  lb_edit:{en:'Edit score',hi:'स्कोर बदलें',sa:'अङ्कान् परिवर्तयतु'},
+  lb_remove:{en:'Remove',hi:'हटाएँ',sa:'अपनयतु'},
+  lb_save:{en:'Save',hi:'सहेजें',sa:'रक्षतु'},
+  lb_cancel:{en:'Cancel',hi:'रद्द करें',sa:'निरस्यतु'},
+  lb_edit_range:{en:'Enter a whole number from {min} to {max}.',hi:'{min} से {max} तक की पूर्ण संख्या डालें।',sa:'{min} तः {max} पर्यन्तं पूर्णसंख्यां लिखतु।'},
+  lb_confirm_remove:{en:'Remove {name} from this leaderboard? They can play again to get back on.',hi:'{name} को इस लीडरबोर्ड से हटाएँ? वे फिर से खेलकर वापस आ सकते हैं।',sa:'{name} इत्येतम् अस्याः श्रेष्ठसूच्याः अपनयतु किम्? पुनः क्रीडित्वा प्रत्यागन्तुं शक्नोति।'},
+  lb_admin_failed:{en:"Couldn't change this entry. Check your internet and try again.",hi:'यह प्रविष्टि बदली नहीं जा सकी। इंटरनेट जाँचें और फिर कोशिश करें।',sa:'इयं प्रविष्टिः परिवर्तयितुं न शक्ता। अन्तर्जालं परीक्ष्य पुनः प्रयततु।'},
 });
 
         Object.assign(VIRASAT_I18N.ui, {
@@ -24164,20 +24227,25 @@ draw();
     if (typeof QUIZ_DATA === 'undefined' || typeof FESTIVAL_QUIZ === 'undefined') return;
     const LISTS = { quiz: QUIZ_DATA, festival: FESTIVAL_QUIZ };
     const BUILT_IN = { quiz: QUIZ_DATA.length, festival: FESTIVAL_QUIZ.length };
+    // Remember the built-in questions, each tagged with its translation (Hindi/Sanskrit are looked up by i18n).
+    const BUILT_IN_ITEMS = { quiz: QUIZ_DATA.slice(), festival: FESTIVAL_QUIZ.slice() };
+    Object.keys(BUILT_IN_ITEMS).forEach(game => BUILT_IN_ITEMS[game].forEach((item, i) => { item.i18n = i; }));
     const MAX_TOTAL = 100;      // the leaderboard rules accept quizzes of up to 100 questions
     const say = (key, vars) => (typeof t === 'function' ? t(key, vars) : key);
     const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
-    let added = { quiz: [], festival: [] };    // from Firestore, oldest first
+    let added = { quiz: [], festival: [] };    // from Firestore, newest first
     let stopListening = null;
 
-    // Called by initQuiz() / initFestivalQuiz() when a round starts.
+    // Called by initQuiz() / initFestivalQuiz() when a round starts: admins' questions first
+    // (newest first), then the built-in ones.
     function apply(game) {
         const list = LISTS[game];
         if (!list) return;
-        list.length = BUILT_IN[game];
+        list.length = 0;
         // The quiz draws its questions with innerHTML, so anything an admin typed is escaped here.
-        added[game].slice(0, MAX_TOTAL - BUILT_IN[game]).forEach(x => list.push({ q: escHtml(x.q), opts: x.opts.map(escHtml), a: x.a }));
+        added[game].slice(0, MAX_TOTAL - BUILT_IN[game]).forEach(x => list.push({ q: escHtml(x.q), opts: x.opts.map(escHtml), a: x.a, i18n: -1 }));
+        BUILT_IN_ITEMS[game].forEach(item => list.push(item));
     }
 
     // Keep the added questions up to date while someone is signed in.
@@ -24191,7 +24259,7 @@ draw();
         virasatCloud.ready.then(fb => {
             if (cancelled) return;
             const F = fb.F;
-            unsubscribe = F.onSnapshot(F.query(F.collection(fb.db, 'quizQuestions'), F.orderBy('createdAt', 'asc')), snap => {
+            unsubscribe = F.onSnapshot(F.query(F.collection(fb.db, 'quizQuestions'), F.orderBy('createdAt', 'desc')), snap => {
                 const next = { quiz: [], festival: [] };
                 snap.docs.forEach(d => {
                     const x = d.data();

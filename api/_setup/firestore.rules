@@ -29,8 +29,8 @@ service cloud.firestore {
       ];
     }
     function isAdminEmail() { return request.auth.token.email in adminEmails(); }
-    // On the list → must be 'admin'. Everyone else → 'student' or 'teacher' (picked at sign-up).
-    function roleAllowed(r) { return isAdminEmail() ? r == 'admin' : r in ['student', 'teacher']; }
+    // On the list → must be 'admin'. Everyone else → 'student' (there is no other role).
+    function roleAllowed(r) { return isAdminEmail() ? r == 'admin' : r == 'student'; }
 
     // Lets the site ask "am I an admin?" without revealing the list: reading
     // adminCheck/<your own email> is allowed only if that email is on it. (No documents
@@ -57,16 +57,13 @@ service cloud.firestore {
       allow create: if isOwner(uid)
         && validProfile(request.resource.data)
         && request.resource.data.createdAt == request.time;
+      // validProfile already pins the role (admin list → admin, everyone else → student),
+      // so old 'teacher' or unlisted 'admin' profiles can only be corrected, never kept.
+      // A role, once set, cannot be removed.
       allow update: if isOwner(uid)
         && validProfile(request.resource.data)
         && request.resource.data.createdAt == resource.data.createdAt
-        // Nobody switches between student and teacher themselves. A role only changes when:
-        // the email is on the admin list (→ admin), or a profile with no role / an admin role
-        // that is not on the list is set to 'student'.
-        && (request.resource.data.get('role', null) == resource.data.get('role', null)
-          || isAdminEmail()
-          || (request.resource.data.get('role', null) == 'student'
-            && (resource.data.get('role', null) == null || resource.data.get('role', null) == 'admin')));
+        && (request.resource.data.get('role', null) != null || resource.data.get('role', null) == null);
       allow delete: if false;
     }
 
@@ -128,17 +125,28 @@ service cloud.firestore {
         : (n.score == o.score && n.total == o.total && n.timeMs == o.timeMs);
     }
 
+    // Admins may change just the score (moves for Heritage Match), within what is possible.
+    function adminScoreEdit(game, n, o) {
+      return n.diff(o).affectedKeys().hasOnly([game == 'match' ? 'moves' : 'score'])
+        && (game == 'match'
+          ? n.moves is int && n.moves >= o.pairs * 2 && n.moves <= 5000
+          : n.score is int && n.score >= 0 && n.score <= o.total);
+    }
+
     match /leaderboards/{game}/entries/{uid} {
       allow read: if signedIn() && game in games();
       allow create: if isOwner(uid) && game in games()
         && validEntry(game, request.resource.data)
         && request.resource.data.plays == 1;
-      allow update: if isOwner(uid) && game in games()
-        && validEntry(game, request.resource.data)
-        && request.resource.data.plays == resource.data.plays + 1
-        && (improved(game, request.resource.data, resource.data)
-          || keepsBest(game, request.resource.data, resource.data));
-      allow delete: if false;
+      allow update: if game in games() && (
+        (isOwner(uid)
+          && validEntry(game, request.resource.data)
+          && request.resource.data.plays == resource.data.plays + 1
+          && (improved(game, request.resource.data, resource.data)
+            || keepsBest(game, request.resource.data, resource.data)))
+        || (signedIn() && isAdminEmail() && adminScoreEdit(game, request.resource.data, resource.data)));
+      // Only admins can take an entry off a leaderboard (the player can play again to return).
+      allow delete: if signedIn() && isAdminEmail() && game in games();
     }
   }
 }

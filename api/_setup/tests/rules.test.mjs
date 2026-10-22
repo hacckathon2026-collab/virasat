@@ -70,48 +70,51 @@ describe('roles', () => {
     const seeded = over => ({ ...profile(over), createdAt: Timestamp.fromMillis(1000), lastLoginAt: Timestamp.now() });
     const seededVed = over => ({ ...vedProfile(over), createdAt: Timestamp.fromMillis(1000), lastLoginAt: Timestamp.now() });
 
-    test('anyone can sign up as a student or teacher', async () => {
-        for (const role of ['student', 'teacher']) {
-            await env.clearFirestore();
-            await assertSucceeds(setDoc(doc(asAsha(), 'users/asha'), profile({ role })));
-        }
-    });
-    test('someone not on the list cannot sign up as admin', async () => {
+    test('everyone not on the list signs up as a student, and only a student', async () => {
+        await assertSucceeds(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'student' })));
+        await env.clearFirestore();
+        await assertFails(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'teacher' })));
         await assertFails(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'admin' })));
     });
     test('an email on the list signs up as admin, and only admin', async () => {
         await assertFails(setDoc(doc(asVed(), 'users/ved'), vedProfile({ role: 'student' })));
         await assertSucceeds(setDoc(doc(asVed(), 'users/ved'), vedProfile({ role: 'admin' })));
     });
-    test('rejects an unknown role', async () => {
+    test('rejects unknown roles', async () => {
         await assertFails(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'principal' })));
-        await assertFails(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'Admin' })));
+        await assertFails(setDoc(doc(asAsha(), 'users/asha'), profile({ role: 'Student' })));
     });
-    test('nobody can switch between student and teacher themselves', async () => {
+    test('a student cannot make themselves admin (or teacher)', async () => {
         await seed('users/asha', seeded({ role: 'student' }));
-        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'teacher' }));
         await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'admin' }));
+        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'teacher' }));
         await assertSucceeds(updateDoc(doc(asAsha(), 'users/asha'), { lastLoginAt: serverTimestamp() }));
     });
-    test('an admin from before the list, not on it, can only go back to student', async () => {
-        await seed('users/asha', seeded({ role: 'admin' }));
-        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { lastLoginAt: serverTimestamp() }));
-        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'teacher' }));
-        await assertSucceeds(updateDoc(doc(asAsha(), 'users/asha'), { role: 'student' }));
+    test('old teacher or unlisted admin profiles can only be corrected to student', async () => {
+        for (const old of ['teacher', 'admin']) {
+            await env.clearFirestore();
+            await seed('users/asha', seeded({ role: old }));
+            await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { lastLoginAt: serverTimestamp() }));
+            await assertSucceeds(updateDoc(doc(asAsha(), 'users/asha'), { role: 'student' }));
+        }
     });
     test('an email on the list becomes admin from any old role', async () => {
         for (const old of [{}, { role: 'student' }, { role: 'teacher' }]) {
             await env.clearFirestore();
             await seed('users/ved', seededVed(old));
-            await assertFails(updateDoc(doc(asVed(), 'users/ved'), { role: 'teacher' }));
+            await assertFails(updateDoc(doc(asVed(), 'users/ved'), { role: 'student' }));
             await assertSucceeds(updateDoc(doc(asVed(), 'users/ved'), { role: 'admin' }));
         }
     });
-    test('a profile with no role, not on the list, can only become student', async () => {
+    test('a profile with no role, not on the list, becomes student', async () => {
         await seed('users/asha', seeded({}));
         await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'admin' }));
-        await assertFails(updateDoc(doc(asAsha(), 'users/asha'), { role: 'teacher' }));
         await assertSucceeds(updateDoc(doc(asAsha(), 'users/asha'), { role: 'student' }));
+    });
+    test('the role cannot be removed', async () => {
+        await seed('users/asha', seeded({ role: 'student' }));
+        const { role, ...withoutRole } = seeded({ role: 'student' });
+        await assertFails(setDoc(doc(asAsha(), 'users/asha'), withoutRole));
     });
     test('each person can check only their own email against the admin list', async () => {
         await assertSucceeds(getDoc(doc(asVed(), 'adminCheck/vedanshtyagi925@gmail.com')));
@@ -120,10 +123,39 @@ describe('roles', () => {
         await assertFails(getDoc(doc(asStranger(), 'adminCheck/vedanshtyagi925@gmail.com')));
         await assertFails(getDocs(collection(asVed(), 'adminCheck')));
     });
-    test('the role cannot be removed', async () => {
-        await seed('users/asha', seeded({ role: 'teacher' }));
-        const { role, ...withoutRole } = seeded({ role: 'teacher' });
-        await assertFails(setDoc(doc(asAsha(), 'users/asha'), withoutRole));
+});
+
+describe('admin leaderboard tools', () => {
+    const asVed = () => env.authenticatedContext('ved', { email: 'vedanshtyagi925@gmail.com' }).firestore();
+    test('an admin can change only the score, within what is possible', async () => {
+        await seed('leaderboards/quiz/entries/asha', seededQuiz({ score: 8, total: 8 }));
+        const ref = () => doc(asVed(), 'leaderboards/quiz/entries/asha');
+        await assertSucceeds(updateDoc(ref(), { score: 3 }));
+        await assertFails(updateDoc(ref(), { score: 9 }));
+        await assertFails(updateDoc(ref(), { score: -1 }));
+        await assertFails(updateDoc(ref(), { score: 2.5 }));
+        await assertFails(updateDoc(ref(), { timeMs: 99999 }));
+        await assertFails(updateDoc(ref(), { displayName: 'Renamed' }));
+        await assertFails(updateDoc(ref(), { score: 4, plays: 50 }));
+    });
+    test('Heritage Match: an admin edits moves, never below 2 per pair', async () => {
+        await seed('leaderboards/match/entries/asha', { ...matchEntry(), updatedAt: Timestamp.now() });
+        await assertSucceeds(updateDoc(doc(asVed(), 'leaderboards/match/entries/asha'), { moves: 40 }));
+        await assertFails(updateDoc(doc(asVed(), 'leaderboards/match/entries/asha'), { moves: 10 }));
+        await assertFails(updateDoc(doc(asVed(), 'leaderboards/match/entries/asha'), { score: 5 }));
+    });
+    test('an admin can remove an entry; players cannot', async () => {
+        await seed('leaderboards/quiz/entries/asha', seededQuiz());
+        await seed('leaderboards/quiz/entries/ravi', seededQuiz({ uid: 'ravi', displayName: 'Ravi' }));
+        await assertFails(deleteDoc(doc(asAsha(), 'leaderboards/quiz/entries/asha')));
+        await assertFails(deleteDoc(doc(asAsha(), 'leaderboards/quiz/entries/ravi')));
+        await assertSucceeds(deleteDoc(doc(asVed(), 'leaderboards/quiz/entries/ravi')));
+    });
+    test('a player still cannot edit anyone else, or their own score directly', async () => {
+        await seed('leaderboards/quiz/entries/ravi', seededQuiz({ uid: 'ravi', displayName: 'Ravi' }));
+        await seed('leaderboards/quiz/entries/asha', seededQuiz());
+        await assertFails(updateDoc(doc(asAsha(), 'leaderboards/quiz/entries/ravi'), { score: 0 }));
+        await assertFails(updateDoc(doc(asAsha(), 'leaderboards/quiz/entries/asha'), { score: 8 }));
     });
 });
 
