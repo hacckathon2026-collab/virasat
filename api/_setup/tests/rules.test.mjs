@@ -2,7 +2,7 @@
 import { readFileSync } from 'node:fs';
 import { after, before, beforeEach, describe, test } from 'node:test';
 import { assertFails, assertSucceeds, initializeTestEnvironment } from '@firebase/rules-unit-testing';
-import { doc, getDoc, serverTimestamp, setDoc, updateDoc, collection, getDocs, query, orderBy, limit, Timestamp } from 'firebase/firestore';
+import { doc, getDoc, serverTimestamp, setDoc, updateDoc, deleteDoc, collection, getDocs, query, orderBy, limit, Timestamp } from 'firebase/firestore';
 
 let env;
 
@@ -124,6 +124,45 @@ describe('roles', () => {
         await seed('users/asha', seeded({ role: 'teacher' }));
         const { role, ...withoutRole } = seeded({ role: 'teacher' });
         await assertFails(setDoc(doc(asAsha(), 'users/asha'), withoutRole));
+    });
+});
+
+describe('quiz questions added by admins', () => {
+    const asVed = () => env.authenticatedContext('ved', { email: 'vedanshtyagi925@gmail.com' }).firestore();   // on the admin list
+    const question = (over = {}) => ({ game: 'quiz', q: 'Which dynasty built the Brihadeeswara Temple?', opts: ['Chola', 'Pallava', 'Chalukya', 'Pandya'], a: 0, createdBy: 'ved', createdByName: 'Vedansh', createdAt: serverTimestamp(), ...over });
+    const seededQ = (over = {}) => ({ ...question(over), createdAt: Timestamp.now() });
+
+    test('an admin can add a question for Heritage Quiz or Festival Match', async () => {
+        await assertSucceeds(setDoc(doc(asVed(), 'quizQuestions/q1'), question()));
+        await assertSucceeds(setDoc(doc(asVed(), 'quizQuestions/q2'), question({ game: 'festival' })));
+    });
+    test('non-admins cannot add questions', async () => {
+        await assertFails(setDoc(doc(asAsha(), 'quizQuestions/q1'), question({ createdBy: 'asha' })));
+        await assertFails(setDoc(doc(asStranger(), 'quizQuestions/q1'), question()));
+    });
+    test('rejects badly formed questions', async () => {
+        const ref = () => doc(asVed(), 'quizQuestions/q1');
+        await assertFails(setDoc(ref(), question({ game: 'scramble' })));
+        await assertFails(setDoc(ref(), question({ q: 'Hi?' })));
+        await assertFails(setDoc(ref(), question({ q: 'x'.repeat(301) })));
+        await assertFails(setDoc(ref(), question({ opts: ['A', 'B', 'C'] })));
+        await assertFails(setDoc(ref(), question({ opts: ['A', 'B', 'C', ''] })));
+        await assertFails(setDoc(ref(), question({ a: 4 })));
+        await assertFails(setDoc(ref(), question({ a: '0' })));
+        await assertFails(setDoc(ref(), question({ createdBy: 'someone-else' })));
+        await assertFails(setDoc(ref(), question({ createdAt: Timestamp.fromMillis(0) })));
+        await assertFails(setDoc(ref(), question({ points: 100 })));
+    });
+    test('every signed-in player can read them; strangers cannot', async () => {
+        await seed('quizQuestions/q1', seededQ());
+        await assertSucceeds(getDocs(collection(asAsha(), 'quizQuestions')));
+        await assertFails(getDocs(collection(asStranger(), 'quizQuestions')));
+    });
+    test('only admins can remove a question, and nobody can edit one', async () => {
+        await seed('quizQuestions/q1', seededQ());
+        await assertFails(deleteDoc(doc(asAsha(), 'quizQuestions/q1')));
+        await assertFails(updateDoc(doc(asVed(), 'quizQuestions/q1'), { a: 2 }));
+        await assertSucceeds(deleteDoc(doc(asVed(), 'quizQuestions/q1')));
     });
 });
 

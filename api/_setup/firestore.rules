@@ -70,6 +70,30 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    // ── Quiz questions added by admins: quizQuestions/{id} ──
+    // Every signed-in player reads them (the games add them after the built-in ones);
+    // only admins can add or remove them, and nobody can edit one after it is saved.
+    function validAnswer(o) { return o is string && o.size() >= 1 && o.size() <= 120; }
+    function validQuestion(d) {
+      return d.keys().hasAll(['game', 'q', 'opts', 'a', 'createdBy', 'createdAt'])
+        && d.keys().hasOnly(['game', 'q', 'opts', 'a', 'createdBy', 'createdByName', 'createdAt'])
+        && d.game in ['quiz', 'festival']
+        && d.q is string && d.q.size() >= 5 && d.q.size() <= 300
+        && d.opts is list && d.opts.size() == 4
+        && validAnswer(d.opts[0]) && validAnswer(d.opts[1]) && validAnswer(d.opts[2]) && validAnswer(d.opts[3])
+        && d.a is int && d.a >= 0 && d.a <= 3
+        && d.createdBy == request.auth.uid
+        && (!('createdByName' in d) || (d.createdByName is string && d.createdByName.size() <= 40))
+        && d.createdAt == request.time;
+    }
+
+    match /quizQuestions/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn() && isAdminEmail() && validQuestion(request.resource.data);
+      allow delete: if signedIn() && isAdminEmail();
+      allow update: if false;
+    }
+
     // ── Leaderboards: leaderboards/{game}/entries/{uid} — one doc per player = their best ──
     // Limits are loose on purpose so the team can add quiz questions or cards
     // without touching these rules (up to 100 questions / 50 card pairs).

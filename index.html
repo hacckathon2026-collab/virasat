@@ -11164,6 +11164,32 @@ body.festival-story-open { overflow: hidden; }
 .login-form .signup-role label.role-option:hover{border-color:rgba(212,175,55,.5)}
 .login-form .signup-role label.role-option:has(input:checked){border-color:var(--gold);background:rgba(212,175,55,.16);box-shadow:0 0 0 3px rgba(212,175,55,.09)}
 .login-form .signup-role label.role-option:has(input:focus-visible){outline:2px solid var(--gold);outline-offset:2px}
+/* Gaming Hub: admin page for quiz questions */
+.hub-admin-card[hidden]{display:none!important}
+.hub-admin-tag{display:inline-block;margin-bottom:8px;padding:3px 10px;border-radius:999px;background:rgba(212,175,55,.16);color:var(--marigold);font:700 10.5px 'DM Sans',sans-serif;letter-spacing:.5px;text-transform:uppercase}
+.adm-area{max-width:760px}
+.adm-locked{color:var(--muted);font-weight:600;margin:0}
+.adm-locked[hidden],.adm-form[hidden],.adm-list[hidden]{display:none}
+.adm-field{display:block;margin-bottom:14px}
+.adm-field span,.adm-options legend{display:block;font-weight:700;font-size:13px;margin-bottom:6px;padding:0}
+.adm-form select,.adm-form textarea,.adm-form input[type="text"]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(212,175,55,.25);background:var(--ivory);color:var(--ink);font:15px 'DM Sans',sans-serif;outline:none;resize:vertical}
+.adm-form select:focus,.adm-form textarea:focus,.adm-form input[type="text"]:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+.adm-options{border:0;margin:0 0 14px;padding:0;min-width:0}
+.adm-option{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.adm-option input[type="radio"]{width:20px;height:20px;margin:0;accent-color:var(--gold);flex:0 0 20px}
+.adm-status{min-height:1.4em;margin:10px 0 0;font-weight:600;color:var(--gold)}
+.adm-status.is-error{color:#e87a68}
+.adm-list{margin-top:26px;border-top:1px solid rgba(212,175,55,.18);padding-top:18px}
+.adm-list h3{font-size:22px;margin:0 0 4px}
+.adm-count{color:var(--muted);font-size:13px;margin:0 0 12px}
+.adm-list-items{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.adm-item{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;padding:12px 14px;border-radius:14px;background:rgba(212,175,55,.05)}
+.adm-item > div{min-width:0}
+.adm-item-q{font-weight:600;overflow-wrap:anywhere}
+.adm-item-a{color:var(--muted);font-size:13px;margin-top:2px;overflow-wrap:anywhere}
+.adm-item-a b{color:var(--gold)}
+.adm-item .btn{flex:0 0 auto}
+.adm-empty{color:var(--muted)}
 /* Ancient Scripts: photo reader */
 .scripture-scan{margin-bottom:22px}
 #scriptureScan .btn[hidden]{display:none !important}
@@ -15360,6 +15386,13 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                         <p>Restore an ancient-inspired stepwell by solving water-channel puzzles and discovering heritage stories.</p>
                         <span class="btn primary btn-sm">Play 3D Game ↗</span>
                     </article>
+                    <article class="hub-card hub-admin-card" id="hubAdminCard" hidden onclick="openGame('admin')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openGame('admin')}" role="button" tabindex="0" aria-label="Admin: add quiz questions">
+                        <div class="hub-icon" aria-hidden="true">🛠️</div>
+                        <div class="hub-admin-tag" data-i18n="adm_tag">Admins only</div>
+                        <h3 data-i18n="adm_card_title">Add quiz questions</h3>
+                        <p data-i18n="adm_card_desc">Write new questions for Heritage Quiz and Festival Match. They go live for everyone straight away.</p>
+                        <span class="btn primary btn-sm" data-i18n="adm_open">Open</span>
+                    </article>
                 </div>
 
                 <!-- Leaderboard (filled in by virasatCloudScript) -->
@@ -15380,6 +15413,46 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                     <p class="lb-me" id="lbMe" hidden></p>
                     <p class="lb-note" data-i18n="lb_note">Top 10 · a tie goes to the fastest time</p>
                 </section>
+            </div>
+
+            <!-- Admin: add quiz questions (virasatQuizBankScript). The database rules let only admins save. -->
+            <div id="game-admin" class="game-panel">
+                <button class="btn secondary btn-sm game-back-btn" onclick="openGame('hub')" type="button" data-i18n="game_back">← Back to Hub</button>
+                <div class="sectionhead" style="margin-bottom:24px;">
+                    <div>
+                        <div class="eyebrow" data-i18n="adm_tag">Admins only</div>
+                        <h2 style="font-size:32px;" data-i18n="adm_card_title">Add quiz questions</h2>
+                    </div>
+                    <p data-i18n="adm_desc">New questions are added after the built-in ones and go live for every player straight away.</p>
+                </div>
+                <div class="quiz-area adm-area">
+                    <p class="adm-locked" id="admLocked" data-i18n="adm_only">Only admins can add quiz questions.</p>
+                    <form class="adm-form" id="admForm" hidden novalidate>
+                        <label class="adm-field"><span data-i18n="adm_game">Game</span>
+                            <select id="admGame">
+                                <option value="quiz" data-i18n="hub_quiz_title">Heritage Quiz</option>
+                                <option value="festival" data-i18n="hub_festival_title">Festival Match</option>
+                            </select>
+                        </label>
+                        <label class="adm-field"><span data-i18n="adm_question">Question</span>
+                            <textarea id="admQuestion" rows="2" maxlength="300"></textarea>
+                        </label>
+                        <fieldset class="adm-options">
+                            <legend data-i18n="adm_options">Answers — tick the correct one</legend>
+                            <div class="adm-option"><input type="radio" name="admCorrect" value="0" aria-label="Answer 1 is correct" /><input type="text" id="admOpt0" maxlength="120" placeholder="Answer 1" /></div>
+                            <div class="adm-option"><input type="radio" name="admCorrect" value="1" aria-label="Answer 2 is correct" /><input type="text" id="admOpt1" maxlength="120" placeholder="Answer 2" /></div>
+                            <div class="adm-option"><input type="radio" name="admCorrect" value="2" aria-label="Answer 3 is correct" /><input type="text" id="admOpt2" maxlength="120" placeholder="Answer 3" /></div>
+                            <div class="adm-option"><input type="radio" name="admCorrect" value="3" aria-label="Answer 4 is correct" /><input type="text" id="admOpt3" maxlength="120" placeholder="Answer 4" /></div>
+                        </fieldset>
+                        <div class="actions"><button class="btn primary" type="submit" data-i18n="adm_save">Add question</button></div>
+                        <p class="adm-status" id="admStatus" aria-live="polite"></p>
+                    </form>
+                    <div class="adm-list" id="admListWrap" hidden>
+                        <h3 data-i18n="adm_added">Added questions</h3>
+                        <p class="adm-count" id="admCount"></p>
+                        <ol class="adm-list-items" id="admList"></ol>
+                    </div>
+                </div>
             </div>
 
             <!-- Virasat 3D game: Artisan’s Courtyard 3D -->
@@ -16207,6 +16280,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 if (currentRole) document.documentElement.dataset.role = currentRole;
                 else delete document.documentElement.dataset.role;
                 paintNavUser();
+                document.dispatchEvent(new CustomEvent('virasat:role', { detail: currentRole }));
             }
 
             // true when this person's email is on the admin list (a read the rules allow only then).
@@ -18699,6 +18773,7 @@ if (clean === 'bharatiya-calendar') {
 
         function initQuiz() {
             quizIndex = 0; quizScore = 0; quizLocked = false;
+            window.virasatQuizBank?.apply('quiz');   // + questions added by admins
             if (window.virasatGames) virasatGames.start('quiz');
             window.virasatBadges?.start('quiz');
             renderQuizQ();
@@ -18754,6 +18829,7 @@ if (clean === 'bharatiya-calendar') {
         let festIndex = 0, festScore = 0, festLocked = false;
         function initFestivalQuiz() {
             festIndex = 0; festScore = 0; festLocked = false;
+            window.virasatQuizBank?.apply('festival');   // + questions added by admins
             if (window.virasatGames) virasatGames.start('festival');
             window.virasatBadges?.start('festival');
             renderFestQ();
@@ -19199,6 +19275,30 @@ Object.assign(VIRASAT_I18N.ui, {
   scan_translation_en:{en:'English translation',hi:'अंग्रेज़ी अनुवाद',sa:'आङ्ग्लानुवादः'},
   scan_translation_hi:{en:'Hindi translation',hi:'हिंदी अनुवाद',sa:'हिन्द्यनुवादः'},
   scan_about:{en:'What is this?',hi:'यह क्या है?',sa:'किम् इदम्?'},
+  adm_tag:{en:'Admins only',hi:'केवल एडमिन',sa:'केवलं प्रशासकाः'},
+  adm_card_title:{en:'Add quiz questions',hi:'क्विज़ प्रश्न जोड़ें',sa:'प्रश्नोत्तर्यां प्रश्नान् योजयतु'},
+  adm_card_desc:{en:'Write new questions for Heritage Quiz and Festival Match. They go live for everyone straight away.',hi:'धरोहर प्रश्नोत्तरी और त्योहार मिलान के लिए नए प्रश्न लिखें। ये तुरंत सबके लिए लाइव हो जाते हैं।',sa:'धरोहरप्रश्नोत्तर्याः उत्सवमेलनस्य च कृते नूतनप्रश्नान् लिखतु। ते सद्यः सर्वेभ्यः उपलभ्यन्ते।'},
+  adm_open:{en:'Open',hi:'खोलें',sa:'उद्घाटयतु'},
+  adm_desc:{en:'New questions are added after the built-in ones and go live for every player straight away.',hi:'नए प्रश्न पहले से मौजूद प्रश्नों के बाद जुड़ते हैं और तुरंत हर खिलाड़ी के लिए लाइव हो जाते हैं।',sa:'नूतनप्रश्नाः विद्यमानप्रश्नानाम् अनन्तरं योज्यन्ते, सद्यः सर्वक्रीडकेभ्यः उपलभ्यन्ते च।'},
+  adm_only:{en:'Only admins can add quiz questions.',hi:'केवल एडमिन क्विज़ प्रश्न जोड़ सकते हैं।',sa:'केवलं प्रशासकाः प्रश्नान् योजयितुं शक्नुवन्ति।'},
+  adm_game:{en:'Game',hi:'खेल',sa:'क्रीडा'},
+  adm_question:{en:'Question',hi:'प्रश्न',sa:'प्रश्नः'},
+  adm_options:{en:'Answers — tick the correct one',hi:'उत्तर — सही उत्तर चुनें',sa:'उत्तराणि — शुद्धम् उत्तरं चिनोतु'},
+  adm_answer:{en:'Answer {n}',hi:'उत्तर {n}',sa:'उत्तरम् {n}'},
+  adm_save:{en:'Add question',hi:'प्रश्न जोड़ें',sa:'प्रश्नं योजयतु'},
+  adm_saving:{en:'Saving…',hi:'सहेजा जा रहा है…',sa:'रक्ष्यते…'},
+  adm_saved:{en:"Question added. It's live for everyone now.",hi:'प्रश्न जुड़ गया। अब यह सबके लिए लाइव है।',sa:'प्रश्नः योजितः। इदानीं सर्वेभ्यः उपलभ्यते।'},
+  adm_err_question:{en:'Please write a question (at least 5 characters).',hi:'कृपया प्रश्न लिखें (कम से कम 5 अक्षर)।',sa:'कृपया प्रश्नं लिखतु (न्यूनातिन्यूनं ५ अक्षराणि)।'},
+  adm_err_options:{en:'Please fill in all four answers.',hi:'कृपया चारों उत्तर भरें।',sa:'कृपया चत्वारि उत्तराणि लिखतु।'},
+  adm_err_correct:{en:'Please tick the correct answer.',hi:'कृपया सही उत्तर चुनें।',sa:'कृपया शुद्धम् उत्तरं चिनोतु।'},
+  adm_err_full:{en:'This game already has 100 questions, the most the leaderboard allows.',hi:'इस खेल में पहले से 100 प्रश्न हैं, जो लीडरबोर्ड की अधिकतम सीमा है।',sa:'अस्यां क्रीडायां पूर्वमेव १०० प्रश्नाः सन्ति, श्रेष्ठसूच्याः परमा सीमा।'},
+  adm_err_denied:{en:'Only admins can do this.',hi:'यह केवल एडमिन कर सकते हैं।',sa:'इदं केवलं प्रशासकाः कर्तुं शक्नुवन्ति।'},
+  adm_err_save:{en:"Couldn't save. Check your internet and try again.",hi:'सहेजा नहीं जा सका। इंटरनेट जाँचें और फिर कोशिश करें।',sa:'रक्षितुं न शक्तम्। अन्तर्जालं परीक्ष्य पुनः प्रयततु।'},
+  adm_added:{en:'Added questions',hi:'जोड़े गए प्रश्न',sa:'योजिताः प्रश्नाः'},
+  adm_count:{en:'{builtIn} built-in + {added} added (up to {max} in total)',hi:'{builtIn} पहले से + {added} जोड़े गए (कुल {max} तक)',sa:'{builtIn} विद्यमानाः + {added} योजिताः (आहत्य {max} पर्यन्तम्)'},
+  adm_none:{en:'No questions added yet.',hi:'अभी कोई प्रश्न नहीं जोड़ा गया।',sa:'अद्यापि कोऽपि प्रश्नः न योजितः।'},
+  adm_remove:{en:'Remove',hi:'हटाएँ',sa:'अपनयतु'},
+  adm_confirm_remove:{en:'Remove this question for everyone?',hi:'यह प्रश्न सबके लिए हटाएँ?',sa:'अयं प्रश्नः सर्वेभ्यः अपनेतव्यः किम्?'},
   auth_err_too_many:{en:'Too many attempts. Please wait a minute and try again.',hi:'बहुत अधिक प्रयास। एक मिनट रुककर फिर कोशिश करें।',sa:'अतिप्रयत्नाः। किञ्चित् प्रतीक्ष्य पुनः प्रयततु।'},
   auth_err_network:{en:"Can't reach the server. Check your internet connection.",hi:'सर्वर से नहीं जुड़ पा रहे। इंटरनेट कनेक्शन जाँचें।',sa:'सेवकेन सह सम्पर्कः न भवति। अन्तर्जालं परीक्षताम्।'},
   auth_err_disabled:{en:'This account has been disabled.',hi:'यह खाता बंद कर दिया गया है।',sa:'इदं पञ्जीकरणं निष्क्रियं कृतम्।'},
@@ -19362,6 +19462,7 @@ function applyLanguage(lang) {
     if (typeof refreshGames === 'function') refreshGames();
     if (window.virasatCloud) { virasatCloud.refreshUI(); virasatCloud.savePrefs(); }
     if (window.virasatScriptureScan) virasatScriptureScan.refresh();
+    if (window.virasatQuizBank) virasatQuizBank.refresh();
     updateLangUI();
     const modal = document.getElementById('modal');
     if (modal && modal.classList.contains('open') && window.__modalRebuild) window.__modalRebuild();
@@ -24049,6 +24150,155 @@ draw();
   }));
  }
  if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init);else init();
+})();
+</script>
+<script id="virasatQuizBankScript">
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  QUIZ BANK + ADMIN PAGE (Gaming Hub)
+//  Admins add questions for Heritage Quiz and Festival Match from the site. They are
+//  stored in Firestore (quizQuestions) and every signed-in player gets them after the
+//  built-in questions. firestore.rules lets only admins add or remove them.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(function () {
+    'use strict';
+    if (typeof QUIZ_DATA === 'undefined' || typeof FESTIVAL_QUIZ === 'undefined') return;
+    const LISTS = { quiz: QUIZ_DATA, festival: FESTIVAL_QUIZ };
+    const BUILT_IN = { quiz: QUIZ_DATA.length, festival: FESTIVAL_QUIZ.length };
+    const MAX_TOTAL = 100;      // the leaderboard rules accept quizzes of up to 100 questions
+    const say = (key, vars) => (typeof t === 'function' ? t(key, vars) : key);
+    const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+    let added = { quiz: [], festival: [] };    // from Firestore, oldest first
+    let stopListening = null;
+
+    // Called by initQuiz() / initFestivalQuiz() when a round starts.
+    function apply(game) {
+        const list = LISTS[game];
+        if (!list) return;
+        list.length = BUILT_IN[game];
+        // The quiz draws its questions with innerHTML, so anything an admin typed is escaped here.
+        added[game].slice(0, MAX_TOTAL - BUILT_IN[game]).forEach(x => list.push({ q: escHtml(x.q), opts: x.opts.map(escHtml), a: x.a }));
+    }
+
+    // Keep the added questions up to date while someone is signed in.
+    function listen(user) {
+        if (stopListening) { stopListening(); stopListening = null; }
+        added = { quiz: [], festival: [] };
+        renderList();
+        if (!user || !window.virasatCloud) return;
+        let unsubscribe = null, cancelled = false;
+        stopListening = () => { cancelled = true; if (unsubscribe) unsubscribe(); };
+        virasatCloud.ready.then(fb => {
+            if (cancelled) return;
+            const F = fb.F;
+            unsubscribe = F.onSnapshot(F.query(F.collection(fb.db, 'quizQuestions'), F.orderBy('createdAt', 'asc')), snap => {
+                const next = { quiz: [], festival: [] };
+                snap.docs.forEach(d => {
+                    const x = d.data();
+                    if (next[x.game] && typeof x.q === 'string' && Array.isArray(x.opts) && x.opts.length === 4) next[x.game].push(Object.assign({ id: d.id }, x));
+                });
+                added = next;
+                renderList();
+            }, err => console.warn('[Virasat] Could not load added quiz questions:', err));
+        }).catch(() => { });
+    }
+
+    // ── Admin page ──
+    const card = document.getElementById('hubAdminCard');
+    const panel = document.getElementById('game-admin');
+    const form = document.getElementById('admForm');
+    const locked = document.getElementById('admLocked');
+    const listWrap = document.getElementById('admListWrap');
+    const gameSel = document.getElementById('admGame');
+    const question = document.getElementById('admQuestion');
+    const answers = [0, 1, 2, 3].map(i => document.getElementById('admOpt' + i));
+    const status = document.getElementById('admStatus');
+    const countEl = document.getElementById('admCount');
+    const listEl = document.getElementById('admList');
+    if (!card || !panel || !form) return;
+
+    function paintRole(role) {
+        const admin = role === 'admin';
+        card.hidden = !admin;
+        form.hidden = !admin;
+        listWrap.hidden = !admin;
+        locked.hidden = admin;
+        if (!admin && panel.classList.contains('active') && typeof openGame === 'function') openGame('hub');
+    }
+
+    function setStatus(key, isError) {
+        status.textContent = key ? say(key) : '';
+        status.classList.toggle('is-error', !!isError);
+    }
+
+    function renderList() {
+        if (!countEl) return;
+        const game = gameSel.value, items = added[game];
+        answers.forEach((input, i) => { input.placeholder = say('adm_answer', { n: i + 1 }); });
+        countEl.textContent = say('adm_count', { builtIn: BUILT_IN[game], added: items.length, max: MAX_TOTAL });
+        listEl.innerHTML = items.length
+            ? items.map(x =>
+                '<li class="adm-item"><div>' +
+                    '<div class="adm-item-q">' + escHtml(x.q) + '</div>' +
+                    '<div class="adm-item-a">' + x.opts.map((o, i) => i === x.a ? '<b>' + escHtml(o) + ' ✓</b>' : escHtml(o)).join(' · ') + '</div>' +
+                '</div><button class="btn secondary btn-sm" type="button" data-remove="' + escHtml(x.id) + '">' + escHtml(say('adm_remove')) + '</button></li>').join('')
+            : '<li class="adm-empty">' + escHtml(say('adm_none')) + '</li>';
+    }
+
+    form.addEventListener('submit', async e => {
+        e.preventDefault();
+        const game = gameSel.value;
+        const q = question.value.trim();
+        const opts = answers.map(input => input.value.trim());
+        const picked = form.querySelector('input[name="admCorrect"]:checked');
+        if (q.length < 5) return setStatus('adm_err_question', true);
+        if (opts.some(o => !o)) return setStatus('adm_err_options', true);
+        if (!picked) return setStatus('adm_err_correct', true);
+        if (BUILT_IN[game] + added[game].length >= MAX_TOTAL) return setStatus('adm_err_full', true);
+        const button = form.querySelector('button[type="submit"]');
+        button.disabled = true;
+        setStatus('adm_saving');
+        try {
+            const fb = await virasatCloud.ready, F = fb.F, user = virasatCloud.user();
+            await F.addDoc(F.collection(fb.db, 'quizQuestions'), {
+                game: game, q: q, opts: opts, a: Number(picked.value),
+                createdBy: user.uid, createdByName: String(user.displayName || '').slice(0, 40),
+                createdAt: F.serverTimestamp()
+            });
+            form.reset();
+            gameSel.value = game;
+            setStatus('adm_saved');
+            renderList();
+        } catch (err) {
+            console.warn('[Virasat] Could not add question:', err);
+            setStatus(err && err.code === 'permission-denied' ? 'adm_err_denied' : 'adm_err_save', true);
+        } finally {
+            button.disabled = false;
+        }
+    });
+
+    gameSel.addEventListener('change', () => { setStatus(''); renderList(); });
+
+    listEl.addEventListener('click', async e => {
+        const button = e.target.closest('[data-remove]');
+        if (!button || !confirm(say('adm_confirm_remove'))) return;
+        button.disabled = true;
+        try {
+            const fb = await virasatCloud.ready;
+            await fb.F.deleteDoc(fb.F.doc(fb.db, 'quizQuestions', button.dataset.remove));
+        } catch (err) {
+            console.warn('[Virasat] Could not remove question:', err);
+            button.disabled = false;
+            setStatus(err && err.code === 'permission-denied' ? 'adm_err_denied' : 'adm_err_save', true);
+        }
+    });
+
+    document.addEventListener('virasat:role', e => paintRole(e.detail));
+    paintRole(window.virasatCloud && virasatCloud.role());
+    renderList();
+    if (window.virasatCloud) virasatCloud.onAuth(listen);
+
+    window.virasatQuizBank = { apply: apply, refresh: renderList };
 })();
 </script>
 <script id="virasatScriptureScanScript">
