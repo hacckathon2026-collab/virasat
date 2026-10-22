@@ -11156,8 +11156,25 @@ body.festival-story-open { overflow: hidden; }
 [data-theme="light"] .nav-controls > .nav-user{background:#fffaf2;border-color:rgba(140,107,46,.28);color:#5b4730}
 [data-theme="light"] .nav-user-role{background:rgba(140,107,46,.12);color:#7a5a1f}
 @media (max-width:820px){.nav-controls > .nav-user{min-height:38px;padding:0 10px;font-size:11px;max-width:170px}}
-/* Leaderboard: admin tools (edit score / remove) */
-.lb-admin .lb-row{grid-template-columns:42px 1fr auto auto auto}
+/* Admin dashboard (page-admin, admins only) */
+#navLinks #adminNavLink[hidden]{display:none!important}   /* two ids: beats the menu's own "#navLinks … > a" display rules */
+.adm-locked{color:var(--muted);font-weight:600;margin:0}
+.adm-locked[hidden],.adm-dash[hidden]{display:none}
+.adm-dash{display:grid;gap:24px}
+.adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.adm-stat{display:flex;flex-direction:column;background:var(--card);border:1px solid rgba(212,175,55,.18);border-radius:18px;padding:16px 18px;min-width:0}
+.adm-stat-label{display:block;flex:1 0 auto;font-weight:700;font-size:13px;color:var(--muted)}
+.adm-stat-n{display:block;font-family:'Playfair Display',serif;font-size:34px;font-weight:700;line-height:1.15;color:var(--gold);margin:4px 0 2px}
+.adm-stat-sub{display:block;font-size:12px;color:var(--muted)}
+.adm-card{background:var(--card);border:1px solid rgba(212,175,55,.18);border-radius:22px;padding:26px 24px;min-width:0}
+.adm-card h3{font-size:26px;margin:0}
+.adm-hint{color:var(--muted);font-size:14px;margin:6px 0 0;max-width:560px}
+@media (max-width:520px){.adm-card{padding:20px 16px}.adm-stat{padding:14px}.adm-stat-n{font-size:28px}}
+/* Admin dashboard: leaderboard rows with Edit score / Remove */
+.lb-admin .lb-row{grid-template-columns:42px minmax(0,1fr) auto auto auto}
+.lb-who{min-width:0}
+.lb-who .lb-name{display:block}
+.lb-meta{display:block;color:var(--muted);font-size:12px;margin-top:2px}
 .lb-actions{display:flex;gap:6px;justify-content:flex-end}
 .lb-act{border:1px solid rgba(212,175,55,.35);background:transparent;color:var(--ink);border-radius:999px;padding:4px 10px;font:600 11.5px 'DM Sans',sans-serif;cursor:pointer;white-space:nowrap}
 .lb-act:hover{border-color:var(--gold)}
@@ -11165,24 +11182,22 @@ body.festival-story-open { overflow: hidden; }
 .lb-edit{display:inline-flex;align-items:center;gap:6px}
 .lb-edit-input{width:74px;padding:4px 8px;border-radius:8px;border:1px solid rgba(212,175,55,.45);background:var(--ivory);color:var(--ink);font:700 13px 'DM Sans',sans-serif}
 .lb-row-error{grid-column:1/-1;color:#e87a68;font-size:12px;font-weight:600}
-@media (max-width:520px){.lb-admin .lb-row{grid-template-columns:32px 1fr auto}.lb-admin .lb-actions{grid-column:2/4;justify-content:flex-start}}
-/* Gaming Hub: admin page for quiz questions */
-.hub-admin-card[hidden]{display:none!important}
-.hub-admin-tag{display:inline-block;margin-bottom:8px;padding:3px 10px;border-radius:999px;background:rgba(212,175,55,.16);color:var(--marigold);font:700 10.5px 'DM Sans',sans-serif;letter-spacing:.5px;text-transform:uppercase}
-.adm-area{max-width:760px}
-.adm-locked{color:var(--muted);font-weight:600;margin:0}
-.adm-locked[hidden],.adm-form[hidden],.adm-list[hidden]{display:none}
+@media (max-width:520px){.lb-admin .lb-row{grid-template-columns:32px minmax(0,1fr) auto}.lb-admin .lb-time{display:none}.lb-admin .lb-actions{grid-column:2/4;justify-content:flex-start}}
+/* Admin dashboard: quiz questions */
+.adm-q-grid{display:grid;gap:26px}
+@media (min-width:900px){.adm-q-grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:34px}}
+.adm-form h4,.adm-list h4{font-size:18px;margin:0 0 12px}
 .adm-field{display:block;margin-bottom:14px}
 .adm-field span,.adm-options legend{display:block;font-weight:700;font-size:13px;margin-bottom:6px;padding:0}
-.adm-form select,.adm-form textarea,.adm-form input[type="text"]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(212,175,55,.25);background:var(--ivory);color:var(--ink);font:15px 'DM Sans',sans-serif;outline:none;resize:vertical}
-.adm-form select:focus,.adm-form textarea:focus,.adm-form input[type="text"]:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+.adm-form textarea,.adm-form input[type="text"]{width:100%;padding:12px 14px;border-radius:12px;border:1px solid rgba(212,175,55,.25);background:var(--ivory);color:var(--ink);font:15px 'DM Sans',sans-serif;outline:none;resize:vertical}
+.adm-form textarea:focus,.adm-form input[type="text"]:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
 .adm-options{border:0;margin:0 0 14px;padding:0;min-width:0}
 .adm-option{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .adm-option input[type="radio"]{width:20px;height:20px;margin:0;accent-color:var(--gold);flex:0 0 20px}
 .adm-status{min-height:1.4em;margin:10px 0 0;font-weight:600;color:var(--gold)}
 .adm-status.is-error{color:#e87a68}
-.adm-list{margin-top:26px;border-top:1px solid rgba(212,175,55,.18);padding-top:18px}
-.adm-list h3{font-size:22px;margin:0 0 4px}
+.adm-list{min-width:0}
+@media (max-width:899px){.adm-list{border-top:1px solid rgba(212,175,55,.18);padding-top:18px}}
 .adm-count{color:var(--muted);font-size:13px;margin:0 0 12px}
 .adm-list-items{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .adm-item{display:flex;gap:12px;align-items:flex-start;justify-content:space-between;padding:12px 14px;border-radius:14px;background:rgba(212,175,55,.05)}
@@ -11192,6 +11207,9 @@ body.festival-story-open { overflow: hidden; }
 .adm-item-a b{color:var(--gold)}
 .adm-item .btn{flex:0 0 auto}
 .adm-empty{color:var(--muted)}
+.adm-builtin{margin-top:16px}
+.adm-builtin summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--gold);padding:6px 0}
+.adm-builtin .adm-list-items{margin-top:8px}
 /* Ancient Scripts: photo reader */
 .scripture-scan{margin-bottom:22px}
 #scriptureScan .btn[hidden]{display:none !important}
@@ -14952,6 +14970,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 <a href="#" data-page="history" data-i18n="nav_history" class="history-nav-link">India Through Time</a>
 
                 <a href="#" data-page="games" role="menuitem" class="gaming-hub-nav-link">Gaming Hub</a>
+                <a href="#" data-page="admin" class="admin-nav-link" id="adminNavLink" data-i18n="nav_admin" hidden>Admin dashboard</a>
 
             </div>
 
@@ -15381,13 +15400,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                         <p>Restore an ancient-inspired stepwell by solving water-channel puzzles and discovering heritage stories.</p>
                         <span class="btn primary btn-sm">Play 3D Game ↗</span>
                     </article>
-                    <article class="hub-card hub-admin-card" id="hubAdminCard" hidden onclick="openGame('admin')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openGame('admin')}" role="button" tabindex="0" aria-label="Admin: add quiz questions">
-                        <div class="hub-icon" aria-hidden="true">🛠️</div>
-                        <div class="hub-admin-tag" data-i18n="adm_tag">Admins only</div>
-                        <h3 data-i18n="adm_card_title">Add quiz questions</h3>
-                        <p data-i18n="adm_card_desc">Write new questions for Heritage Quiz and Festival Match. They go live for everyone straight away.</p>
-                        <span class="btn primary btn-sm" data-i18n="adm_open">Open</span>
-                    </article>
                 </div>
 
                 <!-- Leaderboard (filled in by virasatCloudScript) -->
@@ -15408,46 +15420,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                     <p class="lb-me" id="lbMe" hidden></p>
                     <p class="lb-note" data-i18n="lb_note">Top 10 · a tie goes to the fastest time</p>
                 </section>
-            </div>
-
-            <!-- Admin: add quiz questions (virasatQuizBankScript). The database rules let only admins save. -->
-            <div id="game-admin" class="game-panel">
-                <button class="btn secondary btn-sm game-back-btn" onclick="openGame('hub')" type="button" data-i18n="game_back">← Back to Hub</button>
-                <div class="sectionhead" style="margin-bottom:24px;">
-                    <div>
-                        <div class="eyebrow" data-i18n="adm_tag">Admins only</div>
-                        <h2 style="font-size:32px;" data-i18n="adm_card_title">Add quiz questions</h2>
-                    </div>
-                    <p data-i18n="adm_desc">New questions are asked first, before the built-in ones, and go live for every player straight away.</p>
-                </div>
-                <div class="quiz-area adm-area">
-                    <p class="adm-locked" id="admLocked" data-i18n="adm_only">Only admins can add quiz questions.</p>
-                    <form class="adm-form" id="admForm" hidden novalidate>
-                        <label class="adm-field"><span data-i18n="adm_game">Game</span>
-                            <select id="admGame">
-                                <option value="quiz" data-i18n="hub_quiz_title">Heritage Quiz</option>
-                                <option value="festival" data-i18n="hub_festival_title">Festival Match</option>
-                            </select>
-                        </label>
-                        <label class="adm-field"><span data-i18n="adm_question">Question</span>
-                            <textarea id="admQuestion" rows="2" maxlength="300"></textarea>
-                        </label>
-                        <fieldset class="adm-options">
-                            <legend data-i18n="adm_options">Answers — tick the correct one</legend>
-                            <div class="adm-option"><input type="radio" name="admCorrect" value="0" aria-label="Answer 1 is correct" /><input type="text" id="admOpt0" maxlength="120" placeholder="Answer 1" /></div>
-                            <div class="adm-option"><input type="radio" name="admCorrect" value="1" aria-label="Answer 2 is correct" /><input type="text" id="admOpt1" maxlength="120" placeholder="Answer 2" /></div>
-                            <div class="adm-option"><input type="radio" name="admCorrect" value="2" aria-label="Answer 3 is correct" /><input type="text" id="admOpt2" maxlength="120" placeholder="Answer 3" /></div>
-                            <div class="adm-option"><input type="radio" name="admCorrect" value="3" aria-label="Answer 4 is correct" /><input type="text" id="admOpt3" maxlength="120" placeholder="Answer 4" /></div>
-                        </fieldset>
-                        <div class="actions"><button class="btn primary" type="submit" data-i18n="adm_save">Add question</button></div>
-                        <p class="adm-status" id="admStatus" aria-live="polite"></p>
-                    </form>
-                    <div class="adm-list" id="admListWrap" hidden>
-                        <h3 data-i18n="adm_added">Added questions</h3>
-                        <p class="adm-count" id="admCount"></p>
-                        <ol class="adm-list-items" id="admList"></ol>
-                    </div>
-                </div>
             </div>
 
             <!-- Virasat 3D game: Artisan’s Courtyard 3D -->
@@ -15554,6 +15526,81 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                         <button class="btn secondary btn-sm" onclick="initScramble()" type="button">Restart</button>
                     </div>
                 </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- ─── PAGE: ADMIN DASHBOARD (admins only; filled in by virasatAdminScript) ─── -->
+    <div class="page" id="page-admin">
+        <section class="section">
+            <div class="sectionhead">
+                <div>
+                    <div class="eyebrow" data-i18n="adm_tag">Admins only</div>
+                    <h2 data-i18n="adm_dash_title">Admin dashboard</h2>
+                </div>
+                <p data-i18n="adm_dash_desc">Everything admins can change, in one place. Changes go live for every player straight away.</p>
+            </div>
+            <p class="adm-locked" id="admLocked" data-i18n="adm_only">Only admins can see this page.</p>
+            <div class="adm-dash" id="admDash" hidden>
+                <div class="adm-stats" id="admStats"></div>
+
+                <!-- Leaderboards: every player's best, with Edit score / Remove -->
+                <section class="adm-card" aria-labelledby="admBoardTitle">
+                    <div class="lb-head">
+                        <div>
+                            <h3 id="admBoardTitle" data-i18n="adm_boards_title">Leaderboards</h3>
+                            <p class="adm-hint" data-i18n="adm_boards_desc">Every player's best score. Fix a wrong score, or take an entry off the board.</p>
+                        </div>
+                        <div class="lb-tabs" id="admBoardTabs" role="tablist" aria-labelledby="admBoardTitle">
+                            <button class="lb-tab active" type="button" role="tab" aria-selected="true" data-game="match" data-i18n="hub_match_title">Heritage Match</button>
+                            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-game="quiz" data-i18n="hub_quiz_title">Heritage Quiz</button>
+                            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-game="festival" data-i18n="hub_festival_title">Festival Match</button>
+                            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-game="scramble" data-i18n="hub_scramble_title">Monument Scramble</button>
+                        </div>
+                    </div>
+                    <ol class="lb-list lb-admin" id="admBoard" aria-live="polite"></ol>
+                    <p class="lb-note" id="admBoardNote" hidden></p>
+                </section>
+
+                <!-- Quiz questions: add / remove the ones admins wrote; built-in ones are shown read-only -->
+                <section class="adm-card" aria-labelledby="admQuestionsTitle">
+                    <div class="lb-head">
+                        <div>
+                            <h3 id="admQuestionsTitle" data-i18n="adm_questions_title">Quiz questions</h3>
+                            <p class="adm-hint" data-i18n="adm_desc">New questions are asked first, before the built-in ones, and go live for every player straight away.</p>
+                        </div>
+                        <div class="lb-tabs" id="admQuizTabs" role="tablist" aria-labelledby="admQuestionsTitle">
+                            <button class="lb-tab active" type="button" role="tab" aria-selected="true" data-game="quiz" data-i18n="hub_quiz_title">Heritage Quiz</button>
+                            <button class="lb-tab" type="button" role="tab" aria-selected="false" data-game="festival" data-i18n="hub_festival_title">Festival Match</button>
+                        </div>
+                    </div>
+                    <div class="adm-q-grid">
+                        <form class="adm-form" id="admForm" novalidate>
+                            <h4 data-i18n="adm_new">Add a question</h4>
+                            <label class="adm-field"><span data-i18n="adm_question">Question</span>
+                                <textarea id="admQuestion" rows="2" maxlength="300"></textarea>
+                            </label>
+                            <fieldset class="adm-options">
+                                <legend data-i18n="adm_options">Answers — tick the correct one</legend>
+                                <div class="adm-option"><input type="radio" name="admCorrect" value="0" aria-label="Answer 1 is correct" /><input type="text" id="admOpt0" maxlength="120" placeholder="Answer 1" /></div>
+                                <div class="adm-option"><input type="radio" name="admCorrect" value="1" aria-label="Answer 2 is correct" /><input type="text" id="admOpt1" maxlength="120" placeholder="Answer 2" /></div>
+                                <div class="adm-option"><input type="radio" name="admCorrect" value="2" aria-label="Answer 3 is correct" /><input type="text" id="admOpt2" maxlength="120" placeholder="Answer 3" /></div>
+                                <div class="adm-option"><input type="radio" name="admCorrect" value="3" aria-label="Answer 4 is correct" /><input type="text" id="admOpt3" maxlength="120" placeholder="Answer 4" /></div>
+                            </fieldset>
+                            <div class="actions"><button class="btn primary" type="submit" data-i18n="adm_save">Add question</button></div>
+                            <p class="adm-status" id="admStatus" aria-live="polite"></p>
+                        </form>
+                        <div class="adm-list">
+                            <h4 data-i18n="adm_added">Added questions</h4>
+                            <p class="adm-count" id="admCount"></p>
+                            <ol class="adm-list-items" id="admList"></ol>
+                            <details class="adm-builtin">
+                                <summary id="admBuiltInSummary"></summary>
+                                <ol class="adm-list-items" id="admBuiltIn"></ol>
+                            </details>
+                        </div>
+                    </div>
+                </section>
             </div>
         </section>
     </div>
@@ -16269,11 +16316,11 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
 
             function setRole(role) {
                 currentRole = ROLES.indexOf(role) > -1 ? role : null;
-                // Hook for later role-based pages: CSS can use html[data-role="teacher"] …
+                // Hook for role-based styling: CSS can use html[data-role="admin"] …
                 if (currentRole) document.documentElement.dataset.role = currentRole;
                 else delete document.documentElement.dataset.role;
                 paintNavUser();
-                renderBoard();
+                // The admin dashboard (virasatAdminScript) listens for this.
                 document.dispatchEvent(new CustomEvent('virasat:role', { detail: currentRole }));
             }
 
@@ -16386,6 +16433,12 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                     ? (a.moves < b.moves || (a.moves === b.moves && a.timeMs < b.timeMs))
                     : (a.score > b.score || (a.score === b.score && a.timeMs < b.timeMs));
             }
+            // The same order as a Firestore query (needs the two indexes in firestore.indexes.json).
+            function boardOrder(F, game) {
+                return isMatch(game)
+                    ? [F.orderBy('moves', 'asc'), F.orderBy('timeMs', 'asc')]
+                    : [F.orderBy('score', 'desc'), F.orderBy('timeMs', 'asc')];
+            }
             async function rankOf(fb, game, best) {
                 const F = fb.F, col = entries(fb, game);
                 const field = isMatch(game) ? 'moves' : 'score';
@@ -16436,45 +16489,23 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             let activeGame = 'match';
             let watchKey = null, stopWatch = null;
             let rows = null, boardError = false, meInfo = null;
-            let editingUid = null, editError = '';     // admin: the row whose score is being edited
 
             function renderBoard() {
                 const list = document.getElementById('lbList');
                 if (!list) return;
                 const me = currentUser && currentUser.uid;
-                const admin = currentRole === 'admin';
                 let html;
                 if (boardError) html = '<li class="lb-empty">' + escHtml(text('lb_unavailable')) + '</li>';
                 else if (!rows) html = '<li class="lb-empty">' + escHtml(text('lb_loading')) + '</li>';
                 else if (!rows.length) html = '<li class="lb-empty">' + escHtml(text('lb_empty')) + '</li>';
-                else html = rows.map((r, i) => {
-                    const editing = admin && r.uid === editingUid;
-                    const uid = escHtml(r.uid);
-                    let score = '<span class="lb-score">' + escHtml(formatResult(activeGame, r)) + '</span>';
-                    let actions = '';
-                    if (editing) {
-                        const lim = scoreLimits(activeGame, r);
-                        score = '<span class="lb-score lb-edit"><input class="lb-edit-input" type="number" inputmode="numeric" min="' + lim.lo + '" max="' + lim.hi + '" value="' + (isMatch(activeGame) ? r.moves : r.score) + '" aria-label="' + escHtml(text('lb_edit')) + '">' +
-                            (isMatch(activeGame) ? '' : '<span>/ ' + r.total + '</span>') + '</span>';
-                        actions = '<span class="lb-actions"><button class="lb-act" type="button" data-lb-save="' + uid + '">' + escHtml(text('lb_save')) + '</button>' +
-                            '<button class="lb-act" type="button" data-lb-cancel>' + escHtml(text('lb_cancel')) + '</button></span>';
-                    } else if (admin) {
-                        actions = '<span class="lb-actions"><button class="lb-act" type="button" data-lb-edit="' + uid + '">' + escHtml(text('lb_edit')) + '</button>' +
-                            '<button class="lb-act lb-act-danger" type="button" data-lb-remove="' + uid + '">' + escHtml(text('lb_remove')) + '</button></span>';
-                    }
-                    return '<li class="lb-row' + (r.uid === me ? ' is-me' : '') + '">' +
+                else html = rows.map((r, i) =>
+                    '<li class="lb-row' + (r.uid === me ? ' is-me' : '') + '">' +
                         '<span class="lb-rank">' + (i + 1) + '</span>' +
                         '<span class="lb-name">' + escHtml(r.displayName) + (r.uid === me ? ' · ' + escHtml(text('lb_you')) : '') + '</span>' +
-                        score +
+                        '<span class="lb-score">' + escHtml(formatResult(activeGame, r)) + '</span>' +
                         '<span class="lb-time">' + escHtml(formatTime(r.timeMs)) + '</span>' +
-                        actions +
-                        (editing && editError ? '<span class="lb-row-error">' + escHtml(editError) + '</span>' : '') +
-                    '</li>';
-                }).join('');
-                list.classList.toggle('lb-admin', admin);
+                    '</li>').join('');
                 list.innerHTML = html;
-                const editInput = list.querySelector('.lb-edit-input');
-                if (editInput && document.activeElement !== editInput) editInput.focus();
 
                 const meEl = document.getElementById('lbMe');
                 if (!meEl) return;
@@ -16516,7 +16547,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 if (key === watchKey) return;
                 if (stopWatch) { stopWatch(); stopWatch = null; }
                 watchKey = key;
-                rows = null; boardError = false; meInfo = null; editingUid = null; editError = '';
+                rows = null; boardError = false; meInfo = null;
                 renderBoard();
                 if (!key) return;
 
@@ -16526,10 +16557,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 ready.then(function (fb) {
                     if (cancelled) return;
                     const F = fb.F;
-                    const order = isMatch(game)
-                        ? [F.orderBy('moves', 'asc'), F.orderBy('timeMs', 'asc')]
-                        : [F.orderBy('score', 'desc'), F.orderBy('timeMs', 'asc')];
-                    const q = F.query(entries(fb, game), ...order, F.limit(10));
+                    const q = F.query(entries(fb, game), ...boardOrder(F, game), F.limit(10));
                     unsubscribe = F.onSnapshot(q, function (snap) {
                         rows = snap.docs.map(d => d.data());
                         boardError = false;
@@ -16546,61 +16574,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 });
             }
 
-            // ── Admin tools on the leaderboard: edit a score, or remove an entry ──
-            // (firestore.rules allow these only for emails on the admin list.)
-            function scoreLimits(game, r) {
-                return isMatch(game) ? { lo: r.pairs * 2, hi: 5000 } : { lo: 0, hi: r.total };
-            }
-
-            async function adminSaveScore(uid) {
-                const game = activeGame, r = rows && rows.find(x => x.uid === uid);
-                const input = document.querySelector('#lbList .lb-edit-input');
-                if (!r || !input) return;
-                const value = Number(input.value), lim = scoreLimits(game, r);
-                if (!Number.isInteger(value) || value < lim.lo || value > lim.hi) {
-                    editError = text('lb_edit_range', { min: lim.lo, max: lim.hi });
-                    return renderBoard();
-                }
-                try {
-                    const fb = await ready;
-                    await fb.F.updateDoc(fb.F.doc(fb.db, 'leaderboards', game, 'entries', uid), isMatch(game) ? { moves: value } : { score: value });
-                    editingUid = null; editError = '';
-                } catch (err) {
-                    console.warn('[Virasat] Could not edit score:', err);
-                    editError = text('lb_admin_failed');
-                }
-                renderBoard();
-            }
-
-            async function adminRemove(uid) {
-                const game = activeGame, r = rows && rows.find(x => x.uid === uid);
-                if (!r || !confirm(text('lb_confirm_remove', { name: r.displayName }))) return;
-                try {
-                    const fb = await ready;
-                    await fb.F.deleteDoc(fb.F.doc(fb.db, 'leaderboards', game, 'entries', uid));
-                } catch (err) {
-                    console.warn('[Virasat] Could not remove entry:', err);
-                    alert(text('lb_admin_failed'));
-                }
-            }
-
             function setupBoard() {
-                const list = document.getElementById('lbList');
-                if (list) {
-                    list.addEventListener('click', function (e) {
-                        const b = e.target.closest('button');
-                        if (!b || currentRole !== 'admin') return;
-                        if (b.dataset.lbEdit) { editingUid = b.dataset.lbEdit; editError = ''; renderBoard(); }
-                        else if (b.hasAttribute('data-lb-cancel')) { editingUid = null; editError = ''; renderBoard(); }
-                        else if (b.dataset.lbSave) adminSaveScore(b.dataset.lbSave);
-                        else if (b.dataset.lbRemove) adminRemove(b.dataset.lbRemove);
-                    });
-                    list.addEventListener('keydown', function (e) {
-                        if (!e.target.classList.contains('lb-edit-input')) return;
-                        if (e.key === 'Enter') { e.preventDefault(); adminSaveScore(editingUid); }
-                        if (e.key === 'Escape') { editingUid = null; editError = ''; renderBoard(); }
-                    });
-                }
                 document.querySelectorAll('#leaderboard .lb-tab').forEach(function (tab) {
                     tab.addEventListener('click', function () {
                         activeGame = tab.dataset.game;
@@ -16702,7 +16676,9 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 ready, onAuth, signIn, signUp, resetPassword, signOut, idToken, savePrefs, errorMessage, refreshUI,
                 isConfigured: () => configured,
                 user: () => currentUser,
-                role: () => currentRole        // 'student' | 'admin' | null — for role-based features
+                role: () => currentRole,       // 'student' | 'admin' | null — for role-based features
+                // Shared with the admin dashboard so both pages rank and show scores the same way.
+                boards: { games: GAMES.slice(), order: boardOrder, formatResult, formatTime }
             };
             window.virasatGames = { start, finish };
         })();
@@ -18233,6 +18209,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             history:   { title:'INDIA THROUGH TIME', kicker:'HISTORY / CHRONICLE',   meta:'KINGDOMS / RIVALRIES / TURNING POINTS' },
             plans:     { title:'VIRASAT MEMBERSHIP',kicker:'COMING SOON / MEMBERSHIP', meta:'PLUS / PREMIUM / CULTURE' },
             games:     { title:'GAMING HUB',       kicker:'07 / PLAY',              meta:'MATCH / QUIZ / DISCOVER' },
+            admin:     { title:'ADMIN DASHBOARD',  kicker:'ADMINS / MANAGE',        meta:'LEADERBOARDS / QUIZ QUESTIONS' },
             happiness: { title:'Seva & Sanskriti',kicker:'08 / SHARE',             meta:'CARE / MEMORY / COMMUNITY' },
             nuske:     { title:'DESI NUSKE',       kicker:'09 / WISDOM',            meta:'HOME / TRADITION / PRACTICE' },
             dashboard: { title:'DASHBOARD',        kicker:'10 / OVERVIEW',          meta:'DISCOVER / TRACK / RETURN' },
@@ -19331,13 +19308,22 @@ Object.assign(VIRASAT_I18N.ui, {
   scan_translation_en:{en:'English translation',hi:'अंग्रेज़ी अनुवाद',sa:'आङ्ग्लानुवादः'},
   scan_translation_hi:{en:'Hindi translation',hi:'हिंदी अनुवाद',sa:'हिन्द्यनुवादः'},
   scan_about:{en:'What is this?',hi:'यह क्या है?',sa:'किम् इदम्?'},
+  nav_admin:{en:'Admin dashboard',hi:'एडमिन डैशबोर्ड',sa:'प्रशासकफलकम्'},
   adm_tag:{en:'Admins only',hi:'केवल एडमिन',sa:'केवलं प्रशासकाः'},
-  adm_card_title:{en:'Add quiz questions',hi:'क्विज़ प्रश्न जोड़ें',sa:'प्रश्नोत्तर्यां प्रश्नान् योजयतु'},
-  adm_card_desc:{en:'Write new questions for Heritage Quiz and Festival Match. They go live for everyone straight away.',hi:'धरोहर प्रश्नोत्तरी और त्योहार मिलान के लिए नए प्रश्न लिखें। ये तुरंत सबके लिए लाइव हो जाते हैं।',sa:'धरोहरप्रश्नोत्तर्याः उत्सवमेलनस्य च कृते नूतनप्रश्नान् लिखतु। ते सद्यः सर्वेभ्यः उपलभ्यन्ते।'},
-  adm_open:{en:'Open',hi:'खोलें',sa:'उद्घाटयतु'},
+  adm_dash_title:{en:'Admin dashboard',hi:'एडमिन डैशबोर्ड',sa:'प्रशासकफलकम्'},
+  adm_dash_desc:{en:'Everything admins can change, in one place. Changes go live for every player straight away.',hi:'एडमिन जो कुछ बदल सकते हैं, सब एक जगह। बदलाव तुरंत हर खिलाड़ी के लिए लाइव हो जाते हैं।',sa:'प्रशासकाः यत् परिवर्तयितुं शक्नुवन्ति, तत् सर्वम् एकत्र। परिवर्तनानि सद्यः सर्वक्रीडकेभ्यः उपलभ्यन्ते।'},
+  adm_stat_players:{en:'players on the leaderboard',hi:'लीडरबोर्ड पर खिलाड़ी',sa:'श्रेष्ठसूच्यां क्रीडकाः'},
+  adm_stat_questions:{en:'added by admins',hi:'एडमिन द्वारा जोड़े गए',sa:'प्रशासकैः योजिताः'},
+  adm_boards_title:{en:'Leaderboards',hi:'लीडरबोर्ड',sa:'श्रेष्ठसूच्यः'},
+  adm_boards_desc:{en:"Every player's best score. Fix a wrong score, or take an entry off the board.",hi:'हर खिलाड़ी का सबसे अच्छा स्कोर। गलत स्कोर ठीक करें, या किसी प्रविष्टि को बोर्ड से हटाएँ।',sa:'प्रत्येकस्य क्रीडकस्य श्रेष्ठाः अङ्काः। अशुद्धान् अङ्कान् शोधयतु, अथवा प्रविष्टिं सूच्याः अपनयतु।'},
+  adm_board_empty:{en:'No one has played this game yet.',hi:'अभी तक किसी ने यह खेल नहीं खेला है।',sa:'अद्यावधि केनापि इयं क्रीडा न क्रीडिता।'},
+  adm_board_limit:{en:'Showing the top {n} players.',hi:'शीर्ष {n} खिलाड़ी दिखाए जा रहे हैं।',sa:'प्रथमाः {n} क्रीडकाः दर्श्यन्ते।'},
+  adm_plays:{en:'Plays: {n}',hi:'खेले: {n}',sa:'क्रीडनानि: {n}'},
+  adm_questions_title:{en:'Quiz questions',hi:'क्विज़ प्रश्न',sa:'प्रश्नोत्तरीप्रश्नाः'},
+  adm_new:{en:'Add a question',hi:'नया प्रश्न जोड़ें',sa:'नूतनं प्रश्नं योजयतु'},
+  adm_builtin:{en:'Built-in questions ({n}) — the team changes these in index.html',hi:'पहले से मौजूद प्रश्न ({n}) — टीम इन्हें index.html में बदलती है',sa:'विद्यमानाः प्रश्नाः ({n}) — दलम् एतान् index.html मध्ये परिवर्तयति'},
   adm_desc:{en:'New questions are asked first, before the built-in ones, and go live for every player straight away.',hi:'नए प्रश्न पहले से मौजूद प्रश्नों से पहले पूछे जाते हैं और तुरंत हर खिलाड़ी के लिए लाइव हो जाते हैं।',sa:'नूतनप्रश्नाः विद्यमानप्रश्नेभ्यः पूर्वं पृच्छ्यन्ते, सद्यः सर्वक्रीडकेभ्यः उपलभ्यन्ते च।'},
-  adm_only:{en:'Only admins can add quiz questions.',hi:'केवल एडमिन क्विज़ प्रश्न जोड़ सकते हैं।',sa:'केवलं प्रशासकाः प्रश्नान् योजयितुं शक्नुवन्ति।'},
-  adm_game:{en:'Game',hi:'खेल',sa:'क्रीडा'},
+  adm_only:{en:'Only admins can see this page.',hi:'यह पेज केवल एडमिन देख सकते हैं।',sa:'इदं पृष्ठं केवलं प्रशासकाः द्रष्टुं शक्नुवन्ति।'},
   adm_question:{en:'Question',hi:'प्रश्न',sa:'प्रश्नः'},
   adm_options:{en:'Answers — tick the correct one',hi:'उत्तर — सही उत्तर चुनें',sa:'उत्तराणि — शुद्धम् उत्तरं चिनोतु'},
   adm_answer:{en:'Answer {n}',hi:'उत्तर {n}',sa:'उत्तरम् {n}'},
@@ -19525,7 +19511,7 @@ function applyLanguage(lang) {
     if (typeof refreshGames === 'function') refreshGames();
     if (window.virasatCloud) { virasatCloud.refreshUI(); virasatCloud.savePrefs(); }
     if (window.virasatScriptureScan) virasatScriptureScan.refresh();
-    if (window.virasatQuizBank) virasatQuizBank.refresh();
+    if (window.virasatAdmin) virasatAdmin.refresh();
     updateLangUI();
     const modal = document.getElementById('modal');
     if (modal && modal.classList.contains('open') && window.__modalRebuild) window.__modalRebuild();
@@ -21421,6 +21407,7 @@ const TRANSITION={
  plans:{hi:['विरासत सदस्यता','जल्द आ रहा है / सदस्यता','PLUS / PREMIUM / संस्कृति'],sa:['विरासत सदस्यता','शीघ्रम् / सदस्यता','PLUS / PREMIUM / संस्कृतिः']},
  objects:{hi:['वस्तुओं में भारत','06 / वस्तुएँ','शिल्प / रोज़मर्रा / स्मृति'],sa:['वस्तुषु भारतम्','06 / वस्तूनि','शिल्पम् / दैनिकम् / स्मृतिः']},
  games:{hi:['गेमिंग हब','07 / खेल','मिलान / प्रश्नोत्तरी / खोज'],sa:['क्रीडाकेन्द्रम्','07 / क्रीडा','मेलनम् / प्रश्नाः / अन्वेषणम्']},
+ admin:{hi:['एडमिन डैशबोर्ड','एडमिन / प्रबंधन','लीडरबोर्ड / क्विज़ प्रश्न'],sa:['प्रशासकफलकम्','प्रशासकाः / व्यवस्था','श्रेष्ठसूच्यः / प्रश्नाः']},
  happiness:{hi:['खुशियाँ बाँटें','08 / साझा करें','देखभाल / स्मृति / समुदाय'],sa:['आनन्दं प्रसारयतु','08 / साझीकरणम्','सेवा / स्मृतिः / समुदायः']},
  nuske:{hi:['देसी नुस्खे','09 / ज्ञान','घर / परंपरा / अभ्यास'],sa:['देशीयोपायाः','09 / ज्ञानम्','गृहम् / परम्परा / अभ्यासः']},
  dashboard:{hi:['डैशबोर्ड','10 / अवलोकन','खोज / ट्रैक / वापसी'],sa:['नियन्त्रणपटलम्','10 / अवलोकनम्','अन्वेषणम् / अनुसरणम् / पुनरागमनम्']},
@@ -24217,21 +24204,20 @@ draw();
 </script>
 <script id="virasatQuizBankScript">
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//  QUIZ BANK + ADMIN PAGE (Gaming Hub)
-//  Admins add questions for Heritage Quiz and Festival Match from the site. They are
-//  stored in Firestore (quizQuestions) and every signed-in player gets them after the
-//  built-in questions. firestore.rules lets only admins add or remove them.
+//  QUIZ BANK
+//  Admins add questions for Heritage Quiz and Festival Match on the admin dashboard
+//  (virasatAdminScript). They are stored in Firestore (quizQuestions) and every signed-in
+//  player gets them first, before the built-in questions. firestore.rules lets only admins
+//  add or remove them.
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 (function () {
     'use strict';
     if (typeof QUIZ_DATA === 'undefined' || typeof FESTIVAL_QUIZ === 'undefined') return;
     const LISTS = { quiz: QUIZ_DATA, festival: FESTIVAL_QUIZ };
-    const BUILT_IN = { quiz: QUIZ_DATA.length, festival: FESTIVAL_QUIZ.length };
     // Remember the built-in questions, each tagged with its translation (Hindi/Sanskrit are looked up by i18n).
     const BUILT_IN_ITEMS = { quiz: QUIZ_DATA.slice(), festival: FESTIVAL_QUIZ.slice() };
     Object.keys(BUILT_IN_ITEMS).forEach(game => BUILT_IN_ITEMS[game].forEach((item, i) => { item.i18n = i; }));
     const MAX_TOTAL = 100;      // the leaderboard rules accept quizzes of up to 100 questions
-    const say = (key, vars) => (typeof t === 'function' ? t(key, vars) : key);
     const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
 
     let added = { quiz: [], festival: [] };    // from Firestore, newest first
@@ -24244,15 +24230,20 @@ draw();
         if (!list) return;
         list.length = 0;
         // The quiz draws its questions with innerHTML, so anything an admin typed is escaped here.
-        added[game].slice(0, MAX_TOTAL - BUILT_IN[game]).forEach(x => list.push({ q: escHtml(x.q), opts: x.opts.map(escHtml), a: x.a, i18n: -1 }));
+        added[game].slice(0, MAX_TOTAL - BUILT_IN_ITEMS[game].length).forEach(x => list.push({ q: escHtml(x.q), opts: x.opts.map(escHtml), a: x.a, i18n: -1 }));
         BUILT_IN_ITEMS[game].forEach(item => list.push(item));
+    }
+
+    // The admin dashboard redraws its question list when this fires.
+    function changed() {
+        document.dispatchEvent(new CustomEvent('virasat:questions'));
     }
 
     // Keep the added questions up to date while someone is signed in.
     function listen(user) {
         if (stopListening) { stopListening(); stopListening = null; }
         added = { quiz: [], festival: [] };
-        renderList();
+        changed();
         if (!user || !window.virasatCloud) return;
         let unsubscribe = null, cancelled = false;
         stopListening = () => { cancelled = true; if (unsubscribe) unsubscribe(); };
@@ -24266,77 +24257,272 @@ draw();
                     if (next[x.game] && typeof x.q === 'string' && Array.isArray(x.opts) && x.opts.length === 4) next[x.game].push(Object.assign({ id: d.id }, x));
                 });
                 added = next;
-                renderList();
+                changed();
             }, err => console.warn('[Virasat] Could not load added quiz questions:', err));
         }).catch(() => { });
     }
 
-    // ── Admin page ──
-    const card = document.getElementById('hubAdminCard');
-    const panel = document.getElementById('game-admin');
-    const form = document.getElementById('admForm');
+    if (window.virasatCloud) virasatCloud.onAuth(listen);
+
+    window.virasatQuizBank = {
+        apply: apply,
+        MAX_TOTAL: MAX_TOTAL,
+        added: game => (added[game] || []).slice(),             // { id, game, q, opts, a, … }, newest first (not escaped)
+        builtIn: game => (BUILT_IN_ITEMS[game] || []).slice()
+    };
+})();
+</script>
+<script id="virasatAdminScript">
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  ADMIN DASHBOARD (page-admin)
+//  One page for everything admins can change: every player's leaderboard entry
+//  (Edit score / Remove) and the quiz questions admins add. Only admins see the page
+//  and its menu link; firestore.rules checks the admin list again on every change.
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(function () {
+    'use strict';
+    const page = document.getElementById('page-admin');
+    const cloud = window.virasatCloud, bank = window.virasatQuizBank;
+    if (!page || !cloud || !bank) return;
+    const boards = cloud.boards;
+    const say = (key, vars) => (typeof t === 'function' ? t(key, vars) : key);
+    const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    const isMatch = game => game === 'match';
+    const BOARD_LIMIT = 500;    // plenty for a school; a note under the list says when there are more
+
+    const navLink = document.getElementById('adminNavLink');
     const locked = document.getElementById('admLocked');
-    const listWrap = document.getElementById('admListWrap');
-    const gameSel = document.getElementById('admGame');
+    const dash = document.getElementById('admDash');
+    const statsEl = document.getElementById('admStats');
+    const boardEl = document.getElementById('admBoard');
+    const boardNote = document.getElementById('admBoardNote');
+    const form = document.getElementById('admForm');
     const question = document.getElementById('admQuestion');
     const answers = [0, 1, 2, 3].map(i => document.getElementById('admOpt' + i));
     const status = document.getElementById('admStatus');
     const countEl = document.getElementById('admCount');
     const listEl = document.getElementById('admList');
-    if (!card || !panel || !form) return;
+    const builtInSummary = document.getElementById('admBuiltInSummary');
+    const builtInEl = document.getElementById('admBuiltIn');
 
-    function paintRole(role) {
-        const admin = role === 'admin';
-        card.hidden = !admin;
-        form.hidden = !admin;
-        listWrap.hidden = !admin;
-        locked.hidden = admin;
-        if (!admin && panel.classList.contains('active') && typeof openGame === 'function') openGame('hub');
+    let admin = false;
+    const isOpen = () => page.classList.contains('active');
+
+    // Two sets of tabs: the four leaderboards, and the two quiz games.
+    function setupTabs(id, onPick) {
+        const tabs = document.querySelectorAll('#' + id + ' .lb-tab');
+        tabs.forEach(tab => tab.addEventListener('click', () => {
+            tabs.forEach(other => {
+                const on = other === tab;
+                other.classList.toggle('active', on);
+                other.setAttribute('aria-selected', on ? 'true' : 'false');
+            });
+            onPick(tab.dataset.game);
+        }));
     }
+
+    // ── Overview: players on each leaderboard + questions added ──
+    const counts = {};      // game → number of players
+
+    function loadCounts() {
+        cloud.ready.then(fb => Promise.all(boards.games.map(game =>
+            fb.F.getCountFromServer(fb.F.collection(fb.db, 'leaderboards', game, 'entries'))
+                .then(snap => { counts[game] = snap.data().count; })
+        ))).catch(err => console.warn('[Virasat] Could not count players:', err)).then(renderStats);
+    }
+
+    function renderStats() {
+        const tile = (label, n, sub) => '<div class="adm-stat"><span class="adm-stat-label">' + escHtml(label) + '</span>' +
+            '<span class="adm-stat-n">' + (n == null ? '–' : n) + '</span><span class="adm-stat-sub">' + escHtml(sub) + '</span></div>';
+        statsEl.innerHTML = boards.games.map(game => tile(say('hub_' + game + '_title'), counts[game], say('adm_stat_players'))).join('') +
+            tile(say('adm_questions_title'), bank.added('quiz').length + bank.added('festival').length, say('adm_stat_questions'));
+    }
+
+    // ── Leaderboards: every player's best, with Edit score / Remove ──
+    let boardGame = 'match', boardKey = null, stopBoard = null;
+    let boardRows = null, boardError = false;
+    let editingUid = null, editError = '', focusEdit = false;
+
+    // Listen to the chosen leaderboard only while an admin has this page open.
+    function syncBoard() {
+        const key = admin && isOpen() ? boardGame : null;
+        if (key === boardKey) return;
+        if (!boardKey && key) loadCounts();     // the page has just been opened
+        if (stopBoard) { stopBoard(); stopBoard = null; }
+        boardKey = key;
+        boardRows = null; boardError = false; editingUid = null; editError = '';
+        renderBoard();
+        if (!key) return;
+
+        const game = key;
+        let unsubscribe = null, cancelled = false;
+        stopBoard = () => { cancelled = true; if (unsubscribe) unsubscribe(); };
+        cloud.ready.then(fb => {
+            if (cancelled) return;
+            const F = fb.F;
+            const q = F.query(F.collection(fb.db, 'leaderboards', game, 'entries'), ...boards.order(F, game), F.limit(BOARD_LIMIT));
+            unsubscribe = F.onSnapshot(q, snap => {
+                boardRows = snap.docs.map(d => d.data());
+                boardError = false;
+                if (boardRows.length < BOARD_LIMIT) { counts[game] = boardRows.length; renderStats(); }
+                renderBoard();
+            }, err => {
+                console.warn('[Virasat] Admin leaderboard unavailable:', err);
+                boardError = true;
+                renderBoard();
+            });
+        }).catch(() => { boardError = true; renderBoard(); });
+    }
+
+    function playedOn(ts) {
+        const d = ts && typeof ts.toDate === 'function' ? ts.toDate() : null;
+        return d ? d.toLocaleDateString(typeof LANG === 'string' && LANG !== 'en' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short' }) : '';
+    }
+
+    function renderBoard() {
+        const game = boardGame;
+        // Keep what the admin is typing if the list updates (someone else just played).
+        const typing = boardEl.querySelector('.lb-edit-input');
+        const hadFocus = !!typing && document.activeElement === typing;
+        const draft = typing && typing.dataset.uid === editingUid ? typing.value : null;
+        let html;
+        if (boardError) html = '<li class="lb-empty">' + escHtml(say('lb_unavailable')) + '</li>';
+        else if (!boardRows) html = '<li class="lb-empty">' + escHtml(say('lb_loading')) + '</li>';
+        else if (!boardRows.length) html = '<li class="lb-empty">' + escHtml(say('adm_board_empty')) + '</li>';
+        else html = boardRows.map((r, i) => {
+            const uid = escHtml(r.uid), editing = r.uid === editingUid;
+            let score = '<span class="lb-score">' + escHtml(boards.formatResult(game, r)) + '</span>', actions;
+            if (editing) {
+                const lim = scoreLimits(game, r);
+                const value = draft !== null ? draft : (isMatch(game) ? r.moves : r.score);
+                score = '<span class="lb-score lb-edit"><input class="lb-edit-input" type="number" inputmode="numeric" data-uid="' + uid + '" min="' + lim.lo + '" max="' + lim.hi + '" value="' + escHtml(value) + '" aria-label="' + escHtml(say('lb_edit')) + '">' +
+                    (isMatch(game) ? '' : '<span>/ ' + r.total + '</span>') + '</span>';
+                actions = '<button class="lb-act" type="button" data-lb-save="' + uid + '">' + escHtml(say('lb_save')) + '</button>' +
+                    '<button class="lb-act" type="button" data-lb-cancel>' + escHtml(say('lb_cancel')) + '</button>';
+            } else {
+                actions = '<button class="lb-act" type="button" data-lb-edit="' + uid + '">' + escHtml(say('lb_edit')) + '</button>' +
+                    '<button class="lb-act lb-act-danger" type="button" data-lb-remove="' + uid + '">' + escHtml(say('lb_remove')) + '</button>';
+            }
+            const meta = [say('adm_plays', { n: r.plays || 0 }), playedOn(r.updatedAt)].filter(Boolean).join(' · ');
+            return '<li class="lb-row">' +
+                '<span class="lb-rank">' + (i + 1) + '</span>' +
+                '<span class="lb-who"><span class="lb-name">' + escHtml(r.displayName) + '</span><span class="lb-meta">' + escHtml(meta) + '</span></span>' +
+                score +
+                '<span class="lb-time">' + escHtml(boards.formatTime(r.timeMs)) + '</span>' +
+                '<span class="lb-actions">' + actions + '</span>' +
+                (editing && editError ? '<span class="lb-row-error">' + escHtml(editError) + '</span>' : '') +
+            '</li>';
+        }).join('');
+        boardEl.innerHTML = html;
+        const input = boardEl.querySelector('.lb-edit-input');
+        if (input && focusEdit) { input.focus(); input.select(); }     // typing replaces the old score
+        else if (input && hadFocus) input.focus();
+        focusEdit = false;
+
+        const full = !!boardRows && boardRows.length >= BOARD_LIMIT;
+        boardNote.textContent = full ? say('adm_board_limit', { n: BOARD_LIMIT }) : '';
+        boardNote.hidden = !full;
+    }
+
+    // Admins may change only the score (moves for Heritage Match), within what is possible.
+    // firestore.rules (adminScoreEdit) checks the same limits.
+    function scoreLimits(game, r) {
+        return isMatch(game) ? { lo: r.pairs * 2, hi: 5000 } : { lo: 0, hi: r.total };
+    }
+
+    async function saveScore(uid) {
+        const game = boardGame, r = boardRows && boardRows.find(x => x.uid === uid);
+        const input = boardEl.querySelector('.lb-edit-input');
+        if (!r || !input) return;
+        const raw = input.value.trim(), value = raw === '' ? NaN : Number(raw), lim = scoreLimits(game, r);
+        if (!Number.isInteger(value) || value < lim.lo || value > lim.hi) {
+            editError = say('lb_edit_range', { min: lim.lo, max: lim.hi });
+            focusEdit = true;
+            return renderBoard();
+        }
+        try {
+            const fb = await cloud.ready;
+            await fb.F.updateDoc(fb.F.doc(fb.db, 'leaderboards', game, 'entries', uid), isMatch(game) ? { moves: value } : { score: value });
+            if (editingUid === uid) { editingUid = null; editError = ''; }
+        } catch (err) {
+            console.warn('[Virasat] Could not edit score:', err);
+            editError = say('lb_admin_failed');
+        }
+        renderBoard();
+    }
+
+    async function removeEntry(uid) {
+        const game = boardGame, r = boardRows && boardRows.find(x => x.uid === uid);
+        if (!r || !confirm(say('lb_confirm_remove', { name: r.displayName }))) return;
+        try {
+            const fb = await cloud.ready;
+            await fb.F.deleteDoc(fb.F.doc(fb.db, 'leaderboards', game, 'entries', uid));
+        } catch (err) {
+            console.warn('[Virasat] Could not remove entry:', err);
+            alert(say('lb_admin_failed'));
+        }
+    }
+
+    boardEl.addEventListener('click', e => {
+        const b = e.target.closest('button');
+        if (!b || !admin) return;
+        if (b.dataset.lbEdit) { editingUid = b.dataset.lbEdit; editError = ''; focusEdit = true; renderBoard(); }
+        else if (b.hasAttribute('data-lb-cancel')) { editingUid = null; editError = ''; renderBoard(); }
+        else if (b.dataset.lbSave) saveScore(b.dataset.lbSave);
+        else if (b.dataset.lbRemove) removeEntry(b.dataset.lbRemove);
+    });
+    boardEl.addEventListener('keydown', e => {
+        if (!e.target.classList.contains('lb-edit-input')) return;
+        if (e.key === 'Enter') { e.preventDefault(); saveScore(editingUid); }
+        if (e.key === 'Escape') { editingUid = null; editError = ''; renderBoard(); }
+    });
+
+    // ── Quiz questions: add / remove the ones admins wrote; built-in ones are read-only ──
+    let quizGame = 'quiz';
 
     function setStatus(key, isError) {
         status.textContent = key ? say(key) : '';
         status.classList.toggle('is-error', !!isError);
     }
 
-    function renderList() {
-        if (!countEl) return;
-        const game = gameSel.value, items = added[game];
+    function renderQuestions() {
+        const items = bank.added(quizGame), builtIn = bank.builtIn(quizGame);
+        const answerList = x => x.opts.map((o, i) => i === x.a ? '<b>' + escHtml(o) + ' ✓</b>' : escHtml(o)).join(' · ');
+        const item = (x, button) => '<li class="adm-item"><div>' +
+                '<div class="adm-item-q">' + escHtml(x.q) + '</div>' +
+                '<div class="adm-item-a">' + answerList(x) + '</div>' +
+            '</div>' + button + '</li>';
         answers.forEach((input, i) => { input.placeholder = say('adm_answer', { n: i + 1 }); });
-        countEl.textContent = say('adm_count', { builtIn: BUILT_IN[game], added: items.length, max: MAX_TOTAL });
+        countEl.textContent = say('adm_count', { builtIn: builtIn.length, added: items.length, max: bank.MAX_TOTAL });
         listEl.innerHTML = items.length
-            ? items.map(x =>
-                '<li class="adm-item"><div>' +
-                    '<div class="adm-item-q">' + escHtml(x.q) + '</div>' +
-                    '<div class="adm-item-a">' + x.opts.map((o, i) => i === x.a ? '<b>' + escHtml(o) + ' ✓</b>' : escHtml(o)).join(' · ') + '</div>' +
-                '</div><button class="btn secondary btn-sm" type="button" data-remove="' + escHtml(x.id) + '">' + escHtml(say('adm_remove')) + '</button></li>').join('')
+            ? items.map(x => item(x, '<button class="btn secondary btn-sm" type="button" data-remove="' + escHtml(x.id) + '">' + escHtml(say('adm_remove')) + '</button>')).join('')
             : '<li class="adm-empty">' + escHtml(say('adm_none')) + '</li>';
+        builtInSummary.textContent = say('adm_builtin', { n: builtIn.length });
+        builtInEl.innerHTML = builtIn.map(x => item(x, '')).join('');
     }
 
     form.addEventListener('submit', async e => {
         e.preventDefault();
-        const game = gameSel.value;
+        const game = quizGame;
         const q = question.value.trim();
         const opts = answers.map(input => input.value.trim());
         const picked = form.querySelector('input[name="admCorrect"]:checked');
         if (q.length < 5) return setStatus('adm_err_question', true);
         if (opts.some(o => !o)) return setStatus('adm_err_options', true);
         if (!picked) return setStatus('adm_err_correct', true);
-        if (BUILT_IN[game] + added[game].length >= MAX_TOTAL) return setStatus('adm_err_full', true);
+        if (bank.builtIn(game).length + bank.added(game).length >= bank.MAX_TOTAL) return setStatus('adm_err_full', true);
         const button = form.querySelector('button[type="submit"]');
         button.disabled = true;
         setStatus('adm_saving');
         try {
-            const fb = await virasatCloud.ready, F = fb.F, user = virasatCloud.user();
+            const fb = await cloud.ready, F = fb.F, user = cloud.user();
             await F.addDoc(F.collection(fb.db, 'quizQuestions'), {
                 game: game, q: q, opts: opts, a: Number(picked.value),
                 createdBy: user.uid, createdByName: String(user.displayName || '').slice(0, 40),
                 createdAt: F.serverTimestamp()
             });
             form.reset();
-            gameSel.value = game;
             setStatus('adm_saved');
-            renderList();
         } catch (err) {
             console.warn('[Virasat] Could not add question:', err);
             setStatus(err && err.code === 'permission-denied' ? 'adm_err_denied' : 'adm_err_save', true);
@@ -24345,14 +24531,12 @@ draw();
         }
     });
 
-    gameSel.addEventListener('change', () => { setStatus(''); renderList(); });
-
     listEl.addEventListener('click', async e => {
         const button = e.target.closest('[data-remove]');
         if (!button || !confirm(say('adm_confirm_remove'))) return;
         button.disabled = true;
         try {
-            const fb = await virasatCloud.ready;
+            const fb = await cloud.ready;
             await fb.F.deleteDoc(fb.F.doc(fb.db, 'quizQuestions', button.dataset.remove));
         } catch (err) {
             console.warn('[Virasat] Could not remove question:', err);
@@ -24361,12 +24545,26 @@ draw();
         }
     });
 
-    document.addEventListener('virasat:role', e => paintRole(e.detail));
-    paintRole(window.virasatCloud && virasatCloud.role());
-    renderList();
-    if (window.virasatCloud) virasatCloud.onAuth(listen);
+    // ── Who sees the page: only admins get the menu link and the tools ──
+    function paintRole(role) {
+        admin = role === 'admin';
+        navLink.hidden = !admin;
+        dash.hidden = !admin;
+        locked.hidden = admin;
+        syncBoard();
+    }
 
-    window.virasatQuizBank = { apply: apply, refresh: renderList };
+    setupTabs('admBoardTabs', game => { boardGame = game; syncBoard(); });
+    setupTabs('admQuizTabs', game => { quizGame = game; setStatus(''); renderQuestions(); });
+    document.addEventListener('virasat:role', e => paintRole(e.detail));
+    document.addEventListener('virasat:questions', () => { renderQuestions(); renderStats(); });
+    new MutationObserver(syncBoard).observe(page, { attributes: true, attributeFilter: ['class'] });
+    paintRole(cloud.role());
+    renderQuestions();
+    renderStats();
+
+    // Redraw text after a language change.
+    window.virasatAdmin = { refresh: () => { renderStats(); renderBoard(); renderQuestions(); } };
 })();
 </script>
 <script id="virasatScriptureScanScript">
