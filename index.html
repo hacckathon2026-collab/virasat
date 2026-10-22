@@ -18448,7 +18448,18 @@ if (clean === 'bharatiya-calendar') {
                         }
                     });
                 }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
-                revealTargets.forEach(el => io.observe(el));
+                // Recipe pages contain a very tall grid. Observing their full
+                // sections at an 8% intersection threshold can leave the
+                // entire page permanently transparent on smaller viewports.
+                // Only these Rasoi sections bypass the scroll-reveal gate;
+                // all other page animations keep their original behaviour.
+                revealTargets.forEach(el => {
+                    if (el.closest('#page-rasoi, #page-rasoi-studio')) {
+                        el.classList.add('in-view');
+                    } else {
+                        io.observe(el);
+                    }
+                });
             } else {
                 revealTargets.forEach(el => el.classList.add('in-view'));
             }
