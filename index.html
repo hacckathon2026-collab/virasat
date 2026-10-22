@@ -11157,7 +11157,15 @@ body.festival-story-open { overflow: hidden; }
 [data-theme="light"] .nav-user-role{background:rgba(140,107,46,.12);color:#7a5a1f}
 @media (max-width:820px){.nav-controls > .nav-user{min-height:38px;padding:0 10px;font-size:11px;max-width:170px}}
 /* Admin dashboard (page-admin, admins only) */
-#navLinks #adminNavLink[hidden]{display:none!important}   /* two ids: beats the menu's own "#navLinks … > a" display rules */
+/* Menu: the "Admin" section, a full-width row under the other columns.
+   Two ids beat the menu's own "#navLinks …" rules. */
+#navLinks #adminNavSection[hidden]{display:none!important}
+#navLinks #adminNavSection{grid-column:1/-1!important}
+@media (min-width:901px){
+  body .nav #navLinks #adminNavSection{min-height:0!important;flex-direction:row!important;align-items:center!important;gap:18px!important;padding:12px 20px!important}
+  body .nav #navLinks #adminNavSection .mega-kicker{margin:0!important;padding:0!important;border:0!important}
+  body .nav #navLinks #adminNavSection > a{width:auto!important}
+}
 .adm-locked{color:var(--muted);font-weight:600;margin:0}
 .adm-locked[hidden],.adm-dash[hidden]{display:none}
 .adm-dash{display:grid;gap:24px}
@@ -14970,8 +14978,13 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 <a href="#" data-page="history" data-i18n="nav_history" class="history-nav-link">India Through Time</a>
 
                 <a href="#" data-page="games" role="menuitem" class="gaming-hub-nav-link">Gaming Hub</a>
-                <a href="#" data-page="admin" class="admin-nav-link" id="adminNavLink" data-i18n="nav_admin" hidden>Admin dashboard</a>
 
+            </div>
+
+            <!-- Admins only (virasatAdminScript shows it) -->
+            <div class="mega-col mega-secondary mega-admin" id="adminNavSection" hidden>
+                <div class="mega-kicker" data-i18n="nav_admin_section">Admin</div>
+                <a href="#" data-page="admin" class="admin-nav-link" data-i18n="nav_admin">Admin dashboard</a>
             </div>
 
             <div class="mega-footer">
@@ -19308,6 +19321,7 @@ Object.assign(VIRASAT_I18N.ui, {
   scan_translation_en:{en:'English translation',hi:'अंग्रेज़ी अनुवाद',sa:'आङ्ग्लानुवादः'},
   scan_translation_hi:{en:'Hindi translation',hi:'हिंदी अनुवाद',sa:'हिन्द्यनुवादः'},
   scan_about:{en:'What is this?',hi:'यह क्या है?',sa:'किम् इदम्?'},
+  nav_admin_section:{en:'Admin',hi:'एडमिन',sa:'प्रशासनम्'},
   nav_admin:{en:'Admin dashboard',hi:'एडमिन डैशबोर्ड',sa:'प्रशासकफलकम्'},
   adm_tag:{en:'Admins only',hi:'केवल एडमिन',sa:'केवलं प्रशासकाः'},
   adm_dash_title:{en:'Admin dashboard',hi:'एडमिन डैशबोर्ड',sa:'प्रशासकफलकम्'},
@@ -24290,7 +24304,7 @@ draw();
     const isMatch = game => game === 'match';
     const BOARD_LIMIT = 500;    // plenty for a school; a note under the list says when there are more
 
-    const navLink = document.getElementById('adminNavLink');
+    const navSection = document.getElementById('adminNavSection');
     const locked = document.getElementById('admLocked');
     const dash = document.getElementById('admDash');
     const statsEl = document.getElementById('admStats');
@@ -24545,10 +24559,10 @@ draw();
         }
     });
 
-    // ── Who sees the page: only admins get the menu link and the tools ──
+    // ── Who sees the page: only admins get the "Admin" menu section and the tools ──
     function paintRole(role) {
         admin = role === 'admin';
-        navLink.hidden = !admin;
+        navSection.hidden = !admin;
         dash.hidden = !admin;
         locked.hidden = admin;
         syncBoard();
