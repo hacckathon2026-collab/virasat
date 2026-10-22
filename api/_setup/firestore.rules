@@ -68,7 +68,7 @@ service cloud.firestore {
     }
 
     // ── Quiz questions added by admins: quizQuestions/{id} ──
-    // Every signed-in player reads them (the games add them after the built-in ones);
+    // Every signed-in player reads them (the games ask them first, before the built-in ones);
     // only admins can add or remove them, and nobody can edit one after it is saved.
     function validAnswer(o) { return o is string && o.size() >= 1 && o.size() <= 120; }
     function validQuestion(d) {
