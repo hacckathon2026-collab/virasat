@@ -21813,6 +21813,15 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
   #page-kahani .kb-meter {flex:1 1 35%;}
   #page-kahani .kb-voice-btn {min-height:38px;flex:1 1 100%;}
 }
+/* Read-aloud is English and Hindi only: every speech button is hidden while the site is in Sanskrit.
+   (applyLanguage() also stops anything that is playing when the language changes.) */
+html[lang="sa"] .virasat-listen-button,
+html[lang="sa"] #page-kahani .kb-voice-btn,
+html[lang="sa"] .virasat-speak-button,
+html[lang="sa"] .vl-reading-bar,
+html[lang="sa"] [data-vb-speak],
+html[lang="sa"] .ic-month-listen,
+html[lang="sa"] #virasatRasoiNativeRoot #listen {display:none!important;}
 </style>
 <script id="virasatSharedVoiceScript">
 /* Native text-to-speech: no API key, no microphone permissions, no external calls. */
