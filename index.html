@@ -27859,6 +27859,8 @@ window.VirasatMultiplayer={open};
 #rasoiOrderDialog .ro-platform{padding:14px;min-height:55px;display:flex;gap:10px;align-items:center;justify-content:center;background:#241b14;color:#fff0ce;border:1px solid #80683c;border-radius:13px;font-size:15px;font-weight:850;text-decoration:none;transition:border-color .2s,background .2s}
 #rasoiOrderDialog .ro-platform:hover{border-color:#ecc66a;background:#342818}
 #rasoiOrderDialog .ro-platform.ro-zomato span{color:#ff7878}
+#rasoiOrderDialog .ro-platform.ro-direct{background:#19150f;border-color:#635434;font-size:13px;min-height:45px}
+#rasoiOrderDialog .ro-platform[aria-disabled="true"]{pointer-events:none;opacity:.45}
 #rasoiOrderDialog .ro-footer{font-size:11px;color:#a99a7f;margin:15px 0 0}
 @media(max-width:540px){#page-rasoi .rasoi-order-card-actions{grid-template-columns:1fr}#rasoiOrderDialog .ro-heading{grid-template-columns:90px 1fr;padding:27px 17px 14px;gap:12px}#rasoiOrderDialog .ro-heading img{width:90px;height:91px}#rasoiOrderDialog .ro-inner{padding:17px}#rasoiOrderDialog .ro-platforms{grid-template-columns:1fr}#rasoiOrderDialog .ro-range{gap:8px}#rasoiOrderDialog .ro-mode{font-size:12px}}
 html[data-theme="light"] #page-rasoi .rasoi-order-open{color:#201508}
@@ -27897,7 +27899,8 @@ html[data-theme="light"] #page-rasoi .rasoi-order-open{color:#201508}
     <p class="ro-info" id="roPriceInfo"></p>
     <p id="roError" class="ro-error" role="alert" hidden></p>
     <div class="ro-platforms">
-      <a class="ro-platform ro-zomato" id="roZomato" href="https://www.zomato.com/" rel="noopener noreferrer" target="_blank"><span>●</span> Zomato ↗</a>
+      <a class="ro-platform ro-zomato" id="roZomato" href="https://www.google.com/" rel="noopener noreferrer" target="_blank"><span>⌕</span> Find Zomato menus ↗</a>
+      <a class="ro-platform ro-direct" id="roZomatoDirect" href="https://www.zomato.com/" rel="noopener noreferrer" target="_blank"><span>↗</span> Order this dish on Zomato</a>
     </div>
     <p class="ro-footer" id="roFooter">Orders are completed on Zomato, never inside Virasat. Delivery availability and final prices depend on your address, restaurant and platform fees.</p>
   </div>
@@ -27907,10 +27910,16 @@ html[data-theme="light"] #page-rasoi .rasoi-order-open{color:#201508}
   'use strict';
   // UI text is independent of the global translation dictionary: changing language doesn't mutate older features.
   const words={
-    en:{order:'Order dish',kicker:'VIRASAT / ORDER THE DISH',subtitle:'Discover restaurants serving this traditional dish.',just:'🔎 Just Search',price:'₹ Price Search',simpleDesc:'Browse restaurants serving this dish on Zomato.',priceDesc:'Choose your desired price range, then explore matching dishes on the delivery platform.',min:'Minimum ₹ (optional)',max:'Maximum ₹',city:'Your delivery city (for Zomato)',choose:'Select your city',simpleInfo:'Search results and restaurants depend on your delivery address. Choose a city for Zomato.',budgetInfo:'Budget guide: ₹{min}–₹{max}. Zomato opens the dish results for your selected city. Check actual menu prices and apply available filters there; Virasat cannot verify or guarantee matches.',invalid:'Enter a valid price range (maximum at least ₹1 and not below the minimum).',needCity:'Please select your delivery city to search on Zomato.',footer:'Complete orders on Zomato. Final prices, fees, delivery availability and offers are controlled by each platform.'},
-    hi:{order:'व्यंजन ऑर्डर करें',kicker:'विरासत / व्यंजन मँगाएँ',subtitle:'इस पारंपरिक व्यंजन को परोसने वाले रेस्तराँ खोजें।',just:'🔎 सामान्य खोज',price:'₹ मूल्य के अनुसार',simpleDesc:'ज़ोमैटो पर यह व्यंजन परोसने वाले रेस्तराँ देखें।',priceDesc:'अपना बजट तय करें, फिर डिलीवरी प्लेटफ़ॉर्म पर व्यंजन खोजें।',min:'न्यूनतम ₹ (वैकल्पिक)',max:'अधिकतम ₹',city:'डिलीवरी शहर (ज़ोमैटो के लिए)',choose:'शहर चुनें',simpleInfo:'रेस्तराँ और उपलब्धता आपके पते पर निर्भर करते हैं। ज़ोमैटो के लिए शहर चुनें।',budgetInfo:'बजट: ₹{min}–₹{max}। ज़ोमैटो पर चुने हुए शहर के व्यंजन दिखाई देंगे। वास्तविक कीमतें और फ़िल्टर वहाँ जाँचें; विरासत इनका सत्यापन नहीं कर सकता।',invalid:'सही कीमत सीमा लिखें। अधिकतम कीमत न्यूनतम से कम न हो।',needCity:'ज़ोमैटो पर खोजने के लिए अपना शहर चुनें।',footer:'ऑर्डर ज़ोमैटो पर पूरा होगा। वास्तविक कीमतें, डिलीवरी शुल्क और उपलब्धता वहाँ तय होती हैं।'},
-    sa:{order:'व्यञ्जनम् आदिशन्तु',kicker:'विरासत् / भोजनादेशः',subtitle:'एतत् पारम्परिकं व्यञ्जनं यत्र लभ्यते तानि भोजनालयानि अन्विष्यन्तु।',just:'🔎 सामान्यान्वेषणम्',price:'₹ मूल्यानुसारम्',simpleDesc:'जॊमाटो-माध्यमे एतद्व्यञ्जनस्य भोजनालयान् पश्यन्तु।',priceDesc:'इष्टां मूल्यसीमां चिनुत, ततः भोजनवितरणमाध्यमे अन्विष्यन्तु।',min:'न्यूनतमं ₹ (वैकल्पिकम्)',max:'अधिकतमं ₹',city:'वितरणनगरम् (जॊमाटो कृते)',choose:'नगरं चिनुत',simpleInfo:'उपलब्धिः भवतः पतेः अनुसारं भवति। जॊमाटो कृते नगरं चिनुत।',budgetInfo:'मूल्यसीमा ₹{min}–₹{max}। जॊमाटो-माध्यमे नगरस्य व्यञ्जनसूची। वास्तविकमूल्यं तत्र परीक्ष्यताम्; विरासत् तस्य प्रत्याभूतिं न करोति।',invalid:'समुचितां मूल्यसीमां निर्दिशन्तु।',needCity:'जॊमाटो कृते नगरं चिनुत।',footer:'आदेशः जॊमाटो-माध्यमे एव सम्पद्यते। मूल्यं वितरणम् च तत्र निश्चितं भवति।'},
-    bn:{order:'খাবার অর্ডার করুন',kicker:'বিরাসত / খাবার অর্ডার',subtitle:'এই খাবারটি পরিবেশন করে এমন রেস্তোরাঁ খুঁজুন।',just:'🔎 সাধারণ খোঁজ',price:'₹ দামের খোঁজ',simpleDesc:'Zomato-তে এই খাবারের রেস্তোরাঁ দেখুন।',priceDesc:'আপনার বাজেট বেছে নিয়ে খাবারের বিকল্প দেখুন।',min:'সর্বনিম্ন ₹ (ঐচ্ছিক)',max:'সর্বাধিক ₹',city:'ডেলিভারির শহর (Zomato)',choose:'শহর বেছে নিন',simpleInfo:'রেস্তোরাঁর তালিকা আপনার ঠিকানার উপর নির্ভর করে। Zomato-র জন্য শহর বেছে নিন।',budgetInfo:'বাজেট ₹{min}–₹{max}। Zomato-তে নির্বাচিত শহরের খাবারের ফলাফল খোলে। প্রকৃত মূল্য ও ফিল্টার সেখানে যাচাই করুন।',invalid:'সঠিক দামের সীমা লিখুন।',needCity:'Zomato-র জন্য শহর বেছে নিন।',footer:'অর্ডার Zomato-তে সম্পন্ন হয়। মূল্য ও ডেলিভারি শর্ত ওরাই নিয়ন্ত্রণ করে।'}
+    en:{order:'Order dish',kicker:'VIRASAT / ORDER THE DISH',subtitle:'Discover restaurants serving this traditional dish.',just:'🔎 Just Search',price:'₹ Price Search',simpleDesc:'Find possible Zomato menu matches for this dish and city, or open Zomato’s dish-filtered delivery list. Check the actual menu before ordering.',priceDesc:'Use your budget as a guide while comparing Zomato menus. Live dish prices and strict budget filtering are not available in this standalone website.',min:'Minimum ₹ (optional)',max:'Maximum ₹',city:'Your delivery city (for Zomato)',choose:'Select your city',simpleInfo:'Choose a city. Check that your dish appears in the restaurant menu; Zomato can include unrelated promotions.',budgetInfo:'Budget target: ₹{min}–₹{max}. Prices are not automatically filtered. Compare the actual dish price and final delivery fees on Zomato.',invalid:'Enter a valid price range (maximum at least ₹1 and not below the minimum).',needCity:'Please select your delivery city to search on Zomato.',footer:'Complete orders on Zomato. Final prices, fees, delivery availability and offers are controlled by each platform.'},
+    hi:{order:'व्यंजन ऑर्डर करें',kicker:'विरासत / व्यंजन मँगाएँ',subtitle:'इस पारंपरिक व्यंजन को परोसने वाले रेस्तराँ खोजें।',just:'🔎 सामान्य खोज',price:'₹ मूल्य के अनुसार',simpleDesc:'वे रेस्तराँ मेन्यू खोजें जिनमें यह व्यंजन सचमुच लिखा है। परिणाम पहले वेब खोज में दिखेंगे, फिर ज़ोमैटो का मेन्यू खोलें।',priceDesc:'ज़ोमैटो के वास्तविक मेन्यू में व्यंजन खोजें। बजट केवल मार्गदर्शन है; लाइव कीमतों को यहाँ फ़िल्टर नहीं किया जा सकता।',min:'न्यूनतम ₹ (वैकल्पिक)',max:'अधिकतम ₹',city:'डिलीवरी शहर (ज़ोमैटो के लिए)',choose:'शहर चुनें',simpleInfo:'रेस्तराँ और उपलब्धता आपके पते पर निर्भर करते हैं। ज़ोमैटो के लिए शहर चुनें।',budgetInfo:'बजट: ₹{min}–₹{max}। इस व्यंजन वाले ज़ोमैटो मेन्यू खोजें। मूल्य स्वतः फ़िल्टर नहीं होते; ऑर्डर से पहले मेन्यू जाँचें।',invalid:'सही कीमत सीमा लिखें। अधिकतम कीमत न्यूनतम से कम न हो।',needCity:'ज़ोमैटो पर खोजने के लिए अपना शहर चुनें।',footer:'ऑर्डर ज़ोमैटो पर पूरा होगा। वास्तविक कीमतें, डिलीवरी शुल्क और उपलब्धता वहाँ तय होती हैं।'},
+    sa:{order:'व्यञ्जनम् आदिशन्तु',kicker:'विरासत् / भोजनादेशः',subtitle:'एतत् पारम्परिकं व्यञ्जनं यत्र लभ्यते तानि भोजनालयानि अन्विष्यन्तु।',just:'🔎 सामान्यान्वेषणम्',price:'₹ मूल्यानुसारम्',simpleDesc:'येषां जॊमाटो-भोजनसूच्यां अस्य व्यञ्जनस्य नाम अस्ति तेषां पृष्ठानि अन्विष्यन्तु। प्रथमं जालान्वेषणस्य परिणामाः दृश्यन्ते।',priceDesc:'जॊमाटो-भोजनसूच्यां व्यञ्जनम् अन्विष्यन्तु। मूल्यसीमा केवलं मार्गदर्शनम्; वर्तमानमूल्यानि अत्र स्वयमेव न शोध्यन्ते।',min:'न्यूनतमं ₹ (वैकल्पिकम्)',max:'अधिकतमं ₹',city:'वितरणनगरम् (जॊमाटो कृते)',choose:'नगरं चिनुत',simpleInfo:'उपलब्धिः भवतः पतेः अनुसारं भवति। जॊमाटो कृते नगरं चिनुत।',budgetInfo:'मूल्यसीमा ₹{min}–₹{max}। जॊमाटो-भोजनसूच्यः अन्विष्यन्तु। मूल्यं स्वतः न निस्सार्यते; आदेशात् पूर्वं परीक्ष्यताम्।',invalid:'समुचितां मूल्यसीमां निर्दिशन्तु।',needCity:'जॊमाटो कृते नगरं चिनुत।',footer:'आदेशः जॊमाटो-माध्यमे एव सम्पद्यते। मूल्यं वितरणम् च तत्र निश्चितं भवति।'},
+    bn:{order:'খাবার অর্ডার করুন',kicker:'বিরাসত / খাবার অর্ডার',subtitle:'এই খাবারটি পরিবেশন করে এমন রেস্তোরাঁ খুঁজুন।',just:'🔎 সাধারণ খোঁজ',price:'₹ দামের খোঁজ',simpleDesc:'যেসব Zomato রেস্তোরাঁর মেনুতে ঠিক এই খাবারটি লেখা আছে সেগুলো খুঁজুন। প্রথমে ওয়েব সার্চে মেনু লিংক দেখাবে।',priceDesc:'Zomato-র আসল মেনুতে খাবার খুঁজুন। বাজেট শুধু নির্দেশিকা; লাইভ দাম এখানে স্বয়ংক্রিয়ভাবে ফিল্টার করা যায় না।',min:'সর্বনিম্ন ₹ (ঐচ্ছিক)',max:'সর্বাধিক ₹',city:'ডেলিভারির শহর (Zomato)',choose:'শহর বেছে নিন',simpleInfo:'রেস্তোরাঁর তালিকা আপনার ঠিকানার উপর নির্ভর করে। Zomato-র জন্য শহর বেছে নিন।',budgetInfo:'বাজেট ₹{min}–₹{max}। এই খাবার থাকা Zomato মেনু খুঁজুন। দাম স্বয়ংক্রিয়ভাবে ফিল্টার হয় না; অর্ডারের আগে দাম যাচাই করুন।',invalid:'সঠিক দামের সীমা লিখুন।',needCity:'Zomato-র জন্য শহর বেছে নিন।',footer:'অর্ডার Zomato-তে সম্পন্ন হয়। মূল্য ও ডেলিভারি শর্ত ওরাই নিয়ন্ত্রণ করে।'}
+  };
+  const extra={
+    en:{find:'Find matching Zomato menus ↗',direct:'Order {dish} on Zomato ↗',need:'Select your city to view menus',info:'Matching Search opens a broad web search, not a verified restaurant list. Order opens Zomato’s dish filter when supported. Confirm the selected dish is on the restaurant menu before ordering; promoted listings can be unrelated.'},
+    hi:{find:'ज़ोमैटो के मिलते-जुलते मेन्यू ↗',direct:'ज़ोमैटो पर {dish} ऑर्डर करें ↗',need:'मेन्यू के लिए शहर चुनें',info:'मिलान खोज सामान्य वेब खोज है, सत्यापित सूची नहीं। ऑर्डर वाला बटन उपलब्ध होने पर ज़ोमैटो का व्यंजन फ़िल्टर खोलता है। ऑर्डर से पहले रेस्तराँ मेन्यू में व्यंजन और कीमत जाँचें।'},
+    sa:{find:'जॊमाटो-भोजनसूच्यः अन्विष्यन्तु ↗',direct:'जॊमाटो-माध्यमे {dish} आदिशन्तु ↗',need:'नगरं चिनुत',info:'प्रथमं जालान्वेषणम्, न तु प्रमाणिता भोजनालयसूची। द्वितीयं जॊमाटो-व्‍यञ्जनशोधकं यथोपलब्धम् उद्घाटयति। आदेशात् पूर्वं व्यञ्जनं मूल्यं च परीक्ष्यताम्।'},
+    bn:{find:'Zomato-র মিল থাকা মেনু খুঁজুন ↗',direct:'Zomato থেকে {dish} অর্ডার করুন ↗',need:'শহর বেছে নিন',info:'প্রথমে সাধারণ ওয়েব সার্চ, যাচাই করা রেস্তোরাঁ তালিকা নয়। দ্বিতীয় বোতাম উপলব্ধ হলে Zomato-র নির্দিষ্ট খাবারের ফিল্টার খোলে। অর্ডারের আগে খাবার ও দাম যাচাই করুন।'}
   };
   const dialog=document.getElementById('rasoiOrderDialog');
   const $=id=>document.getElementById(id);
@@ -27925,7 +27934,10 @@ html[data-theme="light"] #page-rasoi .rasoi-order-open{color:#201508}
     $('roJustTab').textContent=w.just;$('roPriceTab').textContent=w.price;
     $('roMinLabel').textContent=w.min;$('roMaxLabel').textContent=w.max;
     $('roCityLabel').textContent=w.city;$('roCity').options[0].text=w.choose;
-    $('roFooter').textContent=w.footer;
+    $('roFooter').textContent=w.footer+' '+(extra[typeof LANG==='string'?LANG:'en']||extra.en).info;
+    const ew=extra[typeof LANG==='string'?LANG:'en']||extra.en;
+    $('roZomato').innerHTML='<span>⌕</span> '+ew.find;
+    $('roZomatoDirect').innerHTML='<span>↗</span> '+ew.direct.replace('{dish}',selectedRecipe?selectedRecipe.name:'');
   }
   const selectedMode=()=>{
     $('roJustTab').setAttribute('aria-selected',String(mode==='just'));
@@ -27943,13 +27955,25 @@ html[data-theme="light"] #page-rasoi .rasoi-order-open{color:#201508}
     if(!selectedRecipe)return;
     const w=locale(),b=bounds(),isPrice=mode==='price',city=$('roCity').value;
     const valid=!isPrice||b.valid;
-    // Zomato supports city-scoped dish pages; it does not expose a documented public
-    // deep-link for a specific rupee-range filter. Never invent one.
-    $('roZomato').href=city?'https://www.zomato.com/'+encodeURIComponent(city)+'/delivery?dish='+encodeURIComponent(slug(selectedRecipe.name)):'https://www.zomato.com/';
+    // Public Zomato delivery category pages show sponsored restaurants unrelated
+    // to the named dish. Exact menu-text searches reduce those false positives.
+    // No API, fabricated menu price, or undocumented Zomato deep link is used.
+    // Use a plain-language search, NOT site:/inurl: restrictions that produce
+    // empty Google result pages for lesser-known traditional dishes.
+    // This is a discovery aid, not a claim of verified live menus or stock.
+    const cityName=$('roCity').selectedOptions[0]?.textContent.trim()||city;
+    const query=selectedRecipe.name+' '+cityName+' Zomato restaurant menu order online';
+    $('roZomato').href='https://www.google.com/search?q='+encodeURIComponent(query);
+    // Link directly to Zomato's dish-specific delivery search. The platform
+    // controls actual delivery eligibility, result order and sponsored listings.
+    // Zomato's /delivery/dish-* path has a specific dish filter (when Zomato
+    // supports that dish in the selected city). The older ?dish= route showed
+    // generic promoted results without the active filter.
+    $('roZomatoDirect').href=city?'https://www.zomato.com/'+encodeURIComponent(city)+'/delivery/dish-'+encodeURIComponent(slug(selectedRecipe.name)):'https://www.zomato.com/';
     $('roPriceInfo').textContent=isPrice&&valid?w.budgetInfo.replace('{min}',String(b.min)).replace('{max}',String(b.max)):w.simpleInfo;
     $('roError').hidden=valid;
     $('roError').textContent=valid?'':w.invalid;
-    $('roZomato').setAttribute('aria-disabled',String(!valid));$('roZomato').style.opacity=valid?'1':'.45';
+    $('roZomato').setAttribute('aria-disabled',String(!valid||!city));$('roZomatoDirect').setAttribute('aria-disabled',String(!valid||!city));
     $('roPresets').querySelectorAll('[data-ro-budget]').forEach(btn=>btn.setAttribute('aria-pressed',String(Number(btn.dataset.roBudget)===b.max&&isPrice)));
   }
   window.openRasoiOrder=function(index,event){
@@ -27971,7 +27995,12 @@ html[data-theme="light"] #page-rasoi .rasoi-order-open{color:#201508}
   $('roCity').addEventListener('change',()=>{try{localStorage.setItem('virasat_order_city', $('roCity').value)}catch(_){}sync()});
   try{const saved=localStorage.getItem('virasat_order_city');if(saved&&Array.from($('roCity').options).some(o=>o.value===saved))$('roCity').value=saved;}catch(_){}
   $('roPresets').addEventListener('click',e=>{const b=e.target.closest('[data-ro-budget]');if(!b)return;$('roMaxPrice').value=b.dataset.roBudget;sync()});
-  $('roZomato').addEventListener('click',e=>{if(mode==='price'&&!bounds().valid){e.preventDefault();$('roMaxPrice').focus();return;}if(!$('roCity').value){e.preventDefault();$('roError').textContent=locale().needCity;$('roError').hidden=false;$('roCity').focus();}});
+  function requireValid(e){
+    if(mode==='price'&&!bounds().valid){e.preventDefault();$('roMaxPrice').focus();return;}
+    if(!$('roCity').value){e.preventDefault();$('roError').textContent=locale().needCity;$('roError').hidden=false;$('roCity').focus();}
+  }
+  $('roZomato').addEventListener('click',requireValid);
+  $('roZomatoDirect').addEventListener('click',requireValid);
   $('roClose').addEventListener('click',()=>dialog.close());
   dialog.addEventListener('click',e=>{if(e.target!==dialog)return;const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()});
   dialog.addEventListener('close',()=>{if(lastFocus&&lastFocus.isConnected)lastFocus.focus()});
