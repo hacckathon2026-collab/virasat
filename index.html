@@ -1,21 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- Local-only preview: bypass authentication; not for deployment. -->
-    <script>
-      window.__virasatLocalPreview = true;
-      try { sessionStorage.setItem('virasat_logged_in', 'true'); } catch(e) {}
-    </script>
-    <style>
-      html.virasat-local-preview #loginOverlay,
-      html.virasat-local-preview #virasatGuestLanding { display:none !important; visibility:hidden !important; pointer-events:none !important; }
-    </style>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Virasat — India's Living Heritage</title>
     <script>
-      document.documentElement.classList.add('virasat-preboot','virasat-local-preview');
+      document.documentElement.classList.add('virasat-preboot','virasat-auth-locked');
       try {if (sessionStorage.getItem('virasat_logged_in') !== 'true') document.documentElement.classList.add('virasat-guest-mode');}
       catch (_) {document.documentElement.classList.add('virasat-guest-mode');}
       // Respect explicit accessibility/data-saving preferences. CPU core count
@@ -14686,6 +14676,62 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
  html body .navlinks a {transition:color .22s ease,background-color .22s ease,border-color .22s ease !important;}
 }
 </style>
+<style id="nuske-finder-styles">
+/* Scoped symptom finder: keeps all other Virasat components untouched. */
+#page-nuske .nuske-finder{background:linear-gradient(140deg,rgba(212,175,55,.12),rgba(20,15,9,.96) 48%);border:1px solid rgba(212,175,55,.34);padding:clamp(20px,3.5vw,34px);border-radius:26px;margin:0 0 32px;box-shadow:0 14px 34px rgba(0,0,0,.2)}
+#page-nuske .nuske-finder-heading{display:flex;align-items:flex-start;justify-content:space-between;gap:16px}
+#page-nuske .nuske-finder h3{font:600 clamp(26px,3vw,36px) 'Playfair Display',serif;color:var(--marigold);margin:5px 0 6px}
+#page-nuske .nuske-finder p{color:var(--muted);margin:0 0 18px;font-size:14px;line-height:1.65}
+#page-nuske .nuske-finder-icon{font-size:42px;color:var(--gold)}
+#page-nuske #nfLabel{display:block;margin:6px 0 9px;font-size:14px;font-weight:700}
+#page-nuske .nuske-input-wrap{display:flex;align-items:center;gap:10px;border:1px solid rgba(212,175,55,.35);border-radius:15px;background:#100e0a;padding:0 16px;min-height:54px}
+#page-nuske .nuske-input-wrap:focus-within{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.13)}
+#page-nuske .nuske-input-wrap>span{font-size:26px;color:var(--gold)}
+#page-nuske #nfInput{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--ink);padding:14px 0;font-size:15px}
+#page-nuske #nfInput::placeholder{color:#9a8a6c}
+#page-nuske #nfClear{background:transparent;border:0;color:var(--marigold);font-size:26px;cursor:pointer}
+#page-nuske .nuske-symptom-chips{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0 3px}
+#page-nuske .nuske-symptom-chips button{border:1px solid rgba(212,175,55,.29);border-radius:50px;background:rgba(212,175,55,.055);color:var(--ink);padding:7px 13px;cursor:pointer;font-size:12px}
+#page-nuske .nuske-symptom-chips button:hover,#page-nuske .nuske-symptom-chips button:focus-visible{background:rgba(212,175,55,.22)}
+#page-nuske .nuske-finder-results:not(:empty){border-top:1px solid rgba(212,175,55,.2);padding-top:20px;margin-top:18px}
+#page-nuske .nuske-result-head{font-weight:700;color:var(--marigold);margin-bottom:10px;font-size:17px}
+#page-nuske .nuske-advice{background:rgba(212,175,55,.055);border-left:3px solid var(--gold);border-radius:10px;padding:12px 15px;margin:10px 0 14px;color:var(--ink);font-size:14px;line-height:1.65}
+#page-nuske .nuske-result-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:12px;margin-top:10px}
+#page-nuske .nuske-result{display:flex;align-items:center;gap:12px;min-width:0;text-align:left;border-radius:14px;background:#17130c;border:1px solid rgba(212,175,55,.2);padding:10px;color:var(--ink);cursor:pointer;transition:border .2s,transform .2s}
+#page-nuske .nuske-result:hover{border-color:var(--gold);transform:translateY(-2px)}
+#page-nuske .nuske-result img{width:55px;height:55px;object-fit:contain;background:#efe5cf;border-radius:10px;flex-shrink:0}
+#page-nuske .nuske-result span{min-width:0;font-size:13px;line-height:1.5}
+#page-nuske .nuske-result small{display:block;color:var(--muted);margin-top:3px}
+#page-nuske .nuske-finder .nuske-finder-note{font-size:12px;margin:16px 0 0;border-top:1px solid rgba(212,175,55,.14);padding-top:12px}
+#page-nuske .nuske-detail-overlay[hidden]{display:none!important}
+#page-nuske .nuske-detail-overlay{position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:20px}
+#page-nuske .nuske-detail{position:relative;width:min(560px,100%);max-height:88vh;overflow:auto;border:1px solid rgba(212,175,55,.45);border-radius:24px;padding:clamp(20px,4vw,32px);background:#16120c;color:var(--ink);box-shadow:0 22px 70px rgba(0,0,0,.5)}
+#page-nuske .nuske-detail-close{position:absolute;top:10px;right:13px;border:0;background:transparent;color:var(--marigold);font-size:30px;cursor:pointer}
+#page-nuske .nuske-detail h3{color:var(--marigold);font:600 30px 'Playfair Display',serif;margin:0 0 13px}
+#page-nuske .nuske-detail img{width:100%;height:185px;object-fit:contain;background:#f0e5d0;border-radius:14px;margin-bottom:16px}
+#page-nuske .nuske-detail p{font-size:14px;line-height:1.7;color:var(--ink)}
+#page-nuske .nuske-detail .nuske-warning{border-left:3px solid #e8ba5d;padding:10px 13px;background:rgba(232,186,93,.08);border-radius:10px;margin-top:14px}
+@media(max-width:550px){#page-nuske .nuske-finder-icon{display:none}#page-nuske .nuske-result-grid{grid-template-columns:1fr}}
+</style>
+<style>
+/* VIRASAT two-player additions, fully scoped */
+.vgmp-root{--mpgold:#d4af37;max-width:1100px;margin:22px auto 60px;color:#f2e6cc}
+.vgmp-hero{background:linear-gradient(110deg,rgba(9,7,5,.86),rgba(9,7,5,.48)),url('https://images.unsplash.com/photo-1606293926075-69a00dbfde81?auto=format&fit=crop&w=1500&q=82') center/cover;border:1px solid #d4af3760;border-radius:26px;padding:35px;min-height:215px;display:flex;flex-direction:column;justify-content:end}
+.vgmp-root[data-mp=mystery] .vgmp-hero{background-image:linear-gradient(110deg,rgba(9,7,5,.88),rgba(9,7,5,.5)),url('https://images.unsplash.com/photo-1564507592333-c60657eea523?auto=format&fit=crop&w=1500&q=82')}
+.vgmp-hero h2{font-size:clamp(30px,5vw,48px);margin:6px 0}.vgmp-hero p{max-width:680px;color:#e1d4ba;margin:4px 0}
+.vgmp-tag{font-size:11px;letter-spacing:2px;font-weight:800;color:#eacb73}
+.vgmp-surface{margin-top:18px;border:1px solid #d4af3740;border-radius:22px;padding:24px;background:linear-gradient(130deg,#1d170f,#100d09)}
+.vgmp-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}.vgmp-row.between{justify-content:space-between}.vgmp-input{background:#0a0806;color:#fff0cb;padding:12px 14px;border:1px solid #d4af3760;border-radius:12px;min-width:150px;max-width:100%;font-size:16px}
+.vgmp-input:focus-visible,.vgmp-root button:focus-visible{outline:2px solid #ffe59f;outline-offset:3px}
+.vgmp-root button{cursor:pointer}.vgmp-muted{color:#bbaa88;font-size:14px}.vgmp-status{margin:12px 0;color:#f0d691;min-height:23px}.vgmp-points{font-weight:750;font-size:15px;color:#efcd6d}
+.vgmp-choices{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:20px 0}
+.vgmp-choice{background:#292012;border:1px solid #d4af374d;border-radius:14px;padding:17px;text-align:left;color:#f6e9cf;min-height:60px;transition:background .2s,border-color .2s}
+.vgmp-choice:not(:disabled):hover{background:#413014;border-color:#d4af37}.vgmp-choice:disabled{opacity:.65;cursor:default}.vgmp-choice.correct{border-color:#6ec497;background:#143528}.vgmp-choice.wrong{border-color:#ed917e;background:#44221e}
+.vgmp-progress{height:8px;background:#2f2617;border-radius:30px;overflow:hidden;margin:16px 0}.vgmp-progress span{height:100%;background:linear-gradient(90deg,#b8863d,#ffe194);display:block;transition:width .3s}
+.vgmp-clues{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.vgmp-clue{flex:1 1 170px;border:1px solid #d4af3760;border-radius:14px;padding:16px;background:#221a11;min-height:105px;font-size:14px}
+.vgmp-clue button{margin-top:12px}.vgmp-foot{margin-top:16px;border-top:1px solid #d4af3730;padding-top:15px}.vgmp-live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#7aca9a;margin-right:7px}
+@media(max-width:620px){.vgmp-choices{grid-template-columns:1fr}.vgmp-hero{padding:24px;min-height:170px}.vgmp-surface{padding:16px}.vgmp-input{width:100%}}
+</style>
 </head>
 <body>
 <div id="icCurtain" aria-hidden="true"><div class="icc-left"></div><div class="icc-right"></div><div class="icc-glow"></div><div class="icc-center"><div class="icc-kicker">VIRASAT · HERITAGE THROUGH TIME</div><div class="icc-hindi" data-calendar-title="curtain">Indian Calendar</div><div class="icc-title">India's Living Calendar</div><div class="icc-line"></div></div><div class="icc-progress"></div></div>
@@ -15378,13 +15424,22 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                     <div class="eyebrow">Play &amp; Learn</div>
                     <h2>Gaming Hub</h2>
                 </div>
-                <p>Six games to explore India’s heritage, crafts, water architecture, monuments and festivals, with two playable 3D worlds.</p>
+                <p>Eight games to explore India’s heritage, including two live multiplayer challenges and two playable 3D worlds.</p>
             </div>
 
             <div class="vgb-shortcut"><button class="btn secondary btn-sm" type="button" onclick="document.getElementById('vgbCabinet')?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'start'})">View all 15 badges ↓</button></div>
             <!-- Hub home -->
             <div id="hub-home" class="game-panel active">
                 <div class="hub-grid">
+                    <!-- Virasat live two-player games -->
+                    <article class="hub-card" onclick="openGame('mpquiz')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openGame('mpquiz')}" role="button" tabindex="0" aria-label="Play Bharat Brain Battle with a friend">
+                        <div class="hub-icon" aria-hidden="true">⚔️</div><div class="virasat-3d-tag">LIVE • 2 PLAYERS</div>
+                        <h3>Bharat Brain Battle</h3><p>Challenge a friend to a live Indian culture, history and heritage quiz. Answer together and compete for points.</p><span class="btn primary btn-sm">Play Multiplayer ↗</span>
+                    </article>
+                    <article class="hub-card" onclick="openGame('mpmystery')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openGame('mpmystery')}" role="button" tabindex="0" aria-label="Play Monument Detectives with a friend">
+                        <div class="hub-icon" aria-hidden="true">🔎</div><div class="virasat-3d-tag">LIVE • 2 PLAYERS</div>
+                        <h3>Monument Detectives</h3><p>Reveal historic clues together, identify Indian monuments and race to solve each mystery.</p><span class="btn primary btn-sm">Investigate Together ↗</span>
+                    </article>
                     <article class="hub-card" onclick="openGame('match')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openGame('match')}" role="button" tabindex="0" aria-label="Play Heritage Image Match">
                         <div class="hub-icon" aria-hidden="true">🏛️</div>
                         <h3>Heritage Match</h3>
@@ -15445,6 +15500,9 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 </section>
             </div>
 
+            <!-- Live multiplayer additions: separate, non-invasive game panels -->
+            <div id="game-mpquiz" class="game-panel"><button class="btn secondary btn-sm game-back-btn" onclick="openGame('hub')" type="button">← Back to Hub</button><div class="vgmp-root" data-mp="quiz"></div></div>
+            <div id="game-mpmystery" class="game-panel"><button class="btn secondary btn-sm game-back-btn" onclick="openGame('hub')" type="button">← Back to Hub</button><div class="vgmp-root" data-mp="mystery"></div></div>
             <!-- Virasat 3D game: Artisan’s Courtyard 3D -->
             <div id="game-artisans" class="game-panel virasat-3d-panel">
                 <div class="virasat-3d-toolbar">
@@ -15690,7 +15748,17 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 <div><div class="eyebrow">Wisdom, viewed through a modern lens</div><h2>Desi Nuske</h2></div>
                 <p>Explore traditional herbs, spices, yoga and household practices while clearly separating cultural tradition from scientific evidence.</p>
             </div>
+            <!-- Symptom-based cultural knowledge finder; educational, not diagnostic. -->
+            <div class="nuske-finder" id="nuskeFinder">
+              <div class="nuske-finder-heading"><div><span class="tag" id="nfEyebrow">TRADITIONAL WELLNESS LIBRARY</span><h3 id="nfTitle">Find by symptom</h3><p id="nfIntro">Explore traditional ingredients and general comfort measures. This is not a diagnosis or treatment recommendation.</p></div><span class="nuske-finder-icon" aria-hidden="true">✺</span></div>
+              <label for="nfInput" id="nfLabel">Describe a symptom</label>
+              <div class="nuske-input-wrap"><span aria-hidden="true">⌕</span><input id="nfInput" autocomplete="off" type="search" placeholder="Try fever, nausea, sore throat, headache…" maxlength="130"/><button id="nfClear" type="button" aria-label="Clear search" hidden>×</button></div>
+              <div id="nfChips" class="nuske-symptom-chips" aria-label="Common symptoms"></div>
+              <div id="nfResults" class="nuske-finder-results" aria-live="polite"></div>
+              <p id="nfDisclaimer" class="nuske-finder-note">⚕ For informational use only. Persistent, worsening or severe symptoms need professional medical assessment. Herbs may interact with medicines.</p>
+            </div>
             <div class="grid" id="nuskeGrid"></div>
+            <div class="nuske-detail-overlay" id="nfOverlay" role="presentation" hidden><div class="nuske-detail" role="dialog" aria-modal="true" aria-labelledby="nfDialogTitle"><button type="button" id="nfClose" class="nuske-detail-close" aria-label="Close">×</button><div id="nfDialogBody"></div></div></div>
         </section>
     </div>
 
@@ -16803,7 +16871,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             }
 
             function showLoginOverlay() {
-                if (window.__virasatLocalPreview) return;
 
                 document.documentElement.classList.add('virasat-guest-mode');
                 document.documentElement.classList.add('virasat-auth-locked');
@@ -16828,7 +16895,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             }
 
             function logout() {
-                if (window.__virasatLocalPreview) { navigateTo('home'); return; }
                 window.__virasatLocalPreview = false;
                 sessionStorage.removeItem('virasat_logged_in');
                 isLoggedIn = false;
@@ -17002,7 +17068,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
 
             // Firebase remembers who is signed in ("Remember me"). Keep the screen in step with it.
             cloud.onAuth(function(user) {
-                if (window.__virasatLocalPreview) return;
                 if (user) sessionStorage.setItem('virasat_logged_in', 'true');
                 else sessionStorage.removeItem('virasat_logged_in');
                 if (formBusy) return;
@@ -17014,7 +17079,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 }
             });
             cloud.ready.catch(function(err) {
-                if (window.__virasatLocalPreview) return;
                 if (isLoggedIn) {
                     isLoggedIn = false;
                     sessionStorage.removeItem('virasat_logged_in');
@@ -17688,6 +17752,85 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
               </div>
             </article>`;
             }).join('');
+            nfInit();
+            nfLocale();
+        }
+
+
+        // Desi Nuske: symptom-to-cultural-remedy search, not a diagnostic engine.
+        const NF_LANG = {
+          en:{eyebrow:'TRADITIONAL WELLNESS LIBRARY',title:'Find by symptom',intro:'Explore traditional ingredients and everyday comfort measures. This does not diagnose or treat illness.',label:'Describe a symptom',placeholder:'Try fever, nausea, sore throat, headache…',disclaimer:'⚕ Educational information only. Persistent, worsening or severe symptoms need medical assessment. Herbs can interact with medicines.',related:'Traditional ingredients to explore',none:'No exact match found. Try another symptom or consult a healthcare professional.',guidance:'General comfort information',notice:'These ingredients have cultural uses. They are not proven treatments for this symptom.',noherbs:'No herb is recommended here as a treatment.',close:'Close',caution:'Precautions',context:'Traditional context',results:'Related to',urgent:'Seek prompt medical advice for concerning, severe or persistent symptoms.',safety:'Avoid medicinal doses of herbs, especially when pregnant, taking medicines, or managing a medical condition. Ask a clinician first.'},
+          hi:{eyebrow:'पारंपरिक स्वास्थ्य ज्ञान',title:'लक्षण से खोजें',intro:'पारंपरिक सामग्री और आराम के सामान्य उपाय जानें। यह रोग की पहचान या उपचार नहीं है।',label:'अपना लक्षण लिखें',placeholder:'जैसे बुखार, मतली, गले में दर्द, सिरदर्द…',disclaimer:'⚕ केवल शैक्षिक जानकारी। गंभीर, बढ़ते या लगातार लक्षणों पर डॉक्टर से सलाह लें। जड़ी-बूटियाँ दवाओं के साथ प्रतिक्रिया कर सकती हैं।',related:'जानने योग्य पारंपरिक सामग्री',none:'कोई सटीक मिलान नहीं मिला। दूसरा लक्षण लिखें या चिकित्सक से सलाह लें।',guidance:'सामान्य आराम संबंधी जानकारी',notice:'इन सामग्रियों के सांस्कृतिक उपयोग हैं। ये इस लक्षण का प्रमाणित उपचार नहीं हैं।',noherbs:'यहाँ किसी जड़ी-बूटी को उपचार के रूप में सुझाया नहीं जाता।',close:'बंद करें',caution:'सावधानियाँ',context:'पारंपरिक परिचय',results:'संबंधित विषय',urgent:'गंभीर, चिंताजनक या लगातार लक्षण हों तो जल्द चिकित्सा सलाह लें।',safety:'गर्भावस्था, दवा लेने या बीमारी की स्थिति में जड़ी-बूटियों की औषधीय मात्रा से बचें और चिकित्सक से पूछें।'},
+          sa:{eyebrow:'पारम्परिकं स्वास्थ्यज्ञानम्',title:'लक्षणेन अन्वेषणम्',intro:'पारम्परिकद्रव्याणि सामान्यसुखोपायांश्च जानातु। एषा रोगनिदानं चिकित्सा वा नास्ति।',label:'लक्षणं लिखतु',placeholder:'ज्वरः, हृल्लासः, कण्ठपीडा, शिरःशूलम्…',disclaimer:'⚕ केवलं शिक्षार्थम्। तीव्रेषु दीर्घकालिकेषु वा लक्षणेषु वैद्यस्य परामर्शं प्राप्नोतु। औषधिभिः सह वनस्पतिद्रव्याणां प्रतिक्रिया सम्भवति।',related:'परम्परागतद्रव्याणि',none:'सदृशं लक्षणं न प्राप्तम्। अन्यत् लिखतु अथवा वैद्यं पृच्छतु।',guidance:'सामान्यसुखसम्बद्धा सूचना',notice:'एतेषां द्रव्याणां सांस्कृतिकः उपयोगः अस्ति; लक्षणस्य प्रमाणितचिकित्सा नास्ति।',noherbs:'अत्र कापि वनस्पतिः चिकित्सारूपेण न निर्दिश्यते।',close:'पिधत्तु',caution:'सावधानताः',context:'पारम्परिकः परिचयः',results:'सम्बद्धः विषयः',urgent:'तीव्रेषु वा दीर्घकालिकेषु लक्षणेषु शीघ्रं वैद्यं सम्पर्कयतु।',safety:'गर्भावस्थायां औषधसेवने वा चिकित्सकस्य अनुमतिं विना वनस्पतीनां औषधीयमात्रां मा गृह्णातु।'}
+        };
+        const NF_SYMPTOMS = [
+          {key:'fever',labels:['Fever','बुखार','ज्वरः'],alias:['fever','temperature','high temp','bukhar','bukhaar','बुखार','बुख़ार','ज्वर','ताप'],items:['Tulsi','Ginger'],advice:['Rest and drink fluids. Fever has many causes, and these ingredients do not lower or cure fever. Seek medical advice if it is high, persistent, or accompanied by concerning symptoms.','आराम करें और पर्याप्त तरल लें। बुखार के कई कारण हो सकते हैं। ये सामग्रियाँ बुखार का इलाज नहीं हैं। तेज या लगातार बुखार पर डॉक्टर से सलाह लें।','विश्रामं करोतु, जलं च पिबतु। ज्वरस्य बहूनि कारणानि सन्ति; एते द्रव्ये चिकित्से न स्तः।']},
+          {key:'nausea',labels:['Nausea','मतली','हृल्लासः'],alias:['nausea','nauseous','queasy','vomit','vomiting','throw up','ulti','मतली','उल्टी','जी मिचलाना','हृल्लास'],items:['Ginger'],advice:['Small sips of water may help prevent dehydration. Ginger is traditionally used for nausea and has some supporting evidence, but is not appropriate for everyone. Seek help if vomiting persists or fluids cannot be kept down.','थोड़ा-थोड़ा पानी पीना उपयोगी हो सकता है। अदरक का मतली में पारंपरिक उपयोग है, लेकिन यह सबके लिए उचित नहीं है। लगातार उल्टी पर डॉक्टर से मिलें।','अल्पमल्पं जलं पिबतु। आर्द्रकस्य हृल्लासे पारम्परिकः उपयोगः अस्ति; सर्वेषां कृते न उपयुक्तम्।']},
+          {key:'cold',labels:['Common cold','सर्दी-जुकाम','प्रतिश्यायः'],alias:['cold','common cold','runny nose','sneezing','sardi','जुकाम','सर्दी','नाक बहना','छींक','प्रतिश्याय'],items:['Ginger','Tulsi'],advice:['Rest and fluids can support comfort with a common cold. Warm drinks may soothe, but traditional ingredients do not cure viral infections.','आराम और पानी पीने से सामान्य सर्दी में आराम मिल सकता है। गरम पेय राहत दे सकते हैं, लेकिन वायरस का इलाज नहीं हैं।','विश्रामः जलसेवनं च सुखाय भवेताम्। उष्णपानानि उपशमाय स्युः; विषाणुरोगस्य चिकित्सा न।']},
+          {key:'cough',labels:['Cough','खाँसी','कासः'],alias:['cough','coughing','khansi','खाँसी','खांसी','कास'],items:['Ginger','Tulsi'],advice:['Warm drinks may ease throat discomfort. A lasting cough, breathing difficulty, or worsening symptoms need medical attention.','गरम पेय गले को आराम दे सकते हैं। लंबे समय की खाँसी या साँस लेने में तकलीफ़ पर चिकित्सक से संपर्क करें।','उष्णपानं कण्ठसुखाय भवेत्। दीर्घकालिककासे श्वासकष्टे वा वैद्यं सम्पर्कयतु।']},
+          {key:'throat',labels:['Sore throat','गले में दर्द','कण्ठपीडा'],alias:['sore throat','throat pain','scratchy throat','gala dard','गले में दर्द','गला खराब','कंठ','कण्ठ'],items:['Ginger','Tulsi'],advice:['Warm or cool fluids can soothe discomfort. Trouble swallowing or breathing requires prompt medical care.','गरम या ठंडे तरल से आराम मिल सकता है। निगलने या साँस लेने में परेशानी हो तो तुरंत चिकित्सकीय सहायता लें।','उष्णं शीतलं वा पेयं सुखकरं भवेत्। निगरणश्वसनकष्टे शीघ्रं वैद्यं सम्पर्कयतु।']},
+          {key:'bloating',labels:['Bloating / gas','पेट में गैस','आध्मानम्'],alias:['gas','bloating','bloated','flatulence','pet me gas','गैस','पेट फूलना','आध्मान'],items:['Ajwain','Cumin','Saunf (Fennel)','Cardamom'],advice:['Gentle movement and smaller meals may reduce occasional bloating. Persistent pain or repeated symptoms should be checked. Traditional spices are not guaranteed remedies.','हल्का टहलना और कम मात्रा में भोजन कभी-कभी मदद कर सकता है। लगातार पेट-दर्द पर डॉक्टर से सलाह लें।','मृदुगमनम् अल्पभोजनं च कदाचित् उपकारकं भवेत्। निरन्तरपीडायां वैद्यं पृच्छतु।']},
+          {key:'indigestion',labels:['Indigestion','अपच','अजीर्णम्'],alias:['indigestion','digestive','digestion','upset stomach','acidity','heartburn','अपच','बदहजमी','पाचन','एसिडिटी','अजीर्ण'],items:['Ajwain','Cumin','Saunf (Fennel)'],advice:['Avoiding large meals and lying down immediately after eating may help mild indigestion. Seek care for severe pain or recurring discomfort.','बहुत अधिक भोजन करने और खाने के तुरंत बाद लेटने से बचें। गंभीर या बार-बार होने वाले दर्द पर डॉक्टर से मिलें।','अतिभोजनं भोजनानन्तरं शयनं च परिहरतु। तीव्रपीडायां वैद्यं सम्पर्कयतु।']},
+          {key:'headache',labels:['Headache','सिरदर्द','शिरःशूलम्'],alias:['headache','head pain','migraine','sir dard','सिरदर्द','माइग्रेन','शिरःशूल'],items:[],advice:['Water, rest and a quiet environment may help some mild headaches. Sudden severe headache, confusion or new neurological symptoms need urgent medical attention.','पानी, आराम और शांत जगह हल्के सिरदर्द में मदद कर सकते हैं। अचानक बहुत तेज दर्द या भ्रम होने पर तुरंत चिकित्सा सहायता लें।','जलं विश्रामः शान्तस्थानं च सौम्ये शिरःशूले सहायकानि स्युः। आकस्मिके तीव्रशूले शीघ्रं वैद्यं सम्पर्कयतु।']},
+          {key:'stress',labels:['Stress / tension','तनाव','मानसिकतनावः'],alias:['stress','tension','anxiety','worried','तनाव','चिंता','बेचैनी','मानसिकतनाव'],items:[],advice:['A short break, gentle breathing, and talking to someone you trust may offer comfort. Seek support if distress is persistent or overwhelming.','थोड़ा विराम, सहज श्वास और भरोसेमंद व्यक्ति से बात करना मदद कर सकता है। लंबे समय तक तनाव रहे तो सहायता लें।','विश्रामः सहजश्वसनं विश्वस्तजनेन संवादश्च साहाय्यं कुर्यात्।']},
+          {key:'fatigue',labels:['Tiredness','थकान','श्रान्तिः'],alias:['fatigue','tired','tiredness','exhaustion','weakness','थकान','कमजोरी','श्रान्ति'],items:['Amla'],advice:['Sleep, adequate meals, and fluids support general wellbeing. Ongoing or unexplained fatigue needs medical review; amla is food, not a cure for fatigue.','नींद, संतुलित भोजन और तरल उपयोगी हैं। लगातार थकान पर डॉक्टर से सलाह लें। आँवला एक खाद्य फल है, थकान का इलाज नहीं।','निद्रा भोजनं जलं च स्वास्थ्याय आवश्यकानि। निरन्तरश्रान्तौ वैद्यं पृच्छतु।']},
+          {key:'congestion',labels:['Blocked nose','बंद नाक','नासावरोधः'],alias:['blocked nose','stuffy nose','congestion','nasal','नाक बंद','बंद नाक','नासावरोध'],items:['Tulsi','Ginger'],advice:['Rest and fluids may improve comfort. Do not put herbs, oils, or other substances inside the nose. Breathing difficulties need medical attention.','आराम और तरल मदद कर सकते हैं। नाक के अंदर तेल या जड़ी-बूटियाँ न डालें। साँस में परेशानी पर चिकित्सा सहायता लें।','विश्रामः जलपानं च सुखाय भवतः। नासिकायां तैलादिकं मा स्थापयतु।']},
+          {key:'skin',labels:['Skin irritation','त्वचा में जलन','त्वक्पीडा'],alias:['skin irritation','rash','itching','itchy','skin','त्वचा','खुजली','जलन','चकत्ते','त्वक्'],items:[],advice:['Avoid the suspected irritant and use gentle skin care. Do not apply undiluted oils or herbal pastes to irritated skin. Seek care for widespread or worsening rashes.','जिससे जलन हो रही हो उससे बचें। चिड़चिड़ी त्वचा पर तेज तेल या जड़ी-बूटी का लेप न लगाएँ। गंभीर चकत्तों पर डॉक्टर से मिलें।','त्वचाक्षोभकारकं परिहरतु। तीक्ष्णतैलं वनस्पतिलेपं वा मा प्रयुङ्क्त।']},
+          {key:'cramps',labels:['Muscle cramps','मांसपेशियों में ऐंठन','स्नायुसङ्कोचः'],alias:['cramp','cramps','muscle pain','muscle spasm','ऐंठन','मांसपेशियों में दर्द','स्नायुसङ्कोच'],items:[],advice:['Gentle stretching, rest and fluids may help mild cramps. Severe, repeated or unexplained cramps should be assessed.','हल्का खिंचाव, आराम और तरल हल्की ऐंठन में मदद कर सकते हैं। लगातार या तेज ऐंठन हो तो डॉक्टर से मिलें।','मृदुप्रसारणं विश्रामः जलपानं च साहाय्यं कुर्यात्। तीव्रसङ्कोचे वैद्यं सम्पर्कयतु।']}
+        ];
+        let nfLastFocus = null;
+        function nfText(){ return NF_LANG[(typeof LANG !== 'undefined' && NF_LANG[LANG]) ? LANG : 'en']; }
+        function nfLocale(){
+          const l=(typeof LANG!=='undefined'&&NF_LANG[LANG])?LANG:'en', w=NF_LANG[l];
+          for(const [id,key] of [['nfEyebrow','eyebrow'],['nfTitle','title'],['nfIntro','intro'],['nfLabel','label'],['nfDisclaimer','disclaimer']]) { const e=document.getElementById(id); if(e)e.textContent=w[key]; }
+          document.getElementById('nfInput').placeholder=w.placeholder;
+          const chips=document.getElementById('nfChips'); chips.replaceChildren();
+          NF_SYMPTOMS.slice(0,10).forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c.labels[l==='hi'?1:l==='sa'?2:0];b.addEventListener('click',()=>{document.getElementById('nfInput').value=b.textContent;nfSearch(c.key);});chips.appendChild(b);});
+          nfSearch();
+        }
+        function nfSearch(forceKey){
+          const input=document.getElementById('nfInput'); if(!input)return;
+          const value=input.value.toLocaleLowerCase().trim();
+          document.getElementById('nfClear').hidden=!value;
+          const target=document.getElementById('nfResults');target.replaceChildren();
+          if(!value&&!forceKey)return;
+          const tokens=value.split(/[\s,;.!?،]+/).filter(v=>v.length>1);
+          const matches=NF_SYMPTOMS.map(c=>({c,score:(forceKey===c.key?200:0)+Math.max(0,...c.alias.map(a=>{
+              const norm=a.toLocaleLowerCase();return value===norm?100:value.includes(norm)?70:tokens.some(t=>norm===t)?50:0;
+            }))})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
+          const w=nfText(), l=(typeof LANG!=='undefined'&&LANG==='hi')?1:(typeof LANG!=='undefined'&&LANG==='sa')?2:0;
+          if(!matches.length){const p=document.createElement('p');p.textContent=w.none;target.appendChild(p);return;}
+          // Multiple distinct symptoms are shown separately; no fake medical diagnosis.
+          matches.slice(0,3).forEach(({c})=>{
+            const h=document.createElement('div');h.className='nuske-result-head';h.textContent=w.results+': '+c.labels[l];target.appendChild(h);
+            const advice=document.createElement('div');advice.className='nuske-advice';advice.textContent=w.guidance+': '+c.advice[l];target.appendChild(advice);
+            const found=c.items.map(name=>NUSKE.find(n=>n.name===name)).filter(Boolean);
+            const title=document.createElement('p');title.textContent=found.length?w.related+':':w.noherbs;target.appendChild(title);
+            if(found.length){const grid=document.createElement('div');grid.className='nuske-result-grid';
+              found.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='nuske-result';const img=document.createElement('img');img.src=n.img||'';img.alt='';img.loading='lazy';img.onerror=()=>{img.style.display='none';};const span=document.createElement('span');const localized=locNuske(n);const strong=document.createElement('strong');strong.textContent=localized.name;const small=document.createElement('small');small.textContent=w.context;span.append(strong,small);b.append(img,span);b.addEventListener('click',()=>nfOpen(n,c));grid.appendChild(b);});target.appendChild(grid);
+              const note=document.createElement('p');note.style.marginTop='10px';note.textContent=w.notice;target.appendChild(note);
+            }
+          });
+        }
+        function nfOpen(n,c){
+          const w=nfText(),l=(typeof LANG!=='undefined'&&LANG==='hi')?1:(typeof LANG!=='undefined'&&LANG==='sa')?2:0,localized=locNuske(n);
+          const body=document.getElementById('nfDialogBody');body.replaceChildren();
+          const title=document.createElement('h3');title.id='nfDialogTitle';title.textContent=localized.name;body.appendChild(title);
+          if(n.img){const img=document.createElement('img');img.src=n.img;img.alt=localized.name;img.onerror=()=>{img.style.display='none';};body.appendChild(img);}
+          const desc=document.createElement('p');const strong=document.createElement('strong');strong.textContent=w.context+': ';desc.append(strong,document.createTextNode(localized.desc));body.appendChild(desc);
+          const info=document.createElement('p');info.textContent=w.results+': '+c.labels[l]+'. '+w.notice;body.appendChild(info);
+          const caution=document.createElement('p');caution.className='nuske-warning';caution.textContent=w.caution+': '+w.safety+' '+w.urgent;body.appendChild(caution);
+          const overlay=document.getElementById('nfOverlay');nfLastFocus=document.activeElement;overlay.hidden=false;document.getElementById('nfClose').focus();
+        }
+        function nfClose(){document.getElementById('nfOverlay').hidden=true;nfLastFocus?.focus?.();}
+        function nfInit(){
+          const input=document.getElementById('nfInput');if(!input||input.dataset.ready)return;
+          input.dataset.ready='1';input.addEventListener('input',()=>nfSearch());
+          document.getElementById('nfClear').addEventListener('click',()=>{input.value='';nfSearch();input.focus();});
+          document.getElementById('nfClose').addEventListener('click',nfClose);
+          document.getElementById('nfOverlay').addEventListener('click',e=>{if(e.target.id==='nfOverlay')nfClose();});
+          document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!document.getElementById('nfOverlay').hidden)nfClose();});
+          nfLocale();
         }
 
         let lastRegionKey = null;
@@ -18809,6 +18952,9 @@ if (clean === 'bharatiya-calendar') {
             if (panel) panel.classList.add('active');
             if (panel && (which === 'artisans' || which === 'monsoon')) {
                 if (typeof window.virasat3DLoad === 'function') window.virasat3DLoad(which);
+            }
+            if (which === 'mpquiz' || which === 'mpmystery') {
+                window.VirasatMultiplayer?.open(which === 'mpquiz' ? 'quiz' : 'mystery');
             }
             if (which === 'match') {
                 restartGame();
@@ -26296,22 +26442,7 @@ function report(){let rows=KEYS.map(k=>{let v=(saved.visited[k]||[]).filter(n=>n
 @media(prefers-reduced-motion:reduce){#virasatScreenshotFX.active{display:none!important}}
 
 </style>
-<script>
-    /* Local preview visibility safety net. */
-    (function(){
-      function unlock(){
-        document.documentElement.classList.remove('virasat-auth-locked','virasat-guest-mode','virasat-preboot');
-        document.documentElement.classList.add('virasat-local-preview','virasat-intro-done');
-        var gate=document.getElementById('loginOverlay');
-        if(gate) gate.classList.add('hidden');
-        var guest=document.getElementById('virasatGuestLanding');
-        if(guest) guest.style.display='none';
-        document.body.style.overflow='';
-      }
-      if(document.readyState==='loading') document.addEventListener('DOMContentLoaded', unlock);else unlock();
-      window.addEventListener('load',unlock);
-    })();
-    </script>
+
 </body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
 }
 function enhanceComparison(){
@@ -27019,40 +27150,76 @@ schedule();
 window.VirasatTranslationCompletion={refresh:schedule,phrases:Object.keys(PHRASES).length};
 })();
 </script>
-<!-- VIRASAT: Inline chatbot and story narration (non-destructive enhancement) -->
-<style id="virasatInlineSpeechStyles">
-#heritageAiMessages .virasat-inline-speak{display:inline-flex;gap:6px;align-items:center;margin:10px 0 0;padding:6px 10px;border-radius:999px;border:1px solid rgba(212,175,55,.56);background:#302616;color:#f1d16b;font:600 12px system-ui,sans-serif;cursor:pointer;max-width:max-content}
-#heritageAiMessages .virasat-inline-speak:hover,#kahaniBook .virasat-inline-speak:hover{background:#d4af37;color:#17120b}
-#heritageAiMessages .heritage-ai-message.ai{max-width:90%}
-#heritageAiMessages .virasat-inline-speak[aria-pressed="true"],#kahaniBook .virasat-inline-speak[aria-pressed="true"]{background:#d4af37;color:#17120b}
-#kahaniBook .virasat-inline-speak{border:1px solid #b18b40;background:#fff3da;color:#503312;padding:7px 11px;border-radius:22px;cursor:pointer;font:600 12px system-ui,sans-serif;display:inline-flex;gap:5px;align-items:center;position:relative;z-index:15;max-width:max-content;margin:8px 4px}
-#kahaniBook .virasat-story-audio{position:absolute;left:16px;bottom:15px;z-index:28;pointer-events:auto}
-@media(max-width:600px){#kahaniBook .virasat-story-audio{left:8px;bottom:8px}#heritageAiMessages .heritage-ai-message.ai{max-width:95%}}
-</style>
-<script id="virasatInlineSpeechScript">
-(function(){'use strict';
-if(!('speechSynthesis' in window)||!('SpeechSynthesisUtterance' in window))return;
-const synth=window.speechSynthesis;
-let active=null,number=0;
-function lang(){let l=(document.documentElement.lang||'en').toLowerCase();return l.startsWith('hi')?'hi-IN':l.startsWith('sa')?'sa-IN':l.startsWith('bn')?'bn-IN':'en-IN';}
-function content(el){const copy=el.cloneNode(true);copy.querySelectorAll('.virasat-inline-speak,script,style,button').forEach(e=>e.remove());return (copy.innerText||copy.textContent||'').replace(/[#*_`]+/g,' ').replace(/\s+/g,' ').trim();}
-function reset(){number++;synth.cancel();if(active){active.textContent='🔊 Listen';active.setAttribute('aria-pressed','false');active=null;}}
-function speak(btn,text){if(active===btn){reset();return;}reset();if(!text)return;active=btn;btn.textContent='■ Stop';btn.setAttribute('aria-pressed','true');const ticket=number;
-const parts=text.match(/[^.!?।]+[.!?।]*|.{1,180}/g)||[text];let list=[];parts.forEach(p=>{p=p.trim();while(p.length>220){let split=p.lastIndexOf(' ',220);if(split<60)split=220;list.push(p.slice(0,split));p=p.slice(split).trim();}if(p)list.push(p)});
-const voices=synth.getVoices();const target=lang();let voice=voices.find(v=>v.lang.toLowerCase()===target)||voices.find(v=>v.lang.toLowerCase().startsWith(target.slice(0,2)))||(target==='sa-IN'?voices.find(v=>v.lang.toLowerCase().startsWith('hi')):null);
-let i=0;function next(){if(ticket!==number)return;if(i>=list.length){reset();return;}let u=new SpeechSynthesisUtterance(list[i++]);u.lang=voice?.lang||target;u.rate=.96;u.pitch=1;u.volume=1;if(voice)u.voice=voice;u.onend=next;u.onerror=()=>reset();synth.speak(u)}next();}
-function button(getText){const btn=document.createElement('button');btn.type='button';btn.className='virasat-inline-speak';btn.textContent='🔊 Listen';btn.title='Read this text aloud';btn.setAttribute('aria-label','Listen to this text');btn.setAttribute('aria-pressed','false');btn.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();speak(btn,getText())});return btn}
-function update(){
- const chats=document.querySelector('#heritageAiMessages');if(chats){chats.querySelectorAll('.heritage-ai-message.ai').forEach(msg=>{if(msg.dataset.inlineSpeak==='1')return;if(/^(🤔\s*)?Thinking\.{0,3}$/i.test(content(msg)))return;msg.dataset.inlineSpeak='1';msg.append(button(()=>content(msg)));});}
- const book=document.querySelector('#kahaniBook');if(book){book.querySelectorAll('.kb-page').forEach(page=>{if(page.dataset.inlineSpeak==='1')return;page.dataset.inlineSpeak='1';const wrap=document.createElement('div');wrap.className='virasat-story-audio';wrap.append(button(()=>content(page)));page.append(wrap)});
- // Handles dynamically rendered story layouts that do not use a .kb-page wrapper.
- if(!book.querySelector('.kb-page')&&book.textContent.trim().length>180&&!book.querySelector('.virasat-story-audio')){let wrap=document.createElement('div');wrap.className='virasat-story-audio';wrap.append(button(()=>content(book)));book.append(wrap)}
- }
+<script>
+/* Virasat multiplayer: PeerJS WebRTC signalling; no storage of room/player data. */
+(function(){
+'use strict';
+const QUIZ=[
+ ['Which city is home to the Golden Temple?',['Jaipur','Amritsar','Delhi','Patna'],1,'The Harmandir Sahib is in Amritsar, Punjab.'],
+ ['Who composed the Ramcharitmanas?',['Kalidasa','Tulsidas','Kabir','Surdas'],1,'Tulsidas wrote the Ramcharitmanas in Awadhi.'],
+ ['What is the state of the Konark Sun Temple?',['Odisha','Gujarat','Bihar','Kerala'],0,'The 13th-century Sun Temple stands in Konark, Odisha.'],
+ ['Which dance tradition originates in Kerala?',['Garba','Kathak','Kathakali','Odissi'],2,'Kathakali is a classical dance-drama from Kerala.'],
+ ['Hampi was associated with which empire?',['Chola','Gupta','Vijayanagara','Maurya'],2,'Hampi was the capital of the Vijayanagara Empire.'],
+ ['The Ajanta Caves are especially famous for what?',['Rock paintings','Stepwells','Lighthouses','Palaces'],0,'Ajanta preserves remarkable Buddhist murals and rock-cut caves.'],
+ ['Which instrument is strongly associated with Ustad Bismillah Khan?',['Veena','Shehnai','Tabla','Mridangam'],1,'Bismillah Khan was a celebrated shehnai musician.'],
+ ['Which Indian state is best known for the Bihu festival?',['Assam','Goa','Punjab','Karnataka'],0,'Bihu festivals mark important agricultural seasons in Assam.'],
+ ['Nalanda was a renowned ancient centre of learning in which state?',['Bihar','Rajasthan','Tamil Nadu','Haryana'],0,'The historic Nalanda Mahavihara is in Bihar.'],
+ ['Which craft is especially associated with Kanchipuram?',['Pashmina','Blue pottery','Silk weaving','Bidriware'],2,'Kanchipuram is famed for its silk sari-weaving traditions.']
+];
+const MYSTERY=[
+ {a:'Taj Mahal',opts:['Taj Mahal','Hawa Mahal','Gol Gumbaz','Charminar'],c:['It stands beside the Yamuna River.','It was commissioned by Shah Jahan.','Its white marble mausoleum is in Agra.'],fact:'A Mughal-era mausoleum completed in the 17th century.'},
+ {a:'Sanchi Stupa',opts:['Brihadeeswarar Temple','Sanchi Stupa','Gateway of India','Golconda Fort'],c:['It is associated with Buddhist heritage.','It has elaborately carved gateways known as toranas.','It is near Bhopal, Madhya Pradesh.'],fact:'Sanchi is among India’s important Buddhist archaeological sites.'},
+ {a:'Hampi',opts:['Hampi','Ellora','Fatehpur Sikri','Mahabalipuram'],c:['This historic site lies near the Tungabhadra River.','It contains a famous stone chariot.','It was a major centre of the Vijayanagara Empire.'],fact:'Hampi contains temples, markets and royal remains.'},
+ {a:'Rani ki Vav',opts:['Jantar Mantar','Rani ki Vav','Qutub Minar','Elephanta Caves'],c:['This UNESCO-listed landmark is an example of water architecture.','Its elaborate carved levels descend underground.','It is a stepwell in Patan, Gujarat.'],fact:'Rani ki Vav illustrates the architectural sophistication of Indian stepwells.'},
+ {a:'Konark Sun Temple',opts:['Konark Sun Temple','Meenakshi Temple','Virupaksha Temple','Jagannath Temple'],c:['Its main design evokes a colossal stone chariot.','Its sculpted wheels are especially famous.','It is a 13th-century Surya temple in Odisha.'],fact:'The temple is an iconic work of Kalinga architecture.'}
+];
+let peer=null,conn=null,host=false,solo=false,mode='quiz',room='',mySlot=0,state=null,ready=false,loading=null;
+const $=sel=>document.querySelector(sel),root=()=>$('.vgmp-root[data-mp="'+mode+'"]');
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function loadPeer(){if(window.Peer)return Promise.resolve();if(loading)return loading;loading=new Promise((resolve,reject)=>{const s=document.createElement('script');s.src='https://cdn.jsdelivr.net/npm/peerjs@1.5.5/dist/peerjs.min.js';s.onload=()=>window.Peer?resolve():reject(new Error('Multiplayer library unavailable'));s.onerror=()=>reject(new Error('Internet is required for multiplayer'));document.head.appendChild(s)});return loading;}
+function status(s){let el=root()?.querySelector('.vgmp-status');if(el)el.textContent=s;}
+function linkSend(data){if(conn&&conn.open)conn.send(data);}
+function destroy(){try{conn?.close()}catch(e){}try{peer?.destroy()}catch(e){}conn=null;peer=null;ready=false;solo=false;room='';state=null;}
+function open(m){if(m!==mode)destroy();mode=m;renderLobby();}
+function renderLobby(message='Create a private room or join your friend using their room code.'){
+ const r=root();if(!r)return;const title=mode==='quiz'?'Bharat Brain Battle':'Monument Detectives';
+ r.innerHTML=`<div class="vgmp-hero"><div class="vgmp-tag">🇮🇳 LIVE TWO-PLAYER HERITAGE CHALLENGE</div><h2>${title}</h2><p>${mode==='quiz'?'Face a friend in ten heritage quiz rounds. Both answer each question and earn points.':'Reveal clues together, then race to correctly identify five historic Indian landmarks.'}</p></div><div class="vgmp-surface"><div class="vgmp-row"><button class="btn primary btn-sm" type="button" data-mp-action="solo">▶ Play Solo</button><button class="btn secondary btn-sm" type="button" data-mp-action="host">Create Multiplayer Room</button><input class="vgmp-input" maxlength="12" autocomplete="off" aria-label="Room code" placeholder="Enter room code" data-mp-code><button class="btn secondary btn-sm" type="button" data-mp-action="join">Join Room</button></div><div class="vgmp-status" aria-live="polite">${esc(message)}</div><p class="vgmp-muted">Share the room code with one friend. Both players must use the same game on the live HTTPS website, with internet enabled. No accounts or chat are needed for the game room.</p></div>`;
 }
-let queued=false;function schedule(){if(queued)return;queued=true;setTimeout(()=>{queued=false;update()},80)}
-new MutationObserver(mutations=>{if(mutations.some(m=>[...m.addedNodes].some(n=>n.nodeType===1&&!n.classList?.contains('virasat-inline-speak')&&!n.classList?.contains('virasat-story-audio'))))schedule()}).observe(document.body,{childList:true,subtree:true});
-document.addEventListener('click',e=>{if(e.target.closest('.virasat-inline-speak'))return;if(active&&(e.target.closest('[data-page],.kb-next,.kb-prev,#heritageAiClose')))reset();schedule()},true);
-document.addEventListener('visibilitychange',()=>{if(document.hidden)reset()});document.addEventListener('DOMContentLoaded',schedule);schedule();
+function startSolo(){destroy();solo=true;host=true;ready=true;mySlot=0;room='PRACTICE';state=makeState();draw();}
+function makeState(){return{mode,step:0,scores:[0,0],answers:[null,null],revealed:[false,false,false],ended:false};}
+function attach(c){conn=c;conn.on('open',()=>{ready=true;if(host){state=makeState();linkSend({t:'state',s:state});}draw();});conn.on('data',data=>{if(!data||typeof data!=='object')return;if(host){if(data.t==='act'&&Number.isInteger(data.slot)&&data.slot===1)act(data.a,data.n,1);}else if(data.t==='state'){state=data.s;draw();}});conn.on('close',()=>{ready=false;status('Your friend disconnected. Return to the lobby to make a new room.');});conn.on('error',()=>{status('Connection failed. Try recreating the room.');});}
+async function create(){destroy();host=true;mySlot=0;renderLobby('Creating your room…');try{await loadPeer();room=Math.random().toString(36).slice(2,8).toUpperCase();peer=new Peer('virasat-'+mode+'-'+room.toLowerCase());peer.on('open',()=>draw());peer.on('connection',c=>{if(conn&&conn.open){c.on('open',()=>c.close());return;}attach(c);});peer.on('error',()=>{status('Could not create this room. Please try again.');});}catch(e){status(e.message)}}
+async function join(code){code=code.replace(/[^a-z0-9]/gi,'').toUpperCase();if(code.length<4){status('Enter a valid room code.');return;}destroy();host=false;mySlot=1;room=code;renderLobby('Connecting to host…');try{await loadPeer();peer=new Peer();peer.on('open',()=>{attach(peer.connect('virasat-'+mode+'-'+code.toLowerCase(),{reliable:true}));setTimeout(()=>{if(!ready)status('Could not reach this room. Check the code, host and network.');},8500)});peer.on('error',()=>status('Room unavailable. Ask your friend to create a new room.'));}catch(e){status(e.message)}}
+function broadcast(){if(host){linkSend({t:'state',s:state});draw();}}
+function act(a,n,slot){if(!host||!ready||!state||state.ended)return;
+ if(a==='answer'){
+ const data=mode==='quiz'?QUIZ:MYSTERY;if(state.step>=data.length||state.answers[slot]!==null||!Number.isInteger(n)||n<0||n>=4)return;
+ state.answers[slot]=n;if(solo)state.answers[1]=-1;const correct=mode==='quiz'?data[state.step][2]:data[state.step].opts.indexOf(data[state.step].a);if(n===correct)state.scores[slot]+=mode==='quiz'?100:Math.max(40,100-state.revealed.filter(Boolean).length*20);
+ }else if(a==='clue'&&mode==='mystery'&&Number.isInteger(n)&&n>=0&&n<3){state.revealed[n]=true;}
+ else if(a==='next'&&slot===0&&state.answers.every(v=>v!==null)){
+ state.step++;state.answers=[null,null];state.revealed=[false,false,false];if(state.step>=(mode==='quiz'?QUIZ.length:MYSTERY.length))state.ended=true;
+ }else if(a==='restart'&&slot===0){state=makeState();}
+ else return;broadcast();}
+function action(a,n){if(!ready)return;if(host)act(a,n,0);else linkSend({t:'act',a,n,slot:1});}
+function draw(){const r=root();if(!r)return;if(!ready){if(host&&room){r.innerHTML=`<div class="vgmp-hero"><div class="vgmp-tag">ROOM CREATED</div><h2>${mode==='quiz'?'Bharat Brain Battle':'Monument Detectives'}</h2></div><div class="vgmp-surface"><h3>Room code: <span style="color:#f3ce68">${esc(room)}</span></h3><div class="vgmp-row"><button class="btn primary btn-sm" data-mp-action="copy">Copy Room Code</button><button class="btn secondary btn-sm" data-mp-action="leave">Cancel</button></div><p class="vgmp-status">Waiting for your friend to join…</p></div>`;}return;}
+ if(!state)return;
+ const max=mode==='quiz'?QUIZ.length:MYSTERY.length;const item=mode==='quiz'?QUIZ[state.step]:MYSTERY[state.step],both=state.answers.every(v=>v!==null),mine=state.answers[mySlot]!==null;
+ const title=mode==='quiz'?'Bharat Brain Battle':'Monument Detectives';
+ let inside=`<div class="vgmp-row between"><div class="vgmp-points">${solo?'Your practice score: '+state.scores[0]+' pts':'You: '+state.scores[mySlot]+' pts · Friend: '+state.scores[1-mySlot]+' pts'}</div><div class="vgmp-muted">Room ${esc(room)} · <span class="vgmp-live"></span> Connected</div></div>`;
+ if(state.ended){const result=solo?'Practice complete! 🇮🇳':state.scores[mySlot]===state.scores[1-mySlot]?'It’s a tie!':state.scores[mySlot]>state.scores[1-mySlot]?'You won! 🎉':'Your friend won this time!';inside+=`<h2 style="margin:28px 0 12px">${result}</h2><p>${solo?'Your final score: '+state.scores[0]+' points':'Final scores: '+state.scores[mySlot]+' vs '+state.scores[1-mySlot]}</p>${host?'<button class="btn primary" data-mp-action="restart">Play Again</button>':'<p class="vgmp-muted">Waiting for host to start a new match.</p>'}`;}
+ else{
+ inside+=`<div class="vgmp-progress"><span style="width:${state.step/max*100}%"></span></div><div class="vgmp-tag">ROUND ${state.step+1} / ${max}</div>`;
+ if(mode==='quiz')inside+=`<h2 style="font-size:clamp(23px,3.2vw,34px);margin-top:16px">${esc(item[0])}</h2>`;
+ else{inside+=`<h2 style="margin:15px 0 8px">Which Indian landmark is this?</h2><p class="vgmp-muted">Work together to uncover clues. Fewer revealed clues mean more points for a correct guess.</p><div class="vgmp-clues">${item.c.map((cl,i)=>`<div class="vgmp-clue"><div class="vgmp-tag">CLUE ${i+1}</div>${state.revealed[i]?`<p>${esc(cl)}</p>`:`<button type="button" class="btn secondary btn-sm" data-mp-action="clue" data-n="${i}">Reveal clue</button>`}</div>`).join('')}</div>`;}
+ const options=mode==='quiz'?item[1]:item.opts;const correct=mode==='quiz'?item[2]:item.opts.indexOf(item.a);
+ inside+=`<div class="vgmp-choices">${options.map((opt,i)=>`<button type="button" class="vgmp-choice ${both?(i===correct?'correct':state.answers[mySlot]===i?'wrong':''):''}" data-mp-action="answer" data-n="${i}" ${mine?'disabled':''}>${String.fromCharCode(65+i)}. ${esc(opt)}</button>`).join('')}</div>`;
+ if(both)inside+=`<div class="vgmp-foot"><strong style="color:#9fdbb8">${mode==='quiz'?esc(item[3]):esc(item.fact)}</strong><p class="vgmp-muted">You chose: ${esc(options[state.answers[mySlot]])}${solo?'':' · Friend chose: '+esc(options[state.answers[1-mySlot]])}</p>${host?'<button class="btn primary" data-mp-action="next">'+(state.step===max-1?'View Results':'Next Round →')+'</button>':'<p class="vgmp-muted">Waiting for host to continue…</p>'}</div>`;
+ else inside+=`<p class="vgmp-status">${mine?'Answer locked in. Waiting for your friend…':'Choose your answer to lock it in.'}</p>`;
+ }
+ r.innerHTML=`<div class="vgmp-hero"><div class="vgmp-tag">TWO-PLAYER LIVE EXPERIENCE</div><h2>${title}</h2><p>Learn Indian heritage while playing together.</p></div><div class="vgmp-surface">${inside}<div class="vgmp-foot"><button class="btn secondary btn-sm" data-mp-action="leave">Leave Room</button></div></div>`;
+}
+document.addEventListener('click',e=>{const b=e.target.closest('[data-mp-action]');if(!b||!b.closest('.vgmp-root'))return;const a=b.dataset.mpAction,n=Number(b.dataset.n);if(a==='solo')startSolo();else if(a==='host')create();else if(a==='join')join(root().querySelector('[data-mp-code]')?.value||'');else if(a==='copy'){navigator.clipboard?.writeText(room).then(()=>status('Room code copied. Share it with a friend.'),()=>status('Room code: '+room));}else if(a==='leave'){destroy();renderLobby();}else action(a,n);});
+window.VirasatMultiplayer={open};
 })();
 </script>
 </body>
