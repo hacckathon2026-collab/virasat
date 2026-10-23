@@ -17899,7 +17899,12 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
          Saffron:'জাফরান রং ও সুগন্ধের জন্য মিষ্টি ও বিরিয়ানিতে ব্যবহৃত হয়।',
          'Saunf (Fennel)':'মৌরি রান্না ও মুখশুদ্ধিতে ব্যবহৃত সুগন্ধি বীজ।'
         };
-        Object.keys(NF_INGREDIENT_BN).forEach(k=>{const entry=VIRASAT_I18N.nuske?.[k];if(entry)entry.bn={name:k,desc:NF_INGREDIENT_BN[k]};});
+        // VIRASAT_I18N is created by a later <script>, so add the Bengali text once the page has loaded.
+        // (Using it here directly stopped the rest of this script: Heritage AI, games, map.)
+        document.addEventListener('DOMContentLoaded',()=>{
+          if(typeof VIRASAT_I18N==='undefined')return;
+          Object.keys(NF_INGREDIENT_BN).forEach(k=>{const entry=VIRASAT_I18N.nuske?.[k];if(entry)entry.bn={name:k,desc:NF_INGREDIENT_BN[k]};});
+        });
 
         let nfLastFocus = null;
         function nfActiveLang(){const l=window.VirasatMatchLanguage?.get?.() || (typeof LANG!=='undefined'?LANG:'en');return NF_LANG[l]?l:'en';}
