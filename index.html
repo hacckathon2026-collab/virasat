@@ -11224,6 +11224,44 @@ body.festival-story-open { overflow: hidden; }
 .adm-builtin{margin-top:16px}
 .adm-builtin summary{cursor:pointer;font-weight:700;font-size:13px;color:var(--gold);padding:6px 0}
 .adm-builtin .adm-list-items{margin-top:8px}
+.adm-review-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-bottom:4px}
+.adm-review-kind{padding:2px 8px;border-radius:999px;background:rgba(212,175,55,.14);color:var(--marigold);font-size:11px;font-weight:700}
+/* Reviews (Maa Ki Rasoi recipes and Desi Nuskhe): stars on the tiles, list + form in the pop-ups */
+.nuske-card[role="button"]{cursor:pointer}
+.rv-stars{display:flex;align-items:center;gap:6px;min-height:18px;margin:4px 0 8px;font-size:13px;color:var(--muted)}
+.rv-stars:empty{display:none}
+.rv-star-row{display:inline-flex;gap:1px;letter-spacing:0;line-height:1}
+.rv-star{color:rgba(212,175,55,.32)}
+.rv-star.is-on{color:var(--gold)}
+.rv-avg{font-weight:700;color:var(--ink)}
+.rv-sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.rv-panel{margin-top:24px;padding-top:18px;border-top:1px solid rgba(212,175,55,.22);text-align:left}
+.rv-panel:empty{display:none}
+.rv-panel h3{font-size:22px;margin:0 0 6px}
+.rv-summary{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 14px;color:var(--muted);font-size:14px}
+.rv-summary .rv-star-row{font-size:18px}
+.rv-form{display:grid;gap:10px;margin:0 0 16px}
+.rv-label{font-weight:700;font-size:13px}
+.rv-pick{display:flex;gap:2px}
+.rv-pick button{background:none;border:0;padding:2px 3px;font-size:30px;line-height:1;color:rgba(212,175,55,.32);cursor:pointer;transition:transform .15s ease,color .15s ease}
+.rv-pick button:hover{transform:scale(1.12)}
+.rv-pick button.is-on{color:var(--gold)}
+.rv-pick button:focus-visible{outline:2px solid var(--gold);outline-offset:2px;border-radius:6px}
+.rv-form textarea{width:100%;box-sizing:border-box;padding:10px 12px;border-radius:12px;border:1px solid rgba(212,175,55,.25);background:var(--ivory);color:var(--ink);font:14px 'DM Sans',sans-serif;resize:vertical;outline:none}
+.rv-form textarea:focus{border-color:var(--gold);box-shadow:0 0 0 3px rgba(212,175,55,.12)}
+.rv-form .actions{margin:0}
+.rv-status{margin:0;min-height:1.2em;font-size:13px;font-weight:600;color:var(--gold)}
+.rv-status.is-error{color:#e87a68}
+.rv-own{margin:0 0 16px;padding:12px 14px;border-radius:14px;background:rgba(212,175,55,.08)}
+.rv-own p{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0}
+.rv-own .rv-star-row{font-size:18px}
+.rv-thanks{font-weight:700;color:var(--gold);margin-bottom:6px!important}
+.rv-note{margin:6px 0 0;color:var(--muted);font-size:13px}
+.rv-list{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-height:340px;overflow:auto}
+.rv-item{padding:10px 12px;border-radius:12px;background:rgba(212,175,55,.06)}
+.rv-item-head{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:13px;color:var(--muted)}
+.rv-item-head b{color:var(--ink)}
+.rv-item p{margin:6px 0 0;white-space:pre-line;overflow-wrap:anywhere}
 /* Ancient Scripts: photo reader */
 .scripture-scan{margin-bottom:22px}
 #scriptureScan .btn[hidden]{display:none !important}
@@ -15767,6 +15805,14 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
                     <p class="lb-note" id="admBoardNote" hidden></p>
                 </section>
 
+                <!-- Reviews: the latest reviews on recipes and Desi Nuskhe, with Delete (the only place to remove one) -->
+                <section class="adm-card" aria-labelledby="admReviewsTitle">
+                    <h3 id="admReviewsTitle" data-i18n="adm_reviews_title">Reviews</h3>
+                    <p class="adm-hint" data-i18n="adm_reviews_desc">The latest reviews on recipes and Desi Nuskhe. Delete anything unkind or off-topic.</p>
+                    <ol class="adm-list-items adm-reviews" id="admReviews" aria-live="polite"></ol>
+                    <p class="lb-note" id="admReviewsNote" hidden></p>
+                </section>
+
                 <!-- Quiz questions: add / remove the ones admins wrote; built-in ones are shown read-only -->
                 <section class="adm-card" aria-labelledby="admQuestionsTitle">
                     <div class="lb-head">
@@ -16897,6 +16943,7 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
                 ready, onAuth, signIn, signUp, resetPassword, signOut, idToken, savePrefs, errorMessage, refreshUI,
                 isConfigured: () => configured,
                 user: () => currentUser,
+                displayName: () => currentUser ? displayNameOf(currentUser) : null,   // nickname (2–24 characters)
                 role: () => currentRole,       // 'student' | 'admin' | null — for role-based features
                 // Shared with the admin dashboard so both pages rank and show scores the same way.
                 boards: { games: GAMES.slice(), order: boardOrder, formatResult, formatTime }
@@ -17740,6 +17787,10 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
             };
             return key === 'order' ? (labels[LANG] || labels.en) : key;
         }
+        // Stable id for reviews of a recipe or nuskha ("Dal Makhani" → "dal-makhani"); see virasatReviewsScript.
+        function reviewKey(name) {
+            return String(name).toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+        }
         function renderRecipes() {
             const q = (document.getElementById('recipeSearch').value || '').toLowerCase();
             const container = document.getElementById('recipes');
@@ -17762,6 +17813,7 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
               <div class="cardbody">
                 <span class="tag">${L.region} · ${L.type}</span>
                 <h3>${L.name}</h3>
+                <div class="rv-stars" data-rv="recipe/${reviewKey(r.name)}"></div>
                 <p>${L.desc}</p>
                 <div class="rasoi-order-card-actions">
                   <a class="rasoi-studio-card-link" href="${rasoiStudioURL(r)}" data-page="rasoi-studio" data-sub="${VIRASAT_RASOI_DISH_IDS[r.name]}" onclick="event.stopPropagation()" aria-label="${esc(t('rasoi_studio_card'))}: ${esc(L.name)}">${t('rasoi_studio_card')}</a>
@@ -17838,6 +17890,7 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
                 <button type="button" class="btn rasoi-order-open" onclick="openRasoiOrder(${i}, event)">🛍 ${rasoiOrderLabel('order')}</button>
               </div>
             </div>
+            <section class="rv-panel" data-rv="recipe/${reviewKey(r.name)}"></section>
           `, () => showRecipe(i));
         }
 
@@ -17883,8 +17936,10 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
         function renderNuske() {
             document.getElementById('nuskeGrid').innerHTML = NUSKE.map(n0 => {
                 const n = locNuske(n0);
+                const i = NUSKE.indexOf(n0);
+                // Clicking a card opens its details (with reviews), like a symptom search result.
                 return `
-            <article class="card nuske-card" id="nuske-card-${NUSKE.indexOf(n0)}" tabindex="-1">
+            <article class="card nuske-card" id="nuske-card-${i}" tabindex="0" role="button" aria-label="${esc(n.name)}" onclick="nfOpen(NUSKE[${i}], null)" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();nfOpen(NUSKE[${i}], null)}">
               <div class="nuske-image-slot">
                 ${n.img ? `<img src="${n.img}" alt="${n.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(this.alt==='Ginger' && !this.dataset.fallback){this.dataset.fallback='1';this.src='https://kdahweb-static-1.kokilabenhospital.com/kdah-2019/tips/5df323961a620.jpg';return;}this.style.display='none';this.nextElementSibling.style.display='grid';">` : ''}
                 <div class="nuske-image-placeholder" style="${n.img ? 'display:none' : 'display:grid'}"><div><span>▧</span>Image placeholder</div></div>
@@ -17892,6 +17947,7 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
               <div class="cardbody">
                 <span class="tag">${t('nuske_tag')}</span>
                 <h3>${n.name}</h3>
+                <div class="rv-stars" data-rv="nuskha/${reviewKey(n0.name)}"></div>
                 <p>${n.desc}</p>
                 <p style="font-size:12px;color:var(--muted);margin-top:8px;">${t('nuske_caution')}</p>
               </div>
@@ -18051,8 +18107,10 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
           const title=document.createElement('h3');title.id='nfDialogTitle';title.textContent=localized.name;body.appendChild(title);
           if(n.img){const img=document.createElement('img');img.src=n.img;img.alt=localized.name;img.onerror=()=>{img.style.display='none';};body.appendChild(img);}
           const desc=document.createElement('p');const strong=document.createElement('strong');strong.textContent=w.context+': ';desc.append(strong,document.createTextNode(localized.desc));body.appendChild(desc);
-          const info=document.createElement('p');info.textContent=w.results+': '+c.labels[l]+'. '+w.notice;body.appendChild(info);
+          // c is the symptom searched for; it is null when the card itself was clicked.
+          if(c){const info=document.createElement('p');info.textContent=w.results+': '+c.labels[l]+'. '+w.notice;body.appendChild(info);}
           const caution=document.createElement('p');caution.className='nuske-warning';caution.textContent=w.caution+': '+w.safety+' '+w.urgent;body.appendChild(caution);
+          const reviews=document.createElement('section');reviews.className='rv-panel';reviews.dataset.rv='nuskha/'+reviewKey(n.name);body.appendChild(reviews);
           const overlay=document.getElementById('nfOverlay');nfLastFocus=document.activeElement;overlay.hidden=false;document.getElementById('nfClose').focus();
         }
         function nfClose(){document.getElementById('nfOverlay').hidden=true;nfLastFocus?.focus?.();}
@@ -19741,6 +19799,35 @@ Object.assign(VIRASAT_I18N.ui, {
   adm_questions_title:{en:'Quiz questions',hi:'क्विज़ प्रश्न',sa:'प्रश्नोत्तरीप्रश्नाः'},
   adm_new:{en:'Add a question',hi:'नया प्रश्न जोड़ें',sa:'नूतनं प्रश्नं योजयतु'},
   adm_builtin:{en:'Built-in questions ({n})',hi:'पहले से मौजूद प्रश्न ({n})',sa:'विद्यमानाः प्रश्नाः ({n})'},
+  adm_reviews_title:{en:'Reviews',hi:'समीक्षाएँ',sa:'समीक्षाः'},
+  adm_reviews_desc:{en:'The latest reviews on recipes and Desi Nuskhe. Delete anything unkind or off-topic.',hi:'व्यंजनों और देसी नुस्खों पर नई समीक्षाएँ। कुछ भी अभद्र या विषय से हटकर हो तो हटा दें।',sa:'पाकविधीनां देशीयोपायानां च नूतनाः समीक्षाः। अशिष्टं विषयबाह्यं वा अपनयतु।'},
+  adm_reviews_empty:{en:'No reviews yet.',hi:'अभी कोई समीक्षा नहीं।',sa:'अद्यापि समीक्षा नास्ति।'},
+  adm_reviews_limit:{en:'Showing the latest {n}.',hi:'नवीनतम {n} दिखाई जा रही हैं।',sa:'नूतनतमाः {n} दर्श्यन्ते।'},
+  adm_review_delete:{en:'Delete',hi:'हटाएँ',sa:'अपनयतु'},
+  adm_review_confirm:{en:'Delete this review by {name}? This cannot be undone.',hi:'{name} की यह समीक्षा हटाएँ? इसे वापस नहीं लाया जा सकता।',sa:'{name} इत्यस्य इयं समीक्षा अपनेतव्या किम्? पुनः न प्राप्यते।'},
+  adm_review_failed:{en:"Couldn't delete. Check your internet and try again.",hi:'हटाया नहीं जा सका। इंटरनेट जाँचें और फिर कोशिश करें।',sa:'अपनेतुं न शक्तम्। अन्तर्जालं परीक्ष्य पुनः प्रयततु।'},
+  adm_stat_reviews:{en:'posted by players',hi:'खिलाड़ियों द्वारा लिखी गईं',sa:'क्रीडकैः लिखिताः'},
+  rv_title:{en:'Reviews',hi:'समीक्षाएँ',sa:'समीक्षाः'},
+  rv_kind_recipe:{en:'Recipe',hi:'व्यंजन',sa:'पाकविधिः'},
+  rv_kind_nuskha:{en:'Desi Nuskha',hi:'देसी नुस्खा',sa:'देशीयोपायः'},
+  rv_loading:{en:'Loading reviews…',hi:'समीक्षाएँ लोड हो रही हैं…',sa:'समीक्षाः आनीयन्ते…'},
+  rv_none:{en:'No reviews yet. Be the first!',hi:'अभी कोई समीक्षा नहीं। पहली समीक्षा आप लिखें!',sa:'अद्यापि समीक्षा नास्ति। प्रथमः भवतु!'},
+  rv_none_short:{en:'No reviews yet',hi:'अभी कोई समीक्षा नहीं',sa:'अद्यापि समीक्षा नास्ति'},
+  rv_summary:{en:'{avg} out of 5 · {n} reviews',hi:'5 में से {avg} · {n} समीक्षाएँ',sa:'५ मध्ये {avg} · {n} समीक्षाः'},
+  rv_summary_one:{en:'{avg} out of 5 · 1 review',hi:'5 में से {avg} · 1 समीक्षा',sa:'५ मध्ये {avg} · १ समीक्षा'},
+  rv_tile_label:{en:'Rated {avg} out of 5 from {n} reviews',hi:'{n} समीक्षाओं में 5 में से {avg}',sa:'{n} समीक्षासु ५ मध्ये {avg}'},
+  rv_your_rating:{en:'Your rating',hi:'आपकी रेटिंग',sa:'भवतः मूल्याङ्कनम्'},
+  rv_star_n:{en:'{n} out of 5 stars',hi:'5 में से {n} तारे',sa:'५ मध्ये {n} तारकाः'},
+  rv_placeholder:{en:'Write a few words (optional)',hi:'कुछ शब्द लिखें (वैकल्पिक)',sa:'किञ्चित् लिखतु (ऐच्छिकम्)'},
+  rv_post:{en:'Post review',hi:'समीक्षा भेजें',sa:'समीक्षां प्रेषयतु'},
+  rv_posting:{en:'Posting…',hi:'भेजी जा रही है…',sa:'प्रेष्यते…'},
+  rv_pick:{en:'Please choose 1 to 5 stars.',hi:'कृपया 1 से 5 तारे चुनें।',sa:'कृपया १ तः ५ पर्यन्तं तारकाः चिनोतु।'},
+  rv_posted:{en:'Thanks! Your review is posted.',hi:'धन्यवाद! आपकी समीक्षा भेज दी गई।',sa:'धन्यवादः! भवतः समीक्षा प्रेषिता।'},
+  rv_mine_label:{en:'You rated this',hi:'आपकी रेटिंग',sa:'भवतः मूल्याङ्कनम्'},
+  rv_locked_note:{en:"Reviews can't be changed after posting.",hi:'भेजने के बाद समीक्षा बदली नहीं जा सकती।',sa:'प्रेषणानन्तरं समीक्षा परिवर्तयितुं न शक्यते।'},
+  rv_signin:{en:'Sign in to leave a review.',hi:'समीक्षा लिखने के लिए साइन इन करें।',sa:'समीक्षालेखनाय प्रविशतु।'},
+  rv_already:{en:"You've already reviewed this.",hi:'आप इसकी समीक्षा पहले ही कर चुके हैं।',sa:'भवता अस्य समीक्षा पूर्वमेव कृता।'},
+  rv_error:{en:"Couldn't post. Check your internet and try again.",hi:'भेजी नहीं जा सकी। इंटरनेट जाँचें और फिर कोशिश करें।',sa:'प्रेषयितुं न शक्तम्। अन्तर्जालं परीक्ष्य पुनः प्रयततु।'},
   adm_desc:{en:'New questions are asked first, before the built-in ones, and go live for every player straight away.',hi:'नए प्रश्न पहले से मौजूद प्रश्नों से पहले पूछे जाते हैं और तुरंत हर खिलाड़ी के लिए लाइव हो जाते हैं।',sa:'नूतनप्रश्नाः विद्यमानप्रश्नेभ्यः पूर्वं पृच्छ्यन्ते, सद्यः सर्वक्रीडकेभ्यः उपलभ्यन्ते च।'},
   adm_only:{en:'Only admins can see this page.',hi:'यह पेज केवल एडमिन देख सकते हैं।',sa:'इदं पृष्ठं केवलं प्रशासकाः द्रष्टुं शक्नुवन्ति।'},
   adm_question:{en:'Question',hi:'प्रश्न',sa:'प्रश्नः'},
@@ -19931,6 +20018,7 @@ function applyLanguage(lang) {
     if (typeof refreshGames === 'function') refreshGames();
     if (window.virasatCloud) { virasatCloud.refreshUI(); virasatCloud.savePrefs(); }
     if (window.virasatScriptureScan) virasatScriptureScan.refresh();
+    if (window.virasatReviews) virasatReviews.refresh();
     if (window.virasatAdmin) virasatAdmin.refresh();
     updateLangUI();
     const modal = document.getElementById('modal');
@@ -25056,6 +25144,226 @@ draw();
     };
 })();
 </script>
+<script id="virasatReviewsScript">
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+//  REVIEWS (Maa Ki Rasoi recipes and Desi Nuskhe)
+//  Signed-in players give 1–5 stars and an optional comment, once per item; it can't be
+//  changed afterwards. Tiles (.rv-stars) show the average; the recipe pop-up and the nuskha
+//  pop-up (.rv-panel) list the reviews and the form. Both carry data-rv="kind/item", where
+//  item = reviewKey(English name). Stored in Firestore as reviews/{kind}_{item}_{uid};
+//  firestore.rules checks all of this, and only admins can delete (admin dashboard).
+// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+(function () {
+    'use strict';
+    const cloud = window.virasatCloud;
+    if (!cloud || typeof reviewKey !== 'function') return;
+    const KINDS = ['recipe', 'nuskha'];
+    const LIMIT = 2000;         // reviews loaded per kind; plenty for a school
+    const MAX_TEXT = 500;       // firestore.rules allows up to 500 characters
+    const say = (key, vars) => (typeof t === 'function' ? t(key, vars) : key);
+    const escHtml = s => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+
+    let user = null;
+    const reviews = { recipe: null, nuskha: null };    // kind → list of reviews; null until loaded
+    const stops = {};
+    const justPosted = new Set();                       // ids posted during this visit (to say thanks)
+    const failed = {};                                  // id → error message key, shown on the rebuilt form
+    let painted = new WeakMap();                        // element → the HTML last written into it
+    const panels = new WeakMap();                       // panel → { summary, mine, list, mode }
+
+    const when = r => (r.createdAt && typeof r.createdAt.toMillis === 'function') ? r.createdAt.toMillis() : Date.now();
+    const visible = el => el.getClientRects().length > 0;
+
+    // Load a kind's reviews (live) the first time one of its tiles or pop-ups is on screen.
+    function listen(kind) {
+        if (!user || stops[kind]) return;
+        let unsubscribe = null, cancelled = false;
+        stops[kind] = () => { cancelled = true; if (unsubscribe) unsubscribe(); };
+        cloud.ready.then(fb => {
+            if (cancelled) return;
+            const F = fb.F;
+            unsubscribe = F.onSnapshot(F.query(F.collection(fb.db, 'reviews'), F.where('kind', '==', kind), F.limit(LIMIT)), snap => {
+                reviews[kind] = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
+                paint();
+            }, err => console.warn('[Virasat] Could not load reviews:', err));
+        }).catch(() => { });
+    }
+
+    function stopAll() {
+        KINDS.forEach(kind => { if (stops[kind]) stops[kind](); delete stops[kind]; reviews[kind] = null; });
+    }
+
+    function forItem(kind, item) {
+        return (reviews[kind] || []).filter(r => r.item === item).sort((a, b) => when(b) - when(a));
+    }
+    function stats(list) {
+        const n = list.length;
+        return { n: n, avg: n ? list.reduce((sum, r) => sum + r.rating, 0) / n : 0 };
+    }
+    function starsHTML(value) {
+        const on = Math.round(value);
+        return '<span class="rv-star-row" aria-hidden="true">' +
+            [1, 2, 3, 4, 5].map(i => '<span class="rv-star' + (i <= on ? ' is-on' : '') + '">★</span>').join('') + '</span>';
+    }
+    function dateText(r) {
+        return new Date(when(r)).toLocaleDateString(typeof LANG === 'string' && LANG !== 'en' ? 'hi-IN' : 'en-IN', { day: 'numeric', month: 'short', year: 'numeric' });
+    }
+    function itemName(kind, item) {
+        const all = kind === 'recipe' ? (typeof RECIPES !== 'undefined' ? RECIPES : []) : (typeof NUSKE !== 'undefined' ? NUSKE : []);
+        const x = all.find(v => reviewKey(v.name) === item);
+        if (!x) return item;
+        const local = kind === 'recipe' ? (typeof locRecipe === 'function' ? locRecipe(x) : x) : (typeof locNuske === 'function' ? locNuske(x) : x);
+        return local.name || x.name;
+    }
+    // Write HTML only when it changed (painting must not keep re-triggering the observers below).
+    function setHTML(el, html) {
+        if (painted.get(el) === html) return;
+        painted.set(el, html);
+        el.innerHTML = html;
+    }
+
+    // ── Tile: ★★★★☆ 4.3 (12) ──
+    function paintTile(el, kind, item) {
+        if (reviews[kind] === null) return setHTML(el, '');
+        const s = stats(forItem(kind, item));
+        const label = s.n ? say('rv_tile_label', { avg: s.avg.toFixed(1), n: s.n }) : say('rv_none_short');
+        if (el.getAttribute('aria-label') !== label) { el.setAttribute('role', 'img'); el.setAttribute('aria-label', label); }
+        setHTML(el, starsHTML(s.avg) + (s.n
+            ? '<span class="rv-avg">' + s.avg.toFixed(1) + '</span><span class="rv-count">(' + s.n + ')</span>'
+            : '<span class="rv-count">' + escHtml(say('rv_none_short')) + '</span>'));
+    }
+
+    // ── Pop-up: summary, the form (or "You rated this"), and every review ──
+    function paintPanel(el, kind, item) {
+        let p = panels.get(el);
+        if (!p) {
+            el.innerHTML = '<h3>' + escHtml(say('rv_title')) + '</h3><div class="rv-summary"></div><div class="rv-mine"></div><ol class="rv-list"></ol>';
+            p = { summary: el.querySelector('.rv-summary'), mine: el.querySelector('.rv-mine'), list: el.querySelector('.rv-list'), mode: '' };
+            panels.set(el, p);
+        }
+        const loaded = reviews[kind] !== null;
+        const list = forItem(kind, item), s = stats(list);
+        setHTML(p.summary, !loaded ? escHtml(say('rv_loading'))
+            : s.n ? starsHTML(s.avg) + '<span>' + escHtml(say(s.n === 1 ? 'rv_summary_one' : 'rv_summary', { avg: s.avg.toFixed(1), n: s.n })) + '</span>'
+            : escHtml(say('rv_none')));
+
+        const id = user ? kind + '_' + item + '_' + user.uid : '';
+        const own = list.find(r => r.id === id);
+        if (!user) setMine(p, 'signin', '<p class="rv-note">' + escHtml(say('rv_signin')) + '</p>');
+        else if (!loaded) setMine(p, 'loading', '');
+        else if (own) setMine(p, 'own:' + own.rating + ':' + justPosted.has(id),
+            '<div class="rv-own">' + (justPosted.has(id) ? '<p class="rv-thanks">' + escHtml(say('rv_posted')) + '</p>' : '') +
+            '<p>' + escHtml(say('rv_mine_label')) + ' ' + starsHTML(own.rating) + '</p>' +
+            '<p class="rv-note">' + escHtml(say('rv_locked_note')) + '</p></div>');
+        else if (p.mode !== 'form') { p.mode = 'form'; buildForm(p.mine, kind, item, id); }
+
+        setHTML(p.list, list.map(r =>
+            '<li class="rv-item"><div class="rv-item-head">' + starsHTML(r.rating) +
+            '<span class="rv-sr">' + escHtml(say('rv_star_n', { n: r.rating })) + '</span>' +
+            '<b>' + escHtml(r.displayName) + '</b><span>' + escHtml(dateText(r)) + '</span></div>' +
+            (r.text ? '<p>' + escHtml(r.text) + '</p>' : '') + '</li>').join(''));
+    }
+    function setMine(p, mode, html) {
+        if (p.mode === mode) return;
+        p.mode = mode;
+        p.mine.innerHTML = html;
+    }
+
+    function buildForm(box, kind, item, id) {
+        box.innerHTML = '<form class="rv-form" novalidate>' +
+            '<span class="rv-label" id="rvLabel-' + escHtml(id) + '">' + escHtml(say('rv_your_rating')) + '</span>' +
+            '<div class="rv-pick" role="group" aria-labelledby="rvLabel-' + escHtml(id) + '">' +
+            [1, 2, 3, 4, 5].map(n => '<button type="button" data-star="' + n + '" aria-pressed="false" aria-label="' + escHtml(say('rv_star_n', { n: n })) + '">★</button>').join('') + '</div>' +
+            '<textarea rows="2" maxlength="' + MAX_TEXT + '" placeholder="' + escHtml(say('rv_placeholder')) + '" aria-label="' + escHtml(say('rv_placeholder')) + '"></textarea>' +
+            '<div class="actions"><button class="btn primary btn-sm" type="submit">' + escHtml(say('rv_post')) + '</button></div>' +
+            '<p class="rv-status" aria-live="polite"></p></form>';
+        const form = box.querySelector('form');
+        const status = form.querySelector('.rv-status');
+        const button = form.querySelector('[type="submit"]');
+        const setStatus = (key, isError) => { status.textContent = key ? say(key) : ''; status.classList.toggle('is-error', !!isError); };
+        if (failed[id]) { setStatus(failed[id], true); delete failed[id]; }
+        let rating = 0;
+        form.querySelector('.rv-pick').addEventListener('click', e => {
+            const b = e.target.closest('[data-star]');
+            if (!b) return;
+            rating = Number(b.dataset.star);
+            form.querySelectorAll('[data-star]').forEach(x => {
+                x.classList.toggle('is-on', Number(x.dataset.star) <= rating);
+                x.setAttribute('aria-pressed', String(Number(x.dataset.star) === rating));
+            });
+            setStatus('');
+        });
+        form.addEventListener('submit', async e => {
+            e.preventDefault();
+            if (!rating) return setStatus('rv_pick', true);
+            const text = form.querySelector('textarea').value.trim().slice(0, MAX_TEXT);
+            button.disabled = true;
+            setStatus('rv_posting');
+            try {
+                const fb = await cloud.ready, F = fb.F, u = cloud.user();
+                if (!u) throw Object.assign(new Error('Not signed in'), { code: 'virasat/signed-out' });
+                const data = { kind: kind, item: item, uid: u.uid, displayName: cloud.displayName(), rating: rating, createdAt: F.serverTimestamp() };
+                if (text) data.text = text;
+                justPosted.add(id);
+                await F.setDoc(F.doc(fb.db, 'reviews', id), data);     // the live list then shows it
+            } catch (err) {
+                console.warn('[Virasat] Could not post review:', err);
+                justPosted.delete(id);
+                // A refused write is taken back out of the list, which rebuilds the form; show why there.
+                failed[id] = err && err.code === 'permission-denied' ? 'rv_already' : 'rv_error';
+                if (form.isConnected) { setStatus(failed[id], true); delete failed[id]; button.disabled = false; }
+                paint();
+            }
+        });
+    }
+
+    function paint() {
+        document.querySelectorAll('.rv-stars[data-rv], .rv-panel[data-rv]').forEach(el => {
+            const [kind, item] = el.dataset.rv.split('/');
+            if (KINDS.indexOf(kind) < 0 || !item) return;
+            // (Checks the parent: an empty tile or pop-up section is hidden until it has something to show.)
+            if (reviews[kind] === null && user && visible(el.parentElement)) listen(kind);
+            if (el.classList.contains('rv-panel')) paintPanel(el, kind, item);
+            else paintTile(el, kind, item);
+        });
+    }
+
+    let queued = false;
+    function queue() {
+        if (queued) return;
+        queued = true;
+        setTimeout(() => { queued = false; paint(); }, 30);
+    }
+    // Tiles and pop-ups are redrawn by the pages (filters, language), so paint whatever appears.
+    ['recipes', 'nuskeGrid', 'modalContent', 'nfDialogBody'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el) new MutationObserver(queue).observe(el, { childList: true, subtree: true });
+    });
+    [['page-rasoi', 'class'], ['page-nuske', 'class'], ['modal', 'class'], ['nfOverlay', 'hidden']].forEach(([id, attr]) => {
+        const el = document.getElementById(id);
+        if (el) new MutationObserver(queue).observe(el, { attributes: true, attributeFilter: [attr] });
+    });
+
+    cloud.onAuth(u => {
+        if ((u && u.uid) !== (user && user.uid)) { stopAll(); justPosted.clear(); }
+        user = u;
+        document.querySelectorAll('.rv-panel[data-rv]').forEach(el => { const p = panels.get(el); if (p) p.mode = ''; });
+        queue();
+    });
+
+    window.virasatReviews = {
+        starsHTML: starsHTML,
+        itemName: itemName,
+        kindLabel: kind => say('rv_kind_' + kind),
+        // Redraw everything in the new language (a half-written review is cleared).
+        refresh: () => {
+            document.querySelectorAll('.rv-panel[data-rv]').forEach(el => panels.delete(el));
+            painted = new WeakMap();
+            paint();
+        }
+    };
+})();
+</script>
 <script id="virasatAdminScript">
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 //  ADMIN DASHBOARD (page-admin)
@@ -25088,6 +25396,8 @@ draw();
     const listEl = document.getElementById('admList');
     const builtInSummary = document.getElementById('admBuiltInSummary');
     const builtInEl = document.getElementById('admBuiltIn');
+    const reviewsEl = document.getElementById('admReviews');
+    const reviewsNote = document.getElementById('admReviewsNote');
 
     let admin = false;
     const isOpen = () => page.classList.contains('active');
@@ -25105,21 +25415,23 @@ draw();
         }));
     }
 
-    // ── Overview: players on each leaderboard + questions added ──
-    const counts = {};      // game → number of players
+    // ── Overview: players on each leaderboard, questions added, reviews ──
+    const counts = {};      // game (or 'reviews') → how many
 
     function loadCounts() {
         cloud.ready.then(fb => Promise.all(boards.games.map(game =>
             fb.F.getCountFromServer(fb.F.collection(fb.db, 'leaderboards', game, 'entries'))
                 .then(snap => { counts[game] = snap.data().count; })
-        ))).catch(err => console.warn('[Virasat] Could not count players:', err)).then(renderStats);
+        ).concat(fb.F.getCountFromServer(fb.F.collection(fb.db, 'reviews')).then(snap => { counts.reviews = snap.data().count; }))
+        )).catch(err => console.warn('[Virasat] Could not count players:', err)).then(renderStats);
     }
 
     function renderStats() {
         const tile = (label, n, sub) => '<div class="adm-stat"><span class="adm-stat-label">' + escHtml(label) + '</span>' +
             '<span class="adm-stat-n">' + (n == null ? '–' : n) + '</span><span class="adm-stat-sub">' + escHtml(sub) + '</span></div>';
         statsEl.innerHTML = boards.games.map(game => tile(say('hub_' + game + '_title'), counts[game], say('adm_stat_players'))).join('') +
-            tile(say('adm_questions_title'), bank.added('quiz').length + bank.added('festival').length, say('adm_stat_questions'));
+            tile(say('adm_questions_title'), bank.added('quiz').length + bank.added('festival').length, say('adm_stat_questions')) +
+            tile(say('adm_reviews_title'), counts.reviews, say('adm_stat_reviews'));
     }
 
     // ── Leaderboards: every player's best, with Edit score / Remove ──
@@ -25261,6 +25573,74 @@ draw();
         if (e.key === 'Escape') { editingUid = null; editError = ''; renderBoard(); }
     });
 
+    // ── Reviews: the latest ones from recipes and Desi Nuskhe, with Delete ──
+    // (Players can't change their own; this is the only place a review is removed.)
+    const REVIEW_LIMIT = 200;
+    let reviewsOpen = false, stopReviews = null, reviewRows = null, reviewError = false;
+
+    // Listen only while an admin has this page open.
+    function syncReviews() {
+        const open = admin && isOpen();
+        if (open === reviewsOpen) return;
+        reviewsOpen = open;
+        if (stopReviews) { stopReviews(); stopReviews = null; }
+        reviewRows = null; reviewError = false;
+        renderReviews();
+        if (!open) return;
+
+        let unsubscribe = null, cancelled = false;
+        stopReviews = () => { cancelled = true; if (unsubscribe) unsubscribe(); };
+        cloud.ready.then(fb => {
+            if (cancelled) return;
+            const F = fb.F;
+            unsubscribe = F.onSnapshot(F.query(F.collection(fb.db, 'reviews'), F.orderBy('createdAt', 'desc'), F.limit(REVIEW_LIMIT)), snap => {
+                reviewRows = snap.docs.map(d => Object.assign({ id: d.id }, d.data()));
+                reviewError = false;
+                if (reviewRows.length < REVIEW_LIMIT) { counts.reviews = reviewRows.length; renderStats(); }
+                renderReviews();
+            }, err => {
+                console.warn('[Virasat] Admin reviews unavailable:', err);
+                reviewError = true;
+                renderReviews();
+            });
+        }).catch(() => { reviewError = true; renderReviews(); });
+    }
+
+    function renderReviews() {
+        const rv = window.virasatReviews;
+        let html;
+        if (reviewError) html = '<li class="adm-empty">' + escHtml(say('lb_unavailable')) + '</li>';
+        else if (!reviewRows) html = '<li class="adm-empty">' + escHtml(say('lb_loading')) + '</li>';
+        else if (!reviewRows.length) html = '<li class="adm-empty">' + escHtml(say('adm_reviews_empty')) + '</li>';
+        else html = reviewRows.map(r => '<li class="adm-item"><div>' +
+                '<div class="adm-review-head">' + (rv ? rv.starsHTML(r.rating) : r.rating + '★') +
+                    '<b>' + escHtml(rv ? rv.itemName(r.kind, r.item) : r.item) + '</b>' +
+                    '<span class="adm-review-kind">' + escHtml(rv ? rv.kindLabel(r.kind) : r.kind) + '</span></div>' +
+                (r.text ? '<div class="adm-item-q">' + escHtml(r.text) + '</div>' : '') +
+                '<div class="adm-item-a">' + escHtml(r.displayName) + (r.createdAt ? ' · ' + escHtml(playedOn(r.createdAt)) : '') + '</div>' +
+            '</div><button class="btn secondary btn-sm" type="button" data-review-delete="' + escHtml(r.id) + '">' + escHtml(say('adm_review_delete')) + '</button></li>').join('');
+        reviewsEl.innerHTML = html;
+        const full = !!reviewRows && reviewRows.length >= REVIEW_LIMIT;
+        reviewsNote.textContent = full ? say('adm_reviews_limit', { n: REVIEW_LIMIT }) : '';
+        reviewsNote.hidden = !full;
+    }
+
+    reviewsEl.addEventListener('click', async e => {
+        const button = e.target.closest('[data-review-delete]');
+        if (!button || !admin) return;
+        const r = reviewRows && reviewRows.find(x => x.id === button.dataset.reviewDelete);
+        if (!r || !confirm(say('adm_review_confirm', { name: r.displayName }))) return;
+        button.disabled = true;
+        try {
+            const fb = await cloud.ready;
+            await fb.F.deleteDoc(fb.F.doc(fb.db, 'reviews', r.id));
+        } catch (err) {
+            console.warn('[Virasat] Could not delete review:', err);
+            button.disabled = false;
+            alert(say('adm_review_failed'));
+        }
+    });
+
     // ── Quiz questions: add / remove the ones admins wrote; built-in ones are read-only ──
     let quizGame = 'quiz';
 
@@ -25335,20 +25715,21 @@ draw();
         navSection.hidden = !admin;
         dash.hidden = !admin;
         locked.hidden = admin;
-        syncBoard();
+        sync();
     }
+    function sync() { syncBoard(); syncReviews(); }
 
     setupTabs('admBoardTabs', game => { boardGame = game; syncBoard(); });
     setupTabs('admQuizTabs', game => { quizGame = game; setStatus(''); renderQuestions(); });
     document.addEventListener('virasat:role', e => paintRole(e.detail));
     document.addEventListener('virasat:questions', () => { renderQuestions(); renderStats(); });
-    new MutationObserver(syncBoard).observe(page, { attributes: true, attributeFilter: ['class'] });
+    new MutationObserver(sync).observe(page, { attributes: true, attributeFilter: ['class'] });
     paintRole(cloud.role());
     renderQuestions();
     renderStats();
 
     // Redraw text after a language change.
-    window.virasatAdmin = { refresh: () => { renderStats(); renderBoard(); renderQuestions(); } };
+    window.virasatAdmin = { refresh: () => { renderStats(); renderBoard(); renderReviews(); renderQuestions(); } };
 })();
 </script>
 <script id="virasatScriptureScanScript">

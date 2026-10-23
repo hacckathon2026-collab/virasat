@@ -91,6 +91,29 @@ service cloud.firestore {
       allow update: if false;
     }
 
+    // ── Reviews: reviews/{kind}_{item}_{uid} — star ratings on recipes and Desi Nuskhe ──
+    // One review per person per item (the id ends with their uid), and it can't be changed after
+    // posting. Every signed-in player reads them; only admins can delete one (admin dashboard).
+    function validReview(id, d) {
+      return d.keys().hasAll(['kind', 'item', 'uid', 'displayName', 'rating', 'createdAt'])
+        && d.keys().hasOnly(['kind', 'item', 'uid', 'displayName', 'rating', 'text', 'createdAt'])
+        && d.kind in ['recipe', 'nuskha']
+        && d.item is string && d.item.matches('[a-z0-9-]{1,60}')
+        && d.uid == request.auth.uid
+        && id == d.kind + '_' + d.item + '_' + d.uid
+        && validName(d.displayName)
+        && d.rating is int && d.rating >= 1 && d.rating <= 5
+        && (!('text' in d) || (d.text is string && d.text.size() <= 500))
+        && d.createdAt == request.time;
+    }
+
+    match /reviews/{id} {
+      allow read: if signedIn();
+      allow create: if signedIn() && validReview(id, request.resource.data);
+      allow delete: if signedIn() && isAdminEmail();
+      allow update: if false;
+    }
+
     // ── Leaderboards: leaderboards/{game}/entries/{uid} — one doc per player = their best ──
     // Limits are loose on purpose so the team can add quiz questions or cards
     // without touching these rules (up to 100 questions / 50 card pairs).

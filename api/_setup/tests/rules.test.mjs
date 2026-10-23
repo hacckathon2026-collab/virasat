@@ -198,6 +198,50 @@ describe('quiz questions added by admins', () => {
     });
 });
 
+describe('reviews on recipes and Desi Nuskhe', () => {
+    const asVed = () => env.authenticatedContext('ved', { email: 'vedanshtyagi925@gmail.com' }).firestore();   // on the admin list
+    const review = (over = {}) => ({ kind: 'recipe', item: 'dal-makhani', uid: 'asha', displayName: 'Asha', rating: 5, text: 'Tasty!', createdAt: serverTimestamp(), ...over });
+    const seededReview = (over = {}) => ({ ...review(over), createdAt: Timestamp.now() });
+
+    test('a signed-in player can post one review per item, with or without text', async () => {
+        await assertSucceeds(setDoc(doc(asAsha(), 'reviews/recipe_dal-makhani_asha'), review()));
+        const { text, ...noText } = review({ kind: 'nuskha', item: 'tulsi', rating: 3 });
+        await assertSucceeds(setDoc(doc(asAsha(), 'reviews/nuskha_tulsi_asha'), noText));
+    });
+    test('the id must be kind_item_uid of the poster (so nobody reviews twice or as someone else)', async () => {
+        await assertFails(setDoc(doc(asAsha(), 'reviews/recipe_dal-makhani_ravi'), review()));
+        await assertFails(setDoc(doc(asAsha(), 'reviews/recipe_dal-makhani_asha2'), review()));
+        await assertFails(setDoc(doc(asAsha(), 'reviews/recipe_dal-makhani_ravi'), review({ uid: 'ravi' })));
+        await assertFails(setDoc(doc(asAsha(), 'reviews/abc'), review()));
+    });
+    test('rejects bad stars, kind, item, long text, extra fields and signed-out posts', async () => {
+        const ref = id => doc(asAsha(), 'reviews/' + id);
+        await assertFails(setDoc(ref('recipe_dal-makhani_asha'), review({ rating: 0 })));
+        await assertFails(setDoc(ref('recipe_dal-makhani_asha'), review({ rating: 6 })));
+        await assertFails(setDoc(ref('recipe_dal-makhani_asha'), review({ rating: 4.5 })));
+        await assertFails(setDoc(ref('game_dal-makhani_asha'), review({ kind: 'game' })));
+        await assertFails(setDoc(ref('recipe_Dal Makhani_asha'), review({ item: 'Dal Makhani' })));
+        await assertFails(setDoc(ref('recipe_dal-makhani_asha'), review({ text: 'x'.repeat(501) })));
+        await assertFails(setDoc(ref('recipe_dal-makhani_asha'), review({ likes: 99 })));
+        await assertFails(setDoc(ref('recipe_dal-makhani_asha'), review({ displayName: 'A' })));
+        await assertFails(setDoc(doc(asStranger(), 'reviews/recipe_dal-makhani_asha'), review()));
+    });
+    test('nobody can change a review after posting, not even its author', async () => {
+        await seed('reviews/recipe_dal-makhani_asha', seededReview());
+        await assertFails(setDoc(doc(asAsha(), 'reviews/recipe_dal-makhani_asha'), review({ rating: 1 })));
+        await assertFails(updateDoc(doc(asAsha(), 'reviews/recipe_dal-makhani_asha'), { text: 'changed' }));
+        await assertFails(updateDoc(doc(asVed(), 'reviews/recipe_dal-makhani_asha'), { text: 'changed' }));
+    });
+    test('signed-in players read reviews; only admins delete them', async () => {
+        await seed('reviews/recipe_dal-makhani_asha', seededReview());
+        await assertSucceeds(getDocs(collection(asRavi(), 'reviews')));
+        await assertFails(getDocs(collection(asStranger(), 'reviews')));
+        await assertFails(deleteDoc(doc(asAsha(), 'reviews/recipe_dal-makhani_asha')));
+        await assertFails(deleteDoc(doc(asRavi(), 'reviews/recipe_dal-makhani_asha')));
+        await assertSucceeds(deleteDoc(doc(asVed(), 'reviews/recipe_dal-makhani_asha')));
+    });
+});
+
 describe('leaderboards', () => {
     test('signed-in players can read; strangers cannot', async () => {
         await seed('leaderboards/quiz/entries/ravi', { ...seededQuiz({ uid: 'ravi', displayName: 'Ravi' }) });
