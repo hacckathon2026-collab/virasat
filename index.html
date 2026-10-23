@@ -24,7 +24,13 @@
         html.virasat-auth-locked .page {
             visibility: hidden !important;
         }
-    </style>
+    
+        /* Search result navigation highlights the existing remedy card. */
+        #page-nuske .nuske-card {scroll-margin-top:130px;}
+        #page-nuske .nuske-card:focus {outline:2px solid var(--gold);outline-offset:3px;}
+        #page-nuske .nuske-search-highlight {animation:nuskeJumpGlow 1.7s ease-out;}
+        @keyframes nuskeJumpGlow {0%,55%{border-color:var(--marigold);box-shadow:0 0 0 5px rgba(212,175,55,.22),0 0 40px rgba(212,175,55,.26)}100%{border-color:rgba(212,175,55,.18);box-shadow:none}}
+</style>
     <!-- Performance-optimized build: visuals/features preserved -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14690,9 +14696,6 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
 #page-nuske #nfInput{min-width:0;flex:1;border:0;outline:0;background:transparent;color:var(--ink);padding:14px 0;font-size:15px}
 #page-nuske #nfInput::placeholder{color:#9a8a6c}
 #page-nuske #nfClear{background:transparent;border:0;color:var(--marigold);font-size:26px;cursor:pointer}
-#page-nuske .nuske-symptom-chips{display:flex;flex-wrap:wrap;gap:8px;margin:15px 0 3px}
-#page-nuske .nuske-symptom-chips button{border:1px solid rgba(212,175,55,.29);border-radius:50px;background:rgba(212,175,55,.055);color:var(--ink);padding:7px 13px;cursor:pointer;font-size:12px}
-#page-nuske .nuske-symptom-chips button:hover,#page-nuske .nuske-symptom-chips button:focus-visible{background:rgba(212,175,55,.22)}
 #page-nuske .nuske-finder-results:not(:empty){border-top:1px solid rgba(212,175,55,.2);padding-top:20px;margin-top:18px}
 #page-nuske .nuske-result-head{font-weight:700;color:var(--marigold);margin-bottom:10px;font-size:17px}
 #page-nuske .nuske-advice{background:rgba(212,175,55,.055);border-left:3px solid var(--gold);border-radius:10px;padding:12px 15px;margin:10px 0 14px;color:var(--ink);font-size:14px;line-height:1.65}
@@ -14731,6 +14734,59 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
 .vgmp-clues{display:flex;gap:10px;flex-wrap:wrap;margin:16px 0}.vgmp-clue{flex:1 1 170px;border:1px solid #d4af3760;border-radius:14px;padding:16px;background:#221a11;min-height:105px;font-size:14px}
 .vgmp-clue button{margin-top:12px}.vgmp-foot{margin-top:16px;border-top:1px solid #d4af3730;padding-top:15px}.vgmp-live{display:inline-block;width:8px;height:8px;border-radius:50%;background:#7aca9a;margin-right:7px}
 @media(max-width:620px){.vgmp-choices{grid-template-columns:1fr}.vgmp-hero{padding:24px;min-height:170px}.vgmp-surface{padding:16px}.vgmp-input{width:100%}}
+</style>
+<style id="virasat-recommender-styles">
+/* VIRASAT recommenders — scoped to the three requested pages. */
+#page-tourism #vhMatchmaker,#page-rasoi #vrTasteMatch{border:1px solid rgba(212,175,55,.34);background:radial-gradient(circle at 90% -15%,rgba(212,175,55,.17),transparent 47%),linear-gradient(150deg,#1c180f,#0d0c0a);border-radius:28px;padding:clamp(21px,4vw,38px);box-shadow:0 20px 65px rgba(0,0,0,.25);margin:10px 0 38px;position:relative;overflow:hidden;color:#f2e6cc}
+#page-tourism #vhMatchmaker h2,#page-rasoi #vrTasteMatch h3{font:650 clamp(27px,3.8vw,42px)/1.14 'Playfair Display','Noto Serif Devanagari',serif;margin:8px 0 11px;color:#f0d792}
+#vhMatchmaker p,#vrTasteMatch p{color:#b8aa87;line-height:1.65}
+.vh-top,.vr-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;flex-wrap:wrap}
+.vh-kicker,.vr-kicker{color:#d4af37;letter-spacing:2px;font-size:11px;font-weight:800}
+#vhMatchmaker [data-vh="lead"],#vrTasteMatch [data-vr="lead"]{margin:0 0 17px;max-width:720px;font-size:15px}
+.vh-header-tools{display:flex;gap:11px;align-items:center;flex-wrap:wrap;margin-top:18px}
+.vh-selectlang,#vrMatchLanguage,#nfMatchLanguage{background:#16130d;color:#f2e6cc;border:1px solid #7d632f;border-radius:12px;padding:10px 12px;min-height:44px;cursor:pointer;font-size:13px}
+.vh-goldbtn,.vh-run,#page-rasoi #vrFind{background:linear-gradient(115deg,#d4af37,#f3d781);color:#1b1409;border:0;padding:12px 18px;border-radius:100px;font-weight:800;cursor:pointer;transition:transform .18s,box-shadow .18s}
+.vh-goldbtn:hover,.vh-run:hover,#page-rasoi #vrFind:hover{transform:translateY(-2px);box-shadow:0 8px 24px #d4af374d}
+#vhMatchPanel[hidden]{display:none!important}
+#vhMatchPanel{border-top:1px solid #d4af3733;margin-top:20px;padding-top:22px;animation:fadeUp .3s ease}
+.vh-match-intro{font:600 clamp(19px,2.6vw,26px) 'Playfair Display',serif;color:#f0d792;margin-bottom:12px}
+.vh-match-label,.vr-label{font-size:13px;color:#eac982;font-weight:700;margin:12px 0!important}
+.vh-interests,.vr-chip-group{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.vh-interest,.vr-chip{display:flex;align-items:center;gap:9px;text-align:left;background:#211b12;color:#e3d7bd;border:1px solid #564629;border-radius:14px;padding:14px 12px;min-height:61px;cursor:pointer;font:600 13px/1.35 'DM Sans','Noto Sans Devanagari',sans-serif;transition:background .18s,border .18s,transform .18s}
+.vh-interest:hover,.vr-chip:hover{border-color:#e6c467;transform:translateY(-2px)}
+.vh-interest.selected,.vr-chip.active{color:#ffe2a0;border-color:#d4af37;background:#473715}
+.vh-check{display:grid;place-items:center;border:1px solid #836839;border-radius:50%;width:24px;height:24px;flex:none;font-weight:700}
+.vh-preference-bottom,.vr-controls{display:flex;flex-wrap:wrap;align-items:end;gap:12px;margin-top:20px}
+.vh-state-label,.vr-controls label{display:flex;flex-direction:column;gap:6px;color:#f0d792;font-size:12px;font-weight:700;min-width:175px;flex:1}
+.vh-state-label select,.vr-controls select{width:100%;background:#15120d;color:#fff2d8;border:1px solid #6d572c;padding:12px 13px;border-radius:12px;min-height:46px}
+.vh-clear,#vrClear{background:transparent;border:1px solid #a7894a;color:#e9d09c;border-radius:100px;padding:12px 18px;cursor:pointer;font-weight:700}
+#vhMatchResults:not(:empty),#vrResults:not(:empty){padding-top:18px}
+.vh-feedback,.vr-empty{padding:16px 18px;background:#251e13;border:1px dashed #98783d;border-radius:13px;color:#ead09d!important}
+.vh-result-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0 19px}
+.vh-result-heading strong{font:600 23px 'Playfair Display',serif;color:#e6c87e}.vh-result-heading span{color:#baa678;font-size:12px}
+#page-tourism .vh-results-grid,#page-rasoi .vr-result-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+#page-tourism .vh-match-card,#page-rasoi .vr-result{border:1px solid #64502b;border-radius:17px;overflow:hidden;background:#1b170f;color:#efe4cd;min-width:0;box-shadow:0 12px 30px #0002;transition:transform .2s,border .2s}
+#page-tourism .vh-match-card:hover,#page-rasoi .vr-result:hover{transform:translateY(-4px);border-color:#d4af37}
+#page-tourism .vh-match-card .tourism-site-media{height:175px;min-height:175px;border-radius:0;overflow:hidden}
+#page-tourism .vh-match-card .tourism-site-media img{height:175px;width:100%;object-fit:cover}
+.vh-match-body,.vr-result-body{position:relative;padding:17px}
+.vh-match-category{font-size:10px;letter-spacing:.6px;color:#f0cd78;text-transform:uppercase;font-weight:700;display:block;padding-right:80px;min-height:28px}
+.vh-score{position:absolute;right:17px;top:14px;text-align:right}.vh-score strong{display:block;color:#f2d17b;font-size:24px;line-height:1.15}.vh-score small{font-size:9px;color:#bead86;display:block}
+.vh-match-body h3,.vr-result h3{font:650 clamp(18px,2vw,23px) 'Playfair Display','Noto Serif Devanagari',serif;color:#f4e5c1;margin:9px 0 7px}
+.vh-location,.vr-result-body>p:not(.vr-flavour){font-size:12px;color:#baa77b!important;margin:0 0 10px!important}
+.vh-reason,.vr-flavour{font-size:13px!important;color:#d1c19c!important;min-height:52px;line-height:1.5!important}
+.vh-explore,.vr-open{width:100%;min-height:44px;border-radius:11px;background:#d4af37;color:#20170b;cursor:pointer;border:0;font-size:13px;font-weight:800;margin-top:12px}
+.vh-explore:hover,.vr-open:hover{background:#f1cf76}
+.vh-note,.vr-footnote{font-size:11px!important;line-height:1.6;margin-top:16px!important}
+#page-rasoi #vrTasteMatch{margin:0 0 30px}
+#page-rasoi .vr-chip{min-height:50px;justify-content:center;text-align:center}
+#page-rasoi .vr-result img{width:100%;height:165px;object-fit:cover;background:#2c2517}
+#page-rasoi .vr-topline{display:flex;gap:8px;justify-content:space-between;color:#d8be79;font-size:11px;align-items:start}.vr-topline strong{color:#f5d77b;white-space:nowrap}.vr-topline small{font-size:9px;font-weight:400}
+#page-nuske .nf-language-row{display:flex;align-items:center;gap:12px;justify-content:flex-end;margin:0 0 14px;color:var(--marigold);font-size:12px}
+@media(max-width:1000px){.vh-interests,.vr-chip-group{grid-template-columns:repeat(2,minmax(0,1fr))}#page-tourism .vh-results-grid,#page-rasoi .vr-result-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:590px){.vh-interests,.vr-chip-group,#page-tourism .vh-results-grid,#page-rasoi .vr-result-grid{grid-template-columns:minmax(0,1fr)}.vh-interest{min-height:49px}.vh-state-label,.vr-controls label{flex-basis:100%}.vh-run,.vh-clear,#vrFind,#vrClear{flex:1;min-width:125px}.vh-header-tools{width:100%}.vh-goldbtn{flex:1}.vh-match-category{padding-right:85px}}
+html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #page-rasoi #vrTasteMatch{background:linear-gradient(145deg,#2d2416,#141008)}
+
 </style>
 </head>
 <body>
@@ -15344,6 +15400,14 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
                 <div><div class="eyebrow">Taste of home</div><h2>Maa Ki Rasoi</h2></div>
                 <p>Recipes aren't just instructions. They are memories. Discover food by region, season and the stories behind it.</p>
             </div>
+
+            <!-- Taste matcher: original Maa Ki Rasoi recipes -->
+            <section id="vrTasteMatch" aria-label="Recipe taste matchmaker">
+              <div class="vr-head"><div><div class="vr-kicker" data-vr="eyebrow">THE TASTE MATCHMAKER</div><h3 data-vr="title">What are you craving today?</h3><p data-vr="lead">Choose the flavours you love and discover recipes.</p></div><select id="vrMatchLanguage" aria-label="Recipe recommendation language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="sa">संस्कृतम्</option><option value="bn">বাংলা</option></select></div>
+              <div id="vrTasteChoices"></div>
+              <div class="vr-controls"><label><span id="vrDietLabel">Food preference</span><select id="vrDiet"></select></label><label><span id="vrCourseLabel">Course</span><select id="vrCourse"></select></label><label><span id="vrRegionLabel">Region</span><select id="vrRegion"></select></label><button type="button" id="vrFind">Find my dishes</button><button type="button" id="vrClear">Reset</button></div>
+              <div id="vrResults" aria-live="polite"></div>
+            </section>
             <div class="rasoi-browse-modes" id="rasoiBrowseModes" role="group" aria-label="Browse recipes">
                 <button type="button" class="rasoi-mode active" data-recipe-mode="all" aria-pressed="true" onclick="setRecipeBrowseMode('all')">All Recipes</button>
                 <button type="button" class="rasoi-mode" data-recipe-mode="region" aria-pressed="false" onclick="setRecipeBrowseMode('region')">By Region</button>
@@ -15751,9 +15815,9 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             <!-- Symptom-based cultural knowledge finder; educational, not diagnostic. -->
             <div class="nuske-finder" id="nuskeFinder">
               <div class="nuske-finder-heading"><div><span class="tag" id="nfEyebrow">TRADITIONAL WELLNESS LIBRARY</span><h3 id="nfTitle">Find by symptom</h3><p id="nfIntro">Explore traditional ingredients and general comfort measures. This is not a diagnosis or treatment recommendation.</p></div><span class="nuske-finder-icon" aria-hidden="true">✺</span></div>
+              <div class="nf-language-row"><label for="nfMatchLanguage" id="nfLanguageLabel">Language / भाषा</label><select id="nfMatchLanguage" aria-label="Nuske recommendation language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="sa">संस्कृतम्</option><option value="bn">বাংলা</option></select></div>
               <label for="nfInput" id="nfLabel">Describe a symptom</label>
               <div class="nuske-input-wrap"><span aria-hidden="true">⌕</span><input id="nfInput" autocomplete="off" type="search" placeholder="Try fever, nausea, sore throat, headache…" maxlength="130"/><button id="nfClear" type="button" aria-label="Clear search" hidden>×</button></div>
-              <div id="nfChips" class="nuske-symptom-chips" aria-label="Common symptoms"></div>
               <div id="nfResults" class="nuske-finder-results" aria-live="polite"></div>
               <p id="nfDisclaimer" class="nuske-finder-note">⚕ For informational use only. Persistent, worsening or severe symptoms need professional medical assessment. Herbs may interact with medicines.</p>
             </div>
@@ -16053,6 +16117,12 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
     <div class="page" id="page-tourism">
       <section class="section tourism-wrap" aria-label="Tourism heritage explorer">
         <div class="tourism-head"><span class="tourism-kicker">✦ VIRASAT / HERITAGE TRAILS</span><h1 id="tourismHeading">India, beyond the postcard.</h1><p id="tourismLead">Explore the places that shaped India's art, architecture and living traditions. Choose a state, discover its cities, and open a city's heritage trail.</p><div class="tourism-stats"><span>28 STATES</span><span>182 DESTINATIONS</span><span>546 HERITAGE STOPS</span></div></div>
+
+        <!-- AI Heritage Matchmaker: original 546-stop Tourism catalogue -->
+        <section id="vhMatchmaker" aria-label="Discover Your Heritage Match">
+         <div class="vh-top"><div><div class="vh-kicker" data-vh="over">PERSONALISED CULTURAL JOURNEYS</div><h2 data-vh="title">Discover Your Heritage Match</h2><p data-vh="lead">Every traveller has a story. Let VIRASAT find the heritage destinations that belong in yours.</p></div><div class="vh-header-tools"><select id="vhMatchLang" class="vh-selectlang" aria-label="Matchmaker language"><option value="en">English</option><option value="hi">हिन्दी</option><option value="sa">संस्कृतम्</option><option value="bn">বাংলা</option></select><button type="button" class="vh-goldbtn" id="vhMatchToggle" aria-controls="vhMatchPanel">Find My Heritage Match</button></div></div>
+         <div id="vhMatchPanel" hidden></div><div id="vhMatchResults" aria-live="polite"></div>
+        </section>
         <div class="tourism-tools"><label for="tourismSearch" id="tourismSearchLabel">Find a state or city</label><input id="tourismSearch" type="search" placeholder="Search states and cities…" autocomplete="off"><button type="button" id="tourismReset">All states ↗</button></div>
         <nav id="tourismCrumbs" class="tourism-crumbs" aria-label="Tourism breadcrumb"></nav>
         <div id="tourismContent" aria-live="polite"></div>
@@ -17739,7 +17809,7 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
             document.getElementById('nuskeGrid').innerHTML = NUSKE.map(n0 => {
                 const n = locNuske(n0);
                 return `
-            <article class="card nuske-card">
+            <article class="card nuske-card" id="nuske-card-${NUSKE.indexOf(n0)}" tabindex="-1">
               <div class="nuske-image-slot">
                 ${n.img ? `<img src="${n.img}" alt="${n.name}" loading="lazy" decoding="async" referrerpolicy="no-referrer" onerror="if(this.alt==='Ginger' && !this.dataset.fallback){this.dataset.fallback='1';this.src='https://kdahweb-static-1.kokilabenhospital.com/kdah-2019/tips/5df323961a620.jpg';return;}this.style.display='none';this.nextElementSibling.style.display='grid';">` : ''}
                 <div class="nuske-image-placeholder" style="${n.img ? 'display:none' : 'display:grid'}"><div><span>▧</span>Image placeholder</div></div>
@@ -17759,18 +17829,18 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
 
         // Desi Nuske: symptom-to-cultural-remedy search, not a diagnostic engine.
         const NF_LANG = {
-          en:{eyebrow:'TRADITIONAL WELLNESS LIBRARY',title:'Find by symptom',intro:'Explore traditional ingredients and everyday comfort measures. This does not diagnose or treat illness.',label:'Describe a symptom',placeholder:'Try fever, nausea, sore throat, headache…',disclaimer:'⚕ Educational information only. Persistent, worsening or severe symptoms need medical assessment. Herbs can interact with medicines.',related:'Traditional ingredients to explore',none:'No exact match found. Try another symptom or consult a healthcare professional.',guidance:'General comfort information',notice:'These ingredients have cultural uses. They are not proven treatments for this symptom.',noherbs:'No herb is recommended here as a treatment.',close:'Close',caution:'Precautions',context:'Traditional context',results:'Related to',urgent:'Seek prompt medical advice for concerning, severe or persistent symptoms.',safety:'Avoid medicinal doses of herbs, especially when pregnant, taking medicines, or managing a medical condition. Ask a clinician first.'},
-          hi:{eyebrow:'पारंपरिक स्वास्थ्य ज्ञान',title:'लक्षण से खोजें',intro:'पारंपरिक सामग्री और आराम के सामान्य उपाय जानें। यह रोग की पहचान या उपचार नहीं है।',label:'अपना लक्षण लिखें',placeholder:'जैसे बुखार, मतली, गले में दर्द, सिरदर्द…',disclaimer:'⚕ केवल शैक्षिक जानकारी। गंभीर, बढ़ते या लगातार लक्षणों पर डॉक्टर से सलाह लें। जड़ी-बूटियाँ दवाओं के साथ प्रतिक्रिया कर सकती हैं।',related:'जानने योग्य पारंपरिक सामग्री',none:'कोई सटीक मिलान नहीं मिला। दूसरा लक्षण लिखें या चिकित्सक से सलाह लें।',guidance:'सामान्य आराम संबंधी जानकारी',notice:'इन सामग्रियों के सांस्कृतिक उपयोग हैं। ये इस लक्षण का प्रमाणित उपचार नहीं हैं।',noherbs:'यहाँ किसी जड़ी-बूटी को उपचार के रूप में सुझाया नहीं जाता।',close:'बंद करें',caution:'सावधानियाँ',context:'पारंपरिक परिचय',results:'संबंधित विषय',urgent:'गंभीर, चिंताजनक या लगातार लक्षण हों तो जल्द चिकित्सा सलाह लें।',safety:'गर्भावस्था, दवा लेने या बीमारी की स्थिति में जड़ी-बूटियों की औषधीय मात्रा से बचें और चिकित्सक से पूछें।'},
-          sa:{eyebrow:'पारम्परिकं स्वास्थ्यज्ञानम्',title:'लक्षणेन अन्वेषणम्',intro:'पारम्परिकद्रव्याणि सामान्यसुखोपायांश्च जानातु। एषा रोगनिदानं चिकित्सा वा नास्ति।',label:'लक्षणं लिखतु',placeholder:'ज्वरः, हृल्लासः, कण्ठपीडा, शिरःशूलम्…',disclaimer:'⚕ केवलं शिक्षार्थम्। तीव्रेषु दीर्घकालिकेषु वा लक्षणेषु वैद्यस्य परामर्शं प्राप्नोतु। औषधिभिः सह वनस्पतिद्रव्याणां प्रतिक्रिया सम्भवति।',related:'परम्परागतद्रव्याणि',none:'सदृशं लक्षणं न प्राप्तम्। अन्यत् लिखतु अथवा वैद्यं पृच्छतु।',guidance:'सामान्यसुखसम्बद्धा सूचना',notice:'एतेषां द्रव्याणां सांस्कृतिकः उपयोगः अस्ति; लक्षणस्य प्रमाणितचिकित्सा नास्ति।',noherbs:'अत्र कापि वनस्पतिः चिकित्सारूपेण न निर्दिश्यते।',close:'पिधत्तु',caution:'सावधानताः',context:'पारम्परिकः परिचयः',results:'सम्बद्धः विषयः',urgent:'तीव्रेषु वा दीर्घकालिकेषु लक्षणेषु शीघ्रं वैद्यं सम्पर्कयतु।',safety:'गर्भावस्थायां औषधसेवने वा चिकित्सकस्य अनुमतिं विना वनस्पतीनां औषधीयमात्रां मा गृह्णातु।'}
+          en:{eyebrow:'TRADITIONAL WELLNESS LIBRARY',title:'Search 50 common symptoms',intro:'Explore traditional ingredients and everyday comfort measures. This does not diagnose or treat illness.',label:'Type a symptom to find related information',placeholder:'Try fever, nausea, sore throat, headache…',disclaimer:'⚕ Educational information only. Persistent, worsening or severe symptoms need medical assessment. Herbs can interact with medicines.',related:'Traditional ingredients to explore',none:'No exact match found. Try another symptom or consult a healthcare professional.',guidance:'General comfort information',notice:'These ingredients have cultural uses. They are not proven treatments for this symptom.',noherbs:'No herb is recommended here as a treatment.',close:'Close',caution:'Precautions',context:'Traditional context',results:'Related to',urgent:'Seek prompt medical advice for concerning, severe or persistent symptoms.',safety:'Avoid medicinal doses of herbs, especially when pregnant, taking medicines, or managing a medical condition. Ask a clinician first.'},
+          hi:{eyebrow:'पारंपरिक स्वास्थ्य ज्ञान',title:'50 सामान्य लक्षण खोजें',intro:'पारंपरिक सामग्री और आराम के सामान्य उपाय जानें। यह रोग की पहचान या उपचार नहीं है।',label:'खोजने के लिए लक्षण लिखें',placeholder:'जैसे बुखार, मतली, गले में दर्द, सिरदर्द…',disclaimer:'⚕ केवल शैक्षिक जानकारी। गंभीर, बढ़ते या लगातार लक्षणों पर डॉक्टर से सलाह लें। जड़ी-बूटियाँ दवाओं के साथ प्रतिक्रिया कर सकती हैं।',related:'जानने योग्य पारंपरिक सामग्री',none:'कोई सटीक मिलान नहीं मिला। दूसरा लक्षण लिखें या चिकित्सक से सलाह लें।',guidance:'सामान्य आराम संबंधी जानकारी',notice:'इन सामग्रियों के सांस्कृतिक उपयोग हैं। ये इस लक्षण का प्रमाणित उपचार नहीं हैं।',noherbs:'यहाँ किसी जड़ी-बूटी को उपचार के रूप में सुझाया नहीं जाता।',close:'बंद करें',caution:'सावधानियाँ',context:'पारंपरिक परिचय',results:'संबंधित विषय',urgent:'गंभीर, चिंताजनक या लगातार लक्षण हों तो जल्द चिकित्सा सलाह लें।',safety:'गर्भावस्था, दवा लेने या बीमारी की स्थिति में जड़ी-बूटियों की औषधीय मात्रा से बचें और चिकित्सक से पूछें।'},
+          sa:{eyebrow:'पारम्परिकं स्वास्थ्यज्ञानम्',title:'५० सामान्यलक्षणानाम् अन्वेषणम्',intro:'पारम्परिकद्रव्याणि सामान्यसुखोपायांश्च जानातु। एषा रोगनिदानं चिकित्सा वा नास्ति।',label:'अन्वेषणाय लक्षणं लिखतु',placeholder:'ज्वरः, हृल्लासः, कण्ठपीडा, शिरःशूलम्…',disclaimer:'⚕ केवलं शिक्षार्थम्। तीव्रेषु दीर्घकालिकेषु वा लक्षणेषु वैद्यस्य परामर्शं प्राप्नोतु। औषधिभिः सह वनस्पतिद्रव्याणां प्रतिक्रिया सम्भवति।',related:'परम्परागतद्रव्याणि',none:'सदृशं लक्षणं न प्राप्तम्। अन्यत् लिखतु अथवा वैद्यं पृच्छतु।',guidance:'सामान्यसुखसम्बद्धा सूचना',notice:'एतेषां द्रव्याणां सांस्कृतिकः उपयोगः अस्ति; लक्षणस्य प्रमाणितचिकित्सा नास्ति।',noherbs:'अत्र कापि वनस्पतिः चिकित्सारूपेण न निर्दिश्यते।',close:'पिधत्तु',caution:'सावधानताः',context:'पारम्परिकः परिचयः',results:'सम्बद्धः विषयः',urgent:'तीव्रेषु वा दीर्घकालिकेषु लक्षणेषु शीघ्रं वैद्यं सम्पर्कयतु।',safety:'गर्भावस्थायां औषधसेवने वा चिकित्सकस्य अनुमतिं विना वनस्पतीनां औषधीयमात्रां मा गृह्णातु।'}
         };
         const NF_SYMPTOMS = [
           {key:'fever',labels:['Fever','बुखार','ज्वरः'],alias:['fever','temperature','high temp','bukhar','bukhaar','बुखार','बुख़ार','ज्वर','ताप'],items:['Tulsi','Ginger'],advice:['Rest and drink fluids. Fever has many causes, and these ingredients do not lower or cure fever. Seek medical advice if it is high, persistent, or accompanied by concerning symptoms.','आराम करें और पर्याप्त तरल लें। बुखार के कई कारण हो सकते हैं। ये सामग्रियाँ बुखार का इलाज नहीं हैं। तेज या लगातार बुखार पर डॉक्टर से सलाह लें।','विश्रामं करोतु, जलं च पिबतु। ज्वरस्य बहूनि कारणानि सन्ति; एते द्रव्ये चिकित्से न स्तः।']},
-          {key:'nausea',labels:['Nausea','मतली','हृल्लासः'],alias:['nausea','nauseous','queasy','vomit','vomiting','throw up','ulti','मतली','उल्टी','जी मिचलाना','हृल्लास'],items:['Ginger'],advice:['Small sips of water may help prevent dehydration. Ginger is traditionally used for nausea and has some supporting evidence, but is not appropriate for everyone. Seek help if vomiting persists or fluids cannot be kept down.','थोड़ा-थोड़ा पानी पीना उपयोगी हो सकता है। अदरक का मतली में पारंपरिक उपयोग है, लेकिन यह सबके लिए उचित नहीं है। लगातार उल्टी पर डॉक्टर से मिलें।','अल्पमल्पं जलं पिबतु। आर्द्रकस्य हृल्लासे पारम्परिकः उपयोगः अस्ति; सर्वेषां कृते न उपयुक्तम्।']},
-          {key:'cold',labels:['Common cold','सर्दी-जुकाम','प्रतिश्यायः'],alias:['cold','common cold','runny nose','sneezing','sardi','जुकाम','सर्दी','नाक बहना','छींक','प्रतिश्याय'],items:['Ginger','Tulsi'],advice:['Rest and fluids can support comfort with a common cold. Warm drinks may soothe, but traditional ingredients do not cure viral infections.','आराम और पानी पीने से सामान्य सर्दी में आराम मिल सकता है। गरम पेय राहत दे सकते हैं, लेकिन वायरस का इलाज नहीं हैं।','विश्रामः जलसेवनं च सुखाय भवेताम्। उष्णपानानि उपशमाय स्युः; विषाणुरोगस्य चिकित्सा न।']},
+          {key:'nausea',labels:['Nausea','मतली','हृल्लासः'],alias:['nausea','nauseous','queasy','मतली','जी मिचलाना','हृल्लास'],items:['Ginger'],advice:['Small sips of water may help prevent dehydration. Ginger is traditionally used for nausea and has some supporting evidence, but is not appropriate for everyone. Seek help if vomiting persists or fluids cannot be kept down.','थोड़ा-थोड़ा पानी पीना उपयोगी हो सकता है। अदरक का मतली में पारंपरिक उपयोग है, लेकिन यह सबके लिए उचित नहीं है। लगातार उल्टी पर डॉक्टर से मिलें।','अल्पमल्पं जलं पिबतु। आर्द्रकस्य हृल्लासे पारम्परिकः उपयोगः अस्ति; सर्वेषां कृते न उपयुक्तम्।']},
+          {key:'cold',labels:['Common cold','सर्दी-जुकाम','प्रतिश्यायः'],alias:['cold','common cold','runny nose','sardi','जुकाम','सर्दी','नाक बहना','छींक','प्रतिश्याय'],items:['Ginger','Tulsi'],advice:['Rest and fluids can support comfort with a common cold. Warm drinks may soothe, but traditional ingredients do not cure viral infections.','आराम और पानी पीने से सामान्य सर्दी में आराम मिल सकता है। गरम पेय राहत दे सकते हैं, लेकिन वायरस का इलाज नहीं हैं।','विश्रामः जलसेवनं च सुखाय भवेताम्। उष्णपानानि उपशमाय स्युः; विषाणुरोगस्य चिकित्सा न।']},
           {key:'cough',labels:['Cough','खाँसी','कासः'],alias:['cough','coughing','khansi','खाँसी','खांसी','कास'],items:['Ginger','Tulsi'],advice:['Warm drinks may ease throat discomfort. A lasting cough, breathing difficulty, or worsening symptoms need medical attention.','गरम पेय गले को आराम दे सकते हैं। लंबे समय की खाँसी या साँस लेने में तकलीफ़ पर चिकित्सक से संपर्क करें।','उष्णपानं कण्ठसुखाय भवेत्। दीर्घकालिककासे श्वासकष्टे वा वैद्यं सम्पर्कयतु।']},
           {key:'throat',labels:['Sore throat','गले में दर्द','कण्ठपीडा'],alias:['sore throat','throat pain','scratchy throat','gala dard','गले में दर्द','गला खराब','कंठ','कण्ठ'],items:['Ginger','Tulsi'],advice:['Warm or cool fluids can soothe discomfort. Trouble swallowing or breathing requires prompt medical care.','गरम या ठंडे तरल से आराम मिल सकता है। निगलने या साँस लेने में परेशानी हो तो तुरंत चिकित्सकीय सहायता लें।','उष्णं शीतलं वा पेयं सुखकरं भवेत्। निगरणश्वसनकष्टे शीघ्रं वैद्यं सम्पर्कयतु।']},
           {key:'bloating',labels:['Bloating / gas','पेट में गैस','आध्मानम्'],alias:['gas','bloating','bloated','flatulence','pet me gas','गैस','पेट फूलना','आध्मान'],items:['Ajwain','Cumin','Saunf (Fennel)','Cardamom'],advice:['Gentle movement and smaller meals may reduce occasional bloating. Persistent pain or repeated symptoms should be checked. Traditional spices are not guaranteed remedies.','हल्का टहलना और कम मात्रा में भोजन कभी-कभी मदद कर सकता है। लगातार पेट-दर्द पर डॉक्टर से सलाह लें।','मृदुगमनम् अल्पभोजनं च कदाचित् उपकारकं भवेत्। निरन्तरपीडायां वैद्यं पृच्छतु।']},
-          {key:'indigestion',labels:['Indigestion','अपच','अजीर्णम्'],alias:['indigestion','digestive','digestion','upset stomach','acidity','heartburn','अपच','बदहजमी','पाचन','एसिडिटी','अजीर्ण'],items:['Ajwain','Cumin','Saunf (Fennel)'],advice:['Avoiding large meals and lying down immediately after eating may help mild indigestion. Seek care for severe pain or recurring discomfort.','बहुत अधिक भोजन करने और खाने के तुरंत बाद लेटने से बचें। गंभीर या बार-बार होने वाले दर्द पर डॉक्टर से मिलें।','अतिभोजनं भोजनानन्तरं शयनं च परिहरतु। तीव्रपीडायां वैद्यं सम्पर्कयतु।']},
+          {key:'indigestion',labels:['Indigestion','अपच','अजीर्णम्'],alias:['indigestion','digestive','digestion','upset stomach','अपच','बदहजमी','पाचन','एसिडिटी','अजीर्ण'],items:['Ajwain','Cumin','Saunf (Fennel)'],advice:['Avoiding large meals and lying down immediately after eating may help mild indigestion. Seek care for severe pain or recurring discomfort.','बहुत अधिक भोजन करने और खाने के तुरंत बाद लेटने से बचें। गंभीर या बार-बार होने वाले दर्द पर डॉक्टर से मिलें।','अतिभोजनं भोजनानन्तरं शयनं च परिहरतु। तीव्रपीडायां वैद्यं सम्पर्कयतु।']},
           {key:'headache',labels:['Headache','सिरदर्द','शिरःशूलम्'],alias:['headache','head pain','migraine','sir dard','सिरदर्द','माइग्रेन','शिरःशूल'],items:[],advice:['Water, rest and a quiet environment may help some mild headaches. Sudden severe headache, confusion or new neurological symptoms need urgent medical attention.','पानी, आराम और शांत जगह हल्के सिरदर्द में मदद कर सकते हैं। अचानक बहुत तेज दर्द या भ्रम होने पर तुरंत चिकित्सा सहायता लें।','जलं विश्रामः शान्तस्थानं च सौम्ये शिरःशूले सहायकानि स्युः। आकस्मिके तीव्रशूले शीघ्रं वैद्यं सम्पर्कयतु।']},
           {key:'stress',labels:['Stress / tension','तनाव','मानसिकतनावः'],alias:['stress','tension','anxiety','worried','तनाव','चिंता','बेचैनी','मानसिकतनाव'],items:[],advice:['A short break, gentle breathing, and talking to someone you trust may offer comfort. Seek support if distress is persistent or overwhelming.','थोड़ा विराम, सहज श्वास और भरोसेमंद व्यक्ति से बात करना मदद कर सकता है। लंबे समय तक तनाव रहे तो सहायता लें।','विश्रामः सहजश्वसनं विश्वस्तजनेन संवादश्च साहाय्यं कुर्यात्।']},
           {key:'fatigue',labels:['Tiredness','थकान','श्रान्तिः'],alias:['fatigue','tired','tiredness','exhaustion','weakness','थकान','कमजोरी','श्रान्ति'],items:['Amla'],advice:['Sleep, adequate meals, and fluids support general wellbeing. Ongoing or unexplained fatigue needs medical review; amla is food, not a cure for fatigue.','नींद, संतुलित भोजन और तरल उपयोगी हैं। लगातार थकान पर डॉक्टर से सलाह लें। आँवला एक खाद्य फल है, थकान का इलाज नहीं।','निद्रा भोजनं जलं च स्वास्थ्याय आवश्यकानि। निरन्तरश्रान्तौ वैद्यं पृच्छतु।']},
@@ -17778,14 +17848,66 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
           {key:'skin',labels:['Skin irritation','त्वचा में जलन','त्वक्पीडा'],alias:['skin irritation','rash','itching','itchy','skin','त्वचा','खुजली','जलन','चकत्ते','त्वक्'],items:[],advice:['Avoid the suspected irritant and use gentle skin care. Do not apply undiluted oils or herbal pastes to irritated skin. Seek care for widespread or worsening rashes.','जिससे जलन हो रही हो उससे बचें। चिड़चिड़ी त्वचा पर तेज तेल या जड़ी-बूटी का लेप न लगाएँ। गंभीर चकत्तों पर डॉक्टर से मिलें।','त्वचाक्षोभकारकं परिहरतु। तीक्ष्णतैलं वनस्पतिलेपं वा मा प्रयुङ्क्त।']},
           {key:'cramps',labels:['Muscle cramps','मांसपेशियों में ऐंठन','स्नायुसङ्कोचः'],alias:['cramp','cramps','muscle pain','muscle spasm','ऐंठन','मांसपेशियों में दर्द','स्नायुसङ्कोच'],items:[],advice:['Gentle stretching, rest and fluids may help mild cramps. Severe, repeated or unexplained cramps should be assessed.','हल्का खिंचाव, आराम और तरल हल्की ऐंठन में मदद कर सकते हैं। लगातार या तेज ऐंठन हो तो डॉक्टर से मिलें।','मृदुप्रसारणं विश्रामः जलपानं च साहाय्यं कुर्यात्। तीव्रसङ्कोचे वैद्यं सम्पर्कयतु।']}
         ];
+        // Bengali + expanded safe, non-diagnostic search terms for the original Nuske finder.
+        NF_LANG.bn={eyebrow:'ঐতিহ্যবাহী সুস্থতার জ্ঞান',title:'৫০টি সাধারণ উপসর্গ খুঁজুন',intro:'সমস্যা লিখে ঐতিহ্যবাহী উপকরণ ও সাধারণ আরামের উপায় সম্পর্কে জানুন। এটি রোগ নির্ণয় বা চিকিৎসা নয়।',label:'খুঁজতে উপসর্গ লিখুন',placeholder:'যেমন জ্বর, বমিভাব, গলাব্যথা, মাথাব্যথা…',disclaimer:'⚕ শুধুমাত্র শিক্ষামূলক তথ্য। গুরুতর বা দীর্ঘস্থায়ী উপসর্গে চিকিৎসকের পরামর্শ নিন। ভেষজ ওষুধের সঙ্গে প্রতিক্রিয়া করতে পারে।',related:'ঐতিহ্যবাহী উপকরণ সম্পর্কে জানুন',none:'সঠিক মিল পাওয়া যায়নি। অন্যভাবে সমস্যাটি লিখুন বা চিকিৎসকের পরামর্শ নিন।',guidance:'সাধারণ আরামের পরামর্শ',notice:'এই উপকরণগুলির ঐতিহ্যবাহী ব্যবহার রয়েছে; এগুলি এই সমস্যার প্রমাণিত চিকিৎসা নয়।',noherbs:'এখানে চিকিৎসা হিসেবে কোনো ভেষজের পরামর্শ দেওয়া হচ্ছে না।',close:'বন্ধ করুন',caution:'সতর্কতা',context:'ঐতিহ্যবাহী ব্যবহার',results:'সম্পর্কিত সমস্যা',urgent:'গুরুতর, অস্বাভাবিক বা দীর্ঘস্থায়ী উপসর্গ হলে দ্রুত চিকিৎসকের পরামর্শ নিন।',safety:'গর্ভাবস্থায়, ওষুধ সেবনের সময় বা অসুস্থ অবস্থায় চিকিৎসকের পরামর্শ ছাড়া ভেষজের ওষুধি মাত্রা ব্যবহার করবেন না।'};
+        const NF_BENGALI={
+         fever:['জ্বর','বিশ্রাম নিন এবং পর্যাপ্ত জল পান করুন। বেশি বা দীর্ঘস্থায়ী জ্বরে চিকিৎসকের পরামর্শ নিন। এই উপকরণ জ্বর সারায় না।'],
+         nausea:['বমিভাব','অল্প অল্প করে জল পান করুন। আদার ঐতিহ্যবাহী ব্যবহার আছে, কিন্তু সবার জন্য উপযুক্ত নয়। বারবার বমি হলে চিকিৎসা নিন।'],
+         cold:['সর্দি','বিশ্রাম ও জল পান আরাম দিতে পারে। গরম পানীয় গলার অস্বস্তি কমাতে পারে, ভাইরাস সারায় না।'],
+         cough:['কাশি','গরম পানীয় কিছুটা আরাম দিতে পারে। দীর্ঘস্থায়ী কাশি বা শ্বাসকষ্ট হলে চিকিৎসকের পরামর্শ নিন।'],
+         throat:['গলাব্যথা','গরম বা ঠান্ডা পানীয় অস্বস্তি কমাতে পারে। গিলতে বা শ্বাস নিতে সমস্যা হলে দ্রুত চিকিৎসা নিন।'],
+         bloating:['পেটে গ্যাস','হালকা হাঁটা ও অল্প খাবার কিছুটা সাহায্য করতে পারে। দীর্ঘস্থায়ী ব্যথায় চিকিৎসা নিন।'],
+         indigestion:['বদহজম','একসঙ্গে অতিরিক্ত খাওয়া ও খাওয়ার পরই শোয়া এড়িয়ে চলুন। তীব্র বা বারবার ব্যথায় চিকিৎসকের পরামর্শ নিন।'],
+         headache:['মাথাব্যথা','জল, বিশ্রাম ও শান্ত পরিবেশ সাহায্য করতে পারে। হঠাৎ তীব্র মাথাব্যথা বা বিভ্রান্তি হলে জরুরি চিকিৎসা নিন।'],
+         stress:['মানসিক চাপ','সাময়িক বিরতি, ধীরে শ্বাস নেওয়া ও বিশ্বাসযোগ্য কারও সঙ্গে কথা বলা সাহায্য করতে পারে। দীর্ঘস্থায়ী কষ্টে সহায়তা নিন।'],
+         fatigue:['ক্লান্তি','পর্যাপ্ত ঘুম, পুষ্টিকর খাবার ও জল জরুরি। দীর্ঘস্থায়ী ক্লান্তির জন্য চিকিৎসা নিন। আমলকী ক্লান্তির ওষুধ নয়।'],
+         congestion:['নাক বন্ধ','বিশ্রাম ও পর্যাপ্ত জল পান করুন। নাকের ভেতর তেল বা ভেষজ দেবেন না। শ্বাসকষ্টে দ্রুত চিকিৎসা নিন।'],
+         skin:['ত্বকে চুলকানি','অস্বস্তি সৃষ্টি করা পদার্থ এড়ান। ক্ষতিগ্রস্ত ত্বকে ঘন ভেষজ বা তেল লাগাবেন না।'],
+         cramps:['পেশিতে টান','হালকা প্রসারণ, বিশ্রাম ও জল সাহায্য করতে পারে। তীব্র বা বারবার টান হলে চিকিৎসকের পরামর্শ নিন।']
+        };
+        NF_SYMPTOMS.forEach(c=>{const val=NF_BENGALI[c.key];if(val){c.labels[3]=val[0];c.advice[3]=val[1];c.alias.push(val[0]);}});
+        const NF_EXTRA=[
+         ['constipation',['Constipation','कब्ज','मलावरोधः','কোষ্ঠকাঠিন্য'],['constipation','hard stools','kabz','कब्ज','पेट साफ नहीं','मलावरोध','কোষ্ঠকাঠিন্য'],['Ajwain','Saunf (Fennel)'],['Drink water, eat fibre-rich foods and stay active. Severe pain, blood in stool or persistent symptoms need medical assessment.','जल, रेशेदार भोजन और हल्की गतिविधि मदद कर सकते हैं। गंभीर या लगातार कब्ज में चिकित्सक से मिलें।','जलं तन्तुयुक्तं भोजनं च सेवताम्। तीव्रलक्षणेषु वैद्यं सम्पर्कयतु।','জল, আঁশযুক্ত খাবার ও হালকা চলাফেরা সাহায্য করতে পারে। তীব্র ব্যথা বা দীর্ঘস্থায়ী সমস্যায় চিকিৎসা নিন।']],
+         ['sleep',['Poor sleep','नींद न आना','अनिद्रा','ঘুম না হওয়া'],['insomnia','cannot sleep','sleepless','sleep problem','नींद नहीं','अनिद्रा','নিদ্রা','ঘুম নেই','ঘুম না হওয়া'],[],['A calm bedtime routine and less evening caffeine may help. Persistent sleep difficulties need assessment.','नियमित सोने का समय और शाम को कैफीन कम करना मदद कर सकता है। लगातार समस्या में डॉक्टर से मिलें।','नियमिता निद्रा तथा सायंकाले अल्पं कैफीनसेवनं सहायकम्।','নিয়মিত ঘুমের অভ্যাস ও সন্ধ্যায় কম ক্যাফিন সাহায্য করতে পারে। সমস্যা চলতে থাকলে চিকিৎসা নিন।']],
+         ['diarrhea',['Loose motions','दस्त','अतिसारः','পাতলা পায়খানা'],['diarrhea','diarrhoea','loose motion','loose motions','watery stool','dast','दस्त','दस्त लगना','अतिसार','পায়খানা','পাতলা পায়খানা'],[],['Replace lost fluids with oral rehydration solution. Bloody stool, dehydration, severe pain or prolonged diarrhea require medical attention.','ओआरएस लें और शरीर में पानी की कमी न होने दें। खून, निर्जलीकरण या तेज दर्द में चिकित्सक से मिलें।','मुखमार्गीयपुनर्जलीकरणद्रवणं पिबतु। तीव्रलक्षणेषु वैद्यं पृच्छतु।','ওআরএস পান করে জলশূন্যতা রোধ করুন। রক্ত, তীব্র ব্যথা বা দীর্ঘস্থায়ী সমস্যায় চিকিৎসা নিন।']],
+         ['period',['Period cramps','मासिक धर्म में दर्द','ऋतुकालपीडा','মাসিকের ব্যথা'],['period pain','menstrual cramps','period cramps','periods pain','माहवारी दर्द','पीरियड दर्द','मासिक धर्म दर्द','মাসিকের ব্যথা'],[],['Gentle warmth and rest may ease mild discomfort. Severe or unusual pain needs medical evaluation.','हल्की गरम सिकाई और आराम मदद कर सकते हैं। असहनीय दर्द पर डॉक्टर से सलाह लें।','मृदुष्णता विश्रामश्च उपकारिणौ। तीव्रपीडायां वैद्यं पृच्छतु।','হালকা গরম সেঁক ও বিশ্রাম আরাম দিতে পারে। খুব বেশি ব্যথায় চিকিৎসা নিন।']],
+         ['tooth',['Toothache','दाँत में दर्द','दन्तशूलः','দাঁতে ব্যথা'],['toothache','tooth pain','dental pain','दांत दर्द','दाँत दर्द','दन्तशूल','দাঁতে ব্যথা'],[],['Arrange a dental check. Do not place concentrated oils or herbal pastes on gums. Swelling with fever needs urgent care.','दंत चिकित्सक से मिलें। मसूड़ों पर तेज तेल या लेप न लगाएँ। बुखार के साथ सूजन में जल्दी चिकित्सा लें।','दन्तवैद्यं सम्पर्कयतु। तीक्ष्णतैलादि मसूषु न स्थापयतु।','দন্তচিকিৎসকের পরামর্শ নিন। মাড়িতে ঘন তেল বা ভেষজ লাগাবেন না।']],
+         ['back',['Back pain','कमर दर्द','कटिशूलः','পিঠে ব্যথা'],['backache','back pain','lower back','कमर दर्द','पीठ दर्द','कटिशूल','পিঠে ব্যথা','কোমরে ব্যথা'],[],['Gentle movement may help mild back strain. Weakness, numbness or bowel/bladder changes require urgent attention.','हल्की गतिविधि मदद कर सकती है। कमजोरी, सुन्नपन या मूत्र-संबंधी समस्या में तुरंत चिकित्सा लें।','मृदुचलनं साहाय्यं कुर्यात्। दुर्बलतायां शीघ्रं वैद्यं सम्पर्कयतु।','হালকা চলাফেরা সাহায্য করতে পারে। দুর্বলতা বা অবশ ভাব হলে দ্রুত চিকিৎসা নিন।']],
+         ['burn',['Minor burn','जलन / जलना','दाहः','পোড়া'],['burn','burns','burned','scald','जल गया','जलना','झुलसना','দগ্ধ','পোড়া'],[],['Cool a fresh burn under cool running water for 20 minutes. Do not apply ghee, turmeric, ice or toothpaste. Seek medical care for significant burns.','जली त्वचा को २० मिनट ठंडे बहते पानी से ठंडा करें। घी, हल्दी, बर्फ या टूथपेस्ट न लगाएँ। गंभीर जलन पर चिकित्सा लें।','दाहस्थानं शीतलजलप्रवाहे स्थापयतु। घृतं हरिद्रां वा मा लेपयतु।','পোড়া জায়গায় ২০ মিনিট ঠান্ডা চলমান জল দিন। ঘি, হলুদ, বরফ বা টুথপেস্ট লাগাবেন না।']],
+         ['chest',['Chest pain','सीने में दर्द','उरःपीडा','বুকে ব্যথা'],['chest pain','chest tightness','chest pressure','heart pain','सीने में दर्द','छाती दर्द','उरःपीडा','বুকে ব্যথা'],[],['Chest pain can be serious. Seek urgent medical assessment, especially with breathlessness, sweating or pain spreading to an arm or jaw. Do not rely on home remedies.','सीने में दर्द गंभीर हो सकता है। साँस फूलने, पसीने या हाथ में दर्द के साथ तुरंत आपात चिकित्सा लें। नुस्खों पर निर्भर न रहें।','उरःपीडा गम्भीरा भवेत्। शीघ्रम् आपत्कालीनचिकित्सां प्राप्नोतु।','বুকে ব্যথা গুরুতর হতে পারে। শ্বাসকষ্ট, ঘাম বা হাতে ব্যথা থাকলে জরুরি চিকিৎসা নিন। ঘরোয়া উপায়ের ওপর নির্ভর করবেন না।']]
+        ];
+        NF_EXTRA.forEach(([key,labels,alias,items,advice])=>NF_SYMPTOMS.push({key,labels,alias,items,advice}));
+        // 29 additional common search topics; together with the existing 21 = 50.
+        // Labels, spelling variants and safety guidance are localised; no new remedy catalogue is created.
+        const NF_FURTHER = [{"key":"vomiting","labels":["Vomiting","उल्टी","वमनम्","বমি"],"alias":["vomit","vomiting","throwing up","throw up","ulti","उल्टी","वमन","বমি"],"items":[],"advice":["Take small, frequent sips of fluids or oral rehydration solution. Get medical help if vomiting continues, there is blood, or you cannot keep fluids down.","थोड़ा-थोड़ा पानी या ओआरएस पिएँ। उल्टी जारी रहने, खून आने या पानी न रुकने पर डॉक्टर से मिलें।","अल्पमल्पं जलं पुनर्जलीकरणद्रवणं वा पिबतु। निरन्तरवमने रक्तस्रावे वा शीघ्रं वैद्यं सम्पर्कयतु।","অল্প অল্প করে জল বা ওআরএস পান করুন। বারবার বমি, রক্ত বা জল ধরে রাখতে না পারলে চিকিৎসা নিন।"]},{"key":"dizziness","labels":["Dizziness","चक्कर आना","भ्रमिः","মাথা ঘোরা"],"alias":["dizzy","dizziness","light headed","lightheaded","feeling faint","chakkar","चक्कर","भ्रमि","মাথা ঘোরা"],"items":[],"advice":["Sit or lie down to avoid falling. Dizziness with fainting, chest pain, one-sided weakness or trouble speaking needs emergency care.","गिरने से बचने के लिए बैठें या लेटें। बेहोशी, सीने में दर्द, एक तरफ कमजोरी या बोलने में दिक्कत हो तो तुरंत आपात सहायता लें।","पतनपरिहाराय उपविशतु शयीत वा। मूर्च्छायाम् उरःपीडायां वाक्कष्टे वा आपत्कालीनचिकित्सां प्राप्नोतु।","পড়ে যাওয়া এড়াতে বসুন বা শুয়ে পড়ুন। অজ্ঞান হওয়া, বুকে ব্যথা বা কথা বলতে সমস্যা হলে জরুরি চিকিৎসা নিন।"]},{"key":"dehydration","labels":["Dehydration","पानी की कमी","निर्जलीकरणम्","জলশূন্যতা"],"alias":["dehydrated","dehydration","dry body","पानी की कमी","निर्जलीकरण","জলশূন্যতা"],"items":[],"advice":["Drink fluids; oral rehydration solution can replace fluid losses. Confusion, very little urine or inability to drink requires urgent medical care.","पानी पिएँ; ओआरएस से तरल की कमी पूरी करने में मदद मिल सकती है। भ्रम, बहुत कम पेशाब या पानी न पी पाने पर तत्काल चिकित्सा लें।","जलं पुनर्जलीकरणद्रवणं वा पिबतु। भ्रमे अल्पमूत्रे जलपानासामर्थ्ये वा शीघ्रं चिकित्सां प्राप्नोतु।","জল বা ওআরএস পান করুন। বিভ্রান্তি, খুব কম প্রস্রাব বা পান করতে না পারলে জরুরি চিকিৎসা নিন।"]},{"key":"stomachache","labels":["Stomach pain","पेट दर्द","उदरशूलम्","পেটে ব্যথা"],"alias":["stomach pain","stomachache","tummy ache","belly pain","abdominal pain","pet dard","पेट दर्द","उदरशूल","পেটে ব্যথা"],"items":[],"advice":["Stomach pain has many causes. Seek urgent care for sudden, severe or worsening pain, especially with fever, vomiting or blood.","पेट दर्द के कई कारण हो सकते हैं। अचानक, तेज या बढ़ते दर्द के साथ बुखार, उल्टी या खून हो तो तुरंत चिकित्सकीय सहायता लें।","उदरशूलस्य बहूनि कारणानि सन्ति। अकस्मात् तीव्रपीडायां ज्वरे वमने वा शीघ्रं वैद्यं सम्पर्कयतु।","পেটে ব্যথার নানা কারণ থাকতে পারে। হঠাৎ তীব্র বা বাড়তে থাকা ব্যথা, জ্বর বা রক্ত থাকলে জরুরি চিকিৎসা নিন।"]},{"key":"reflux","labels":["Acidity / heartburn","सीने में जलन / एसिडिटी","अम्लपित्तम्","অম্বল / বুকজ্বালা"],"alias":["acid reflux","heartburn","acidity","acid stomach","acidic","सीने में जलन","एसिडिटी","अम्लपित्त","অম্বল","বুকজ্বালা"],"items":["Saunf (Fennel)"],"advice":["Smaller meals and avoiding lying down after eating may help mild heartburn. Severe chest pain or symptoms that keep returning need medical evaluation.","थोड़ा-थोड़ा भोजन करें और खाने के तुरंत बाद न लेटें। सीने में तेज दर्द या बार-बार जलन होने पर चिकित्सक से मिलें।","अल्पमल्पं भोजनं करोतु; भोजनानन्तरं न शयीत। उरःपीडायां पुनःपुनः दाहे वा वैद्यं सम्पर्कयतु।","অল্প করে খান এবং খাওয়ার পরই শুয়ে পড়বেন না। তীব্র বুকব্যথা বা বারবার অম্বল হলে চিকিৎসা নিন।"]},{"key":"appetite","labels":["Loss of appetite","भूख कम लगना","अरुचिः","ক্ষুধামন্দা"],"alias":["loss of appetite","not hungry","no appetite","low appetite","भूख कम","भूख नहीं","अरुचि","ক্ষুধামন্দা"],"items":[],"advice":["Try small, regular meals and fluids. Ongoing loss of appetite, unintended weight loss or weakness needs medical assessment.","कम मात्रा में नियमित भोजन और पर्याप्त पानी लें। भूख लगातार कम रहना, बिना वजह वजन घटना या कमजोरी हो तो डॉक्टर से मिलें।","नियमितम् अल्पभोजनं जलपानं च करोतु। दीर्घकालम् अरुचौ भारह्रासे वा वैद्यं सम्पर्कयतु।","অল্প অল্প করে নিয়মিত খান ও জল পান করুন। দীর্ঘদিন ক্ষুধা না লাগা বা অকারণে ওজন কমলে চিকিৎসা নিন।"]},{"key":"hiccups","labels":["Hiccups","हिचकी","हिक्का","হেঁচকি"],"alias":["hiccup","hiccups","hichki","हिचकी","हिक्का","হেঁচকি"],"items":[],"advice":["Hiccups usually settle on their own. If they last longer than two days or interfere with eating, sleeping or breathing, seek medical advice.","हिचकी अक्सर अपने-आप बंद हो जाती है। दो दिन से अधिक रहे या खाने, सोने या साँस में बाधा दे तो डॉक्टर से मिलें।","हिक्का प्रायः स्वतः शान्ता भवति। द्विदिनात् अधिकं तिष्ठति चेत् अथवा भोजननिद्रायां बाधा भवेत्, वैद्यं पृच्छतु।","হেঁচকি সাধারণত নিজে থেকেই থামে। দুদিনের বেশি থাকলে বা খাওয়া, ঘুম কিংবা শ্বাসে সমস্যা হলে চিকিৎসা নিন।"]},{"key":"mouth_ulcers","labels":["Mouth ulcers","मुँह के छाले","मुखपाकः","মুখের ঘা"],"alias":["mouth ulcer","mouth ulcers","canker sore","mouth sores","छाले","मुंह में छाले","मुँह के छाले","मुखपाक","মুখের ঘা"],"items":[],"advice":["Avoid foods that sting the sore. Mouth ulcers that do not heal within two weeks or keep returning should be checked by a clinician.","छालों में जलन करने वाला भोजन न लें। दो हफ्ते में छाले न भरें या बार-बार हों तो डॉक्टर से मिलें।","मुखव्रणं पीडयन्ति ये आहाराः तान् परिहरतु। द्विसप्ताहेषु न शाम्यति चेत् वैद्यं पृच्छतु।","যে খাবারে ঘায়ে জ্বালা করে তা এড়ান। দুসপ্তাহেও না সারলে বা বারবার হলে চিকিৎসকের পরামর্শ নিন।"]},{"key":"breath","labels":["Bad breath","मुँह से बदबू","मुखदुर्गन्धः","মুখের দুর্গন্ধ"],"alias":["bad breath","halitosis","smelly breath","मुँह से बदबू","मुंह की बदबू","मुखदुर्गन्ध","মুখের দুর্গন্ধ"],"items":["Saunf (Fennel)","Cardamom"],"advice":["Daily brushing, flossing and a dental check can help identify causes of bad breath. Fennel and cardamom are culinary mouth fresheners, not treatments.","नियमित ब्रश, दाँतों की सफाई और दंत-जाँच करें। सौंफ और इलायची पारंपरिक माउथ फ्रेशनर हैं, इलाज नहीं।","प्रतिदिनं दन्तशोधनं दन्तवैद्यपरीक्षणं च करोतु। मधुरिकैला खाद्यसुगन्धिद्रव्ये स्तः, चिकित्सा न।","নিয়মিত দাঁত ব্রাশ, ফ্লস ও দাঁতের পরীক্ষা করুন। মৌরি ও এলাচ খাবারের সুগন্ধি, চিকিৎসা নয়।"]},{"key":"drymouth","labels":["Dry mouth","मुँह सूखना","मुखशोषः","মুখ শুকিয়ে যাওয়া"],"alias":["dry mouth","mouth dryness","dry tongue","मुंह सूखना","मुँह सूखना","मुखशोष","মুখ শুকিয়ে যাওয়া"],"items":[],"advice":["Sip water regularly and review possible causes with a clinician if the dryness persists. Do not assume herbs can treat dry mouth.","बार-बार थोड़ा पानी पिएँ। मुँह लगातार सूखे तो डॉक्टर से कारण पता करें। जड़ी-बूटियों को इलाज न समझें।","नियमितं जलपानं करोतु। निरन्तरमुखशोषे कारणनिर्णयाय वैद्यं पृच्छतु। वनस्पतयः चिकित्सा न।","নিয়মিত অল্প জল পান করুন। মুখ বারবার শুকালে কারণ জানতে চিকিৎসকের পরামর্শ নিন।"]},{"key":"earache","labels":["Ear pain","कान दर्द","कर्णशूलः","কানে ব্যথা"],"alias":["ear pain","earache","ear hurts","kaan dard","कान दर्द","कर्णशूल","কানে ব্যথা"],"items":[],"advice":["Do not put oil, herbs or objects inside the ear. Severe ear pain, discharge, fever or sudden hearing changes require medical advice.","कान में तेल, जड़ी-बूटी या कोई चीज़ न डालें। तेज दर्द, रिसाव, बुखार या अचानक सुनाई कम होने पर डॉक्टर से मिलें।","कर्णे तैलं वनस्पतिद्रव्यं वस्तु वा मा स्थापयतु। तीव्रपीडायां स्रावे श्रवणपरिवर्तने वा वैद्यं पृच्छतु।","কানে তেল, ভেষজ বা অন্য কিছু দেবেন না। তীব্র ব্যথা, পুঁজ, জ্বর বা হঠাৎ কম শুনলে চিকিৎসা নিন।"]},{"key":"eye_redness","labels":["Red / irritated eyes","आँख लाल होना","नेत्ररक्तता","চোখ লাল হওয়া"],"alias":["red eye","red eyes","eye irritation","eye redness","pink eye","आंख लाल","आँख में जलन","नेत्ररक्तता","চোখ লাল"],"items":[],"advice":["Do not apply herbal mixtures or household liquids to the eyes. Pain, light sensitivity, vision changes or persistent redness needs professional evaluation.","आँखों में जड़ी-बूटी का लेप या घरेलू तरल न डालें। दर्द, रोशनी से परेशानी या धुँधला दिखने पर डॉक्टर से मिलें।","नेत्रयोः वनस्पतिलेपं गृहद्रवणं वा मा स्थापयतु। पीडायां दृष्टिपरिवर्तने वा नेत्रवैद्यं पृच्छतु।","চোখে ভেষজ মিশ্রণ বা ঘরোয়া তরল দেবেন না। ব্যথা, আলো সহ্য না হওয়া বা দৃষ্টি বদলালে চিকিৎসা নিন।"]},{"key":"watery_eyes","labels":["Watery eyes","आँख से पानी आना","नेत्रस्रावः","চোখে জল আসা"],"alias":["watery eyes","watering eyes","tearing eyes","eye watering","आँख से पानी","आंख से पानी","नेत्रस्राव","চোখে জল"],"items":[],"advice":["Do not apply herbal mixtures or household liquids to the eyes. Pain, light sensitivity, vision changes or persistent redness needs professional evaluation.","आँखों में जड़ी-बूटी का लेप या घरेलू तरल न डालें। दर्द, रोशनी से परेशानी या धुँधला दिखने पर डॉक्टर से मिलें।","नेत्रयोः वनस्पतिलेपं गृहद्रवणं वा मा स्थापयतु। पीडायां दृष्टिपरिवर्तने वा नेत्रवैद्यं पृच्छतु।","চোখে ভেষজ মিশ্রণ বা ঘরোয়া তরল দেবেন না। ব্যথা, আলো সহ্য না হওয়া বা দৃষ্টি বদলালে চিকিৎসা নিন।"]},{"key":"sneezing","labels":["Sneezing","बार-बार छींक","क्षवथुः","হাঁচি"],"alias":["sneezing","sneeze","sneezes","chheenk","छींक","क्षवथु","হাঁচি"],"items":[],"advice":["Notice and avoid triggers if possible. Repeated sneezing with wheezing or persistent congestion may need professional advice.","संभव हो तो छींक पैदा करने वाले कारणों से बचें। साँस में घरघराहट या लगातार नाक बंद रहने पर डॉक्टर से सलाह लें।","क्षवथुकारकान् हेतून् यथाशक्ति परिहरतु। श्वासकष्टे निरन्तरनासावरोधे वा वैद्यं पृच्छतु।","সম্ভব হলে হাঁচির কারণগুলো এড়ান। শ্বাসে সাঁ সাঁ শব্দ বা নাক দীর্ঘদিন বন্ধ থাকলে চিকিৎসা নিন।"]},{"key":"allergies","labels":["Allergy symptoms","एलर्जी","प्रत्यूर्जता","অ্যালার্জি"],"alias":["allergy","allergies","allergic","hay fever","itchy nose","एलर्जी","प्रत्यूर्जता","অ্যালার্জি"],"items":[],"advice":["Avoid known triggers. Swelling of the lips or tongue, wheezing or difficulty breathing can signal a severe allergy: seek emergency help.","ज्ञात एलर्जी के कारणों से बचें। होंठ या जीभ सूजना, घरघराहट या साँस में परेशानी हो तो आपात चिकित्सा लें।","ज्ञातप्रत्यूर्जकान् परिहरतु। ओष्ठजिह्वाशोफे श्वासकष्टे वा आपत्कालीनचिकित्सां प्राप्नोतु।","পরিচিত অ্যালার্জির কারণ এড়ান। ঠোঁট বা জিভ ফুলে যাওয়া বা শ্বাসকষ্টে জরুরি চিকিৎসা নিন।"]},{"key":"sinus","labels":["Sinus pressure","साइनस में दबाव","नासागुहापीडा","সাইনাসে চাপ"],"alias":["sinus","sinus pain","sinus pressure","facial pressure","साइनस","सिर में दबाव","नासागुहा","সাইনাস"],"items":[],"advice":["Rest, fluids and a standard saline nasal spray may ease mild congestion. Severe facial swelling, high fever or worsening pain needs medical review.","आराम, पानी और सामान्य सलाइन नेज़ल स्प्रे हल्की बंद नाक में मदद कर सकते हैं। चेहरे की सूजन या तेज बुखार में डॉक्टर से मिलें।","विश्रामः जलपानं लवणजलनासिकाफुहारश्च सुखाय भवेत्। मुखशोफे उच्चज्वरे वा वैद्यं पृच्छतु।","বিশ্রাম, জল ও সাধারণ স্যালাইন নাসাল স্প্রে কিছুটা আরাম দিতে পারে। মুখ ফুলে গেলে বা বেশি জ্বর হলে চিকিৎসা নিন।"]},{"key":"breathlessness","labels":["Difficulty breathing","साँस लेने में कठिनाई","श्वासकष्टम्","শ্বাসকষ্ট"],"alias":["shortness of breath","breathlessness","difficulty breathing","cant breathe","cannot breathe","saans","साँस फूलना","सांस की तकलीफ","श्वासकष्ट","শ্বাসকষ্ট"],"items":[],"advice":["Difficulty breathing can be an emergency. Seek urgent medical assistance immediately; do not wait for a home remedy.","साँस लेने में कठिनाई आपात स्थिति हो सकती है। तुरंत चिकित्सा सहायता लें; किसी घरेलू नुस्खे का इंतज़ार न करें।","श्वासकष्टम् आपत्कालीनं भवेत्। तत्क्षणं चिकित्सासाहाय्यं प्राप्नोतु; गृहौषधिं मा प्रतीक्षताम्।","শ্বাসকষ্ট জরুরি অবস্থা হতে পারে। অবিলম্বে চিকিৎসা নিন; ঘরোয়া উপায়ের অপেক্ষা করবেন না।"]},{"key":"palpitations","labels":["Racing heartbeat","दिल तेज धड़कना","हृद्स्पन्दनाधिक्यम्","বুক ধড়ফড়"],"alias":["heart racing","heart palpitations","palpitations","rapid heartbeat","दिल तेज धड़कना","धड़कन तेज","हृद्स्पन्दन","বুক ধড়ফড়"],"items":[],"advice":["New or recurring racing heartbeat needs medical assessment. If it occurs with chest pain, fainting or breathlessness, seek emergency care.","दिल तेज धड़कना नया हो या बार-बार हो तो डॉक्टर से जाँच कराएँ। सीने में दर्द, बेहोशी या साँस फूलने पर आपात सहायता लें।","नूतनं पुनःपुनः हृद्स्पन्दनाधिक्यं वैद्येन परीक्ष्यताम्। उरःपीडायां मूर्च्छायां वा आपत्कालीनसेवां प्राप्नोतु।","নতুন বা বারবার বুক ধড়ফড় করলে পরীক্ষা করান। বুকব্যথা, অজ্ঞান হওয়া বা শ্বাসকষ্টে জরুরি চিকিৎসা নিন।"]},{"key":"joints","labels":["Joint pain","जोड़ों में दर्द","सन्धिशूलः","গাঁটে ব্যথা"],"alias":["joint pain","joint ache","joint stiffness","जोड़ों में दर्द","घुटने में दर्द","सन्धिशूल","গাঁটে ব্যথা"],"items":[],"advice":["Gentle movement and rest may help mild aches. Hot, swollen joints, fever or lasting pain need assessment; avoid unproven herbal treatments.","हल्की गतिविधि और आराम मदद कर सकते हैं। जोड़ लाल, गरम, सूजा हो या बुखार हो तो चिकित्सक से मिलें।","मृदुचलनं विश्रामश्च सौम्यपीडायां सहायकौ। सन्धिशोफे ज्वरे वा वैद्यं सम्पर्कयतु।","হালকা চলাফেরা ও বিশ্রাম সাহায্য করতে পারে। গাঁট গরম, ফুলে যাওয়া বা জ্বর হলে চিকিৎসা নিন।"]},{"key":"neck","labels":["Neck pain","गर्दन दर्द","ग्रीवाशूलः","ঘাড়ে ব্যথা"],"alias":["neck pain","stiff neck","neck stiffness","गर्दन दर्द","गर्दन में जकड़न","ग्रीवाशूल","ঘাড়ে ব্যথা"],"items":[],"advice":["Gentle movement and posture breaks may help mild stiffness. Neck pain after an injury or with weakness, fever or severe headache needs urgent assessment.","हल्का हिलना और बैठने की मुद्रा बदलना मदद कर सकता है। चोट के बाद गर्दन दर्द या बुखार, कमजोरी के साथ दर्द पर जल्दी चिकित्सा लें।","मृदुचलनं सम्यगासनं च साहाय्यं कुर्यात्। आघातानन्तरं ग्रीवाशूले ज्वरे वा शीघ्रं वैद्यं सम्पर्कयतु।","হালকা নড়াচড়া ও সঠিক ভঙ্গি সাহায্য করতে পারে। আঘাতের পরে ঘাড়ব্যথা, জ্বর বা দুর্বলতায় দ্রুত চিকিৎসা নিন।"]},{"key":"feet","labels":["Swollen feet","पैरों में सूजन","पादशोफः","পা ফোলা"],"alias":["swollen feet","swollen ankles","leg swelling","feet swelling","पैरों में सूजन","पैर सूजना","पादशोफ","পা ফোলা"],"items":[],"advice":["New, one-sided or worsening foot and leg swelling needs medical advice. Swelling with breathlessness or chest pain requires emergency care.","पैरों में नई, एक तरफ या बढ़ती सूजन की जाँच कराएँ। साँस फूलने या सीने में दर्द के साथ सूजन पर आपात चिकित्सा लें।","नूतनं एकपार्श्वीयं वा पादशोफं वैद्येन परीक्षयतु। श्वासकष्टे उरःपीडायां वा आपत्कालीनसेवां प्राप्नोतु।","পায়ে নতুন, একদিকে বা বাড়তে থাকা ফোলা পরীক্ষা করান। শ্বাসকষ্ট বা বুকব্যথা থাকলে জরুরি চিকিৎসা নিন।"]},{"key":"acne","labels":["Acne / pimples","मुहाँसे","मुखदूषिका","ব্রণ"],"alias":["acne","pimple","pimples","spots on face","मुंहासे","मुहाँसे","दाने चेहरे पर","मुखदूषिका","ব্রণ"],"items":[],"advice":["Wash gently and avoid picking spots. Do not apply harsh household pastes or concentrated oils; persistent or painful acne may need medical care.","चेहरा हल्के से साफ करें और दाने न दबाएँ। तेज घरेलू लेप या गाढ़े तेल न लगाएँ; दर्द वाले मुहाँसों पर डॉक्टर से मिलें।","मुखं मृदु प्रक्षालयतु; पिटिकाः मा पीडयतु। तीक्ष्णलेपं न प्रयुङ्क्त; पीडायां वैद्यं पृच्छतु।","আলতো করে মুখ ধুয়ে রাখুন, ব্রণ খুঁটবেন না। তীব্র ঘরোয়া মিশ্রণ দেবেন না; ব্যথা বা বেশি ব্রণে চিকিৎসা নিন।"]},{"key":"dandruff","labels":["Dandruff","रूसी","शिरस्त्वक्कणाः","খুশকি"],"alias":["dandruff","flaky scalp","scalp flakes","रूसी","सिर में रूसी","शिरस्त्वक्","খুশকি"],"items":[],"advice":["A gentle shampoo routine may help minor flaking. Persistent itching, redness or scalp sores should be checked.","सिर को नियमित हल्के शैम्पू से साफ करें। लगातार खुजली, लालिमा या घाव होने पर डॉक्टर से मिलें।","मृदुकेशप्रक्षालनेन शिरस्त्वचं शोधयतु। निरन्तरकण्ड्वां रक्ततायां वा वैद्यं पृच्छतु।","নিয়মিত হালকা শ্যাম্পু ব্যবহার করুন। চুলকানি, লাল ভাব বা ঘা থাকলে চিকিৎসা নিন।"]},{"key":"hairfall","labels":["Hair loss","बाल झड़ना","केशपातः","চুল পড়া"],"alias":["hair loss","hair fall","hairfall","shedding hair","बाल झड़ना","बाल गिरना","केशपात","চুল পড়া"],"items":[],"advice":["Hair shedding can have many causes. A clinician can assess sudden or persistent hair loss; no herbal ingredient here is established as a cure.","बाल झड़ने के कई कारण हो सकते हैं। अचानक या लंबे समय तक झड़ें तो चिकित्सक से कारण जाँचें। कोई जड़ी-बूटी पक्का इलाज नहीं है।","केशपातस्य बहूनि कारणानि सन्ति। आकस्मिके दीर्घकालिके वा केशपाते वैद्यं पृच्छतु।","চুল পড়ার নানা কারণ থাকতে পারে। হঠাৎ বা দীর্ঘদিন চুল পড়লে চিকিৎসকের পরামর্শ নিন।"]},{"key":"dryskin","labels":["Dry skin","रूखी त्वचा","त्वक्शुष्कता","শুষ্ক ত্বক"],"alias":["dry skin","skin dryness","rough skin","रूखी त्वचा","शुष्क त्वचा","त्वक्शुष्कता","শুষ্ক ত্বক"],"items":[],"advice":["Use a plain fragrance-free moisturizer and avoid irritating soaps. Cracked, bleeding or persistently inflamed skin needs assessment.","बिना सुगंध वाला सामान्य मॉइस्चराइज़र लगाएँ और तेज साबुन से बचें। त्वचा फटे, खून आए या सूजन रहे तो डॉक्टर से मिलें।","निर्गन्धं त्वक्स्नेहकं प्रयुङ्क्त, तीक्ष्णसाबुनं च परिहरतु। विदीर्णत्वचि रक्तस्रावे वा वैद्यं पृच्छतु।","সুগন্ধিবিহীন সাধারণ ময়েশ্চারাইজার ব্যবহার করুন ও কড়া সাবান এড়ান। ত্বক ফেটে রক্ত পড়লে চিকিৎসা নিন।"]},{"key":"bites","labels":["Insect bites","कीड़े का काटना","कीटदंशः","পোকার কামড়"],"alias":["insect bite","insect bites","mosquito bite","bug bite","कीड़े का काटना","मच्छर काटना","कीटदंश","পোকার কামড়"],"items":[],"advice":["Wash the area and use a cool compress for minor bites. Facial swelling, widespread hives or breathing difficulty require emergency help.","काटे स्थान को धोकर ठंडी सिकाई करें। चेहरे की सूजन, पूरे शरीर में चकत्ते या साँस की समस्या पर आपात मदद लें।","दंशस्थानं प्रक्षालयतु, शीतलसेकं च करोतु। मुखशोफे श्वासकष्टे वा आपत्कालीनचिकित्सां प्राप्नोतु।","কামড়ানো জায়গা ধুয়ে ঠান্ডা সেঁক দিন। মুখ ফুলে গেলে বা শ্বাসকষ্ট হলে জরুরি চিকিৎসা নিন।"]},{"key":"heat_exhaustion","labels":["Heat exhaustion","गर्मी से तबीयत बिगड़ना","उष्णताश्रान्तिः","গরমে অসুস্থতা"],"alias":["heat exhaustion","overheating","heat sickness","sun exhaustion","heat stress","गर्मी से चक्कर","लू लगना","उष्णता","গরমে অসুস্থ"],"items":[],"advice":["Move to shade or a cool area and sip fluids if alert. Confusion, fainting, very high temperature or worsening symptoms mean emergency care.","छाया या ठंडी जगह जाएँ और होश में हों तो थोड़ा-थोड़ा पानी पिएँ। भ्रम, बेहोशी या बहुत तेज गर्मी लगने पर आपात मदद लें।","छायायां शीतले स्थाने वा गच्छतु, सचेतनः सन् जलं पिबतु। भ्रमे मूर्च्छायां वा आपत्कालीनचिकित्सां प्राप्नोतु।","ছায়া বা ঠান্ডা জায়গায় যান, সচেতন থাকলে অল্প জল পান করুন। বিভ্রান্তি বা অজ্ঞান হলে জরুরি চিকিৎসা নিন।"]},{"key":"sweating","labels":["Excessive sweating","बहुत पसीना आना","अतिस्वेदः","অতিরিক্ত ঘাম"],"alias":["excessive sweating","too much sweating","night sweats","sweaty","पसीना ज्यादा","बहुत पसीना","अतिस्वेद","অতিরিক্ত ঘাম"],"items":[],"advice":["Keep hydrated in hot weather. New, unexplained heavy sweating or sweating with fever, chest pain or weight loss needs medical evaluation.","गर्मी में पानी पिएँ। बिना कारण बहुत पसीना, बुखार, सीने में दर्द या वजन घटना हो तो डॉक्टर से मिलें।","उष्णकाले पर्याप्तं जलं पिबतु। अकारणम् अतिस्वेदे ज्वरे उरःपीडायां वा वैद्यं सम्पर्कयतु।","গরমে পর্যাপ্ত জল পান করুন। অকারণে অতিরিক্ত ঘাম, জ্বর বা বুকব্যথা হলে চিকিৎসা নিন।"]},{"key":"urination","labels":["Frequent urination","बार-बार पेशाब आना","बहुमूत्रता","ঘন ঘন প্রস্রাব"],"alias":["frequent urination","peeing often","urinating often","frequent pee","बार बार पेशाब","बार-बार पेशाब","बहुमूत्रता","ঘন ঘন প্রস্রাব"],"items":[],"advice":["Frequent urination can have many causes. Seek medical advice, especially with pain, fever, blood in urine or unusual thirst.","बार-बार पेशाब के कई कारण हो सकते हैं। जलन, बुखार, पेशाब में खून या बहुत प्यास लगे तो चिकित्सक से मिलें।","बहुमूत्रतायाः बहूनि कारणानि सन्ति। दाहे ज्वरे मूत्रे रक्ते वा वैद्यं पृच्छतु।","ঘন ঘন প্রস্রাবের নানা কারণ হতে পারে। ব্যথা, জ্বর, প্রস্রাবে রক্ত বা অতিরিক্ত তৃষ্ণায় চিকিৎসা নিন।"]}];
+        NF_SYMPTOMS.push(...NF_FURTHER);
+        // Keep the topic index deduplicated, and include all translated names as search terms.
+        NF_SYMPTOMS.forEach(topic=>{topic.alias=[...new Set([...topic.alias,...topic.labels].filter(Boolean))];});
+        // Ingredient descriptions are not imported as unverified medical claims.
+        const NF_INGREDIENT_BN={
+         Turmeric:'ভারতীয় রান্না ও ঘরোয়া ঐতিহ্যে ব্যবহৃত হলুদ। রোগ সারানোর নিশ্চয়তা নেই।',
+         Tulsi:'বহু ভারতীয় পরিবারে সাংস্কৃতিক গুরুত্বসম্পন্ন তুলসী। চা ও ঐতিহ্যবাহী পানীয়তে ব্যবহার হয়।',
+         Ginger:'রান্না ও গরম পানীয়তে ব্যবহৃত আদা। বমিভাবের ক্ষেত্রে কিছু গবেষণা আছে, কিন্তু সবার জন্য উপযুক্ত নয়।',
+         Amla:'ভিটামিন সি-যুক্ত আমলকী; খাবার, আচার ও ঐতিহ্যবাহী রান্নায় ব্যবহৃত হয়।',
+         Ajwain:'রান্নায় ব্যবহৃত সুগন্ধি জোয়ান; হজমের আরামের ক্ষেত্রে লোকাচারে ব্যবহার রয়েছে।',
+         Cumin:'ভারতীয় রান্নার পরিচিত জিরে, ফোড়ন ও মশলায় ব্যবহৃত হয়।',
+         Fenugreek:'মেথি রান্নায় ব্যবহৃত একটি পরিচিত মশলা; চিকিৎসাগত দাবির প্রমাণ ভিন্ন ভিন্ন।',
+         Ghee:'ঘি ভারতীয় খাদ্যসংস্কৃতিতে ব্যবহৃত পরিশোধিত মাখন।',
+         Neem:'নিম গাছের দীর্ঘ ঐতিহ্য আছে, তবে অতিরিক্ত ব্যবহার ঝুঁকিপূর্ণ হতে পারে।',
+         Ashwagandha:'অশ্বগন্ধার ঐতিহ্যবাহী ব্যবহার আছে; কার্যকারিতা ও নিরাপত্তা নিয়ে গবেষণা চলছে।',
+         Cardamom:'এলাচ মিষ্টি, চা ও রান্নায় ব্যবহৃত সুগন্ধি মশলা।',
+         Saffron:'জাফরান রং ও সুগন্ধের জন্য মিষ্টি ও বিরিয়ানিতে ব্যবহৃত হয়।',
+         'Saunf (Fennel)':'মৌরি রান্না ও মুখশুদ্ধিতে ব্যবহৃত সুগন্ধি বীজ।'
+        };
+        Object.keys(NF_INGREDIENT_BN).forEach(k=>{const entry=VIRASAT_I18N.nuske?.[k];if(entry)entry.bn={name:k,desc:NF_INGREDIENT_BN[k]};});
+
         let nfLastFocus = null;
-        function nfText(){ return NF_LANG[(typeof LANG !== 'undefined' && NF_LANG[LANG]) ? LANG : 'en']; }
+        function nfActiveLang(){const l=window.VirasatMatchLanguage?.get?.() || (typeof LANG!=='undefined'?LANG:'en');return NF_LANG[l]?l:'en';}
+        function nfText(){return NF_LANG[nfActiveLang()];}
         function nfLocale(){
-          const l=(typeof LANG!=='undefined'&&NF_LANG[LANG])?LANG:'en', w=NF_LANG[l];
+          const l=nfActiveLang(), w=NF_LANG[l];
           for(const [id,key] of [['nfEyebrow','eyebrow'],['nfTitle','title'],['nfIntro','intro'],['nfLabel','label'],['nfDisclaimer','disclaimer']]) { const e=document.getElementById(id); if(e)e.textContent=w[key]; }
           document.getElementById('nfInput').placeholder=w.placeholder;
-          const chips=document.getElementById('nfChips'); chips.replaceChildren();
-          NF_SYMPTOMS.slice(0,10).forEach(c=>{const b=document.createElement('button');b.type='button';b.textContent=c.labels[l==='hi'?1:l==='sa'?2:0];b.addEventListener('click',()=>{document.getElementById('nfInput').value=b.textContent;nfSearch(c.key);});chips.appendChild(b);});
           nfSearch();
         }
         function nfSearch(forceKey){
@@ -17794,26 +17916,57 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
           document.getElementById('nfClear').hidden=!value;
           const target=document.getElementById('nfResults');target.replaceChildren();
           if(!value&&!forceKey)return;
-          const tokens=value.split(/[\s,;.!?،]+/).filter(v=>v.length>1);
-          const matches=NF_SYMPTOMS.map(c=>({c,score:(forceKey===c.key?200:0)+Math.max(0,...c.alias.map(a=>{
-              const norm=a.toLocaleLowerCase();return value===norm?100:value.includes(norm)?70:tokens.some(t=>norm===t)?50:0;
-            }))})).filter(x=>x.score>0).sort((a,b)=>b.score-a.score);
-          const w=nfText(), l=(typeof LANG!=='undefined'&&LANG==='hi')?1:(typeof LANG!=='undefined'&&LANG==='sa')?2:0;
+          // Search-as-you-type: substring, beginnings, and full multiword queries.
+          // No visible symptom catalogue before the user enters a query.
+          const normalize=s=>String(s).normalize('NFKC').toLocaleLowerCase().replace(/[’'`]/g,'').replace(/[-_/.,;:!?،]+/g,' ').replace(/\s+/g,' ').trim();
+          const query=normalize(value);
+          const tokens=query.split(/\s+/).filter(t=>t.length>=2);
+          const matches=NF_SYMPTOMS.map(c=>{
+            let score=forceKey===c.key?300:0;
+            for(const raw of c.alias){
+              const name=normalize(raw);if(!name)continue;
+              let rank=0;
+              if(query===name)rank=140;
+              else if(query.length>=2 && name.startsWith(query))rank=110;
+              else if(query.length>=3 && name.includes(query))rank=86;
+              else if(query.length>=3 && query.includes(name) && name.length>=3)rank=90;
+              else if(tokens.length && tokens.some(t=>t.length>=3 && name.startsWith(t)))rank=52;
+              score=Math.max(score,rank);
+            }
+            return {c,score};
+          }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||a.c.labels[0].localeCompare(b.c.labels[0]));
+          const w=nfText(), l=nfActiveLang()==='hi'?1:nfActiveLang()==='sa'?2:nfActiveLang()==='bn'?3:0;
           if(!matches.length){const p=document.createElement('p');p.textContent=w.none;target.appendChild(p);return;}
+          // Exact matches take precedence; omit weak substring matches when a clear match exists.
+          const best=matches[0].score;
+          const relevant=best>=140?matches.filter(x=>x.score>=140):matches.filter(x=>x.score>=Math.max(50,best-30));
           // Multiple distinct symptoms are shown separately; no fake medical diagnosis.
-          matches.slice(0,3).forEach(({c})=>{
+          relevant.slice(0,5).forEach(({c})=>{
             const h=document.createElement('div');h.className='nuske-result-head';h.textContent=w.results+': '+c.labels[l];target.appendChild(h);
             const advice=document.createElement('div');advice.className='nuske-advice';advice.textContent=w.guidance+': '+c.advice[l];target.appendChild(advice);
             const found=c.items.map(name=>NUSKE.find(n=>n.name===name)).filter(Boolean);
             const title=document.createElement('p');title.textContent=found.length?w.related+':':w.noherbs;target.appendChild(title);
             if(found.length){const grid=document.createElement('div');grid.className='nuske-result-grid';
-              found.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='nuske-result';const img=document.createElement('img');img.src=n.img||'';img.alt='';img.loading='lazy';img.onerror=()=>{img.style.display='none';};const span=document.createElement('span');const localized=locNuske(n);const strong=document.createElement('strong');strong.textContent=localized.name;const small=document.createElement('small');small.textContent=w.context;span.append(strong,small);b.append(img,span);b.addEventListener('click',()=>nfOpen(n,c));grid.appendChild(b);});target.appendChild(grid);
+              found.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='nuske-result';const img=document.createElement('img');img.src=n.img||'';img.alt='';img.loading='lazy';img.onerror=()=>{img.style.display='none';};const span=document.createElement('span');const localized=nfActiveLang()==='bn'&&NF_INGREDIENT_BN[n.name]?{...n,name:n.name,desc:NF_INGREDIENT_BN[n.name]}:locNuske(n);const strong=document.createElement('strong');strong.textContent=localized.name;const small=document.createElement('small');small.textContent=w.context;span.append(strong,small);b.append(img,span);b.addEventListener('click',()=>nfGoToCard(n));grid.appendChild(b);});target.appendChild(grid);
               const note=document.createElement('p');note.style.marginTop='10px';note.textContent=w.notice;target.appendChild(note);
             }
           });
         }
+        // Reuse the original Desi Nuske card; never open a duplicate detail window.
+        function nfGoToCard(n){
+          const index=NUSKE.findIndex(item=>item===n || item.name===n.name);
+          if(index<0)return;
+          const card=document.getElementById('nuske-card-'+index);
+          if(!card)return;
+          card.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth',block:'center'});
+          card.focus({preventScroll:true});
+          card.classList.remove('nuske-search-highlight');
+          void card.offsetWidth;
+          card.classList.add('nuske-search-highlight');
+          card.addEventListener('animationend',()=>card.classList.remove('nuske-search-highlight'),{once:true});
+        }
         function nfOpen(n,c){
-          const w=nfText(),l=(typeof LANG!=='undefined'&&LANG==='hi')?1:(typeof LANG!=='undefined'&&LANG==='sa')?2:0,localized=locNuske(n);
+          const w=nfText(),l=nfActiveLang()==='hi'?1:nfActiveLang()==='sa'?2:nfActiveLang()==='bn'?3:0,localized=nfActiveLang()==='bn'&&NF_INGREDIENT_BN[n.name]?{...n,name:n.name,desc:NF_INGREDIENT_BN[n.name]}:locNuske(n);
           const body=document.getElementById('nfDialogBody');body.replaceChildren();
           const title=document.createElement('h3');title.id='nfDialogTitle';title.textContent=localized.name;body.appendChild(title);
           if(n.img){const img=document.createElement('img');img.src=n.img;img.alt=localized.name;img.onerror=()=>{img.style.display='none';};body.appendChild(img);}
@@ -19229,12 +19382,18 @@ if (clean === 'bharatiya-calendar') {
         const heritageAiInput = document.getElementById('heritageAiInput');
         const heritageAiSend = document.getElementById('heritageAiSend');
         const heritageAiMessages = document.getElementById('heritageAiMessages');
+        // The initial welcome message can also be read aloud.
+        const heritageWelcome = heritageAiMessages.querySelector('.heritage-ai-message.ai');
+        if (heritageWelcome && window.VirasatVoice) {
+            window.VirasatVoice.addListenButton(heritageWelcome, heritageWelcome.innerText || heritageWelcome.textContent, 'en');
+        }
 
         function toggleHeritageAI(forceState) {
             const shouldOpen = typeof forceState === 'boolean'
                 ? forceState
                 : !heritageAiChatBox.classList.contains('open');
 
+            if (!shouldOpen && window.VirasatVoice) window.VirasatVoice.stop();
             heritageAiChatBox.classList.toggle('open', shouldOpen);
             heritageAiChatBox.setAttribute('aria-hidden', String(!shouldOpen));
 
@@ -19287,7 +19446,14 @@ if (clean === 'bharatiya-calendar') {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + idToken
                     },
-                    body: JSON.stringify({ message: text })
+                    body: JSON.stringify({
+                        message: (typeof LANG !== 'undefined' && LANG === 'hi')
+                            ? 'Please respond in natural Hindi using Devanagari script. Question: ' + text
+                            : (typeof LANG !== 'undefined' && LANG === 'sa')
+                            ? 'Please respond in Sanskrit using Devanagari script. Question: ' + text
+                            : text,
+                        language: typeof LANG !== 'undefined' ? LANG : 'en'
+                    })
                 });
 
                 const data = await response.json().catch(() => ({}));
@@ -19309,6 +19475,7 @@ if (clean === 'bharatiya-calendar') {
                 }
 
                 thinking.textContent = answer;
+                if (window.VirasatVoice) window.VirasatVoice.addListenButton(thinking, answer, window.VirasatVoice.language());
 
             } catch (error) {
                 console.error('Heritage AI / Groq Error:', error);
@@ -19668,6 +19835,7 @@ function applyStaticI18n() {
 function applyLanguage(lang) {
     if (['en', 'hi', 'sa'].indexOf(lang) < 0) lang = 'en';
     LANG = lang;
+    if (window.VirasatVoice) window.VirasatVoice.stop();
     try { localStorage.setItem('virasat_language', lang); } catch (e) { }
     document.documentElement.lang = lang;
     document.documentElement.removeAttribute('dir');
@@ -21615,6 +21783,132 @@ setTimeout(()=>window.virasatTranslateEverything(typeof LANG!=='undefined'?LANG:
 document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) setTimeout(()=>window.virasatTranslateEverything(typeof LANG!=='undefined'?LANG:'en'),650); },true);
 })();
 </script>
+<style id="virasatSharedVoiceStyles">
+/* Voice buttons follow Virasat's heritage palette and do not affect the page layout. */
+.virasat-listen-button,
+#page-kahani .kb-voice-btn {
+    display:inline-flex;align-items:center;justify-content:center;gap:7px;
+    border:1px solid rgba(212,175,55,.50);border-radius:999px;
+    background:rgba(212,175,55,.09);color:var(--marigold,#f2cd6b);
+    padding:9px 14px;font:700 12px/1.3 'DM Sans','Noto Sans Devanagari',sans-serif;
+    cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease;
+}
+.virasat-listen-button:hover, #page-kahani .kb-voice-btn:hover,
+.virasat-listen-button:focus-visible, #page-kahani .kb-voice-btn:focus-visible {
+    background:rgba(212,175,55,.22);border-color:var(--gold,#d4af37);outline:2px solid transparent;
+}
+.virasat-listen-button.is-speaking,#page-kahani .kb-voice-btn.is-speaking {
+    border-color:#e8c874;background:rgba(212,175,55,.24);color:var(--saffron,#e8c874);
+}
+#heritageAiMessages .virasat-listen-button {display:flex;width:max-content;max-width:100%;margin:10px 0 0 auto;white-space:normal;}
+#heritageAiMessages .heritage-ai-message.ai {max-width:94%;}
+#page-kahani .kb-voice-btn {flex:0 0 auto;min-height:44px;white-space:nowrap;letter-spacing:0;}
+@media(max-width:600px){
+  #page-kahani .kb-controls {flex-wrap:wrap;justify-content:center;border-radius:24px;}
+  #page-kahani .kb-meter {flex:1 1 35%;}
+  #page-kahani .kb-voice-btn {min-height:38px;flex:1 1 100%;}
+}
+</style>
+<script id="virasatSharedVoiceScript">
+/* Native text-to-speech: no API key, no microphone permissions, no external calls. */
+(function(){
+  'use strict';
+  const labels={
+    en:{listen:'🔊 Listen',listenStory:'🔊 Listen to story',stop:'■ Stop audio',unsupported:'Audio playback is not supported by this browser.'},
+    hi:{listen:'🔊 सुनें',listenStory:'🔊 कहानी सुनें',stop:'■ आवाज़ बंद करें',unsupported:'इस ब्राउज़र में आवाज़ उपलब्ध नहीं है।'},
+    sa:{listen:'🔊 शृणुत',listenStory:'🔊 कथां शृणुत',stop:'■ श्रवणं स्थगयतु',unsupported:'अस्मिन् ब्राउज़रे वाक्-सुविधा नास्ति।'}
+  };
+  let activeButton=null, activeToken=0, activeLang='en';
+  const supportsSpeech=typeof window.speechSynthesis !== 'undefined' && typeof window.SpeechSynthesisUtterance !== 'undefined';
+  function language(){
+    try {if(typeof LANG!=='undefined' && labels[LANG]) return LANG;}catch(_){ }
+    try{const val=localStorage.getItem('virasat_language');return labels[val]?val:'en';}catch(_){return 'en';}
+  }
+  function label(lang,key){return (labels[lang]||labels.en)[key]||labels.en[key];}
+  function buttonText(btn,playing){
+    if(!btn)return;
+    const lang=playing?activeLang:(btn.dataset.voiceLang||language());
+    const key=playing?'stop':(btn.dataset.voiceStory==='1'?'listenStory':'listen');
+    btn.textContent=label(lang,key);
+    btn.setAttribute('aria-label',label(lang,key));
+    btn.setAttribute('aria-pressed',String(playing));
+    btn.classList.toggle('is-speaking',playing);
+  }
+  function stop(){
+    activeToken++;
+    const previous=activeButton;
+    activeButton=null;
+    if(supportsSpeech){ try{window.speechSynthesis.cancel();}catch(_){ } }
+    if(previous && previous.isConnected)buttonText(previous,false);
+  }
+  // Keep utterances short to avoid browsers truncating long stories.
+  function chunks(text){
+    const clean=String(text||'').replace(/```[\s\S]*?```/g,' ').replace(/https?:\/\/\S+/g,' ').replace(/[*_~#`]/g,'').replace(/\s+/g,' ').trim();
+    const words=clean.split(/\s+/), list=[];let buf='';
+    for(const word of words){
+      if(!word)continue;
+      if((buf+' '+word).length>175 && buf){list.push(buf);buf='';}
+      if(word.length>175){for(let i=0;i<word.length;i+=155){if(buf){list.push(buf);buf='';}list.push(word.slice(i,i+155));}}
+      else buf=buf?buf+' '+word:word;
+    }
+    if(buf)list.push(buf);
+    return list;
+  }
+  function speechLanguage(text,preferred){
+    // Chat replies should use the actual language in the reply, not an English voice for Hindi text.
+    const devanagari=/[\u0900-\u097F]/.test(text);
+    return devanagari?(preferred==='sa'?'sa':'hi'):'en';
+  }
+  function voiceFor(lang){
+    const vs=window.speechSynthesis.getVoices()||[];
+    const pref=lang==='en'?['en-IN','en-GB','en-US','en']:lang==='sa'?['sa-IN','sa','hi-IN','hi']:['hi-IN','hi'];
+    for(const p of pref){const options=vs.filter(v=>v.lang.toLowerCase()===p.toLowerCase()||((p==='en'||p==='hi'||p==='sa')&&v.lang.toLowerCase().startsWith(p+'-')));if(options.length)return options.find(v=>v.localService)||options[0];}
+    return null;
+  }
+  function speak(text,button,preferred){
+    if(activeButton===button){stop();return;}
+    stop();
+    if(!supportsSpeech){
+      const status=document.getElementById('virasatVoiceStatus');
+      if(status)status.textContent=label(language(),'unsupported');
+      if(typeof toast==='function')try{toast(label(language(),'unsupported'));}catch(_){ }
+      return;
+    }
+    const list=chunks(text);
+    if(!list.length)return;
+    activeLang=preferred||language();activeButton=button;buttonText(button,true);
+    const token=activeToken;
+    const contentLang=speechLanguage(String(text),activeLang);
+    const chosen=voiceFor(contentLang);
+    let i=0;
+    function next(){
+      if(token!==activeToken)return;
+      if(i>=list.length){stop();return;}
+      const utterance=new SpeechSynthesisUtterance(list[i++]);
+      if(chosen)utterance.voice=chosen;
+      utterance.lang=chosen?chosen.lang:(contentLang==='en'?'en-IN':contentLang==='sa'?'sa-IN':'hi-IN');
+      utterance.rate=contentLang==='en'?.9:.85;utterance.pitch=1;utterance.volume=1;
+      utterance.onend=()=>{if(token===activeToken)next();};
+      utterance.onerror=(e)=>{if(token!==activeToken)return;if(e.error==='canceled'||e.error==='interrupted')return;stop();};
+      try{window.speechSynthesis.speak(utterance);}catch(_){stop();}
+    }
+    next();
+  }
+  function addListenButton(container,text,lang){
+    if(!container)return null;
+    const old=container.querySelector('.virasat-listen-button');if(old)old.remove();
+    const b=document.createElement('button');b.type='button';b.className='virasat-listen-button';
+    b.dataset.voiceLang=lang||language();buttonText(b,false);
+    b.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();speak(text,b,b.dataset.voiceLang);});
+    container.appendChild(b);return b;
+  }
+  // Stop narration when changing pages, navigating, or changing language.
+  document.addEventListener('visibilitychange',()=>{if(document.hidden)stop();});
+  window.VirasatVoice={speak,stop,language,label,buttonText,addListenButton,get isSpeaking(){return !!activeButton;}};
+  const initial=document.querySelector('#heritageAiMessages .heritage-ai-message.ai');
+  if(initial)addListenButton(initial,initial.innerText||initial.textContent,'en');
+})();
+</script>
 <script id="virasatKahaniBookScript">
 /* Nani Ki Kahani as a 3D storybook.
    Spread mode (wide screens): leaf j carries page 2j on its front (right-hand page)
@@ -21709,6 +22003,7 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
             '<button type="button" class="kb-nav" data-kb="prev" aria-label="' + esc(L('prev')) + '" title="' + esc(L('prev')) + '">' + ARROW_L + '</button>' +
             '<div class="kb-meter"><span class="kb-status"></span><span class="kb-track"><span class="kb-fill"></span></span></div>' +
             '<button type="button" class="kb-chip" data-kb="contents"></button>' +
+            '<button type="button" class="kb-voice-btn" data-kb="listen" data-voice-story="1" aria-pressed="false">' + esc(window.VirasatVoice ? window.VirasatVoice.label(LANG, 'listenStory') : '🔊 Listen') + '</button>' +
             '<button type="button" class="kb-nav" data-kb="next" aria-label="' + esc(L('next')) + '" title="' + esc(L('next')) + '">' + ARROW_R + '</button>' +
             '</div>' +
             '<p class="kb-hint">' + esc(finePointer.matches ? L('hint') : L('hintTouch')) + '</p>';
@@ -21950,6 +22245,7 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
         if (!leaves.length) return;
         target = clamp(target, 0, maxPos());
         if (target === pos) return;
+        if (window.VirasatVoice) window.VirasatVoice.stop();
         const forward = target > pos;
         const order = [];
         if (forward) for (let i = pos; i < target; i++) order.push(i);
@@ -21981,6 +22277,22 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
         else if (name === 'open' || name === 'contents') go(contentsPos());
         else if (name === 'close') go(0);
         else if (name === 'toc') go(storyPos(+el.dataset.k));
+        else if (name === 'listen' && window.VirasatVoice) {
+            const p = pages[visibleIndex()];
+            let narration = '';
+            if (p && p.e && p.e.s) {
+                // Narrate the COMPLETE currently selected story, regardless of facing page.
+                narration = splitTitle(p.e.s.title).main + '. ' + (p.e.s.full || p.e.s.summary || '');
+            } else if (p && p.kind === 'contents') {
+                narration = L('contents') + '. ' + storyList().map((entry, i) =>
+                    String(i + 1) + '. ' + splitTitle(entry.s.title).main).join('. ');
+            } else if (p && p.kind === 'end') {
+                narration = L('end') + '. ' + L('endNote');
+            } else {
+                narration = L('title') + '. ' + L('subtitle') + '. ' + L('dedication');
+            }
+            window.VirasatVoice.speak(narration, el, LANG);
+        }
     }
 
     /* ── Drag a page by its edge ── */
@@ -22041,7 +22353,7 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
         d.leaf.style.transitionDuration = dur + 'ms';
         d.leaf.style.setProperty('--kb-t', String(goal));
         d.leaf.classList.toggle('is-flipped', goal === 1);
-        if (complete) { pos += d.dir; chrome(); announce(); }
+        if (complete) { if (window.VirasatVoice) window.VirasatVoice.stop(); pos += d.dir; chrome(); announce(); }
         d.leaf._kbSettle = setTimeout(() => settleLeaf(d.leaf, d.i), dur + 60);
     }
     book.addEventListener('pointerup', endDrag);
@@ -22123,6 +22435,7 @@ document.addEventListener('click',e=>{ if(e.target.closest?.('[data-page]')) set
 
     /* ── Render: called by renderStories() for filters, language and startup ── */
     function render() {
+        if (window.VirasatVoice) window.VirasatVoice.stop();
         const filter = currentFilter();
         const filterChanged = built && filter !== lastFilter;
         const anchor = built ? pages[visibleIndex()] : null;
@@ -24009,6 +24322,94 @@ if(preview&&preview.dataset.timeMode==='live'){
  const clock=preview.querySelector('[data-preview-clock]');if(clock)clock.textContent=previewFormat(minute);
  const status=preview.querySelector('[data-preview-status]');if(status)status.innerHTML=hoursMarkup(site);
 }}}},60000);
+// VIRASAT Heritage Matchmaker: operates on the original DATA object and detail modal.
+(function initHeritageMatchmaker(){
+ const shell=document.getElementById('vhMatchmaker'); if(!shell) return;
+ const categories=[
+  ['temple', /\b(temple|mandir|shrine|dham|matha|monastery|mosque|masjid|gurudwara|gurdwara|church|basilica|cathedral|stupa|vihara|dargah|ashram|sahib|jain|buddhist|shiva dol)\b/i, 5],
+  ['royal', /\b(fort|palace|mahal|garh|qila|quila|royal|durbar|citadel|haveli|rani|raja|rang ghar|talatal ghar|residency|tomb|mausoleum)\b/i, 5],
+  ['engineering', /\b(stepwell|baoli|vav|aqueduct|dam|bridge|observatory|jantar mantar|reservoir|water|tank|fort|palace|temple|architecture|gate|tower|minar|pillars|cave|caves|rock.cut|golghar|memorial)\b/i, 3],
+  ['archaeology', /\b(archaeological|archaeology|ruins|excavation|ancient|civilisation|civilization|buddhist (site|complex)|stupa|caves?|complex|remains|prehistoric|dolmen|neolithic|harappan|indus|megalithic|rock.cut|historic site)\b/i, 4],
+  ['museum', /\b(museum|gallery|artefacts|artifacts|archive|collection|memorial museum)\b/i, 5],
+  ['nature', /\b(lake|forest|valley|mountain|hill|garden|park|landscape|waterfall|river|beach|island|peak|ghat|wetland|village|villages|cultural landscape|desert|viewpoint)\b/i, 4],
+  ['arts', /\b(art|arts|craft|weaving|handloom|dance|music|cultural|culture|folk|traditional|village|villages|heritage village|artisan|theatre|performing)\b/i, 4],
+  ['unesco', null, 5]
+ ];
+ const unescoNames=new Set([
+ 'taj mahal','agra fort','fatehpur sikri','red fort','qutb minar','qutub minar','humayun tomb','humayuns tomb',
+ 'ajanta caves','ellora caves','elephanta caves','sanchi stupa','mahabodhi temple','nalanda mahavihara',
+ 'konark sun temple','sun temple konark','rani ki vav','group of monuments at hampi','hampi',
+ 'group of monuments at pattadakal','pattadakal','khajuraho group of monuments','khajuraho temples',
+ 'chhatrapati shivaji maharaj terminus','victoria terminus','jantar mantar jaipur',
+ 'hill forts of rajasthan','champaner pavagadh archaeological park','great living chola temples',
+ 'brihadeeswarar temple','brihadeeswara temple','shore temple','mahabalipuram shore temple',
+ 'sundarbans national park','keoladeo national park','kaziranga national park','manas national park',
+ 'dholavira','ramappa temple','sacred ensembles of the hoysalas', 'santiniketan'
+ ]);
+ const ui={
+ en:{over:'PERSONALISED CULTURAL JOURNEYS',title:'Discover Your Heritage Match',lead:'Every traveller has a story. Let VIRASAT find the heritage destinations that belong in yours.',start:'Find My Heritage Match',intro:'What part of India’s heritage speaks to you?',choose:'Choose one or more interests',state:'Preferred state (optional)',all:'Anywhere in India',go:'Reveal my 6 matches',again:'Change preferences',reset:'Clear choices',percentage:'relevance score',explore:'Explore Destination ↗',why:'Why this matches',none:'Choose at least one interest to find meaningful matches.',fallback:'No exact matches in that state. Try another state or clear the location filter.',empty:'No strong category match was found. Here are the closest available entries from the existing catalogue.',note:'Scores indicate algorithmic relevance, not a guarantee of enjoyment. Photographs appear only after their subject has been matched to a destination.',count:'Heritage stops classified',labels:['Ancient temples & spirituality','Forts, palaces & royal history','Architecture & ancient engineering','Archaeology & ancient civilisations','Museums & historical artefacts','Nature & cultural landscapes','Traditional arts & local culture','UNESCO World Heritage Sites'],recommended:'Recommended for',city:'Heritage stop near'},
+ hi:{over:'व्यक्तिगत सांस्कृतिक यात्रा',title:'अपनी विरासत से जुड़ी जगह खोजें',lead:'हर यात्री की अपनी कहानी होती है। विरासत आपकी रुचि से जुड़े ऐतिहासिक स्थल खोजने में मदद करेगा।',start:'मेरी विरासत खोजें',intro:'भारत की किस विरासत में आपकी रुचि है?',choose:'एक या अधिक रुचियाँ चुनें',state:'पसंदीदा राज्य (वैकल्पिक)',all:'भारत में कहीं भी',go:'मेरे ६ सुझाव दिखाएँ',again:'रुचियाँ बदलें',reset:'चयन हटाएँ',percentage:'प्रासंगिकता अंक',explore:'स्थल की जानकारी देखें ↗',why:'यह जगह क्यों सुझाई गई',none:'सुझाव पाने के लिए कम से कम एक रुचि चुनें।',fallback:'इस राज्य में सटीक मेल नहीं मिला। दूसरा राज्य चुनें या राज्य की सीमा हटाएँ।',empty:'सटीक श्रेणी नहीं मिली। मौजूदा सूची से निकटतम विकल्प प्रस्तुत हैं।',note:'प्रतिशत गणना से प्राप्त प्रासंगिकता दिखाता है, व्यक्तिगत आनंद की गारंटी नहीं। तस्वीर केवल पहचान की पुष्टि होने पर दिखाई जाएगी।',count:'वर्गीकृत विरासत स्थल',labels:['प्राचीन मंदिर और आध्यात्म','किले, महल और राजवंश','वास्तुकला और प्राचीन अभियंत्रण','पुरातत्व और प्राचीन सभ्यताएँ','संग्रहालय और पुरावस्तुएँ','प्रकृति और सांस्कृतिक भू-दृश्य','लोककला और स्थानीय संस्कृति','यूनेस्को विश्व धरोहर स्थल'],recommended:'आपकी रुचि से मेल',city:'निकटवर्ती विरासत स्थल'},
+ sa:{over:'व्यक्तिगताः सांस्कृतिकयात्राः',title:'स्वविरासतासम्बद्धं स्थानं चिनोतु',lead:'प्रत्येकस्य यात्रिकस्य स्वकीया कथा अस्ति। विरासत् भवतः रुच्यनुसारं सांस्कृतिकस्थानानि दर्शयति।',start:'मम विरासत्स्थानं अन्वेषयतु',intro:'भारतीयविरासत्सु भवतः रुचिः कुत्र अस्ति?',choose:'एकां वा अनेकाः रुचीः चिनोतु',state:'इष्टं राज्यम् (वैकल्पिकम्)',all:'समग्रे भारतदेशे',go:'षट् स्थानानि दर्शयतु',again:'रुचीः परिवर्तयतु',reset:'चयनं निरस्यतु',percentage:'प्रासङ्गिकताङ्कः',explore:'स्थानविवरणं पश्यतु ↗',why:'अस्य चयनस्य कारणम्',none:'स्थानानां चयनार्थम् एकां रुचिं चिनोतु।',fallback:'अस्मिन् राज्ये अनुरूपं स्थानं न लब्धम्। अन्यद् राज्यं चिनोतु।',empty:'समीचीना श्रेणी न लब्धा। विद्यमानसूचीतः निकटस्थानानि दर्श्यन्ते।',note:'प्रतिशतं गणिताधारितं प्रासङ्गिकत्वं दर्शयति, न तु व्यक्तिगतसन्तोषस्य प्रमाणम्। सम्यक् परिचितस्य स्थानस्य एव चित्रं दृश्यते।',count:'वर्गीकृतानि विरासत्स्थानानि',labels:['प्राचीनदेवालयाः आध्यात्मं च','दुर्गाः प्रासादाः राजेतिहासश्च','वास्तुकला प्राचीनयान्त्रिकी च','पुरातत्त्वं प्राचीनसभ्यताश्च','सङ्ग्रहालयानि पुरावस्तूनि च','प्रकृतिः सांस्कृतिकभूभागाश्च','पारम्परिककलाः स्थानीयसंस्कृतिश्च','यूनेस्कोविश्वविरासत्स्थानानि'],recommended:'भवतः रुच्यनुसारम्',city:'समीपस्थं विरासत्स्थानम्'},
+ bn:{over:'ব্যক্তিগত সাংস্কৃতিক ভ্রমণ',title:'আপনার ঐতিহ্যের সঙ্গে মিলে যায় এমন জায়গা খুঁজুন',lead:'প্রত্যেক ভ্রমণকারীর একটি গল্প আছে। বিরাসাত আপনার আগ্রহ অনুযায়ী ঐতিহ্যবাহী স্থান খুঁজে দেবে।',start:'আমার ঐতিহ্যের মিল খুঁজুন',intro:'ভারতের কোন ঐতিহ্য আপনাকে আকর্ষণ করে?',choose:'এক বা একাধিক আগ্রহ বেছে নিন',state:'পছন্দের রাজ্য (ঐচ্ছিক)',all:'ভারতের যেকোনো জায়গা',go:'আমার ৬টি সুপারিশ দেখান',again:'পছন্দ বদলান',reset:'সব মুছুন',percentage:'প্রাসঙ্গিকতার মান',explore:'জায়গাটি দেখুন ↗',why:'কেন এটি মিলে যায়',none:'সুপারিশ পেতে অন্তত একটি আগ্রহ বেছে নিন।',fallback:'এই রাজ্যে সরাসরি মিল নেই। অন্য রাজ্য বাছুন অথবা রাজ্যের সীমা সরান।',empty:'সরাসরি বিভাগ-মিল নেই। বিদ্যমান তালিকা থেকে কাছাকাছি বিকল্প দেখানো হচ্ছে।',note:'শতাংশটি অ্যালগরিদমের প্রাসঙ্গিকতার হিসাব, ব্যক্তিগত পছন্দের নিশ্চয়তা নয়। যথাযথ স্থানের ছবি শনাক্ত হলেই দেখানো হয়।',count:'শ্রেণিবদ্ধ ঐতিহ্য স্থান',labels:['প্রাচীন মন্দির ও আধ্যাত্মিকতা','দুর্গ, প্রাসাদ ও রাজকীয় ইতিহাস','স্থাপত্য ও প্রাচীন প্রকৌশল','প্রত্নতত্ত্ব ও প্রাচীন সভ্যতা','জাদুঘর ও পুরাকীর্তি','প্রকৃতি ও সাংস্কৃতিক ভূদৃশ্য','লোকশিল্প ও স্থানীয় সংস্কৃতি','ইউনেস্কো বিশ্ব ঐতিহ্য স্থান'],recommended:'আপনার পছন্দের সঙ্গে মিল',city:'কাছাকাছি ঐতিহ্য স্থান'}
+ };
+ const langOptions=[['en','English'],['hi','हिन्दी'],['sa','संस्कृतम्'],['bn','বাংলা']];
+ const prefs=new Set();let preferredState='';let open=false;let hasResults=false;
+ const all=[];const classified=new Map();
+ const canonical=s=>String(s).toLowerCase().replace(/\s*\(day trip\)\s*/gi,'').replace(/[^a-z0-9]+/g,' ').trim();
+ Object.entries(DATA).forEach(([state,cities])=>cities.forEach(city=>city.sites.forEach((name,index)=>{
+  const key=canonical(name), text=name+' '+(city.description||'')+' '+(city.category||'')+' '+(city.history||'');
+  const tags=new Set(categories.filter(c=>c[1]&&c[1].test(text)).map(c=>c[0]));
+  if(unescoNames.has(key))tags.add('unesco');
+  const item={name,city:city.name,state,index,tags};all.push(item);classified.set([state,city.name,name].join('|'),tags);
+ })));
+ function language(){return window.VirasatMatchLanguage?.get?.() || (['en','hi','sa','bn'].includes(document.documentElement.lang)?document.documentElement.lang:'en');}
+ const words=()=>ui[language()]||ui.en;
+ const options=()=>langOptions.map(([code,name])=>'<option value="'+code+'"'+(language()===code?' selected':'')+'>'+name+'</option>').join('');
+ function header(){const w=words();shell.querySelector('[data-vh="over"]').textContent=w.over;shell.querySelector('[data-vh="title"]').textContent=w.title;shell.querySelector('[data-vh="lead"]').textContent=w.lead;shell.querySelector('#vhMatchToggle').textContent=open?w.again:w.start;shell.querySelector('#vhMatchLang').innerHTML=options();}
+ function panel(){const w=words(),section=shell.querySelector('#vhMatchPanel');section.hidden=!open;if(!open)return;
+  section.innerHTML='<div class="vh-match-intro">'+esc(w.intro)+'</div><div class="vh-match-label">'+esc(w.choose)+'</div><div class="vh-interests" role="group" aria-label="'+esc(w.choose)+'">'+categories.map((c,i)=>'<button type="button" class="vh-interest '+(prefs.has(c[0])?'selected':'')+'" data-interest="'+c[0]+'" aria-pressed="'+prefs.has(c[0])+'"><span class="vh-check">'+(prefs.has(c[0])?'✓':'+')+'</span>'+esc(w.labels[i])+'</button>').join('')+'</div>'+
+ '<div class="vh-preference-bottom"><label class="vh-state-label" for="vhState">'+esc(w.state)+'<select id="vhState"><option value="">'+esc(w.all)+'</option>'+Object.keys(DATA).sort().map(st=>'<option value="'+esc(st)+'" '+(preferredState===st?'selected':'')+'>'+esc(label(st))+'</option>').join('')+'</select></label><button type="button" class="vh-run" id="vhRun">'+esc(w.go)+'</button><button type="button" class="vh-clear" id="vhClear">'+esc(w.reset)+'</button></div>';
+ }
+ function rank(ignoreState=false){const selected=categories.filter(c=>prefs.has(c[0])); if(!selected.length)return [];
+   const total=selected.reduce((n,c)=>n+c[2],0);
+   return all.filter(x=>ignoreState||!preferredState||x.state===preferredState).map(item=>{
+     const hits=selected.filter(c=>item.tags.has(c[0]));const matched=hits.reduce((n,c)=>n+c[2],0);
+     const genericArchitecture=/\b(temple|fort|palace)\b/i.test(item.name) && !/\b(stepwell|baoli|vav|observatory|jantar mantar|aqueduct|bridge|dam|water|reservoir|tank|rock.cut|gate|tower|minar|caves?)\b/i.test(item.name);
+     const adjusted=matched-(genericArchitecture&&prefs.has('engineering')&&item.tags.has('engineering')?1.3:0);
+     const ratio=Math.max(0,adjusted)/total;const score=Math.round(100*ratio);
+     return {...item,hits,score,weight:matched};
+   }).sort((a,b)=>b.score-a.score||b.hits.length-a.hits.length||a.state.localeCompare(b.state)||a.city.localeCompare(b.city)||a.name.localeCompare(b.name));
+ }
+ function renderResults(){const target=shell.querySelector('#vhMatchResults'),w=words();
+  if(!hasResults){target.innerHTML='';return;}
+  if(!prefs.size){target.innerHTML='<p class="vh-feedback" role="status">'+esc(w.none)+'</p>';return;}
+  const ranked=rank();let positive=ranked.filter(x=>x.score>0);const relaxed=positive.length?false:!!preferredState;
+  if(relaxed)positive=rank(true).filter(x=>x.score>0);const best=(positive.length?positive:ranked).slice(0,6);
+  if(!best.length){target.innerHTML='<p class="vh-feedback" role="status">'+esc(w.fallback)+'</p>';return;}
+  target.innerHTML=(relaxed?'<p class="vh-feedback">'+esc(w.fallback)+'</p>':!positive.length?'<p class="vh-feedback">'+esc(w.empty)+'</p>':'')+
+  '<div class="vh-result-heading"><strong>'+esc(w.recommended)+'</strong><span>'+all.length+' '+esc(w.count)+'</span></div><div class="vh-results-grid">'+best.map((x,i)=>{
+    const why=x.hits.map(c=>w.labels[categories.indexOf(c)]).join(' · ');
+    return '<article class="tourism-site vh-match-card">'+imageMarkup('site',x.name+' photo',{target:x.name,city:x.city,state:x.state,kind:'site',q1:'"'+x.name+'" '+x.city+' '+x.state+' India',q2:'"'+x.name+'" '+x.state+' India',q3:x.name+' '+x.city+' India'})+
+     '<div class="vh-match-body"><span class="vh-match-category">'+esc(x.hits.length? w.labels[categories.indexOf(x.hits[0])]:w.city)+'</span><div class="vh-score"><strong>'+x.score+'%</strong><small>'+esc(w.percentage)+'</small></div><h3>'+esc(label(x.name))+'</h3><p class="vh-location">'+esc(label(x.city))+' · '+esc(label(x.state))+'</p><p class="vh-reason">'+esc(w.why)+': '+esc(why||w.city)+'</p><button type="button" class="vh-explore" data-tour-info="1" data-site="'+esc(x.name)+'" data-city="'+esc(x.city)+'" data-state="'+esc(x.state)+'">'+esc(w.explore)+'</button></div></article>';
+  }).join('')+'</div><p class="vh-note">'+esc(w.note)+'</p>';
+  hydrateTourismImages(target);
+ }
+ const toggle=shell.querySelector('#vhMatchToggle'),languageSelector=shell.querySelector('#vhMatchLang');
+ toggle.addEventListener('click',()=>{open=!open; header(); panel();if(open) shell.querySelector('#vhMatchPanel').scrollIntoView({behavior:'smooth',block:'nearest'});});
+ shell.querySelector('#vhMatchPanel').addEventListener('click',e=>{
+  const b=e.target.closest('[data-interest]');if(b){const key=b.dataset.interest;prefs.has(key)?prefs.delete(key):prefs.add(key);panel();if(hasResults)renderResults();return;}
+  if(e.target.closest('#vhClear')){prefs.clear();preferredState='';hasResults=false;panel();renderResults();return;}
+  if(e.target.closest('#vhRun')){hasResults=true;renderResults();shell.querySelector('#vhMatchResults').scrollIntoView({behavior:'smooth',block:'nearest'});}
+ });
+ shell.querySelector('#vhMatchPanel').addEventListener('change',e=>{if(e.target.id==='vhState'){preferredState=e.target.value;if(hasResults)renderResults();}});
+ shell.querySelector('#vhMatchResults').addEventListener('click',e=>{const b=e.target.closest('[data-tour-info]');if(b)openHeritageInfo(b);});
+ languageSelector.addEventListener('change',()=>{if(window.VirasatMatchLanguage)window.VirasatMatchLanguage.set(languageSelector.value);else{header();panel();renderResults();}});
+ document.addEventListener('virasat-match-language',()=>{header();panel();renderResults();});
+ new MutationObserver(()=>{header();panel();renderResults();}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+ header();panel();
+ window.VirasatMatchmaker={rank:()=>rank().slice(0,6),count:all.length,select:(keys,stateName)=>{prefs.clear();keys.forEach(k=>prefs.add(k));preferredState=stateName||'';open=true;hasResults=true;header();panel();renderResults();}};
+})();
+
 window.VirasatTourism={render:draw};
 draw();
 })();
@@ -26442,7 +26843,6 @@ function report(){let rows=KEYS.map(k=>{let v=(saved.visited[k]||[]).filter(n=>n
 @media(prefers-reduced-motion:reduce){#virasatScreenshotFX.active{display:none!important}}
 
 </style>
-
 </body></html>`;ww.document.write(doc);ww.document.close();ww.focus();setTimeout(()=>ww.print(),260)};
 }
 function enhanceComparison(){
@@ -27220,6 +27620,177 @@ function draw(){const r=root();if(!r)return;if(!ready){if(host&&room){r.innerHTM
 }
 document.addEventListener('click',e=>{const b=e.target.closest('[data-mp-action]');if(!b||!b.closest('.vgmp-root'))return;const a=b.dataset.mpAction,n=Number(b.dataset.n);if(a==='solo')startSolo();else if(a==='host')create();else if(a==='join')join(root().querySelector('[data-mp-code]')?.value||'');else if(a==='copy'){navigator.clipboard?.writeText(room).then(()=>status('Room code copied. Share it with a friend.'),()=>status('Room code: '+room));}else if(a==='leave'){destroy();renderLobby();}else action(a,n);});
 window.VirasatMultiplayer={open};
+})();
+</script>
+<script id="virasat-matchmaker-language">
+(function(){
+ const allowed=['en','hi','sa','bn'];
+ let l=(()=>{try{let x=localStorage.getItem('virasat_matchmaker_language');return allowed.includes(x)?x:(allowed.includes(document.documentElement.lang)?document.documentElement.lang:'en')}catch(_){return allowed.includes(document.documentElement.lang)?document.documentElement.lang:'en'}})();
+ function publish(){document.querySelectorAll('#vrMatchLanguage,#nfMatchLanguage').forEach(el=>{el.value=l;});document.dispatchEvent(new Event('virasat-match-language'));}
+ window.VirasatMatchLanguage={get:()=>l,set(value){if(!allowed.includes(value))return;l=value;try{localStorage.setItem('virasat_matchmaker_language',l)}catch(_){}publish();}};
+ document.querySelectorAll('#vrMatchLanguage,#nfMatchLanguage').forEach(el=>{el.value=l;el.addEventListener('change',()=>window.VirasatMatchLanguage.set(el.value));});
+ new MutationObserver(()=>{const next=document.documentElement.lang;if(allowed.includes(next)&&next!==l){l=next;publish();}}).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+ document.addEventListener('virasat-match-language',()=>{if(typeof nfLocale==='function')nfLocale();});
+ publish();
+})();
+</script>
+<script id="virasat-rasoi-taste-matchmaker">
+// Scoped Maa Ki Rasoi taste matcher; uses the existing RECIPES and showRecipe(index).
+(function(){
+ const shell=document.getElementById('vrTasteMatch');if(!shell||typeof RECIPES==='undefined')return;
+ const tasteTypes=['sweet','spicy','tangy','mild','rich','smoky','comfort'];
+ const lex={
+ en:{eyebrow:'THE TASTE MATCHMAKER',title:'What are you craving today?',lead:'Choose the flavours you love. Discover real dishes already in Maa Ki Rasoi.',flavour:'Choose your flavours',diet:'Food preference',any:'All food',veg:'Vegetarian dishes',nonveg:'Non-vegetarian dishes',course:'Meal / course',region:'Region',all:'Any',go:'Find my dishes',clear:'Reset',match:'recipe relevance',why:'Flavour match',open:'View original recipe ↗',empty:'Choose a flavour to receive personalised recipe matches.',zero:'No exact match with these filters. Try a different flavour or meal type.',note:'Taste profiles are inferred from existing recipe names and descriptions. Check each full recipe for ingredients, allergies, and dietary needs.',flavours:['Sweet & indulgent','Spicy & bold','Tangy & zesty','Mild & gentle','Rich & creamy','Smoky & roasted','Comforting & hearty']},
+ hi:{eyebrow:'स्वाद के अनुसार सुझाव',title:'आज किस स्वाद का मन है?',lead:'मनपसंद स्वाद चुनिए और माँ की रसोई के असली व्यंजन खोजिए।',flavour:'पसंदीदा स्वाद चुनें',diet:'भोजन की पसंद',any:'सभी व्यंजन',veg:'शाकाहारी',nonveg:'मांसाहारी',course:'भोजन का प्रकार',region:'क्षेत्र',all:'कोई भी',go:'मेरे व्यंजन खोजें',clear:'चयन हटाएँ',match:'व्यंजन प्रासंगिकता',why:'स्वाद के अनुसार मेल',open:'मूल विधि देखें ↗',empty:'सुझाव पाने के लिए एक स्वाद चुनें।',zero:'इन विकल्पों में कोई सटीक मेल नहीं मिला। दूसरा स्वाद या भोजन प्रकार चुनें।',note:'स्वाद का अनुमान व्यंजनों के नाम और विवरण से लगाया गया है। सामग्री, एलर्जी और भोजन संबंधी ज़रूरतें मूल विधि में जाँचें।',flavours:['मीठा और स्वादिष्ट','तीखा और मसालेदार','खट्टा और चटपटा','हल्का और सौम्य','गाढ़ा और मलाईदार','धुएँ की सुगंध वाला','पौष्टिक और सुकून देने वाला']},
+ sa:{eyebrow:'स्वादानुसारं परामर्शः',title:'अद्य कीदृशं स्वादं इच्छसि?',lead:'इष्टस्वादान् चित्वा मातुः पाकशालायाः व्यञ्जनानि अन्वेषयतु।',flavour:'इष्टस्वादान् चिनोतु',diet:'आहारप्राथमिकता',any:'सर्वविधम्',veg:'शाकाहारः',nonveg:'मांसाहारः',course:'भोजनप्रकारः',region:'प्रदेशः',all:'यः कोऽपि',go:'मम व्यञ्जनानि अन्वेषयतु',clear:'चयनं निरस्यतु',match:'व्यञ्जनप्रासङ्गिकता',why:'स्वादानुसारं साम्यम्',open:'मूलपाकविधिं पश्यतु ↗',empty:'प्रथमं स्वादं चिनोतु।',zero:'अनुरूपं व्यञ्जनं न लब्धम्। अन्यं स्वादं चिनोतु।',note:'स्वादवर्गीकरणं व्यञ्जननामविवरणयोः आधारेण कृतम्। द्रव्याणि तथा आहारनियमान् मूलविधौ पश्यतु।',flavours:['मधुरः','कटुः मसालायुक्तश्च','आम्लः','मृदुः','स्निग्धः','धूमसुगन्धियुक्तः','तृप्तिकरः']},
+ bn:{eyebrow:'স্বাদভিত্তিক পরামর্শ',title:'আজ কোন স্বাদের খাবার চাই?',lead:'পছন্দের স্বাদ বেছে নিন। মা কি রসোই-এর আসল পদগুলি খুঁজে পান।',flavour:'পছন্দের স্বাদ বেছে নিন',diet:'খাবারের পছন্দ',any:'সব ধরনের খাবার',veg:'নিরামিষ',nonveg:'আমিষ',course:'খাবারের ধরন',region:'অঞ্চল',all:'যেকোনো',go:'আমার খাবার খুঁজুন',clear:'সব মুছুন',match:'পদের প্রাসঙ্গিকতা',why:'স্বাদের মিল',open:'আসল রেসিপি দেখুন ↗',empty:'পরামর্শ পেতে একটি স্বাদ বেছে নিন।',zero:'এই পছন্দের সঙ্গে সরাসরি মিল পাওয়া যায়নি। স্বাদ বা খাবারের ধরন বদলান।',note:'স্বাদের ধরন পদগুলির নাম ও বর্ণনা থেকে অনুমান করা হয়েছে। উপকরণ ও অ্যালার্জির তথ্য আসল রেসিপিতে যাচাই করুন।',flavours:['মিষ্টি ও সুস্বাদু','ঝাল ও মশলাদার','টক ও চটপটে','হালকা ও কোমল','ঘন ও ক্রিমি','ধোঁয়ার সুগন্ধযুক্ত','পেটভরা ও আরামদায়ক']}
+ };
+ const regionNames={
+ 'North India':['North India','उत्तर भारत','उत्तरभारतम्','উত্তর ভারত'], 'South India':['South India','दक्षिण भारत','दक्षिणभारतम्','দক্ষিণ ভারত'],
+ 'East India':['East India','पूर्वी भारत','पूर्वभारतम्','পূর্ব ভারত'],'West India':['West India','पश्चिम भारत','पश्चिमभारतम्','পশ্চিম ভারত'],
+ 'Central India':['Central India','मध्य भारत','मध्यभारतम्','মধ্য ভারত']};
+ const courseNames={Main:['Main course','मुख्य भोजन','मुख्यभोजनम्','প্রধান পদ'],Breakfast:['Breakfast','नाश्ता','प्रातराशः','সকালের খাবার'],Sweet:['Dessert','मिठाई','मिष्टान्नम्','মিষ্টান্ন'],Starter:['Starter','शुरुआती व्यंजन','प्रारम्भव्यञ्जनम्','শুরুর পদ'],Snack:['Snack','हल्का नाश्ता','लघुभोजनम्','জলখাবার'],Soup:['Soup','सूप','सूपः','স্যুপ'],Side:['Side dish','साथ का व्यंजन','सहव्यञ्जनम्','সহযোগী পদ'],Beverage:['Drink','पेय','पेयं','পানীয়']};
+ const selected=new Set();let diet='any',course='',region='',ran=false;
+ const langIndex=()=>({en:0,hi:1,sa:2,bn:3})[window.VirasatMatchLanguage?.get?.() || document.documentElement.lang]??0;
+ const w=()=>lex[['en','hi','sa','bn'][langIndex()]];
+ const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ const asText=(s,dict)=>dict[s]?.[langIndex()]||s;
+ const attributes=RECIPES.map((recipe,index)=>{
+   const s=(recipe.name+' '+recipe.desc).toLowerCase();const tastes=new Set();
+   if(recipe.type==='Sweet'||/sweet|sugar|jaggery|dessert|kheer|halwa|laddu|jalebi|barfi|payasam|rabri|peda|modak|rasgulla|gulab jamun|shrikhand/.test(s))tastes.add('sweet');
+   if(/spicy|spice|masala|chilli|chili|pepper|pungent|fiery|mirchi|vindaloo|kolhapuri|chettinad|rogan josh|chole/.test(s))tastes.add('spicy');
+   if(/tangy|tamarind|sour|lime|lemon|tomato|curd|yogurt|yoghurt|chaat|rasam|pickle/.test(s))tastes.add('tangy');
+   if(/mild|subtle|light|steamed|idli|khichdi|poha|upma|rice pudding|curd rice/.test(s))tastes.add('mild');
+   if(/creamy|cream|butter|ghee|rich|nuts|cashew|paneer|makhani|malai|shahi|korma|royal|gravy/.test(s))tastes.add('rich');
+   if(/smoky|roast|grill|tandoor|tikka|charred|bharta|kebab|barbeque|barbecue/.test(s))tastes.add('smoky');
+   if(/dal|dhal|lentil|khichdi|rice|biryani|pulao|curry|stew|sambar|soup|paratha|porridge|comfort|hearty/.test(s))tastes.add('comfort');
+   const meat=/\b(chicken|lamb|mutton|beef|pork|fish|prawn|shrimp|crab|egg|meat|keema|nihari|kebab|bacon|duck)\b/.test(s);
+   return {recipe,index,tastes,meat};
+ });
+ function render(){const text=w();shell.querySelector('[data-vr="eyebrow"]').textContent=text.eyebrow;shell.querySelector('[data-vr="title"]').textContent=text.title;shell.querySelector('[data-vr="lead"]').textContent=text.lead;
+   shell.querySelector('#vrTasteChoices').innerHTML='<p class="vr-label">'+esc(text.flavour)+'</p><div class="vr-chip-group">'+tasteTypes.map((key,i)=>'<button type="button" data-taste="'+key+'" class="vr-chip '+(selected.has(key)?'active':'')+'" aria-pressed="'+selected.has(key)+'">'+esc(text.flavours[i])+'</button>').join('')+'</div>';
+   const makeOptions=(vals, current,lookup,any)=>'<option value="">'+esc(any)+'</option>'+vals.map(v=>'<option value="'+esc(v)+'"'+(current===v?' selected':'')+'>'+esc(asText(v,lookup))+'</option>').join('');
+   shell.querySelector('#vrDietLabel').textContent=text.diet;shell.querySelector('#vrDiet').innerHTML=[['any',text.any],['veg',text.veg],['nonveg',text.nonveg]].map(([val,name])=>'<option value="'+val+'"'+(diet===val?' selected':'')+'>'+esc(name)+'</option>').join('');
+   shell.querySelector('#vrCourseLabel').textContent=text.course;shell.querySelector('#vrCourse').innerHTML=makeOptions(Object.keys(courseNames),course,courseNames,text.all);
+   shell.querySelector('#vrRegionLabel').textContent=text.region;shell.querySelector('#vrRegion').innerHTML=makeOptions(Object.keys(regionNames),region,regionNames,text.all);
+   shell.querySelector('#vrFind').textContent=text.go;shell.querySelector('#vrClear').textContent=text.clear;
+   if(ran)results();else shell.querySelector('#vrResults').replaceChildren();
+ }
+ function rank(){if(!selected.size)return [];
+   return attributes.filter(x=>(diet==='any'||(diet==='veg'?!x.meat:x.meat))&&(!course||course===x.recipe.type)&&(!region||region===x.recipe.region)).map(x=>{
+     const matches=[...selected].filter(t=>x.tastes.has(t));
+     const ratio=matches.length/selected.size;
+     const score=Math.round(100*ratio);
+     return {...x,matches,score};
+   }).filter(x=>x.score>0).sort((a,b)=>b.score-a.score||b.matches.length-a.matches.length||a.recipe.name.localeCompare(b.recipe.name)).slice(0,6);
+ }
+ function results(){const text=w(),box=shell.querySelector('#vrResults');if(!selected.size){box.innerHTML='<p class="vr-empty">'+esc(text.empty)+'</p>';return;}
+  const ranked=rank();if(!ranked.length){box.innerHTML='<p class="vr-empty">'+esc(text.zero)+'</p>';return;}
+  box.innerHTML='<div class="vr-result-grid">'+ranked.map(x=>'<article class="vr-result"><img src="'+esc(x.recipe.img||'')+'" loading="lazy" decoding="async" alt="'+esc(x.recipe.name)+'"><div class="vr-result-body"><div class="vr-topline"><span>'+esc(asText(x.recipe.type,courseNames))+'</span><strong>'+x.score+'% <small>'+esc(text.match)+'</small></strong></div><h3>'+esc(x.recipe.name)+'</h3><p>'+esc(asText(x.recipe.region,regionNames))+'</p><p class="vr-flavour">'+esc(text.why)+': '+esc(x.matches.map(k=>text.flavours[tasteTypes.indexOf(k)]).join(' · '))+'</p><button type="button" class="vr-open" data-recipe-index="'+x.index+'">'+esc(text.open)+'</button></div></article>').join('')+'</div><p class="vr-footnote">'+esc(text.note)+'</p>';
+ }
+ shell.querySelector('#vrTasteChoices').addEventListener('click',e=>{const btn=e.target.closest('[data-taste]');if(!btn)return;selected.has(btn.dataset.taste)?selected.delete(btn.dataset.taste):selected.add(btn.dataset.taste);render();});
+ [['vrDiet',v=>diet=v],['vrCourse',v=>course=v],['vrRegion',v=>region=v]].forEach(([id,set])=>shell.querySelector('#'+id).addEventListener('change',e=>{set(e.target.value);render();}));
+ shell.querySelector('#vrFind').addEventListener('click',()=>{ran=true;results();shell.querySelector('#vrResults').scrollIntoView({behavior:'smooth',block:'nearest'});});
+ shell.querySelector('#vrClear').addEventListener('click',()=>{selected.clear();diet='any';course='';region='';ran=false;render();});
+ shell.querySelector('#vrResults').addEventListener('click',e=>{const b=e.target.closest('[data-recipe-index]');if(b&&typeof showRecipe==='function')showRecipe(Number(b.dataset.recipeIndex));});
+ document.addEventListener('virasat-match-language',render);
+ new MutationObserver(render).observe(document.documentElement,{attributes:true,attributeFilter:['lang']});
+ render();window.VirasatTasteMatch={rank,select:(flavors,opts={})=>{selected.clear();flavors.forEach(f=>selected.add(f));diet=opts.diet||'any';course=opts.course||'';region=opts.region||'';ran=true;render();}};
+})();
+
+</script>
+<!-- VIRASAT navigation recovery: self-contained, runs even if a different feature script fails -->
+<style id="virasatNavAccessibilityRepair2026">
+  /* Preserve the original gold-and-charcoal design, but ensure the opened
+     menu is visible and above the page on both desktop and mobile. */
+  body > nav.nav { isolation:isolate; overflow:visible !important; }
+  body > nav.nav #navLinks.open {
+    display:grid !important; opacity:1 !important; visibility:visible !important;
+    pointer-events:auto !important; z-index:990 !important;
+  }
+  @media(max-width:900px) {
+    body > nav.nav #navLinks.open { display:block !important; }
+  }
+  body > nav.nav #menuToggle { cursor:pointer !important; pointer-events:auto !important; }
+  body > nav.nav #menuToggle:focus-visible,
+  body > nav.nav #navLinks.open a:focus-visible { outline:2px solid #f2cd6b !important;outline-offset:3px !important; }
+</style>
+<script id="virasatNavAccessibilityRepairScript2026">
+(function(){
+ 'use strict';
+ const nav=document.querySelector('body > nav.nav');
+ const links=document.getElementById('navLinks');
+ const toggle=document.getElementById('menuToggle');
+ if(!nav||!links||!toggle) return;
+ toggle.type='button';
+ toggle.setAttribute('aria-controls','navLinks');
+ function isOpen(){return links.classList.contains('open');}
+ function change(open){
+   links.classList.toggle('open',Boolean(open));
+   links.inert=!open;
+   links.setAttribute('aria-hidden',open?'false':'true');
+   toggle.setAttribute('aria-expanded',open?'true':'false');
+   document.body.classList.toggle('vm-menu-open',Boolean(open)&&matchMedia('(max-width:700px)').matches);
+ }
+ // A feature exception in the original large script previously left the
+ // hamburger with no click handler and all navigation links inaccessible.
+ // Listen on nav, not the button: if the original button handler is alive,
+ // it stops propagation and retains control without duplicate toggles.
+ nav.addEventListener('click',function(event){
+   const hamburger=event.target.closest('#menuToggle');
+   if(hamburger){event.preventDefault();event.stopPropagation();change(!isOpen());return;}
+   const close=event.target.closest('#vmCloseMenu');
+   if(close){event.preventDefault();change(false);return;}
+   const a=event.target.closest('a[data-page]');
+   if(!a||!nav.contains(a)||event.defaultPrevented) return;
+   const id=(a.dataset.page||'').trim();
+   const target=document.getElementById('page-'+id);
+   if(!target||!target.classList.contains('page'))return;
+   event.preventDefault();
+   change(false);
+   try {
+     if(typeof navigateTo==='function') {
+       const result=navigateTo(id,a.dataset.sub);
+       if(result!==false) return;
+     }
+     if(typeof virasatPerformNavigation==='function') {
+       virasatPerformNavigation(id,a.dataset.sub);return;
+     }
+   } catch(error){console.warn('[VIRASAT] Navigation animation unavailable; using safe page fallback.',error);}
+   document.querySelectorAll('.page.active').forEach(page=>page.classList.remove('active'));
+   target.classList.add('active');
+   document.querySelectorAll('#navLinks a.active').forEach(link=>link.classList.remove('active'));
+   a.classList.add('active');
+   if(typeof window.__virasatHydrate==='function')window.__virasatHydrate(id);
+   window.scrollTo(0,0);
+ });
+ document.addEventListener('click',function(event){
+   if(isOpen()&&!nav.contains(event.target))change(false);
+ });
+ document.addEventListener('keydown',event=>{if(event.key==='Escape'&&isOpen()){change(false);toggle.focus();}});
+ const shade=document.getElementById('vmShade');
+ shade?.addEventListener('click',()=>change(false));
+ // Support the phone dock if its independent quick-nav handler could not run.
+ const dock=document.getElementById('vmDock');
+ dock?.addEventListener('click',function(event){
+   if(event.defaultPrevented)return;
+   const trigger=event.target.closest('#vmMenuBtn');
+   if(trigger){event.preventDefault();toggle.click();return;}
+   const anchor=event.target.closest('a[data-vm-route]');
+   if(anchor){
+      const page=anchor.dataset.vmRoute;
+      if(!document.getElementById('page-'+page))return;
+      event.preventDefault();change(false);
+      try {if(typeof navigateTo==='function'){navigateTo(page);return;}}catch(error){console.warn('[VIRASAT] Dock transition unavailable.',error);}
+      const target=document.getElementById('page-'+page);
+      document.querySelectorAll('.page.active').forEach(p=>p.classList.remove('active'));
+      target.classList.add('active');
+      window.__virasatHydrate?.(page);window.scrollTo(0,0);
+   }
+ });
+ // Initial closed state needs a matching accessibility state even when
+ // earlier initialization failed. Do not change login or auth state.
+ change(isOpen());
 })();
 </script>
 </body>
