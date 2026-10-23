@@ -59,6 +59,21 @@ describe('api/heritage-chat', () => {
         assert.equal(sent.messages[1].content, 'Where is the Taj Mahal?');
         assert.ok(!JSON.stringify(res.payload).includes('test-groq-key'));
     });
+    test('asks for Hindi in Devanagari when the site is in Hindi, and for Hinglish questions', async () => {
+        groqCalls = [];
+        await call({ token: idToken, body: { message: 'aap kaise hain', language: 'hi' } });
+        const sent = JSON.parse(groqCalls[0].init.body);
+        assert.match(sent.messages[0].content, /always reply in Hindi, written in Devanagari script/);
+        assert.match(sent.messages[0].content, /Hinglish/);
+        assert.equal(sent.messages[1].content, 'aap kaise hain');      // the question itself is sent unchanged
+    });
+    test('adds no site-language rule for English or unknown languages', async () => {
+        for (const language of ['en', 'xx', undefined]) {
+            groqCalls = [];
+            await call({ token: idToken, body: { message: 'Where is Hampi?', language } });
+            assert.doesNotMatch(JSON.parse(groqCalls[0].init.body).messages[0].content, /using the site in/);
+        }
+    });
     test('rejects requests without sign-in', async () => {
         groqCalls = [];
         const res = await call({ body: { message: 'hi' } });

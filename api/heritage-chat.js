@@ -12,7 +12,18 @@ const SYSTEM_PROMPT =
     "Answer questions about India's history, monuments, culture, traditions, architecture, " +
     "art, festivals, food and heritage. Keep answers interesting, accurate and student-friendly. " +
     "When useful, connect your answer to places or heritage shown on the Virasat map. " +
-    "If a question is unrelated to heritage, answer briefly and gently guide the user back to India's heritage.";
+    "If a question is unrelated to heritage, answer briefly and gently guide the user back to India's heritage. " +
+    // Hindi answers must be in Devanagari: the site reads them aloud with a Hindi voice, and an
+    // English voice is used for anything in English letters (so "aap kaise hain" sounds wrong).
+    "Reply in the language the student writes in. If they write in Hindi, including Hindi typed in English " +
+    "letters (Hinglish, e.g. 'aap kaise hain'), reply in Hindi written in Devanagari script (हिंदी), " +
+    "never in English letters.";
+
+// The site's language (sent by the page) — the answer follows it.
+const LANGUAGE_RULES = {
+    hi: 'The student is using the site in Hindi: always reply in Hindi, written in Devanagari script.',
+    sa: 'The student is using the site in Sanskrit: reply in simple Sanskrit, written in Devanagari script.'
+};
 
 // Asks Firebase whether this sign-in token belongs to a real, active Virasat account.
 async function isSignedIn(idToken) {
@@ -61,6 +72,8 @@ module.exports = async function handler(req, res) {
     if (message.length > MAX_MESSAGE_CHARS) {
         return res.status(400).json({ error: `Please keep questions under ${MAX_MESSAGE_CHARS} characters.` });
     }
+    const languageRule = LANGUAGE_RULES[req.body?.language];
+    const systemPrompt = languageRule ? SYSTEM_PROMPT + ' ' + languageRule : SYSTEM_PROMPT;
 
     try {
         const groqRes = await fetch(GROQ_URL, {
@@ -72,7 +85,7 @@ module.exports = async function handler(req, res) {
             body: JSON.stringify({
                 model: MODEL,
                 messages: [
-                    { role: 'system', content: SYSTEM_PROMPT },
+                    { role: 'system', content: systemPrompt },
                     { role: 'user', content: message }
                 ],
                 temperature: 0.7,

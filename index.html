@@ -19451,12 +19451,10 @@ if (clean === 'bharatiya-calendar') {
                         'Content-Type': 'application/json',
                         'Authorization': 'Bearer ' + idToken
                     },
+                    // The server picks the answer language from `language` (Hindi → Devanagari, so the
+                    // Listen button reads it with the Hindi voice).
                     body: JSON.stringify({
-                        message: (typeof LANG !== 'undefined' && LANG === 'hi')
-                            ? 'Please respond in natural Hindi using Devanagari script. Question: ' + text
-                            : (typeof LANG !== 'undefined' && LANG === 'sa')
-                            ? 'Please respond in Sanskrit using Devanagari script. Question: ' + text
-                            : text,
+                        message: text,
                         language: typeof LANG !== 'undefined' ? LANG : 'en'
                     })
                 });
