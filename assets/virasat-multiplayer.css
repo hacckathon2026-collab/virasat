@@ -1,0 +1,41 @@
+/* VIRASAT multiplayer, self-contained Gaming Hub extension */
+#page-games .vmx-card{background:radial-gradient(circle at 85% 8%,rgba(212,175,55,.16),transparent 55%),var(--card,#17130c);border:1px solid rgba(212,175,55,.45)}
+#page-games .vmx-tag{font-size:10px;font-weight:800;letter-spacing:1px;text-transform:uppercase;color:#f9d776;border:1px solid rgba(212,175,55,.5);border-radius:999px;padding:5px 10px;display:inline-flex;width:max-content;max-width:100%}
+#page-games .vmx-panel{max-width:1060px;margin:0 auto;--vmx-gold:#d4af37;color:var(--ink,#f2e6cc);font-family:'DM Sans',sans-serif}
+#page-games .vmx-panel *{box-sizing:border-box}
+#page-games .vmx-top{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;margin-bottom:22px}
+#page-games .vmx-hero{border:1px solid rgba(212,175,55,.36);border-radius:22px;padding:clamp(17px,3vw,34px);background:linear-gradient(130deg,#20180c,#0e0c09);box-shadow:0 20px 50px rgba(0,0,0,.2)}
+#page-games .vmx-hero h2{font-family:'Playfair Display',serif;font-size:clamp(25px,4vw,38px);margin:12px 0;color:#f7e8c8}
+#page-games .vmx-hero p{color:#cbbd9b;font-size:14px;line-height:1.6;margin-bottom:12px}
+#page-games .vmx-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin-top:18px}
+#page-games .vmx-box{background:#16120d;border:1px solid rgba(212,175,55,.23);border-radius:17px;padding:21px;min-width:0}
+#page-games .vmx-box h3{color:#f3d47b;font-size:17px;margin:0 0 10px}
+#page-games .vmx-box p{font-size:13px}
+#page-games .vmx-action{border-radius:11px;background:#d4af37;color:#131009!important;border:1px solid #d4af37;font-family:inherit;font-weight:750;font-size:14px;cursor:pointer;padding:12px 18px;min-height:43px}
+#page-games .vmx-action.secondary{background:transparent;color:#ead5a1!important;border-color:rgba(212,175,55,.6)}
+#page-games .vmx-action:disabled{opacity:.48;cursor:not-allowed}
+#page-games .vmx-action:focus-visible,#page-games .vmx-option:focus-visible,#page-games .vmx-input:focus-visible{outline:3px solid #fce7a3;outline-offset:2px}
+#page-games .vmx-input{background:#0e0c09;color:#fff1d8;border:1px solid rgba(212,175,55,.55);padding:12px;border-radius:10px;max-width:100%;min-width:0;font:600 16px 'DM Sans',sans-serif}
+#page-games .vmx-fields{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin:12px 0}
+#page-games .vmx-code{font-size:clamp(25px,5vw,38px);letter-spacing:5px;color:#ffde76;font-weight:800}
+#page-games .vmx-meta{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:15px}
+#page-games .vmx-pill{border:1px solid rgba(212,175,55,.35);color:#e9d19b;background:rgba(212,175,55,.08);padding:6px 10px;border-radius:18px;font-size:12px}
+#page-games .vmx-status{font-size:13px;min-height:22px;line-height:1.6;color:#e9ce90;margin-top:14px}
+#page-games .vmx-roster{list-style:none;padding:0;margin:12px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+#page-games .vmx-roster li{padding:10px 12px;border:1px solid rgba(212,175,55,.2);border-radius:10px;background:#1c160e;font-size:13px;overflow-wrap:anywhere}
+#page-games .vmx-question{font-size:clamp(21px,3vw,29px);font-family:'Playfair Display',serif;color:#fff0c8;line-height:1.4;margin:18px 0}
+#page-games .vmx-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:18px 0}
+#page-games .vmx-option{border:1px solid rgba(212,175,55,.4);background:#251b0f;color:#f8e9cb;border-radius:13px;min-height:62px;padding:15px 16px;cursor:pointer;text-align:left;font:600 14px/1.4 'DM Sans',sans-serif}
+#page-games .vmx-option[aria-pressed=true]{border-color:#f6d37a;background:#614919}
+#page-games .vmx-option:disabled{cursor:default;opacity:.8}
+#page-games .vmx-timeline{display:grid;gap:9px;margin:18px 0}
+#page-games .vmx-event{border:1px solid rgba(212,175,55,.4);border-radius:12px;background:#231a0f;padding:12px;display:flex;align-items:center;gap:12px;min-height:66px}
+#page-games .vmx-event span{flex:1;font-size:14px;line-height:1.4}
+#page-games .vmx-event .vmx-position{border-radius:50%;background:#d4af37;color:#14100b;min-width:26px;height:26px;display:grid;place-items:center;font-size:12px;font-weight:800}
+#page-games .vmx-move{border:1px solid rgba(212,175,55,.5);border-radius:8px;color:#f7d88a;background:transparent;min-width:34px;height:34px;cursor:pointer}
+#page-games .vmx-move:disabled{opacity:.3;cursor:default}
+#page-games .vmx-scoreline{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:11px 0;border-bottom:1px solid rgba(212,175,55,.16);font-size:14px}
+#page-games .vmx-scoreline strong{color:#ffdc83}
+#page-games .vmx-result{padding:15px;border:1px solid rgba(212,175,55,.35);background:#251b0e;border-radius:12px;margin:12px 0;line-height:1.6}
+#page-games .vmx-note{font-size:12px;color:#bdad8d;line-height:1.6}
+@media(max-width:650px){#page-games .vmx-grid,#page-games .vmx-options,#page-games .vmx-roster{grid-template-columns:1fr}#page-games .vmx-hero{padding:17px}#page-games .vmx-action{width:100%}#page-games .vmx-fields .vmx-input{width:100%}}
