@@ -14744,14 +14744,14 @@ body .nav #navLinks .mega-discover > .virasat-rasoi-nav-item .virasat-rasoi-subm
 #page-nuske .nuske-result span{min-width:0;font-size:13px;line-height:1.5}
 #page-nuske .nuske-result small{display:block;color:var(--muted);margin-top:3px}
 #page-nuske .nuske-finder .nuske-finder-note{font-size:12px;margin:16px 0 0;border-top:1px solid rgba(212,175,55,.14);padding-top:12px}
-#page-nuske .nuske-detail-overlay[hidden]{display:none!important}
-#page-nuske .nuske-detail-overlay{position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:20px}
-#page-nuske .nuske-detail{position:relative;width:min(560px,100%);max-height:88vh;overflow:auto;border:1px solid rgba(212,175,55,.45);border-radius:24px;padding:clamp(20px,4vw,32px);background:#16120c;color:var(--ink);box-shadow:0 22px 70px rgba(0,0,0,.5)}
-#page-nuske .nuske-detail-close{position:absolute;top:10px;right:13px;border:0;background:transparent;color:var(--marigold);font-size:30px;cursor:pointer}
-#page-nuske .nuske-detail h3{color:var(--marigold);font:600 30px 'Playfair Display',serif;margin:0 0 13px}
-#page-nuske .nuske-detail img{width:100%;height:185px;object-fit:contain;background:#f0e5d0;border-radius:14px;margin-bottom:16px}
-#page-nuske .nuske-detail p{font-size:14px;line-height:1.7;color:var(--ink)}
-#page-nuske .nuske-detail .nuske-warning{border-left:3px solid #e8ba5d;padding:10px 13px;background:rgba(232,186,93,.08);border-radius:10px;margin-top:14px}
+#nfOverlay[hidden]{display:none!important}
+#nfOverlay{position:fixed;inset:0;z-index:10002;background:rgba(0,0,0,.82);display:flex;align-items:center;justify-content:center;padding:20px}
+#nfOverlay .nuske-detail{position:relative;width:min(560px,100%);max-height:88vh;overflow:auto;border:1px solid rgba(212,175,55,.45);border-radius:24px;padding:clamp(20px,4vw,32px);background:#16120c;color:var(--ink);box-shadow:0 22px 70px rgba(0,0,0,.5)}
+#nfOverlay .nuske-detail-close{position:absolute;top:10px;right:13px;border:0;background:transparent;color:var(--marigold);font-size:30px;cursor:pointer}
+#nfOverlay .nuske-detail h3{color:var(--marigold);font:600 30px 'Playfair Display',serif;margin:0 0 13px}
+#nfOverlay .nuske-detail img{width:100%;height:185px;object-fit:contain;background:#f0e5d0;border-radius:14px;margin-bottom:16px}
+#nfOverlay .nuske-detail p{font-size:14px;line-height:1.7;color:var(--ink)}
+#nfOverlay .nuske-detail .nuske-warning{border-left:3px solid #e8ba5d;padding:10px 13px;background:rgba(232,186,93,.08);border-radius:10px;margin-top:14px}
 @media(max-width:550px){#page-nuske .nuske-finder-icon{display:none}#page-nuske .nuske-result-grid{grid-template-columns:1fr}}
 </style>
 <style>
@@ -18117,6 +18117,10 @@ html[data-theme="light"] #page-tourism #vhMatchmaker,html[data-theme="light"] #p
         function nfInit(){
           const input=document.getElementById('nfInput');if(!input||input.dataset.ready)return;
           input.dataset.ready='1';input.addEventListener('input',()=>nfSearch());
+          // The page's sections use CSS transforms, which would centre a fixed pop-up on the whole page;
+          // living directly in <body> keeps it centred on the screen. Close it if the user leaves the page.
+          const page=document.getElementById('page-nuske');document.body.appendChild(document.getElementById('nfOverlay'));
+          new MutationObserver(()=>{if(!page.classList.contains('active')&&!document.getElementById('nfOverlay').hidden)nfClose();}).observe(page,{attributes:true,attributeFilter:['class']});
           document.getElementById('nfClear').addEventListener('click',()=>{input.value='';nfSearch();input.focus();});
           document.getElementById('nfClose').addEventListener('click',nfClose);
           document.getElementById('nfOverlay').addEventListener('click',e=>{if(e.target.id==='nfOverlay')nfClose();});
